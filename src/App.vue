@@ -12,7 +12,7 @@ import NavigationRail from './components/ui/NavigationRail.vue'
 </template>
 
 <style lang="sass" scoped>
-@media screen and (min-width: 768px)
+@media screen and (min-width: 600px)
   main
     margin: 0
     padding: 0
