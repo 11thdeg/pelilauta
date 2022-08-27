@@ -7,6 +7,10 @@ import { routes } from './views/routes'
 import { createI18n } from 'vue-i18n'
 import en from './locales/en.json'
 import fi from './locales/fi.json'
+import { firebaseConfig } from './firebaseConfig'
+import { initializeApp } from "firebase/app"
+import { getAuth, onAuthStateChanged, User } from "firebase/auth"
+import { login } from './composables/useSession'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -27,9 +31,14 @@ const app = createApp(App)
 app.use(i18n)
 app.use(router)
 
+const fb = initializeApp(firebaseConfig)
+const auth = getAuth(fb)
+
+onAuthStateChanged(auth, (user: User|null) => {
+  login(user)
+})
+
 app.mount('#app')
-
-
 
 // Add Cyan/Charna Theming to body
 document.body.classList.add('cyan--themed')
