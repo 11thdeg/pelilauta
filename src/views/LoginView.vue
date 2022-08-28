@@ -1,6 +1,9 @@
 <script lang="ts" setup>
+import LoginPanel from '../components/account/LoginPanel.vue';
 </script>
 
 <template>
-  <h1>Login View Placeholder</h1>
+  <main class="SingleColumnLayout">
+    <LoginPanel />
+  </main>
 </template>
