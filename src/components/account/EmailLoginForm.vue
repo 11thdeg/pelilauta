@@ -88,7 +88,7 @@ const sendLinkToEmail = async () => {
         :disabled="!emailAdress"
         :label="t('login.withEmail')"
         @click="sendLinkToEmail"
-        />
+      />
     </template>
   </section>
 </template>
