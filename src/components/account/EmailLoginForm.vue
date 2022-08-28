@@ -77,12 +77,13 @@ const sendLinkToEmail = async () => {
     >
       <div>
         <h3>
-          {{ t('login.loginWithEmail') }}
+          {{ t('login.emailLoginForm.title') }}
         </h3>
       </div>
       <cyan-textfield
-        value="emailAdress"
-        :label="t('login.emailLoginHelper')"
+        :value="emailAdress"
+        :label="t('login.emailLoginForm.emailFieldLabel')"
+        @change="emailAdress = $event.target.value"
       />
       <cyan-button
         :disabled="!emailAdress"

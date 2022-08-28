@@ -8,5 +8,15 @@
     "action": {
       "toLogin": "Kirjaudu sisään",
       "toProfile": "Profiili"
+    },
+    "login": {
+      "title": "Kirjaudu / Rekisteröidy",
+      "withGoogle": "Googlella",
+      "withFacebook": "Facebookilla",
+      "withEmail": "Lähetä kirjautumislinkki",
+      "emailLoginForm": {
+        "title": "Sähköpostilla",
+        "emailFieldLabel": "Osoite"
+      }
     }
   }

@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import LoginPanel from '../components/account/LoginPanel.vue'
+import TopBar from '../components/ui/TopBar.vue'
 </script>
 
 <template>
-  <main class="SingleColumnLayout">
+  <TopBar />
+  <main class="singleColumnLayout">
     <LoginPanel />
   </main>
 </template>

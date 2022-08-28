@@ -16,6 +16,7 @@ function socialGoogleLogin () {
 
 <template>
   <cyan-button
+    style="display: block; width: 100%"
     text
     noun="google"
     :label="t('login.withGoogle')"
