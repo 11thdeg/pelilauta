@@ -4,5 +4,9 @@
     },
     "about": {
       "title": "Tietoja"
+    },
+    "action": {
+      "toLogin": "Kirjaudu sisään",
+      "toProfile": "Profiili"
     }
   }

@@ -5,7 +5,7 @@ import { logDebug, logError } from "../utils/logHelpers"
 
 // Set to true, if the session is active
 const active = ref(true)
-// TODO: needs to be computed from the session
+// Set to true, if the session is active and we have an anonymous user
 const anonymous = ref(true)
 
 const profile = ref(new Profile())

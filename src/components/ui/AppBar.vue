@@ -11,7 +11,7 @@ const { t } = useI18n()
     </h1>
     <cyan-spacer />
     <cyan-icon
-      class="clickable hoverable"
+      class="clickable hoverable inAppBar"
       noun="lightmode"
     />
     <ProfileButton />
@@ -20,6 +20,12 @@ const { t } = useI18n()
 
 <style scoped lang="sass">
 #AppBar
+  margin: 0
+  paddin: 0
   display: flex
   justify-content: space-between
+  align-items: top
+  height: 56px
+.inAppBar
+  margin-top: 8px
 </style>

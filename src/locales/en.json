@@ -4,5 +4,9 @@
   },
   "about": {
     "title": "About"
+  },
+  "action": {
+    "toLogin": "Login",
+    "toProfile": "Account"
   }
 }
