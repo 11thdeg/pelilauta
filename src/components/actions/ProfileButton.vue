@@ -18,5 +18,6 @@ const { active, anonymous } = useSession()
     noun="login"
     :label="t('action.toLogin')"
     text
+    @click="$router.push('/login')"
   />
 </template>

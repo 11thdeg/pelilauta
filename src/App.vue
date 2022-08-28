@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import NavigationRail from './components/ui/NavigationRail.vue'
-import AppBar from './components/ui/AppBar.vue';
-
 </script>
 
 <template>
   <NavigationRail />
   <div class="appContainer">
-    <main>
-      <AppBar />
-      <router-view />
-      <div>Pelilauta-Next</div>
-    </main>
+    <router-view />
   </div>
 </template>
 
