@@ -12,6 +12,7 @@ const { active, anonymous } = useSession()
     noun="avatar"
     :label="t('action.toProfile')"
     text
+    @click="$router.push('/account')"
   />
   <cyan-button
     v-if="active && anonymous"

@@ -1,4 +1,10 @@
 
+<script setup lang="ts">
+const props = defineProps<{
+  title: string
+}>()
+</script>
+
 <template>
   <nav id="TopBar">
     <cyan-icon
@@ -6,6 +12,13 @@
       class="clickable hoverable inAppBar"
       @click="$router.back()"
     />
+    <h1
+      v-if="props.title"
+      class="TypeHeadline5"
+    >
+      {{ props.title }}
+    </h1>
+    <cyan-spacer />
     <slot />
   </nav>
 </template>
@@ -18,6 +31,7 @@
   justify-content: space-between
   align-items: top
   height: 56px
+  gap: 12px
 .inAppBar
   margin-top: 8px
 </style>
