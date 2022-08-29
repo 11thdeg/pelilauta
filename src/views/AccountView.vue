@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import TopBar from '../components/ui/TopBar.vue'
+import AccountDataPane from '../components/account/AccountDataPane.vue';
 
 const { t } = useI18n()
 </script>
@@ -8,9 +9,7 @@ const { t } = useI18n()
 <template>
   <TopBar :title="t('account.title')" />
   <main class="bookLayout">
-    <article class="Column">
-      Account data
-    </article>
+    <AccountDataPane />
     <article class="Column">
       Profile data
     </article>
