@@ -3,16 +3,17 @@ import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 
 const { t } = useI18n()
-const { account } = useSession()
+const { account, active } = useSession()
 </script>
 
 <template>
   <article class="Column dontBreakOut">
-    <h2>{{ t('account.accountDataPane.title') }}</h2>
-    <div class="debug">
-      <pre>
+    <cyan-loader v-if="!active" />
+    <template v-else>
+      <h2>{{ t('account.accountDataPane.title') }}</h2>
+      <div class="code dontBreakOut">
         {{ account }}
-      </pre>
-    </div>
+      </div>
+    </template>
   </article>
 </template>

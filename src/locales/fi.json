@@ -5,6 +5,15 @@
     "about": {
       "title": "Tietoja"
     },
+    "account":{
+      "title": "Omat tietoni",
+      "accountDataPane": {
+        "title": "Asetukset"
+      },
+      "profileDataPane": {
+        "title": "Profiili"
+      }
+    },
     "action": {
       "toLogin": "Kirjaudu sisään",
       "toProfile": "Profiili"
