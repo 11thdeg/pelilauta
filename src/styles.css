@@ -2,3 +2,29 @@ body {
   margin: 0;
   padding: 0;
 }
+section.dataTable {
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0;
+  margin-bottom: 24px;
+}
+section.dataTable > p:nth-child(4n + 1),
+section.dataTable > p:nth-child(4n + 2) {
+  background-color: var(--chroma-secondary-h);
+}
+section.dataTable > p:nth-child(4n + 3),
+section.dataTable > p:nth-child(4n + 4) {
+  background-color: var(--chroma-secondary-g);
+}
+
+section.dataTable p {
+  margin: 0;
+  padding: 8px;
+}
+section.dataTable img {
+  max-width: calc( 100% - 8px );
+  margin: 0;
+  padding: 8px;
+}

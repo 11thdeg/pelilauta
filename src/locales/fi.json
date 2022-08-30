@@ -8,15 +8,25 @@
     "account":{
       "title": "Omat tietoni",
       "accountDataPane": {
-        "title": "Asetukset"
+        "title": "Yksityiset tietosi",
+        "description": "Sovellus käyttää alla olevia yksityisiä tietoja. Kirjautumistietoja ei tallenneta tietokantaan.",
+        "session": "Kirjautuminen",
+        "settings": "Asetukset"
       },
       "profileDataPane": {
         "title": "Profiili"
+      },
+      "field": {
+        "email": "Sähköposti",
+        "displayName": "Nimi",
+        "photoURL": "Kuva",
+        "lightMode": "Tumma/Vaalea tila"
       }
     },
     "action": {
       "toLogin": "Kirjaudu sisään",
-      "toProfile": "Profiili"
+      "toProfile": "Profiili",
+      "useInApp": "Ota Käyttöön"
     },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",
