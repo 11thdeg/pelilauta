@@ -9,8 +9,8 @@ const { t } = useI18n()
 
 <template>
   <TopBar :title="t('account.title')" />
-  <main class="bookLayout">
-    <AccountDataPane />
+  <main class="dashboardLayout">
     <ProfileDataPane />
+    <AccountDataPane />
   </main>
 </template>

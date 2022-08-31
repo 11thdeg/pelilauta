@@ -5,13 +5,13 @@
     "about": {
       "title": "Tietoja"
     },
-    "account":{
-      "title": "Omat tietoni",
+    "settings":{
+      "title": "Asetukset",
       "accountDataPane": {
-        "title": "Yksityiset tietosi",
-        "description": "Sovellus käyttää alla olevia yksityisiä tietoja. Kirjautumistietoja ei tallenneta tietokantaan.",
-        "session": "Kirjautuminen",
-        "settings": "Asetukset"
+        "title": "Omat tiedot",
+        "ssoTitle": "Kirjautumistiedot",
+        "ssoDescription": "Kirjautumiseen käyttämäsi palvelu tuottaa nämä tiedot, jotka tallennetaan Pelilaudan tietokantaan hallinnollista käyttöä varten. Niitä ei näytetä käyttäjille."
+        
       },
       "profileDataPane": {
         "title": "Profiili"

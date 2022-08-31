@@ -1,33 +1,42 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
-import { logError } from '../../utils/logHelpers'
+import { logError } from '../../utils/logHelpers';
+import { toDisplayString } from '../../utils/toDisplayString'
 
 const { t } = useI18n()
-const { account, active } = useSession()
+const { account, active, profile} = useSession()
+    
 
-function setProfilePhoto (url: string) {
-  logError(`makePhotoActive: ${url}`, 'not implemented')
-}
 function setNickname (nickname: string) {
   logError(`setNickname: ${nickname}`, 'not implemented')
 }
 </script>
-
+    
 <template>
-  <article class="Column dontBreakOut">
-    <cyan-loader v-if="!active" />
-    <template v-else>
-      <h2>{{ t('account.accountDataPane.title') }}</h2>
-      <p class="TypeBody2">{{ t('account.accountDataPane.description') }}</p>
+  <article
+    v-if="active"
+    class="AccountSettingsPane Column"
+  >
+    <h2>{{ t('settings.accountDataPane.title') }}</h2>
+    <section>
+      <h3>{{ t('settings.accountDataPane.ssoTitle') }}</h3>
+      <p class="lowEmphasis">
+        {{ t('settings.accountDataPane.ssoDescription') }}
+      </p>
+      <div class="dataTable">
+        <!-- uid -->
+        <p class="tableHead">
+          {{ t('account.field.uid') }}
+        </p>
+        <p>{{ account.uid }}</p>
 
-      <h3>{{ t('account.accountDataPane.session') }}</h3>
-      <section class="dataTable">
         <!-- Email -->
-        <p><strong>{{ t('account.field.email') }}</strong></p>
+        <p class="tableHead">{{ t('account.field.email') }}</p>
         <p>{{ account.email }}</p>
+        
         <!-- Name -->
-        <p><strong>{{ t('account.field.displayName') }}</strong></p>
+        <p class="tableHead">{{ t('account.field.displayName') }}</p>
         <p>
           {{ account.displayName }}
           <cyan-button
@@ -36,29 +45,57 @@ function setNickname (nickname: string) {
             @click="setNickname(account.displayName)"
           />
         </p>
-        <!-- photoURL -->
-        <p><strong>{{ t('account.field.photoURL') }}</strong></p>
-        <p>
-          <img
-            v-if="account.photoURL"
-            :src="account.photoURL"
-          >
-          <span v-else>{{ t('account.field.noPhoto') }}</span>
-          <cyan-button
-            v-if="account.photoURL"
-            :label="t('action.useInApp')"
-            text
-            @click="setProfilePhoto(account.photoURL)"
-          />
+      </div>
+      <p class="TypeBody2 lowEmphasis">
+        This data is not erased automatically, when you delete your profile, as it's not saved to the App data. The Authentication scrapped manually for 
+        users who's data is deleted from the platform.
+      </p>
+      <p class="TypeBody2 lowEmphasis">
+        More info on how Firestore saves the authentication data can be found here 
+        <a href="https://firebase.google.com/support/privacy">https://firebase.google.com/support/privacy</a>
+      </p>
+      <p class="TypeBody2 lowEmphasis">
+        More info on what data is saved from your logins, can be found on the source code responsible for the Account persistence: 
+        <a href="https://github.com/11thdeg/skaldstore/blob/main/src/Account.ts">https://github.com/11thdeg/skaldstore/blob/main/src/Account.ts</a>
+      </p>
+    </section>
+    <section>
+      <h4>App Metadata</h4>
+      <p>This data is managed by the App, and stored to your private profile visible only to you and the administrative users</p>
+      <div class="dataGrid">
+        <p class="headCell">
+          LightMode
         </p>
-      </section>
-
-      <h3>{{ t('account.accountDataPane.settings') }}</h3>
-      <section class="dataTable">
-        <!-- Lightmode -->
-        <p><strong>{{ t('account.field.lightMode') }}</strong></p>
-        <p>{{ account.lightMode }}</p>
-      </section>
-    </template>
+        <p>
+          {{ account.lightMode }}
+        </p>
+        <p class="headCell">
+          Last login
+        </p>
+        <p>
+          {{ toDisplayString(account.updatedAt) }}
+        </p>
+        <p class="headCell">
+          UI Locale
+        </p>
+        <p>
+          {{ account.locale }}
+        </p>
+      </div>
+    </section>
+    <section>
+      <h4>{{ t('profile.title') }}</h4>
+      <div class="titledList">
+        <h4>{{ t('profile.fields.nickname') }}</h4>
+        <p>{{ profile.nick }}</p>
+        <h4>{{ t('profile.fields.avatarurl') }}</h4>
+        <p>
+          <a
+            :href="profile.avatarURL"
+            target="_new"
+          >{{ profile.avatarURL }}</a>
+        </p>
+      </div>
+    </section>
   </article>
 </template>
