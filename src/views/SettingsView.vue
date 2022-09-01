@@ -2,8 +2,8 @@
 import { useI18n } from 'vue-i18n'
 import TopBar from '../components/ui/TopBar.vue'
 import ProfileDataPane from '../components/account/ProfileDataPane.vue'
-import SsoDataSection from '../components/account/SsoDataSection.vue'
-import AccountDataSection from '../components/account/AccountDataSection.vue'
+import SsoDataSection from '../components/settings/SsoDataSection.vue'
+import AccountDataSection from '../components/settings/AccountDataSection.vue'
 
 const { t } = useI18n()
 </script>
