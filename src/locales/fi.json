@@ -31,7 +31,8 @@
     "action": {
       "toLogin": "Kirjaudu sisään",
       "toProfile": "Profiili",
-      "useInApp": "Ota Käyttöön"
+      "useInApp": "Ota Käyttöön",
+      "toSettings": "Asetukset"
     },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",
@@ -53,7 +54,8 @@
         "locale": "Sovelluksen kieli"
       },
       "profile":{
-        "nick": "Nimimerkki"
+        "nick": "Nimimerkki",
+        "avatarURL": "Avatar"
       }
     }
   }

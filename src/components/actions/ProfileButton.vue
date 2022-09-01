@@ -10,9 +10,9 @@ const { active, anonymous } = useSession()
   <cyan-button
     v-if="active && !anonymous"
     noun="avatar"
-    :label="t('action.toProfile')"
+    :label="t('action.toSettings')"
     text
-    @click="$router.push('/account')"
+    @click="$router.push('/settings')"
   />
   <cyan-button
     v-if="active && anonymous"

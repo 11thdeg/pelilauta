@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import TopBar from '../components/ui/TopBar.vue'
-import AccountDataPane from '../components/account/AccountDataPane.vue'
 import ProfileDataPane from '../components/account/ProfileDataPane.vue'
 import SsoDataSection from '../components/account/SsoDataSection.vue'
 import AccountDataSection from '../components/account/AccountDataSection.vue'
@@ -13,7 +12,6 @@ const { t } = useI18n()
   <TopBar :title="t('account.title')" />
   <main class="dashboardLayout">
     <ProfileDataPane />
-    <AccountDataPane />
     <article class="Column">
       <h2>{{ t('settings.accountDataPane.title') }}</h2>
       <AccountDataSection />
