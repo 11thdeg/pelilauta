@@ -21,7 +21,12 @@
         "displayName": "Nimi",
         "photoURL": "Kuva",
         "lightMode": "Tumma/Vaalea tila"
-      }
+      },
+      "accountDataSection": {
+        "title": "Profiili",
+        "description": "Pelilauta tallentaa seuraavat tiedot tietokantaansa. Tiedot näkyvät sovelluksen valvojille, ja ne voivat näkyä sovelluksen käyttäjlle."
+      },
+      "dangerousDeleteAccountAction": "Poista tilini (ei poista luomaasi sisältöä)"
     },
     "action": {
       "toLogin": "Kirjaudu sisään",
@@ -42,7 +47,13 @@
       "account": {
         "email": "Sähköposti",
         "displayName": "Nimi",
-        "uid": "Pseudoanonyymi tunniste"
+        "uid": "Pseudoanonyymi tunniste",
+        "lightMode": "Tumma tila",
+        "lastLogin": "Viimeisin kirjautuminen",
+        "locale": "Sovelluksen kieli"
+      },
+      "profile":{
+        "nick": "Nimimerkki"
       }
     }
   }

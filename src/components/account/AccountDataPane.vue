@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
-import { toDisplayString } from '../../utils/toDisplayString'
 
 const { t } = useI18n()
 const { account, active, profile} = useSession()
@@ -13,9 +12,6 @@ const { account, active, profile} = useSession()
     v-if="active"
     class="AccountSettingsPane Column dontBreakOut"
   >
-    <h2>{{ t('settings.accountDataPane.title') }}</h2>
-    
-
     <section>
       <h4>App Metadata</h4>
       <p>This data is managed by the App, and stored to your private profile visible only to you and the administrative users</p>
@@ -29,9 +25,7 @@ const { account, active, profile} = useSession()
         <p class="headCell">
           Last login
         </p>
-        <p>
-          {{ toDisplayString(account.updatedAt) }}
-        </p>
+        <p />
         <p class="headCell">
           UI Locale
         </p>
