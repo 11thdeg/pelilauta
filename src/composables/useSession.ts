@@ -1,5 +1,5 @@
 import { Account, Profile } from "@11thdeg/skaldstore"
-import { User } from "firebase/auth"
+import { getAuth, User } from "firebase/auth"
 import { doc, getFirestore, onSnapshot } from "firebase/firestore"
 import { ref, computed } from "vue"
 import { logDebug, logError } from "../utils/logHelpers"
@@ -71,6 +71,11 @@ export function login(user: User|null) {
     account.value = new Account(user)
     active.value = true
   }
+}
+
+export async function logout() {
+  const auth = getAuth()
+  await auth.signOut()
 }
 
 export function useSession () {

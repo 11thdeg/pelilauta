@@ -13,14 +13,11 @@
         "ssoDescription": "Kirjautumisessa käyttämäsi palvelun (Google, Facebook tai sähköposti) palauttamat yksityiset tiedot, jotka on tallennettu Pelilaudan Firebese-kirjautumistietoihin. Näitä tietoja ei tallenneta sovelluksen tietokantaan, eivätkä ne näy muille kuin teknisille ylläpitäjille."
         
       },
+      "appSettings": {
+        "title": "Toiminnot"
+      },
       "profileDataPane": {
         "title": "Profiili"
-      },
-      "field": {
-        "email": "Sähköposti",
-        "displayName": "Nimi",
-        "photoURL": "Kuva",
-        "lightMode": "Tumma/Vaalea tila"
       },
       "accountDataSection": {
         "title": "Profiili",
@@ -32,7 +29,8 @@
       "toLogin": "Kirjaudu sisään",
       "toProfile": "Profiili",
       "useInApp": "Ota Käyttöön",
-      "toSettings": "Asetukset"
+      "toSettings": "Asetukset",
+      "logout": "Kirjaudu ulos"
     },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",
