@@ -2,28 +2,31 @@ body {
   margin: 0;
   padding: 0;
 }
-section.dataTable {
+.dataTable {
   width: 100%;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 3fr;
   gap: 0;
   margin-bottom: 24px;
 }
-section.dataTable > p:nth-child(4n + 1),
-section.dataTable > p:nth-child(4n + 2) {
+/*.dataTable > p:nth-child(4n + 1),
+.dataTable > p:nth-child(4n + 2) {
   background-color: var(--chroma-secondary-h);
 }
-section.dataTable > p:nth-child(4n + 3),
-section.dataTable > p:nth-child(4n + 4) {
+.dataTable > p:nth-child(4n + 3),
+.dataTable > p:nth-child(4n + 4) {
   background-color: var(--chroma-secondary-g);
+}*/
+.dataTable .tableHead {
+  font-weight: 700;
 }
 
-section.dataTable p {
+.dataTable p {
   margin: 0;
   padding: 8px;
 }
-section.dataTable img {
+.dataTable img {
   max-width: calc( 100% - 8px );
   margin: 0;
   padding: 8px;

@@ -10,7 +10,7 @@
       "accountDataPane": {
         "title": "Omat tiedot",
         "ssoTitle": "Kirjautumistiedot",
-        "ssoDescription": "Kirjautumiseen käyttämäsi palvelu tuottaa nämä tiedot, jotka tallennetaan Pelilaudan tietokantaan hallinnollista käyttöä varten. Niitä ei näytetä käyttäjille."
+        "ssoDescription": "Kirjautumisessa käyttämäsi palvelun (Google, Facebook tai sähköposti) palauttamat yksityiset tiedot, jotka on tallennettu Pelilaudan Firebese-kirjautumistietoihin. Näitä tietoja ei tallenneta sovelluksen tietokantaan, eivätkä ne näy muille kuin teknisille ylläpitäjille."
         
       },
       "profileDataPane": {
@@ -36,6 +36,13 @@
       "emailLoginForm": {
         "title": "Sähköpostilla",
         "emailFieldLabel": "Osoite"
+      }
+    },
+    "fields": {
+      "account": {
+        "email": "Sähköposti",
+        "displayName": "Nimi",
+        "uid": "Pseudoanonyymi tunniste"
       }
     }
   }
