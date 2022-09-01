@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { doc, getFirestore, updateDoc } from '@firebase/firestore';
+import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useSession, logout } from '../../composables/useSession'
-import { logDebug } from '../../utils/logHelpers';
+import { logDebug } from '../../utils/logHelpers'
 import WithLoader from '../ui/WithLoader.vue'
 
 const router = useRouter()

@@ -33,7 +33,9 @@ const updatedAt = computed(() => {
         <p class="tableHead">
           {{ t('fields.profile.avatarURL') }}
         </p>
-        <p class="dontBreakOut TypeBody2"><a href="profile.avatarURL">{{ profile.avatarURL }}</a></p>
+        <p class="dontBreakOut TypeBody2">
+          <a href="profile.avatarURL">{{ profile.avatarURL }}</a>
+        </p>
         <!-- last login -->
         <p class="tableHead">
           {{ t('fields.account.lastLogin') }}

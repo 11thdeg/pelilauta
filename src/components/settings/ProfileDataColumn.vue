@@ -14,7 +14,10 @@
       <p class="lowEmphasis">
         {{ t('account.profileData.description') }}
       </p>
-      <img style="max-width: 200px; display: block; margin: 0 auto;border-radius: 50%;" :src="profile.avatarURL" />
+      <img
+        style="max-width: 200px; display: block; margin: 0 auto;border-radius: 50%;"
+        :src="profile.avatarURL"
+      >
       <cyan-textfield :value="profile.nick" />
       <cyan-textfield :value="profile.bio" />
       <div class="debug code">
