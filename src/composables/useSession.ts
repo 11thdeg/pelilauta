@@ -31,6 +31,12 @@ function reset () {
   // Stop subscribing Profile data and erase profile data
   unsubscribeProfile && unsubscribeProfile()
   profile.value = new Profile()  
+
+  // Reset the session
+  resetters.forEach((value, key) => {
+    value()
+    resetters.delete(key)
+  })
 }
 
 async function subscribeToAccount () {
@@ -71,6 +77,14 @@ export function login(user: User|null) {
     account.value = new Account(user)
     active.value = true
   }
+}
+
+
+const resetters:Map<string, CallableFunction> = new Map()
+
+export function addStore(name: string, resetter: () => void) {
+  logDebug("useSession", "addStore", name, resetter)
+  resetters.set(name, resetter)
 }
 
 export async function logout() {

@@ -1,10 +1,13 @@
 <script lang="ts" setup>
-    import { useI18n } from 'vue-i18n'
-    import { useSession } from '../../composables/useSession'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useSession } from '../../composables/useSession'
+import SelectAssetDialog from '../assets/SelectAssetDialog.vue'
     
-    const { t } = useI18n()
-    const { profile, active } = useSession()
-    </script>
+const { t } = useI18n()
+const { profile, active } = useSession()
+const avatarDialog = ref(true)
+</script>
     
 <template>
   <article class="ProfileDataColumn Column">
@@ -18,6 +21,12 @@
         style="max-width: 200px; display: block; margin: 0 auto;border-radius: 50%;"
         :src="profile.avatarURL"
       >
+      <cyan-button
+        :label="t('account.profileData.changeAvatar')"
+        text
+        @click="avatarDialog = true"
+      />
+      <SelectAssetDialog v-model="avatarDialog" />
       <cyan-textfield :value="profile.nick" />
       <cyan-textfield :value="profile.bio" />
       <div class="debug code">
