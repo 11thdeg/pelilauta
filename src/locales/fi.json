@@ -16,8 +16,9 @@
       "appSettings": {
         "title": "Toiminnot"
       },
-      "profileDataPane": {
-        "title": "Profiili"
+      "profileData": {
+        "title": "Profiili",
+        "description": "Julkinen profiilisi, joka näkyy muille käyttäjille. Voit muokata tietojasi milloin tahansa."
       },
       "accountDataSection": {
         "title": "Profiili",
@@ -30,7 +31,11 @@
       "toProfile": "Profiili",
       "useInApp": "Ota Käyttöön",
       "toSettings": "Asetukset",
-      "logout": "Kirjaudu ulos"
+      "logout": "Kirjaudu ulos",
+      "change": "Vaihda",
+      "cancel": "Peruuta",
+      "select": "Valitse",
+      "selectImage": "Valitse kuva"
     },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",

@@ -1,6 +1,6 @@
 import { Account, Profile } from "@11thdeg/skaldstore"
 import { getAuth, User } from "firebase/auth"
-import { doc, getFirestore, onSnapshot } from "firebase/firestore"
+import { doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"
 import { ref, computed } from "vue"
 import { logDebug, logError } from "../utils/logHelpers"
 
@@ -92,11 +92,23 @@ export async function logout() {
   await auth.signOut()
 }
 
+function updateProfile(field: string, value:string) {
+  if (!active.value) throw new Error('Session is not active')
+  if (anonymous.value) throw new Error('Anonymous users can not update their profile')
+  logDebug("useSession", "updateProfile", field, value)
+  if (field in profile.value && typeof profile.value.docData[field] === typeof value) {
+    updateDoc(doc(getFirestore(), 'profiles', uid.value), { field: value })
+  } else {
+    logError("useSession", "updateProfile", "Field does not exist or type does not match", field, value)
+  }
+}
+
 export function useSession () {
   return {
     active: computed(() => active.value),
     anonymous: computed(() => anonymous.value),
     profile: computed(() => profile.value),
-    account: computed(() => account.value)
+    account: computed(() => account.value),
+    updateProfile
   }
 }

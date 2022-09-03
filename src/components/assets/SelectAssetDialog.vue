@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAssets } from '../../composables/useAssets'
 import { useSession } from '../../composables/useSession'
@@ -10,9 +10,11 @@ const props= defineProps<{
 }>()
     
 const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: boolean): void
+  (e: 'update:modelValue', modelValue: boolean): void,
+  (e: 'select', asset: string): void
 }>()
 
+const selected = ref('')
 const { t } = useI18n()
 const { assets } = useAssets()
 const { account, profile } = useSession() 
@@ -21,6 +23,15 @@ const open = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value)
 })
+
+function selectionChange(e: CustomEvent) {
+  if (e.detail?.url) selected.value = e.detail.url
+}
+
+function selectAsset() {
+  emit('select', selected.value)
+  open.value = false
+}
 </script>
 
 <template>
@@ -28,7 +39,7 @@ const open = computed({
     v-model="open"
     :label="t('action.selectImage')"
   >
-    <cyan-asset-select>
+    <cyan-asset-select @change="selectionChange($event)">
       <cyan-asset-option
         round
         :url="profile.avatarURL"
@@ -56,7 +67,7 @@ const open = computed({
       />
       <cyan-button
         :label="t('action.select')"
-        @click="open = false"
+        @click="selectAsset"
       />
     </cyan-toolbar>
   </Dialog>
