@@ -35,7 +35,8 @@
       "change": "Vaihda",
       "cancel": "Peruuta",
       "select": "Valitse",
-      "selectImage": "Valitse kuva"
+      "selectImage": "Valitse kuva",
+      "save": "Tallenna"
     },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",
@@ -58,7 +59,8 @@
       },
       "profile":{
         "nick": "Nimimerkki",
-        "avatarURL": "Avatar"
+        "avatarURL": "Avatar",
+        "bio": "Kuvaus"
       }
     }
   }

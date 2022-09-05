@@ -84,10 +84,12 @@ async function save () {
         @select="avatarURL = $event"
       />
       <cyan-textfield
+        :label="t('fields.profile.nick')"
         :value="profile.nick"
         @blur="nick = $event.target.value"
       />
       <cyan-textfield
+        :label="t('fields.profile.bio')"
         :value="profile.bio"
         @blur="bio = $event.target.value"
       />
