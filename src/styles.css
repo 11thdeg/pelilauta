@@ -16,6 +16,9 @@ body {
   gap: 0;
   margin-bottom: 24px;
 }
+.dataTable.fourCols{
+  grid-template-columns: 1fr 3fr 1fr 1fr;
+}
 /*.dataTable > p:nth-child(4n + 1),
 .dataTable > p:nth-child(4n + 2) {
   background-color: var(--chroma-secondary-h);

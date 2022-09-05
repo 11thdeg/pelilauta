@@ -38,6 +38,12 @@
       "selectImage": "Valitse kuva",
       "save": "Tallenna"
     },
+    "assets": {
+      "title": "Lataukset",
+      "list": {
+        "title": "Lataukset"
+      }
+    },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",
       "withGoogle": "Googlella",

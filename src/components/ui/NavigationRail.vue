@@ -18,6 +18,12 @@ const route = useRoute()
       to="/"
       :active="route.path === '/'"
     />
+    <NavButton
+      noun="assets"
+      :label="t('assets.title')"
+      to="/assets"
+      :active="route.path === '/assets'"
+    />
     <cyan-spacer />
     <NavButton
       noun="stylebook"
