@@ -1,19 +1,63 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { doc, getFirestore, updateDoc } from '@firebase/firestore'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { logDebug } from '../../utils/logHelpers'
 import SelectAssetDialog from '../assets/SelectAssetDialog.vue'
     
 const { t } = useI18n()
-const { profile, active, updateProfile } = useSession()
+const { profile, active } = useSession()
 const avatarDialog = ref(false)
 
-function selectAvatar(url: string) {
-  logDebug('selectAvatar', url)
-  //profile.value.avatarURL = url
-  updateProfile('avatarURL', url)
+const _avatarURL = ref('')
+const avatarURL = computed({
+  get() {
+    return _avatarURL.value || profile.value.avatarURL || ''
+  },
+  set(value: string) {
+    _avatarURL.value = value
+  }
+})
+const _nick = ref('')
+const nick = computed({
+  get() {
+    return _nick.value || profile.value.nick || ''
+  },
+  set(value: string) {
+    _nick.value = value
+  }
+})
+const _bio = ref('')
+const bio = computed({
+  get() {
+    return _bio.value || profile.value.bio || ''
+  },
+  set(value: string) {
+    _bio.value = value
+  }
+})
+const changes = computed(() => {
+  return _avatarURL.value !== profile.value.avatarURL ||
+    _nick.value !== profile.value.nick ||
+    _bio.value !== profile.value.bio
+})
+
+async function save () {
+  logDebug('save', { avatarURL, nick, bio })
+  profile.value.avatarURL = avatarURL.value
+  profile.value.nick = nick.value
+  profile.value.bio = bio.value
+  updateDoc(
+    doc(
+      getFirestore(), 
+      'profiles', 
+      profile.value.uid
+    ), 
+    profile.value.docData
+  )
 }
+
 </script>
     
 <template>
@@ -27,7 +71,7 @@ function selectAvatar(url: string) {
       <div class="avatar">
         <img
           style="max-width: 200px; display: block; margin: 0 auto;border-radius: 50%;"
-          :src="profile.avatarURL"
+          :src="avatarURL"
         >
         <cyan-button
           noun="edit"
@@ -38,10 +82,19 @@ function selectAvatar(url: string) {
       </div>
       <SelectAssetDialog
         v-model="avatarDialog"
-        @select="selectAvatar($event)"
+        @select="avatarURL = $event"
       />
-      <cyan-textfield :value="profile.nick" />
+      <cyan-textfield :value="profile.nick" @change="nick = $event.detail.value"/>
       <cyan-textfield :value="profile.bio" />
+      <cyan-toolbar>
+        <cyan-spacer />
+        <cyan-button
+          noun="save"
+          :label="t('action.save')"
+          :disabled="!changes"
+          @click="save"
+        />
+      </cyan-toolbar>
     </template>
   </article>
 </template>
