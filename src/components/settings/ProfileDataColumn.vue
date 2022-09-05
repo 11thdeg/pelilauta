@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Profile } from '@11thdeg/skaldstore'
 import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -38,9 +39,7 @@ const bio = computed({
   }
 })
 const changes = computed(() => {
-  return _avatarURL.value !== profile.value.avatarURL ||
-    _nick.value !== profile.value.nick ||
-    _bio.value !== profile.value.bio
+  return _avatarURL.value.length > 0 || _nick.value.length > 0 || _bio.value.length > 0
 })
 
 async function save () {
@@ -51,7 +50,7 @@ async function save () {
   updateDoc(
     doc(
       getFirestore(), 
-      'profiles', 
+      Profile.collectionName, 
       profile.value.uid
     ), 
     profile.value.docData
@@ -84,8 +83,14 @@ async function save () {
         v-model="avatarDialog"
         @select="avatarURL = $event"
       />
-      <cyan-textfield :value="profile.nick" @change="nick = $event.detail.value"/>
-      <cyan-textfield :value="profile.bio" />
+      <cyan-textfield
+        :value="profile.nick"
+        @blur="nick = $event.target.value"
+      />
+      <cyan-textfield
+        :value="profile.bio"
+        @blur="bio = $event.target.value"
+      />
       <cyan-toolbar>
         <cyan-spacer />
         <cyan-button

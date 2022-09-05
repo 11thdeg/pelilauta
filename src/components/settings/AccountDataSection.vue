@@ -29,6 +29,11 @@ const updatedAt = computed(() => {
           {{ t('fields.profile.nick') }}
         </p>
         <p>{{ profile.nick }}</p>
+        <!-- nickname -->
+        <p class="tableHead">
+          {{ t('fields.profile.bio') }}
+        </p>
+        <p>{{ profile.bio }}</p>
         <!-- photoURL -->
         <p class="tableHead">
           {{ t('fields.profile.avatarURL') }}
