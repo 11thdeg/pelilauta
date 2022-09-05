@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { useAssets } from '../../composables/useAssets'
+import AddAssetButton from './AddAssetButton.vue';
 
 const { t } = useI18n()
 const { assets } = useAssets()
@@ -8,7 +9,11 @@ const { assets } = useAssets()
 </script>
 <template>
   <article class="Column AssetListColumn double">
-    <h2>{{ t('assets.list.title') }}</h2>
+    <cyan-toolbar>
+      <h2>{{ t('assets.list.title') }}</h2>
+      <cyan-spacer />
+      <AddAssetButton />
+    </cyan-toolbar>
     <section class="AssetList dataTable fourCols">
       <template
         v-for="asset in assets"

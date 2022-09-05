@@ -23,12 +23,12 @@ function close () {
       id="DialogCard"
       class="theme-surface"
     >
-      <cyan-toolbar>
+      <cyan-toolbar style="margin: 0 8px">
         <cyan-icon
           noun="close"
           @click="close"
         />
-        <h3>
+        <h3 style="flex-grow: 1; text-align: center;">
           {{ props.label }}
         </h3>
       </cyan-toolbar>
