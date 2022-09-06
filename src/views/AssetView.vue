@@ -19,7 +19,7 @@ const asset = computed(() => {
 </script>
 
 <template>
-  <TopBar :label="t('assetView.title')" />
+  <TopBar :title="t('assetView.title')" />
   <main class="singleColumnLayout">
     <article
       v-if="asset"
