@@ -36,12 +36,17 @@
       "cancel": "Peruuta",
       "select": "Valitse",
       "selectImage": "Valitse kuva",
-      "save": "Tallenna"
+      "save": "Tallenna",
+      "add": "Lisää",
+      "upload": "Lähetä"
     },
     "assets": {
       "title": "Lataukset",
       "list": {
         "title": "Lataukset"
+      },
+      "add": {
+        "title": "Lisää tiedosto"
       }
     },
     "login": {
@@ -62,6 +67,12 @@
         "lightMode": "Tumma tila",
         "lastLogin": "Viimeisin kirjautuminen",
         "locale": "Sovelluksen kieli"
+      },
+      "asset":{
+        "name": "Nimi",
+        "description": "Kuvaus",
+        "license": "Lisenssi",
+        "mimetype": "Muoto"
       },
       "profile":{
         "nick": "Nimimerkki",

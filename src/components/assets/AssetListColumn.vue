@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Asset } from '@11thdeg/skaldstore';
+import { Asset } from '@11thdeg/skaldstore'
 import { useI18n } from 'vue-i18n'
 import { useAssets } from '../../composables/useAssets'
-import AddAssetButton from './AddAssetButton.vue';
+import AddAssetButton from './AddAssetButton.vue'
 
 const { t } = useI18n()
 const { assets } = useAssets()
@@ -44,12 +44,15 @@ function assetLicense (asset: Asset) {
           >
         </p>
         <div>
-          <h4>{{ assetName(asset) }}</h4>
+          <p><strong>{{ assetName(asset) }}</strong></p>
           <p class="TypeCaption">
             {{ assetDescription(asset) }}
           </p>
         </div>
         <p>{{ assetLicense(asset) }}</p>
+        <div><hr></div>
+        <div><hr></div>
+        <div><hr></div>
       </template>
     </section>
   </article>

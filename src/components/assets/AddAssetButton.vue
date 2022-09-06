@@ -16,10 +16,12 @@ const uploading = ref(false)
 const fileName = ref('')
 const description = ref('')
 const license = ref('0')
-const licenses = {
-  '0': 'None',
-  '1': 'CC-BY',
-}
+const licenses = [
+  { label: t('assets.licenses.0'), option: '0' },
+  { label: t('assets.licenses.1'), option: '1' },
+  { label: t('assets.licenses.2'), option: '2' },
+  { label: t('assets.licenses.3'), option: '3' },
+]
     
 const file:Ref<FileData|undefined> = ref(undefined)
 
@@ -60,7 +62,7 @@ async function upload () {
 <template>
   <cyan-button
     :label="t('action.add')"
-    noun="assets"
+    noun="add"
     @click.prevent="open"
   />
   <Dialog
@@ -72,12 +74,12 @@ async function upload () {
       <div class="fields">
         <cyan-textfield
           :value="fileName"
-          :label="t('field.asset.name')"
+          :label="t('fields.asset.name')"
           :placeholder="fileName"
           @change="fileName = $event.target.value"
         />
         <div>
-          <strong>{{ t('field.asset.mimetype') }}</strong> <cyan-code v-if="file">
+          <strong>{{ t('fields.asset.mimetype') }}</strong> <cyan-code v-if="file">
             {{ file.mimetype }}
           </cyan-code>
         </div>
