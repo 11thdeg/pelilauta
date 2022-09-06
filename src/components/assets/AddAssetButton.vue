@@ -43,9 +43,11 @@ async function upload () {
     if (file.value) {
     uploading.value = true
     await uploadAsset(
-        file.value.name,
+        fileName.value || file.value.name,
         file.value.mimetype,
-        file.value.dataURL
+        file.value.dataURL,
+        description.value,
+        parseInt(license.value)
     )
     pushSnack('Asset uploaded')
     }
@@ -69,36 +71,40 @@ async function upload () {
       <FileInput v-model:file="file" />
       <div class="fields">
         <cyan-textfield
-          v-model="fileName"
+          :value="fileName"
           :label="t('field.asset.name')"
           :placeholder="fileName"
+          @change="fileName = $event.target.value"
         />
         <div>
-          <strong>{{ t('field.asset.mimetype') }}</strong> <cyan-code v-if="file">{{ file.mimetype }}</cyan-code>
+          <strong>{{ t('field.asset.mimetype') }}</strong> <cyan-code v-if="file">
+            {{ file.mimetype }}
+          </cyan-code>
         </div>
         <cyan-textfield
           :value="description"
           :label="t('fields.asset.description')"
           @blur="description = $event.target.value"
         />
-        <select
-          v-model="license"
-          label="License"
+        <cyan-select
+          :value="license"
+          :label="t('fields.asset.license')"
           :options="licenses"
+          @change="license = $event.target.value"
         />
       </div>
     </div>
     <div class="actions">
       <cyan-button
         text
-        @click="dialog = false"
         :label="t('action.cancel')"
+        @click="dialog = false"
       />
       <cyan-button
         noun="save"
         :working="uploading + ''"
-        @click="upload"
         :label="t('action.upload')"
+        @click="upload"
       />
     </div>
   </Dialog>

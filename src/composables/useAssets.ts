@@ -47,7 +47,7 @@ async function initAssets() {
 }
 
 
-async function uploadAsset (name: string, mimetype:string, dataURL:string): Promise<Asset> {
+async function uploadAsset (name: string, mimetype:string, dataURL:string, description?:string, license?:number): Promise<Asset> {
   if (!init) {
     logError('uploadAsset', 'Assets not initialized')
     throw new Error('Assets not initialized')
@@ -73,6 +73,8 @@ async function uploadAsset (name: string, mimetype:string, dataURL:string): Prom
   asset.mimetype = mimetype
   asset.url = downloadUrl
   asset.storagePath = storageSnapshot.ref.fullPath
+  asset.description = description??''
+  asset.license = license??0
 
   const assetDocRef = await addDoc(
     collection(getFirestore(), 'assets'),
