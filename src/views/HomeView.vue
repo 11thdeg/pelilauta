@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import AppBar from '../components/ui/AppBar.vue'
+import ThreadCardList from '../components/threads/ThreadCardList.vue'
 
 </script>
 <template>
-  <main>
-    <AppBar />
-    <h1>Pelilauta Home Placeholder</h1>
+  <AppBar />
+  <main class="singleColumnLayout">
+    <ThreadCardList />
   </main>
 </template>
