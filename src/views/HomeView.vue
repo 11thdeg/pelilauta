@@ -5,7 +5,7 @@ import ThreadCardList from '../components/threads/ThreadCardList.vue'
 </script>
 <template>
   <AppBar />
-  <main class="singleColumnLayout">
+  <main class="bookLayout">
     <ThreadCardList />
   </main>
 </template>
