@@ -3,7 +3,8 @@ import { Thread } from '@11thdeg/skaldstore'
 import { computed } from 'vue'
 import { onMounted, Ref, ref } from 'vue'
 import { fetchThread } from '../../composables/useThreads'
-import Card from '../ui/Card.vue'
+import TopicTag from './TopicTag.vue'
+import TopicIcon from './TopicIcon.vue'
 
 const props = defineProps<{
   threadkey?: string
@@ -31,16 +32,18 @@ const snippet = computed(() => {
 </script>
 
 <template>
-  <Card
+  <article
     v-if="thread"
-    :rise="1"
     class="ThreadCard"
   >
     <cyan-toolbar>
-      <cyan-icon :noun="thread.topicid" />
-      <h3 class="TypeHeadline6">
-        {{ thread.title }}
-      </h3>
+      <TopicIcon :slug="thread.topicid || ''" />
+      <div class="cardHeader">
+        <h3 class="TypeHeadline6">
+          {{ thread.title }}
+        </h3>
+        <TopicTag :slug="thread.topicid || '-'" />
+      </div>
       <cyan-spacer />
       <cyan-icon noun="share" />
     </cyan-toolbar>
@@ -48,5 +51,5 @@ const snippet = computed(() => {
       class="TypeBody2"
       :innerHTML="snippet"
     />
-  </Card>
+  </article>
 </template>

@@ -1,18 +1,20 @@
 import { Thread } from "@11thdeg/skaldstore"
 import { collection, doc, getDoc, getFirestore, limit, onSnapshot, orderBy, query, where } from "firebase/firestore"
-import { computed, ref, Ref } from "vue"
+import { computed, ref } from "vue"
+import { logDebug, logEvent } from "../utils/logHelpers"
 import { addStore } from "./useSession"
 
 let _init = false
 let unsubscribeThreads:undefined|CallableFunction
-const threadCache:Ref<Map<string, Thread>> = ref(new Map())
+const threadCache = ref(new Map<string, Thread>())
 
-function init () {
+async function init () {
+  logDebug('init threads', _init)
   if (_init) return
   _init = true
   addStore("threads", reset)
   if(unsubscribeThreads) unsubscribeThreads()
-  unsubscribeThreads = onSnapshot(
+  unsubscribeThreads = await onSnapshot(
     query(
         collection(
           getFirestore(),
@@ -27,17 +29,19 @@ function init () {
         if(change.type === 'removed') {
           threadCache.value.delete(change.doc.id)
         } else {
+          logDebug('thread', change.doc.data()?.title)
           threadCache.value.set(change.doc.id, new Thread(change.doc.data(), change.doc.id))
         }
       })
     }
   )
+  logEvent('stream', {action: 'subscribed', where: 'public'})
 }
 
 function reset () {
-  _init = false
   if (unsubscribeThreads) unsubscribeThreads()
-  threadCache.value = new Map()
+  threadCache.value = new Map<string, Thread>()
+  _init = false
 }
 
 export async function fetchThread (key:string) {
@@ -64,6 +68,6 @@ export function useThreads () {
           arr.sort((a, b) => a.compareFlowTime(b))
             return arr
         }),
-        threadCache
+        threadCache: computed(() => threadCache.value)
     }
 }

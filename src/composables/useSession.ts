@@ -17,26 +17,30 @@ let unsubscribeAccount:undefined|CallableFunction
 let unsubscribeProfile:undefined|CallableFunction
 
 function reset () {
-  logDebug("useSession", "reset()")
-  // Set session state inactive for suspended components
-  active.value = false
+  logDebug("useSession", "reset()", active.value)
 
-  // Setting uid to ==false will trigger the anonymous computed property
-  uid.value = ''
+  if (active.value) {
+    // Setting uid to ==false will trigger the anonymous computed property
+    uid.value = ''
 
-  // Stop subscribing Account data and erase account data
-  unsubscribeAccount && unsubscribeAccount()
-  account.value = new Account(null)
+    // Stop subscribing Account data and erase account data
+    unsubscribeAccount && unsubscribeAccount()
+    account.value = new Account(null)
 
-  // Stop subscribing Profile data and erase profile data
-  unsubscribeProfile && unsubscribeProfile()
-  profile.value = new Profile()  
+    // Stop subscribing Profile data and erase profile data
+    unsubscribeProfile && unsubscribeProfile()
+    profile.value = new Profile()
 
-  // Reset the session
-  resetters.forEach((value, key) => {
-    value()
-    resetters.delete(key)
-  })
+    // Reset the session
+    resetters.forEach((value, key) => {
+      value()
+      resetters.delete(key)
+    })
+    // Set session state inactive for suspended components
+    active.value = false
+  }
+
+  
 }
 
 async function subscribeToAccount () {

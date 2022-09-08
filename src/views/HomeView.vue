@@ -7,5 +7,8 @@ import ThreadCardList from '../components/threads/ThreadCardList.vue'
   <AppBar />
   <main class="bookLayout">
     <ThreadCardList />
+    <div class="Column">
+      <h2>Placeholder for CTA's</h2>
+    </div>
   </main>
 </template>
