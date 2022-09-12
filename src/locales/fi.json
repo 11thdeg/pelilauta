@@ -38,7 +38,8 @@
       "selectImage": "Valitse kuva",
       "save": "Tallenna",
       "add": "Lisää",
-      "upload": "Lähetä"
+      "upload": "Lähetä",
+      "edit": "Muokkaa"
     },
     "assets": {
       "title": "Lataukset",
@@ -57,6 +58,11 @@
       "emailLoginForm": {
         "title": "Sähköpostilla",
         "emailFieldLabel": "Osoite"
+      }
+    },
+    "profile": {
+      "stream": {
+        "title": "Ketjut"
       }
     },
     "threads": {

@@ -1,5 +1,5 @@
 import { Thread } from "@11thdeg/skaldstore"
-import { collection, doc, getDoc, getFirestore, limit, onSnapshot, orderBy, query, where } from "firebase/firestore"
+import { collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, orderBy, query, where } from "firebase/firestore"
 import { computed, ref } from "vue"
 import { logDebug, logEvent } from "../utils/logHelpers"
 import { addStore } from "./useSession"
@@ -42,6 +42,29 @@ function reset () {
   if (unsubscribeThreads) unsubscribeThreads()
   threadCache.value = new Map<string, Thread>()
   _init = false
+}
+
+export async function fetchAuthorThreads (uid:string, count = 11) {
+  await init()
+  logDebug('fetchAuthorThreads', uid)
+  const threads = await getDocs(
+    query(
+      collection(
+        getFirestore(),
+        'stream'
+      ),
+      where('author', '==', uid),
+      where('public', '==', true),
+      limit(count),
+      orderBy('flowTime', 'desc')
+    )
+  )
+  const authorThreads = new Array<Thread>()
+  threads.forEach((thread) => {
+    authorThreads.push(new Thread(thread.data(), thread.id))
+    threadCache.value.set(thread.id, new Thread(thread.data(), thread.id))
+  })
+  return authorThreads
 }
 
 export async function fetchThread (key:string) {

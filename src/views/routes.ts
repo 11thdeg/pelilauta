@@ -4,6 +4,7 @@ import LoginView from './LoginView.vue'
 import SettingsView from './SettingsView.vue'
 import AssetsView from './AssetsView.vue'
 import AssetView from './AssetView.vue'
+import ProfileView from './ProfileView.vue'
 
 export const routes = [
   { path: '/', component: HomeView },
@@ -11,5 +12,6 @@ export const routes = [
   { path: '/login', component: LoginView },
   { path: '/settings', component: SettingsView },
   { path: '/assets', component: AssetsView },
-  { path: '/assets/:assetkey', component: AssetView, props: true }
+  { path: '/assets/:assetkey', component: AssetView, props: true },
+  { path: '/profiles/:uid', component: ProfileView, props: true }
 ]
