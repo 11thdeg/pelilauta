@@ -22,8 +22,14 @@ onMounted(async () => {
   <div id="ProfileView">
     <AppBar />
     <main class="bookLayout">
-      <PublicProfileColumn :uid="uid" />
-      <ProfilePostsColumn :uid="uid" />
+      <cyan-loader
+        v-if="!profile"
+        column
+      />
+      <template v-else>
+        <PublicProfileColumn :uid="uid" />
+        <ProfilePostsColumn :uid="uid" />
+      </template>
     </main>
   </div>
 </template>
