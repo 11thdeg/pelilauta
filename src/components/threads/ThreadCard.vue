@@ -6,6 +6,7 @@ import { fetchThread } from '../../composables/useThreads'
 import { toDisplayString } from '../../utils/toDisplayString'
 import TopicTag from './TopicTag.vue'
 import RepliesTag from './RepliesTag.vue'
+import ProfileTag from '../profiles/ProfileTag.vue'
 
 const props = defineProps<{
   threadkey?: string
@@ -66,7 +67,7 @@ const siteIcon = computed(() => undefined)
       :innerHTML="snippet"
     />
     <cyan-toolbar>
-      <cyan-tag label="author" />
+      <ProfileTag :uid="thread.author" />
       <cyan-spacer />
       <div class="TypeCaption">
         {{ toDisplayString(thread.flowTime) }}
