@@ -16,7 +16,16 @@ const { recent } = useThreads()
       v-for="thread in recent"
       v-else
       :key="thread.key"
+      class="in-stream"
       :threadkey="thread.key"
     />
   </div>
 </template>
+
+<style lang="sass" scoped>
+.in-stream
+  margin-bottom: 12px
+.in-stream + .in-stream
+  padding-top: 23px
+  border-top: 1px solid var(--chroma-secondary-h)
+</style>

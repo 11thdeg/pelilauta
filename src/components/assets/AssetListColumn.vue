@@ -19,12 +19,14 @@ const { assets } = useAssets()
         v-for="asset in assets"
         :key="asset.id"
       >
-        <p><router-link :to="`/assets/${asset.key}`">
-          <img
-            style="max-width: 72px;max-height: 72px;"
-            :src="asset.url"
-            :alt="asset.name"
-          ></router-link>
+        <p>
+          <router-link :to="`/assets/${asset.key}`">
+            <img
+              style="max-width: 72px;max-height: 72px;"
+              :src="asset.url"
+              :alt="asset.name"
+            >
+          </router-link>
         </p>
         <div>
           <p><strong>{{ assetName(asset) }}</strong></p>

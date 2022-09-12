@@ -9,15 +9,17 @@ const props = defineProps<{
 const { streams } = useMeta()
 
 const topic = computed(() => {
-const t = streams.value.find(stream => stream.slug === props.slug)
-
-if (t) return t
-  return { name: '---' }
+  const t = streams.value.find(stream => stream.slug === props.slug)
+  if (t) return t
+  return { name: '---', icon: 'discussion' }
 })
 </script>
     
 <template>
   <router-link :to="`/forum/${props.slug}`">
-    {{ topic.name }}
+    <cyan-tag
+      :label="topic.name"
+      :noun="topic.icon"
+    />
   </router-link>
 </template>

@@ -59,6 +59,9 @@
         "emailFieldLabel": "Osoite"
       }
     },
+    "threads": {
+      "replies": "{count} vastausta"
+    },
     "fields": {
       "account": {
         "email": "Sähköposti",
