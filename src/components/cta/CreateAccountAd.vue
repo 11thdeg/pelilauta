@@ -8,7 +8,7 @@ const { t } = useI18n()
 <template>
   <section
     v-if="anonymous"
-    class="CreateAccountAd chroma-box-a rise-b"
+    class="CreateAccountAd chroma-box-a"
   >
     <cyan-icon
       noun="fox"
@@ -16,10 +16,11 @@ const { t } = useI18n()
       dark
       class="adicon"
     />
-    <div class="ad">
-      <h3>{{ t('cta.createAccount.title') }}</h3>
-      <p>{{ t('cta.createAccount.copy') }}</p>
-    </div>
+    <h3>{{ t('cta.createAccount.title') }}</h3>
+       
+    <p class="ad">
+      {{ t('cta.createAccount.copy') }}
+    </p>
     <cyan-toolbar>
       <cyan-spacer />
       <cyan-button
@@ -44,12 +45,9 @@ const { t } = useI18n()
   padding: var(--cyan-col-gap)
   position: relative
 .adicon
-  position: absolute
-  top: var(--cyan-col-gap)
-  left: var(--cyan-col-gap)
-.ad
-  margin-left: 44px
-  h3
-    margin-top: 0
+  display: block
+  margin: 0 auto
+h3, p
+  text-align: center
 
 </style>
