@@ -47,7 +47,7 @@ const siteIcon = computed(() => undefined)
     <section class="cardHeader">
       <div class="meta">
         <h3>
-          <router-link :to="`/thread/${thread.key}`">
+          <router-link :to="`/threads/${thread.key}`">
             {{ thread.title }}
           </router-link>
         </h3>

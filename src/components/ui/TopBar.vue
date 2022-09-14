@@ -1,12 +1,16 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  title: string
+  title: string,
+  sticky: boolean
 }>()
 </script>
 
 <template>
-  <nav id="TopBar">
+  <nav
+    id="TopBar"
+    :class="{ sticky: sticky }"
+  >
     <cyan-icon
       noun="back"
       class="clickable hoverable inAppBar"
