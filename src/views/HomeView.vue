@@ -2,6 +2,7 @@
 import AppBar from '../components/ui/AppBar.vue'
 import ThreadCardList from '../components/threads/ThreadCardList.vue'
 import CreateAccountAd from '../components/cta/CreateAccountAd.vue'
+import MekanismiAd from '../components/cta/MekanismiAd.vue'
 
 </script>
 <template>
@@ -10,7 +11,7 @@ import CreateAccountAd from '../components/cta/CreateAccountAd.vue'
     <ThreadCardList />
     <div class="Column">
       <CreateAccountAd />
-      <h2>Placeholder for CTA's</h2>
+      <MekanismiAd />
     </div>
   </main>
 </template>

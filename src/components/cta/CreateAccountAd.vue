@@ -8,17 +8,18 @@ const { t } = useI18n()
 <template>
   <section
     v-if="anonymous"
-    class="CreateAccountAd chroma-box-a"
+    class="CreateAccountAd chroma-box-a card"
   >
     <cyan-icon
       noun="fox"
       xlarge
       dark
       class="adicon"
+      style="margin-bottom: 12px"
     />
     <h3>{{ t('cta.createAccount.title') }}</h3>
        
-    <p class="ad">
+    <p class="ad TypeBody2">
       {{ t('cta.createAccount.copy') }}
     </p>
     <cyan-toolbar>

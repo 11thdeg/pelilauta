@@ -33,6 +33,7 @@
       "register": "Rekisteröidy",
       "useInApp": "Ota Käyttöön",
       "toSettings": "Asetukset",
+      "toSites": "Mekanismi",
       "logout": "Kirjaudu ulos",
       "change": "Vaihda",
       "cancel": "Peruuta",
@@ -41,7 +42,8 @@
       "save": "Tallenna",
       "add": "Lisää",
       "upload": "Lähetä",
-      "edit": "Muokkaa"
+      "edit": "Muokkaa",
+      "create": "Luo uusi"
     },
     "assets": {
       "title": "Lataukset",
@@ -56,6 +58,10 @@
       "createAccount": {
         "title": "Tervetuloa Pelilaudalle!",
         "copy": "Pelilauta.fi ja Mekanismi.sange.fi sivustojen inspiroima yhteisösovellus. Kirjautumalla Facebookilla, Googlella tai sähköpostilla – saat käyttöösi enemmän toimintoja."
+      },
+      "mekanismiAd": {
+        "title": "Pelit ja sivustot",
+        "description": "Voit luoda pelillesi oman sivuston, ja halutessasi julkaista sivuston Pelilaudalla. Julkaisemattomaan sivustoon pääsee vain suoralla linkillä, tai omien pelien listauksesta."
       }
     },
     "login": {
