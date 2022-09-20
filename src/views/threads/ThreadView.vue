@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { Thread } from '@11thdeg/skaldstore';
-import { computed, onMounted, Ref, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { fetchThread } from '../../composables/useThreads';
-import TopBar from '../../components/ui/TopBar.vue';
+import { Thread } from '@11thdeg/skaldstore'
+import { computed, onMounted, Ref, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { fetchThread } from '../../composables/useThreads'
+import TopBar from '../../components/ui/TopBar.vue'
+import ThreadPane from '../../components/threads/ThreadPane.vue'
+import ThreadDiscussion from '../../components/discussion/ThreadDiscussion.vue'
 
 const props = defineProps<{
   threadkey: string
@@ -23,13 +25,19 @@ const title = computed(() => {
 
 <template>
   <div class="ThreadView">
-    <TopBar :title="title" sticky />
+    <TopBar
+      :title="title"
+      sticky
+    />
     <main class="bookLayout">
-      <cyan-loader v-if="!thread" />
-      <template v-else>
-        <article>{{ thread.htmlContent }}</article>
-      </template>
-      <article class="code">{{ threadkey }}</article>
+      <div class="Column double">
+        <ThreadPane :threadkey="threadkey" />
+        <ThreadDiscussion :threadkey="threadkey" />
+      </div>
+      
+      <article class="code">
+        {{ threadkey }}
+      </article>
     </main>
   </div>
 </template>

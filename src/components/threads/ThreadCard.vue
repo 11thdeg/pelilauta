@@ -7,6 +7,7 @@ import { toDisplayString } from '../../utils/toDisplayString'
 import TopicTag from './TopicTag.vue'
 import RepliesTag from './RepliesTag.vue'
 import ProfileTag from '../profiles/ProfileTag.vue'
+import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 
 const props = defineProps<{
   threadkey?: string
@@ -69,9 +70,7 @@ const siteIcon = computed(() => undefined)
     <cyan-toolbar>
       <ProfileTag :uid="thread.author" />
       <cyan-spacer />
-      <div class="TypeCaption">
-        {{ toDisplayString(thread.flowTime) }}
-      </div>
+      <FlowTimeCaption :flow-time="thread.flowTime" />
       <RepliesTag :threadkey="thread.key || ''" />
     </cyan-toolbar>
   </article>
