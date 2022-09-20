@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavigationRail from './components/ui/NavigationRail.vue'
+import SnackBar from './components/ui/SnackBar.vue'
 </script>
 
 <template>
@@ -7,6 +8,7 @@ import NavigationRail from './components/ui/NavigationRail.vue'
   <div class="appContainer">
     <router-view />
   </div>
+  <SnackBar />
 </template>
 
 <style lang="sass" scoped>
