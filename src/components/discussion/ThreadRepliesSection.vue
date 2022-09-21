@@ -56,9 +56,9 @@ onUnmounted(() => {
     >
       <cyan-toolbar>
         <ProfileTag :uid="reply.author" />
-        <cyan-toolbar />
+        <cyan-spacer />
         <FlowTimeCaption :flow-time="reply.flowTime" />
-      </cyan-toolbar>>
+      </cyan-toolbar>
       <MarkDownSection
         v-if="reply.markdownContent"
         :content="reply.markdownContent"
@@ -73,29 +73,32 @@ onUnmounted(() => {
 
 <style lang="sass">
 .reply
-  background-color: var(--chroma-secondary-c)
+  background-color: var(--cyan-bubble-background-color-a)
   padding: 12px 16px
+  padding-top: 0
   border-radius: 8px
   position: relative
   margin-bottom: 24px
   &.fromMe
-    background-color: var(--chroma-primary-b)
+    background-color: var(--cyan-bubble-background-color-b)
+  p:first-child
+    margin-top: 0
 
 .reply:after
   content: ""
   width: 0px
   height: 0px
   position: absolute
-  border-left: 12px solid var(--chroma-secondary-c)
+  border-left: 12px solid var(--cyan-bubble-background-color-a)
   border-right: 6px solid transparent
-  border-top: 6px solid var(--chroma-secondary-c)
+  border-top: 6px solid var(--cyan-bubble-background-color-a)
   border-bottom: 12px solid transparent
   left: 32px
   bottom: -18px
 .reply.fromMe:after
-  border-right: 12px solid var(--chroma-primary-b)
+  border-right: 12px solid var(--cyan-bubble-background-color-b)
   border-left: 6px solid transparent
-  border-top: 6px solid var(--chroma-primary-b)
+  border-top: 6px solid var(--cyan-bubble-background-color-b)
   border-bottom: 12px solid transparent
   left: calc(100% - 48px)
 </style>

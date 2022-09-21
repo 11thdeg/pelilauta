@@ -10,10 +10,7 @@ const { t } = useI18n()
       {{ t('app.title') }}
     </h1>
     <cyan-spacer />
-    <!--cyan-icon
-      class="clickable hoverable inAppBar"
-      noun="lightmode"
-    /-->
+    <cyan-lightmode-toggle class="inAppBar" />
     <ProfileButton />
   </nav>
 </template>
