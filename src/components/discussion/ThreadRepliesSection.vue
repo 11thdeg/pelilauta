@@ -54,10 +54,14 @@ onUnmounted(() => {
       class="reply"
       :class="{ fromMe: reply.author === account.uid }"
     >
-      <cyan-toolbar>
-        <ProfileTag :uid="reply.author" />
-        <cyan-spacer />
+      <cyan-toolbar small>
+        <cyan-icon
+          noun="discussion"
+          small
+        />
         <FlowTimeCaption :flow-time="reply.flowTime" />
+        <cyan-spacer />
+        <ProfileTag :uid="reply.author" />
       </cyan-toolbar>
       <MarkDownSection
         v-if="reply.markdownContent"

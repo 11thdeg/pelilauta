@@ -34,7 +34,7 @@ onMounted(async () => {
       v-else
       :to="`/profiles/${profile.uid}`"
     >
-      <cyan-tag :label="profile.nick" />
+      <cyan-tag :label="'@' +profile.nick" />
     </router-link>
   </template>
 </template>

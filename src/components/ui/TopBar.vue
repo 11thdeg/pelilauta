@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav
+  <cyan-toolbar
     id="TopBar"
     :class="{ sticky: sticky, overlay: overlay }"
   >
@@ -36,7 +36,7 @@ onMounted(() => {
     </h1>
     <cyan-spacer />
     <slot />
-  </nav>
+  </cyan-toolbar>
 </template>
 
 <style lang="sass" scoped>
@@ -46,7 +46,7 @@ onMounted(() => {
   display: flex
   justify-content: space-between
   align-items: top
-  height: 56px
+  height: 48px
   gap: 12px
   &.sticky
     position: -webkit-sticky

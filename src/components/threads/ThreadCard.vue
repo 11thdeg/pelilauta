@@ -3,17 +3,19 @@ import { Thread } from '@11thdeg/skaldstore'
 import { computed } from 'vue'
 import { onMounted, Ref, ref } from 'vue'
 import { fetchThread } from '../../composables/useThreads'
-import { toDisplayString } from '../../utils/toDisplayString'
 import TopicTag from './TopicTag.vue'
 import RepliesTag from './RepliesTag.vue'
 import ProfileTag from '../profiles/ProfileTag.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   threadkey?: string
 }>()
 
 const thread:Ref<Thread|undefined> = ref(undefined)
+
+const { t } = useI18n()
 
 onMounted(async () => {
   if (props.threadkey) thread.value = await fetchThread(props.threadkey)
@@ -52,25 +54,32 @@ const siteIcon = computed(() => undefined)
             {{ thread.title }}
           </router-link>
         </h3>
-        <p class="TypeCaption">
-          <TopicTag :slug="thread.topicid || ''" />
-        </p>
       </div>
       <cyan-spacer />
       <cyan-icon
         v-if="siteIcon"
         :noun="siteIcon"
       />
-      <cyan-icon noun="share" />
+      <cyan-icon
+        noun="share"
+        small
+      />
     </section>
     <div
       class="TypeBody2"
       :innerHTML="snippet"
     />
-    <cyan-toolbar>
+    <cyan-toolbar small>
       <ProfileTag :uid="thread.author" />
       <cyan-spacer />
       <FlowTimeCaption :flow-time="thread.flowTime" />
+    </cyan-toolbar>
+    <cyan-toolbar small>
+      <cyan-tag label="like" />
+      <div class="TypeCaption">
+        {{ t('thread.inTopic') }} <TopicTag :slug="thread.topicid || ''" />
+      </div>
+      <cyan-spacer />
       <RepliesTag :threadkey="thread.key || ''" />
     </cyan-toolbar>
   </article>
@@ -79,6 +88,7 @@ const siteIcon = computed(() => undefined)
 <style lang="sass" scoped>
 .cardHeader
   display: flex
+  margin-bottom: 12px
   .meta
     a
       color: var(--cyan-heading-color-a)

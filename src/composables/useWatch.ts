@@ -1,7 +1,6 @@
 import { Account, Thread } from "@11thdeg/skaldstore"
 import { doc, getFirestore, serverTimestamp, Timestamp, updateDoc } from "firebase/firestore"
 import { computed } from "vue"
-import { logDebug } from "../utils/logHelpers"
 import { useSession } from "./useSession"
 
 

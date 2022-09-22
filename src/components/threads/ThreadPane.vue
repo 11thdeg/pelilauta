@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { Thread } from '@11thdeg/skaldstore'
 import { onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { fetchThread } from '../../composables/useThreads'
 import ProfileTag from '../profiles/ProfileTag.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
@@ -10,8 +9,6 @@ import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 const props = defineProps<{
   threadkey: string
 }>()
-
-const { t } = useI18n()
 
 const thread = ref<Thread|undefined>(undefined)
 
