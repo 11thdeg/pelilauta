@@ -67,6 +67,29 @@ export async function fetchAuthorThreads (uid:string, count = 11) {
   return authorThreads
 }
 
+export async function fetchStreamThreads(stream: string, count = 11) {
+  await init()
+  logDebug('fetchStreamThreads')
+  const threads = await getDocs(
+    query(
+      collection(
+        getFirestore(),
+        'stream'
+      ),
+      where('public', '==', true),
+      where('topic', '==', stream),
+      limit(count),
+      orderBy('flowTime', 'desc')
+    )
+  )
+  const streamThreads = new Array<Thread>()
+  threads.forEach((thread) => {
+    streamThreads.push(new Thread(thread.data(), thread.id))
+    threadCache.value.set(thread.id, new Thread(thread.data(), thread.id))
+  })
+  return streamThreads
+}
+
 export async function fetchThread (key:string) {
   if (!threadCache.value.has(key)) {
     return threadCache.value.get(key)

@@ -6,6 +6,7 @@ import AssetsView from './AssetsView.vue'
 import AssetView from './AssetView.vue'
 import ProfileView from './ProfileView.vue'
 import ThreadView from './threads/ThreadView.vue'
+import StreamView from './threads/StreamView.vue'
 
 export const routes = [
   { path: '/', component: HomeView },
@@ -15,5 +16,6 @@ export const routes = [
   { path: '/assets', component: AssetsView },
   { path: '/assets/:assetkey', component: AssetView, props: true },
   { path: '/profiles/:uid', component: ProfileView, props: true },
-  { path: '/threads/:threadkey', component: ThreadView, props: true }
+  { path: '/threads/:threadkey', component: ThreadView, props: true },
+  { path: '/streams/:streamkey', component: StreamView, props: true }
 ]

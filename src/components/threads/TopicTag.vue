@@ -16,7 +16,7 @@ const topic = computed(() => {
 </script>
     
 <template>
-  <router-link :to="`/forum/${props.slug}`">
+  <router-link :to="`/streams/${props.slug}`">
     <cyan-tag
       :label="topic.name"
       :noun="topic.icon"
