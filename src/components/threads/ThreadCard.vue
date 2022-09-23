@@ -77,7 +77,7 @@ const siteIcon = computed(() => undefined)
     <cyan-toolbar small>
       <cyan-tag label="like" />
       <div class="TypeCaption">
-        {{ t('thread.inTopic') }} <TopicTag :slug="thread.topicid || ''" />
+        {{ t('threads.inTopic') }} <TopicTag :slug="thread.topicid || ''" />
       </div>
       <cyan-spacer />
       <RepliesTag :threadkey="thread.key || ''" />

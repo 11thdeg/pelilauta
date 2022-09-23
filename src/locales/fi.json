@@ -80,7 +80,8 @@
       }
     },
     "threads": {
-      "replies": "{count} vastausta"
+      "replies": "{count} vastausta",
+      "inTopic": "Aiheessa"
     },
     "fields": {
       "account": {

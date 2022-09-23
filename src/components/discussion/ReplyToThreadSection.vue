@@ -59,15 +59,21 @@ async function onSubmit () {
 }
 
 logDebug('ThreadDiscussionColumn.vue: threadid=', props.threadkey)
+
 </script>
 
 <template>
   <section>
     <h4>{{ t('reply.title') }}</h4>
-    <MarkdownArea
-      v-model="reply.markdownContent"
-      collapsed
-    />
+    <cyan-textarea
+      v-once
+      :placeholder="t('reply.placeholder')"
+      :label="t('reply.label')"
+      cols="3"
+      @change="reply.markdownContent = $event.target.value"
+    >
+      {{ reply.markdownContent }}
+    </cyan-textarea>
     <cyan-toolbar>
       <cyan-spacer />
       <cyan-button

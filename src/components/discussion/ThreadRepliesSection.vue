@@ -5,6 +5,7 @@ import { collection, getFirestore, onSnapshot } from '@firebase/firestore'
 import { useSession } from '../../composables/useSession'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ProfileTag from '../profiles/ProfileTag.vue'
+import MarkdownSection from '../content/MarkdownSection.vue'
 
 const props = defineProps<{
   threadkey: string
@@ -63,7 +64,7 @@ onUnmounted(() => {
         <cyan-spacer />
         <ProfileTag :uid="reply.author" />
       </cyan-toolbar>
-      <MarkDownSection
+      <MarkdownSection
         v-if="reply.markdownContent"
         :content="reply.markdownContent"
       />
