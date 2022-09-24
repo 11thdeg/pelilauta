@@ -10,23 +10,23 @@ const messageParams:Ref<Record<string, string>|undefined>= ref(undefined)
 const { t } = useI18n()
 
 onMounted(() => {
-    watch(snackStack.value, (stack) => {
+  watch(snackStack.value, (stack) => {
     logDebug('Snackbar stack changed', stack)
     if (stack.length > 0) {
-        const snack = stack[0]
-        messageCode.value = snack.message
-        messageParams.value = snack.params
-        setTimeout(() => {
-            if (stack[0] === snack) {
-            messageCode.value = ''
-            messageParams.value = undefined
-            setTimeout(() => {
-                snackStack.value.shift()
-            }, 500)
-            }
-        }, 5000)
+      const snack = stack[0]
+      messageCode.value = snack.message
+      messageParams.value = snack.params
+      setTimeout(() => {
+        if (stack[0] === snack) {
+          messageCode.value = ''
+          messageParams.value = undefined
+          setTimeout(() => {
+            snackStack.value.shift()
+          }, 500)
+        }
+      }, 5000)
     }
-    })
+  })
 })
 </script>
     

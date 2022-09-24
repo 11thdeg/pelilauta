@@ -6,12 +6,12 @@ import { logEvent } from '../../utils/logHelpers'
 const t = useI18n().t
 
 function socialGoogleLogin () {
-      const provider = new GoogleAuthProvider()
-      provider.addScope('email')
-      signInWithPopup(getAuth(), provider).then(() => {
-        logEvent('Login', { vendor: 'Google' })
-      })
-    }
+  const provider = new GoogleAuthProvider()
+  provider.addScope('email')
+  signInWithPopup(getAuth(), provider).then(() => {
+    logEvent('Login', { vendor: 'Google' })
+  })
+}
 </script>
 
 <template>

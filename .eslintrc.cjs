@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
-    'semi': [1, 'never']
+    'semi': [1, 'never'],
+    'indent': ['error', 2]
   }
 }

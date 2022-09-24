@@ -14,19 +14,19 @@ import { getAuth, onAuthStateChanged, User } from "firebase/auth"
 import { login } from './composables/useSession'
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes: routes
-  })
+  history: createWebHistory(),
+  routes: routes
+})
 
 const i18n = createI18n({
-    legacy: false,
-    locale: 'fi',
-    fallbackLocale: 'fi',
-    messages: {
-      en: en,
-      fi: fi
-    }
-  })
+  legacy: false,
+  locale: 'fi',
+  fallbackLocale: 'fi',
+  messages: {
+    en: en,
+    fi: fi
+  }
+})
   
 const app = createApp(App)
 app.use(i18n)

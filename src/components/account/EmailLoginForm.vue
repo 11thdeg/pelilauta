@@ -58,7 +58,7 @@ const sendLinkToEmail = async () => {
       logError('snackbar not implemented', `pushSnack('snacks.error', { params: { topic: error.message }})`)
       //pushSnack('snacks.error', { params: { topic: error.message }})
       logError(error)
-  })
+    })
 }
 
 </script>

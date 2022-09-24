@@ -1,8 +1,9 @@
 import { Thread } from "@11thdeg/skaldstore"
 import { collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, orderBy, query, where } from "firebase/firestore"
 import { computed, ref } from "vue"
-import { logDebug, logEvent } from "../utils/logHelpers"
-import { addStore } from "./useSession"
+import { logDebug, logEvent } from "../../utils/logHelpers"
+import { addStore } from "./../useSession"
+import { loveThread, unLoveThread } from "./reactions"
 
 let _init = false
 let unsubscribeThreads:undefined|CallableFunction
@@ -16,13 +17,13 @@ async function init () {
   if(unsubscribeThreads) unsubscribeThreads()
   unsubscribeThreads = await onSnapshot(
     query(
-        collection(
-          getFirestore(),
-          'stream'
-        ),
-        limit(11),
-        where('public', '==', true),
-        orderBy('flowTime', 'desc')
+      collection(
+        getFirestore(),
+        'stream'
+      ),
+      limit(11),
+      where('public', '==', true),
+      orderBy('flowTime', 'desc')
     ),
     (snapshot) => {
       snapshot.docChanges().forEach((change) => {
@@ -106,14 +107,16 @@ export async function fetchThread (key:string) {
 }
 
 export function useThreads () {
-    init()
-    return {
-        recent: computed(() => {
-          const arr = Array.from(threadCache.value.values())
-          if (arr.length > 11) arr.length = 11
-          arr.sort((a, b) => a.compareFlowTime(b))
-            return arr
-        }),
-        threadCache: computed(() => threadCache.value)
-    }
+  init()
+  return {
+    recent: computed(() => {
+      const arr = Array.from(threadCache.value.values())
+      if (arr.length > 11) arr.length = 11
+      arr.sort((a, b) => a.compareFlowTime(b))
+      return arr
+    }),
+    threadCache: computed(() => threadCache.value)
+  }
 }
+
+export { loveThread, unLoveThread }

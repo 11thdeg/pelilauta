@@ -26,35 +26,35 @@ const licenses = [
 const file:Ref<FileData|undefined> = ref(undefined)
 
 watch(file, (newVal) => {
-    if (newVal) {
+  if (newVal) {
     fileName.value = newVal.name
-    }
+  }
 })
 
 function open () {
-    file.value = undefined
-    fileName.value = ''
-    description.value = ''
-    license.value = '0'
-    dialog.value = true
+  file.value = undefined
+  fileName.value = ''
+  description.value = ''
+  license.value = '0'
+  dialog.value = true
 }
 
 async function upload () {
-    uploading.value = true
-    const { uploadAsset } = useAssets()
-    if (file.value) {
+  uploading.value = true
+  const { uploadAsset } = useAssets()
+  if (file.value) {
     uploading.value = true
     await uploadAsset(
-        fileName.value || file.value.name,
-        file.value.mimetype,
-        file.value.dataURL,
-        description.value,
-        parseInt(license.value)
+      fileName.value || file.value.name,
+      file.value.mimetype,
+      file.value.dataURL,
+      description.value,
+      parseInt(license.value)
     )
     pushSnack('Asset uploaded')
-    }
-    uploading.value = false
-    dialog.value = false
+  }
+  uploading.value = false
+  dialog.value = false
 }
 
 </script>

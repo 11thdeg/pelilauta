@@ -8,6 +8,7 @@ import RepliesTag from './RepliesTag.vue'
 import ProfileTag from '../profiles/ProfileTag.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import { useI18n } from 'vue-i18n'
+import LoveAThreadButton from './LoveAThreadButton.vue'
 
 const props = defineProps<{
   threadkey?: string
@@ -25,17 +26,17 @@ const snippet = computed(() => {
   if (!thread.value) return ''
   if (thread.value.markdownContent) return thread.value.markdownContent.slice(0, 240) + '...'
   const div = document.createElement('div')
-      div.innerHTML = thread.value.htmlContent
-      let snip = ''
-      if (div.firstChild) {
-        snip = div.firstChild.textContent || ''
-        if (snip.length > 240) snip = snip.substring(0, 240) + '...'
-      }
-      if (snip.length < 239 && div.firstChild?.nextSibling) {
-        snip += '<br><br>' + div.firstChild.nextSibling.textContent || ''
-        if (snip.length > 240) snip = snip.substring(0, 240) + '...'
-      } 
-      return snip
+  div.innerHTML = thread.value.htmlContent
+  let snip = ''
+  if (div.firstChild) {
+    snip = div.firstChild.textContent || ''
+    if (snip.length > 240) snip = snip.substring(0, 240) + '...'
+  }
+  if (snip.length < 239 && div.firstChild?.nextSibling) {
+    snip += '<br><br>' + div.firstChild.nextSibling.textContent || ''
+    if (snip.length > 240) snip = snip.substring(0, 240) + '...'
+  } 
+  return snip
 })
 
 const siteIcon = computed(() => undefined)
@@ -75,7 +76,7 @@ const siteIcon = computed(() => undefined)
       <FlowTimeCaption :flow-time="thread.flowTime" />
     </cyan-toolbar>
     <cyan-toolbar small>
-      <cyan-tag label="like" />
+      <LoveAThreadButton :thread="thread" />
       <div class="TypeCaption">
         {{ t('threads.inTopic') }} <TopicTag :slug="thread.topicid || ''" />
       </div>

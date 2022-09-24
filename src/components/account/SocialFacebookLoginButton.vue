@@ -6,12 +6,12 @@ import { logEvent } from '../../utils/logHelpers'
 const t = useI18n().t
 
 function socialFacebookLogin () {
-      const provider = new FacebookAuthProvider()
-      provider.addScope('email')
-      signInWithPopup(getAuth(), provider).then(() => {
-        logEvent('Login', { vendor: 'Facebook' })
-      })
-    }
+  const provider = new FacebookAuthProvider()
+  provider.addScope('email')
+  signInWithPopup(getAuth(), provider).then(() => {
+    logEvent('Login', { vendor: 'Facebook' })
+  })
+}
 </script>
 
 <template>

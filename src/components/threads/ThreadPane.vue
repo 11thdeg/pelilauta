@@ -5,6 +5,7 @@ import { fetchThread } from '../../composables/useThreads'
 import ProfileTag from '../profiles/ProfileTag.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
+import LoveAThreadButton from './LoveAThreadButton.vue'
 
 const props = defineProps<{
   threadkey: string
@@ -46,9 +47,8 @@ onMounted(async () => {
         noun="eye"
         xsmall
       />
-      <cyan-icon
-        noun="love"
-        xsmall
+      <LoveAThreadButton
+        :thread="thread"
       />
     </cyan-toolbar>
   </article>
