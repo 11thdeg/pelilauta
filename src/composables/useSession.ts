@@ -3,6 +3,7 @@ import { getAuth, User } from "firebase/auth"
 import { doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"
 import { ref, computed } from "vue"
 import { logDebug, logError } from "../utils/logHelpers"
+import { useMeta } from "./useMeta"
 
 // Set to true, if the session is active
 const active = ref(false)
@@ -107,12 +108,25 @@ function updateProfile(field: string, value:string) {
   }
 }
 
+const admin = computed(() => {
+  const { admins } = useMeta()
+  return admins.value.includes(uid.value)
+})
+
+const frozen = computed(() => {
+  const { frozen: frozens } = useMeta()
+  return frozens.value.includes(uid.value)
+})
+
 export function useSession () {
   return {
     active: computed(() => active.value),
     anonymous: computed(() => anonymous.value),
     profile: computed(() => profile.value),
     account: computed(() => account.value),
-    updateProfile
+    updateProfile,
+    admin,
+    frozen,
+    uid: computed(() => account.value.uid)
   }
 }

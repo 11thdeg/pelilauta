@@ -17,5 +17,6 @@ export const routes = [
   { path: '/assets/:assetkey', component: AssetView, props: true },
   { path: '/profiles/:uid', component: ProfileView, props: true },
   { path: '/threads/:threadkey', component: ThreadView, props: true },
-  { path: '/streams/:streamkey', component: StreamView, props: true }
+  { path: '/streams/:streamkey', component: StreamView, props: true },
+  { path: '/editorSandbox', component: () => import('./admin/EditorSandbox.vue') },
 ]

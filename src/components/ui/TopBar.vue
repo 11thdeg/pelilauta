@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
   title: string,
-  sticky: boolean
+  sticky?: boolean
 }>()
 
 const overlay = ref(false)

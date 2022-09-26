@@ -13,6 +13,7 @@
     "@11thdeg/cyan": "^0.13.0",
     "@11thdeg/skaldstore": "^0.2.1",
     "downscale": "^1.0.6",
+    "europa": "^6.0.0",
     "firebase": "^9.9.3",
     "luxon": "^3.0.3",
     "marked": "^4.1.0",

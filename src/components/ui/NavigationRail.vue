@@ -2,9 +2,12 @@
 import NavButton from './NavButton.vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
+import { useSession } from '../../composables/useSession';
 
 const { t } = useI18n()
 const route = useRoute()
+
+const { admin } = useSession()
 </script>
 
 <template>
@@ -25,6 +28,13 @@ const route = useRoute()
       :active="route.path === '/assets'"
     />
     <cyan-spacer />
+    <NavButton
+      v-if="admin"
+      noun="admin"
+      label="Sandbox"
+      to="/editorSandBox"
+      :active="route.path === '/editorSandBox'"
+    />
     <NavButton
       noun="stylebook"
       :label="t('about.title')"

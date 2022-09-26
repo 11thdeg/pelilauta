@@ -19,6 +19,11 @@ function init () {
     doc(getFirestore(), 'meta', 'pelilauta'),
     (snapshot) => {
       const s = new Array<StreamData>()
+      const data = snapshot.data()
+      if (data) {
+        if (data.admins) admins.value = data.admins
+        if (data.frozen) frozen.value = data.frozen
+      }
       for (const key in snapshot.data()?.streams) {
         if(key === '-') continue // skip the '-' key as it's reserved for unassigned streams
         s.push({
@@ -37,9 +42,14 @@ function init () {
   )
 }
 
+const admins = ref<string[]>([])
+const frozen = ref<string[]>([])
+
 export function useMeta () {
   init()
   return {
-    streams: computed(() => streams.value)
+    streams: computed(() => streams.value),
+    admins: computed(() => admins.value),
+    frozen: computed(() => frozen.value)
   }
 }
