@@ -64,16 +64,13 @@ logDebug('ThreadDiscussionColumn.vue: threadid=', props.threadkey)
 
 <template>
   <section>
-    <h4>{{ t('reply.title') }}</h4>
     <cyan-textarea
-      v-once
       :placeholder="t('reply.placeholder')"
-      :label="t('reply.label')"
-      cols="3"
+      :label="t('reply.title')"
+      collapse
+      :value="reply.markdownContent"
       @change="reply.markdownContent = $event.target.value"
-    >
-      {{ reply.markdownContent }}
-    </cyan-textarea>
+    />
     <cyan-toolbar>
       <cyan-spacer />
       <cyan-button
@@ -82,7 +79,7 @@ logDebug('ThreadDiscussionColumn.vue: threadid=', props.threadkey)
         @click.prevent="onCancel"
       />
       <cyan-button
-        :label="t('actions.send')"
+        :label="t('action.send')"
         @click.prevent="onSubmit"
       />
     </cyan-toolbar>

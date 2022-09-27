@@ -43,7 +43,8 @@
       "add": "Lisää",
       "upload": "Lähetä",
       "edit": "Muokkaa",
-      "create": "Luo uusi"
+      "create": "Luo uusi",
+      "send": "Lähetä"
     },
     "assets": {
       "title": "Lataukset",
@@ -64,6 +65,9 @@
         "description": "Voit luoda pelillesi oman sivuston, ja halutessasi julkaista sivuston Pelilaudalla. Julkaisemattomaan sivustoon pääsee vain suoralla linkillä, tai omien pelien listauksesta."
       }
     },
+    "discourse":{
+      "title": "Keskustelu"
+    },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",
       "withGoogle": "Googlella",
@@ -78,6 +82,10 @@
       "stream": {
         "title": "Ketjut"
       }
+    },
+    "reply": {
+      "title": "Vastaa ketjuun",
+      "placeholder": "..."
     },
     "threads": {
       "replies": "{count} vastausta",
