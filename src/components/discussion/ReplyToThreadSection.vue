@@ -7,6 +7,8 @@ import { collection, getFirestore, addDoc, updateDoc, doc, serverTimestamp, incr
 import { useSnack } from '../../composables/useSnack'
 import { useSession } from '../../composables/useSession'
 import { marked } from 'marked'
+import ImageListSection from '../content/ImageListSection.vue'
+import SelectAssetDialog from '../assets/SelectAssetDialog.vue'
 
 const { t } = useI18n()
 const { pushSnack } = useSnack()
@@ -20,6 +22,7 @@ const props = defineProps<{
 
 function onCancel () {
   reply.value = new Reply()
+  replace.value = ''
 }
 
 async function onSubmit () {
@@ -58,20 +61,42 @@ async function onSubmit () {
   }
 }
 
-logDebug('ThreadDiscussionColumn.vue: threadid=', props.threadkey)
+const addImageDialog = ref(false)
+function addImage (url: string) {
+  if (!reply.value.images) {
+    reply.value.images = []
+  }
+  reply.value.images?.push(url)
+}
+
+const replace=ref("")
 
 </script>
 
 <template>
   <section>
+    <SelectAssetDialog
+      v-model="addImageDialog"
+      @select="addImage($event)"
+    />
+    <ImageListSection
+      v-if="reply.images"
+      :images="reply.images"
+    />
     <cyan-textarea
       :placeholder="t('reply.placeholder')"
       :label="t('reply.title')"
       collapse
-      :value="reply.markdownContent"
+      :value="replace"
       @change="reply.markdownContent = $event.target.value"
     />
     <cyan-toolbar>
+      <cyan-button
+        :label="t('action.addImage')"
+        text
+        noun="add"
+        @click="addImageDialog = true"
+      />
       <cyan-spacer />
       <cyan-button
         text
@@ -80,6 +105,7 @@ logDebug('ThreadDiscussionColumn.vue: threadid=', props.threadkey)
       />
       <cyan-button
         :label="t('action.send')"
+        noun="send"
         @click.prevent="onSubmit"
       />
     </cyan-toolbar>
