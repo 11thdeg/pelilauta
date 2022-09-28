@@ -42,3 +42,12 @@ onMounted(async() => {
     </template>
   </section>
 </template>
+
+<style lang="sass" scoped>
+.QuotedResponseSection
+  margin: 0
+  margin-bottom: 12px
+  padding: 12px
+  border: solid 1px var(--chroma-primary-g)
+  border-radius: 12px
+</style>

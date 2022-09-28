@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Reply } from '@11thdeg/skaldstore'
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { logDebug, logError } from '../../utils/loghelpers'
 import { collection, getFirestore, addDoc, updateDoc, doc, serverTimestamp, increment } from '@firebase/firestore'
@@ -9,6 +9,8 @@ import { useSession } from '../../composables/useSession'
 import { marked } from 'marked'
 import ImageListSection from '../content/ImageListSection.vue'
 import SelectAssetDialog from '../assets/SelectAssetDialog.vue'
+import QuotedResponseSection from './QuotedResponseSection.vue'
+
 
 const { t } = useI18n()
 const { pushSnack } = useSnack()
@@ -17,13 +19,23 @@ const { account } = useSession()
 const reply = ref(new Reply())
 
 const props = defineProps<{
-  threadkey: string
+  threadkey: string,
+  quote?: string[]
 }>()
 
 function onCancel () {
   reply.value = new Reply()
   replace.value = ''
 }
+
+onMounted(() => {
+  watch(props, (p) => {
+    logDebug('props change', p)
+    if (p.quote && Array.isArray(p.quote) && p.quote?.length === 2) {
+      reply.value.quoteRef = p.quote[1]
+    }
+  })
+})
 
 async function onSubmit () {
   reply.value.author = account.value.uid
@@ -74,7 +86,7 @@ const replace=ref("")
 </script>
 
 <template>
-  <section>
+  <section id="ReplyToThreadSection">
     <SelectAssetDialog
       v-model="addImageDialog"
       @select="addImage($event)"

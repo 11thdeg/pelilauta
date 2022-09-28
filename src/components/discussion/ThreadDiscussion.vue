@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ReplyToThreadSection from './ReplyToThreadSection.vue'
 import ThreadRepliesSection from './ThreadRepliesSection.vue'
@@ -9,12 +10,19 @@ const props = defineProps<{
     }>()
     
 const t = useI18n().t
+const pushQuote = ref(new Array<string>())
 </script>
     
 <template>
   <article>
     <h2>{{ t('discourse.title') }}</h2>
-    <ThreadRepliesSection :threadkey="threadkey" />
-    <ReplyToThreadSection :threadkey="threadkey" />
+    <ThreadRepliesSection
+      :threadkey="threadkey"
+      @update:quote="pushQuote = $event"
+    />
+    <ReplyToThreadSection
+      :threadkey="threadkey"
+      :quote="pushQuote"
+    />
   </article>
 </template>

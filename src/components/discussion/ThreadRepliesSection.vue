@@ -13,6 +13,9 @@ import ImageListSection from '../content/ImageListSection.vue'
 const props = defineProps<{
   threadkey: string
 }>()
+const emit = defineEmits<{
+  (e: 'update:quote', keys: string[]): void
+}>()
 
 const replies = ref(new Array<Reply>())
 const { account } = useSession()
@@ -56,6 +59,7 @@ onUnmounted(() => {
   <section>
     <div
       v-for="reply in replies"
+      :id="'reply_'+reply.key"
       :key="reply.key"
       class="reply"
       :class="{ fromMe: reply.author === account.uid }"
@@ -67,6 +71,10 @@ onUnmounted(() => {
         />
         <FlowTimeCaption :flow-time="reply.flowTime" />
         <cyan-spacer />
+        <a
+          href="#ReplyToThreadSection"
+          @click="emit('update:quote', [threadkey, reply.key || ''])"
+        >QUOTE</a>
         <ProfileTag :uid="reply.author" />
       </cyan-toolbar>
       <ImageListSection
