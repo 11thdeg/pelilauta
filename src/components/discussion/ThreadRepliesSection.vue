@@ -9,6 +9,8 @@ import MarkdownSection from '../content/MarkdownSection.vue'
 import { stashReply } from '../../composables/useDiscussion'
 import QuotedResponseSection from './QuotedResponseSection.vue'
 import ImageListSection from '../content/ImageListSection.vue'
+import LoveAReplyTag from './LoveAReplyTag.vue'
+import { logDebug, logError } from '../../utils/logHelpers'
 
 const props = defineProps<{
   threadkey: string
@@ -36,7 +38,10 @@ onMounted(async () => {
       }
       snapshot.docChanges().forEach((change) => {
         if (change.type === 'added') {
-          const reply = new Reply(change.doc.data(), change.doc.id)
+          const data = change.doc.data()
+          data.lovers = (data.lovers && Array.isArray(data.lovers)) ? data.lovers : []
+          logDebug('DANGEROUSLY FIXING A BUG INSIDE skaldbase/reply.ts', data.lovers)
+          const reply = new Reply(data, change.doc.id)
           replies.value.push(reply)
           stashReply(reply)
         }
@@ -75,6 +80,10 @@ onUnmounted(() => {
           href="#ReplyToThreadSection"
           @click="emit('update:quote', [threadkey, reply.key || ''])"
         >QUOTE</a>
+        <LoveAReplyTag
+          :reply="reply"
+          :thread-key="threadkey"
+        />
         <ProfileTag :uid="reply.author" />
       </cyan-toolbar>
       <ImageListSection
