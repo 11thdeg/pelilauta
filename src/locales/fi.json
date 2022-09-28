@@ -26,6 +26,9 @@
       },
       "dangerousDeleteAccountAction": "Poista tilini (ei poista luomaasi sisältöä)"
     },
+    "sites": {
+      "title": "Mekanismi"
+    },
     "action": {
       "toLogin": "Kirjaudu sisään",
       "toProfile": "Profiili",

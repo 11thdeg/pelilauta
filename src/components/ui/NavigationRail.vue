@@ -22,6 +22,12 @@ const { admin } = useSession()
       :active="route.path === '/'"
     />
     <NavButton
+      noun="mekanismi"
+      :label="t('sites.title')"
+      to="/sites"
+      :active="route.path === '/sites'"
+    />
+    <NavButton
       noun="assets"
       :label="t('assets.title')"
       to="/assets"

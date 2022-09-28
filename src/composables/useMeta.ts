@@ -12,6 +12,13 @@ interface StreamData {
 let _init = false
 const streams = ref<StreamData[]>([])
 
+export interface SiteFamily {
+  name: string
+  icon: string
+  id: string
+}
+const siteFamilies = ref<SiteFamily[]>([])
+
 function init () {
   if (_init) return
   _init = true
@@ -23,6 +30,7 @@ function init () {
       if (data) {
         if (data.admins) admins.value = data.admins
         if (data.frozen) frozen.value = data.frozen
+        siteFamilies.value = data.siteThemes || []
       }
       for (const key in snapshot.data()?.streams) {
         if(key === '-') continue // skip the '-' key as it's reserved for unassigned streams
@@ -50,6 +58,7 @@ export function useMeta () {
   return {
     streams: computed(() => streams.value),
     admins: computed(() => admins.value),
-    frozen: computed(() => frozen.value)
+    frozen: computed(() => frozen.value),
+    siteFamilies: computed(() => siteFamilies.value)
   }
 }
