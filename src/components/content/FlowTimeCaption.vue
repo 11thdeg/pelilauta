@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // import { logDebug } from '../../utils/loghelpers'
-import { computed } from 'vue';
+import { computed } from 'vue'
 import { toDisplayString } from '../../utils/toDisplayString'
 
 const props = defineProps<{

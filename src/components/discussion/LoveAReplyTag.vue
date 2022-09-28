@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { loveReply, unloveReply } from '../../composables/useDiscussion';
+import { computed } from 'vue'
+import { loveReply, unloveReply } from '../../composables/useDiscussion'
 import { useSession } from '../../composables/useSession'
 import { logDebug } from '../../utils/logHelpers'
 

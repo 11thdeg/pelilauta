@@ -33,7 +33,7 @@ const notification = computed(() => {
     :to="`/threads/${thread.key}`"
   >
     <cyan-tag
-      :label="t('threads.replies', { count: thread.replyCount })"
+      :label="thread.replyCount + ' ' + t('threads.replies')"
       noun="discussion"
       :notification="notification"
     />

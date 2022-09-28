@@ -10,7 +10,7 @@ import { stashReply } from '../../composables/useDiscussion'
 import QuotedResponseSection from './QuotedResponseSection.vue'
 import ImageListSection from '../content/ImageListSection.vue'
 import LoveAReplyTag from './LoveAReplyTag.vue'
-import { logDebug, logError } from '../../utils/logHelpers'
+import { logDebug } from '../../utils/logHelpers'
 
 const props = defineProps<{
   threadkey: string

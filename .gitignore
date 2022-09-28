@@ -25,3 +25,6 @@ src/firebaseconfig.ts
 *.njsproj
 *.sln
 *.sw?
+.firebase
+.firebaserc
+firebase.json

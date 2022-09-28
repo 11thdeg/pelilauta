@@ -3,7 +3,7 @@
 import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
-  title: string,
+  title?: string,
   sticky?: boolean
 }>()
 
@@ -32,7 +32,7 @@ onMounted(() => {
       v-if="props.title"
       class="TypeHeadline5"
     >
-      {{ props.title }}
+      {{ props.title || '...' }}
     </h1>
     <cyan-spacer />
     <slot />
@@ -42,7 +42,7 @@ onMounted(() => {
 <style lang="sass" scoped>
 #TopBar
   margin: 0
-  paddin: 0
+  padding: 0
   display: flex
   justify-content: space-between
   align-items: top

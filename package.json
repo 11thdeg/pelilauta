@@ -1,7 +1,7 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "0.0.1-alpha.3",
+  "version": "12.0.0-alpha.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -23,6 +23,8 @@
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^6.0.1",
+    "@types/downscale": "^1.0.1",
+    "@types/luxon": "^3.0.1",
     "@types/marked": "^4.0.7",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",

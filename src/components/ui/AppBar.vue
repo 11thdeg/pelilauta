@@ -33,7 +33,7 @@ const title = computed(() => {
 <style scoped lang="sass">
 #AppBar
   margin: 0
-  paddin: 0
+  padding: 0
   display: flex
   justify-content: space-between
   align-items: top

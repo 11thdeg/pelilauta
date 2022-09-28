@@ -89,7 +89,7 @@
       "placeholder": "..."
     },
     "threads": {
-      "replies": "{count} vastausta",
+      "replies": "vastausta",
       "inTopic": "Aiheessa"
     },
     "fields": {

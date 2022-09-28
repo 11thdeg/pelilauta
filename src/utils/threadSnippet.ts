@@ -1,10 +1,10 @@
-import { Reply, Thread } from "@11thdeg/skaldstore"
+// import { Reply, Thread } from "@11thdeg/skaldstore"
 
-export function threadSnippet(thread?: Thread|Reply, length=240) {
+export function threadSnippet(thread?: {markdownContent?: string, htmlContent?: string }, length=240) {
   if (!thread) return ''
   if (thread.markdownContent) return thread.markdownContent.slice(0, length) + '...'
   const div = document.createElement('div')
-  div.innerHTML = thread.htmlContent
+  div.innerHTML = thread.htmlContent || ''
   let snip = ''
   if (div.firstChild) {
     snip = div.firstChild.textContent || ''
