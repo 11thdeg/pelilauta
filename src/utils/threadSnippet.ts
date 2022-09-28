@@ -1,18 +1,18 @@
-import { Thread } from "@11thdeg/skaldstore"
+import { Reply, Thread } from "@11thdeg/skaldstore"
 
-export function threadSnippet(thread?: Thread) {
+export function threadSnippet(thread?: Thread|Reply, length=240) {
   if (!thread) return ''
-  if (thread.markdownContent) return thread.markdownContent.slice(0, 240) + '...'
+  if (thread.markdownContent) return thread.markdownContent.slice(0, length) + '...'
   const div = document.createElement('div')
   div.innerHTML = thread.htmlContent
   let snip = ''
   if (div.firstChild) {
     snip = div.firstChild.textContent || ''
-    if (snip.length > 240) snip = snip.substring(0, 240) + '...'
+    if (snip.length > length) snip = snip.substring(0, length) + '...'
   }
-  if (snip.length < 239 && div.firstChild?.nextSibling) {
+  if (snip.length < length && div.firstChild?.nextSibling) {
     snip += '<br><br>' + div.firstChild.nextSibling.textContent || ''
-    if (snip.length > 240) snip = snip.substring(0, 240) + '...'
+    if (snip.length > length) snip = snip.substring(0, length) + '...'
   } 
   return snip
 }

@@ -6,6 +6,9 @@ import { useSession } from '../../composables/useSession'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ProfileTag from '../profiles/ProfileTag.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
+import { stashReply } from '../../composables/useDiscussion'
+import QuotedResponseSection from './QuotedResponseSection.vue'
+import ImageListSection from '../content/ImageListSection.vue'
 
 const props = defineProps<{
   threadkey: string
@@ -30,7 +33,9 @@ onMounted(async () => {
       }
       snapshot.docChanges().forEach((change) => {
         if (change.type === 'added') {
-          replies.value.push(new Reply(change.doc.data(), change.doc.id))
+          const reply = new Reply(change.doc.data(), change.doc.id)
+          replies.value.push(reply)
+          stashReply(reply)
         }
         if (change.type === 'modified') {
           const index = replies.value.findIndex((reply) => reply.key === change.doc.id)
@@ -64,6 +69,15 @@ onUnmounted(() => {
         <cyan-spacer />
         <ProfileTag :uid="reply.author" />
       </cyan-toolbar>
+      <ImageListSection
+        v-if="reply.images"
+        :images="reply.images"
+      />
+      <QuotedResponseSection
+        v-if="reply.quoteRef"
+        :threadkey="threadkey"
+        :replykey="reply.quoteRef"
+      />
       <MarkdownSection
         v-if="reply.markdownContent"
         :content="reply.markdownContent"

@@ -83,6 +83,11 @@ const replace=ref("")
       v-if="reply.images"
       :images="reply.images"
     />
+    <QuotedResponseSection
+      v-if="reply.quoteRef"
+      :threadkey="threadkey"
+      :replykey="reply.quoteRef"
+    />
     <cyan-textarea
       :placeholder="t('reply.placeholder')"
       :label="t('reply.title')"
