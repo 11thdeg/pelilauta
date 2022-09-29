@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import SiteListFilterPane from './SiteListFilterPane.vue'
 import { useSites } from '../../composables/useSites'
 import { useSession } from '../../composables/useSession'
+import SiteCard from './SiteCard.vue'
 
 const { uid } = useSession()
 const { allSites } = useSites()
@@ -15,6 +16,12 @@ const filteredSites = computed(() => {
   if (filter.value.includes('visibility:player')) {
     arr = arr.filter(site => site.players.includes(uid.value))
   }
+  for (const index in filter.value) {
+    const f = filter.value[index]
+    if(f.startsWith('family:')) {
+      arr = arr.filter(site => site.systemBadge === f.split(':')[1])
+    }
+  }
   return arr
 })
 
@@ -22,14 +29,26 @@ const filter = ref(new Array<string>())
 </script>
 <template>
   <article class="Column double">
-    <h1>Sites!</h1>
     <SiteListFilterPane v-model="filter" />
-    <p>{{ filter }}</p>
-    <p
-      v-for="site in filteredSites"
-      :key="site.key"
-    >
-      {{ site.name }}
-    </p>
+    <div class="siteListing">
+      <router-link
+        v-for="site in filteredSites"
+        :key="site.key"
+        :to="'/sites/' + site.key"
+      >
+        <SiteCard
+          :site="site"
+        />
+      </router-link>
+    </div>
   </article>
 </template>
+
+<style lang="sass" scoped>
+.siteListing
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 1rem
+  a
+    text-decoration: none
+</style>
