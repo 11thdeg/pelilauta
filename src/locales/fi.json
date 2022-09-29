@@ -27,7 +27,9 @@
       "dangerousDeleteAccountAction": "Poista tilini (ei poista luomaasi sisältöä)"
     },
     "sites": {
-      "title": "Mekanismi"
+      "title": "Mekanismi",
+      "ownedByMe": "Omistan",
+      "playsIn": "Pelaan"
     },
     "action": {
       "toLogin": "Kirjaudu sisään",

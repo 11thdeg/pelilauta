@@ -48,21 +48,17 @@ function isActiveFamily (id:string) {
 
 <template>
   <div class="SiteListFilterPane">
-    <cyan-icon noun="filter" />
-    <Icon
+    <cyan-icon
+      noun="filter"
       small
-      name="filter"
-      style="margin-right: 12px;"
     />
-    <!-- FilterChip :label="$t('action.filter.mySites')" @click="onClick('action.filter.mySites')" />
-      <FilterChip :label="$t('action.filter.gamesIPlayIn')" @click="onClick('action.filter.gamesIPlayIn')" / -->
     <FilterChip
-      :label="t('site.ownedByMe')"
+      :label="t('sites.ownedByMe')"
       :value="props.modelValue && props.modelValue.includes('visibility:own')"
       @click="toggleOwn()"
     />
     <FilterChip
-      :label="t('site.playsIn')"
+      :label="t('sites.playsIn')"
       :value="props.modelValue && props.modelValue.includes('visibility:player')"
       @click="togglePlayer()"
     />

@@ -1,7 +1,8 @@
 import { Site } from "@11thdeg/skaldstore"
-import { doc, getDoc, getFirestore } from "firebase/firestore"
-import { ref } from "vue"
+import { collection, doc, getDoc, getFirestore, onSnapshot, query, where } from "firebase/firestore"
+import { computed, ref } from "vue"
 import { logError } from "../utils/logHelpers"
+import { addStore, useSession } from "./useSession"
 
 const siteCache = ref(new Map<string, Site>())
 
@@ -19,4 +20,84 @@ export async function fetchSite (key:string) {
   }
   logError('Site not found', key)
   return undefined
+}
+
+let _init = false
+let unsubscribePublic:CallableFunction|undefined
+let unsubscribeOwn:CallableFunction|undefined
+let unsubscribePlays:CallableFunction|undefined
+
+async function subscribe () {
+  const { anonymous, uid } = useSession()
+  if (anonymous.value) return
+
+  if (_init) return
+  _init = true
+
+  addStore('sites', reset)
+
+  unsubscribePublic = onSnapshot(
+    query(
+      collection(getFirestore(), Site.collectionName),
+      where('hidden', '==', false)
+    ),
+    (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const site = new Site(change.doc.data(), change.doc.id)
+        siteCache.value.set(change.doc.id, site)
+      })
+    }
+  )
+
+  unsubscribeOwn = onSnapshot(
+    query(
+      collection(getFirestore(), Site.collectionName),
+      where('owner', '==', uid.value)
+    ),
+    (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const site = new Site(change.doc.data(), change.doc.id)
+        siteCache.value.set(change.doc.id, site)
+      })
+    }
+  )
+
+  unsubscribePlays = onSnapshot(
+    query(
+      collection(getFirestore(), Site.collectionName),
+      where('players', 'array-contains' , uid.value)
+    ),
+    (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const site = new Site(change.doc.data(), change.doc.id)
+        siteCache.value.set(change.doc.id, site)
+      })
+    }
+  )
+}
+
+async function reset() {
+  _init = false
+  unsubscribePublic && unsubscribePublic()
+  unsubscribeOwn && unsubscribeOwn()
+  unsubscribePlays && unsubscribePlays()
+}
+
+export function useSites () {
+  subscribe()
+  return {
+    fetchSite,
+    publicSites: computed(() => {
+      return Array.from(siteCache.value.values()).filter(site => !site.hidden)
+    }),
+    ownSites: computed(() => {
+      return Array.from(siteCache.value.values()).filter(site => site.hasOwner(useSession().uid.value))
+    }),
+    playerSites: computed(() => {
+      return Array.from(siteCache.value.values()).filter(site => site.players.includes(useSession().uid.value))
+    }),
+    allSites: computed(() => {
+      return Array.from(siteCache.value.values())
+    })
+  }
 }
