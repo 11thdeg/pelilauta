@@ -32,6 +32,10 @@
       "playsIn": "Pelaan"
     },
     "action": {
+      "add": {
+        "new": "Lisää uusi",
+        "thread": "Uusi keskustelu"
+      },
       "toLogin": "Kirjaudu sisään",
       "toProfile": "Profiili",
       "login": "Kirjaudu",
@@ -45,7 +49,6 @@
       "select": "Valitse",
       "selectImage": "Valitse kuva",
       "save": "Tallenna",
-      "add": "Lisää",
       "addImage": "Kuva",
       "upload": "Lähetä",
       "edit": "Muokkaa",

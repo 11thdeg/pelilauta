@@ -61,7 +61,7 @@ async function upload () {
     
 <template>
   <cyan-button
-    :label="t('action.add')"
+    :label="t('action.add.new')"
     noun="add"
     @click.prevent="open"
   />

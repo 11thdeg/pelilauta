@@ -1,8 +1,12 @@
 :root {
   --pelilauta-z-index-base: 1000;
-  --pelilauta-dialog-z-index: calc(10 * var(--pelilauta-z-index-base));
+  --pelilauta-dialog-z-index: calc(1 * var(--pelilauta-z-index-base));
+  --pelilauta-fabs-z-index: calc(2 * var(--pelilauta-z-index-base));
+  /* ... */
   --pelilauta-dialog-backdrop: rgba(0, 0, 0, 0.5);
   --pelilauta-dialog-background: #fff;
+
+  
 }
 body {
   margin: 0;

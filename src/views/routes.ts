@@ -20,4 +20,5 @@ export const routes = [
   { path: '/streams/:streamkey', component: StreamView, props: true },
   { path: '/editorSandbox', component: () => import('./admin/EditorSandbox.vue') },
   { path: '/sites', component: () => import('./sites/SitesHomeView.vue') },
+  { path: '/sites/:sitekey', component: () => import('./sites/SiteView.vue'), props: true },
 ]
