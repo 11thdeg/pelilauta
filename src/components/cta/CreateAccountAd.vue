@@ -28,13 +28,7 @@ const { t } = useI18n()
         text
         dark
         noun="avatar"
-        :label="t('action.login')"
-      />
-      <cyan-button
-        noun="add"
-        dark
-        text
-        :label="t('action.register')"
+        :label="t('action.loginOrRegister')"
       />
       <cyan-spacer />
     </cyan-toolbar>

@@ -5,8 +5,10 @@ import CreateAccountAd from '../components/cta/CreateAccountAd.vue'
 import MekanismiAd from '../components/cta/MekanismiAd.vue'
 import { useI18n } from 'vue-i18n'
 import FabTray from '../components/ui/FabTray.vue'
+import { useSession } from '../composables/useSession'
 
 const { t } = useI18n()
+const { anonymous } = useSession()
 
 </script>
 <template>
@@ -18,7 +20,7 @@ const { t } = useI18n()
       <MekanismiAd />
     </div>
   </main>
-  <FabTray>
+  <FabTray v-if="!anonymous">
     <router-link to="/add/thread">
       <cyan-fab
         noun="add"

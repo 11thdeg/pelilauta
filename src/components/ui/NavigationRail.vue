@@ -7,7 +7,7 @@ import { useSession } from '../../composables/useSession'
 const { t } = useI18n()
 const route = useRoute()
 
-const { admin } = useSession()
+const { admin, anonymous } = useSession()
 </script>
 
 <template>
@@ -28,6 +28,7 @@ const { admin } = useSession()
       :active="route.path === '/sites'"
     />
     <NavButton
+      v-if="!anonymous"
       noun="assets"
       :label="t('assets.title')"
       to="/assets"
