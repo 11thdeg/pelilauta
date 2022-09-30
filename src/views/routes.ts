@@ -21,4 +21,5 @@ export const routes = [
   { path: '/editorSandbox', component: () => import('./admin/EditorSandbox.vue') },
   { path: '/sites', component: () => import('./sites/SitesHomeView.vue') },
   { path: '/sites/:sitekey', component: () => import('./sites/SiteView.vue'), props: true },
+  { path: '/add/thread', component: () => import('./threads/ThreadEditorView.vue') },
 ]
