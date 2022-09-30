@@ -1,14 +1,22 @@
 <script lang="ts" setup>
 import { Thread } from '@11thdeg/skaldstore'
+import { addDoc, collection, getFirestore } from '@firebase/firestore'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { useMeta } from '../../../composables/useMeta'
+import { useSession } from '../../../composables/useSession'
+import { useSnack } from '../../../composables/useSnack'
+import { logError } from '../../../utils/logHelpers'
 import MarkdownSection from '../../content/MarkdownSection.vue'
 import YoutubePreview from '../../content/YoutubePreview.vue'
 
 const { t } = useI18n()
+const router = useRouter()
+const { streams, frozen } = useMeta()
+const { pushSnack } = useSnack()
+const { uid, anonymous } = useSession()
 
-const { streams } = useMeta()
 const topics = computed(() => streams.value.map(stream => { return { value: stream.slug, label: stream.name } }))
 const chosenTopic = computed(() => 'Yleinen')
 
@@ -16,6 +24,42 @@ const videolink = ref(false)
 const preview = ref(false)
 
 const thread = ref(new Thread())
+
+const titleError = computed(() => thread.value.title.length && thread.value.title.length > 42)
+
+const valid = computed(() => {
+  return thread.value.title.length > 0 &&
+    thread.value.title.length < 42 &&
+    thread.value.markdownContent.length > 0
+})
+
+async function send() {
+  if (!valid.value) {
+    logError('Thread is not valid, can not save')
+    return
+  }
+  if (anonymous.value) {
+    pushSnack(t('error.anonymous'))
+    logError('Anonymous user tried to send a thread')
+    return
+  }
+  if (frozen.value) {
+    pushSnack(t('error.frozen'))
+    logError('User tried to send a thread while frozen')
+    return
+  }
+  if (!thread.value.topicid) thread.value.topicid = chosenTopic.value
+  thread.value.author = uid.value
+  const doc = await addDoc(
+    collection(
+      getFirestore(),
+      Thread.collectionName,
+    ),
+    thread.value.docData
+  )
+  pushSnack(t('snack.thread.added'))
+  router.push('/threads/' + doc.id)
+}
 </script>
 
 <template>
@@ -25,6 +69,7 @@ const thread = ref(new Thread())
         <div style="flex-grow: 1">
           <cyan-textfield
             :label="t('fields.thread.name')"
+            :error="titleError"
             @change="thread.title = $event.detail"
           />
         </div>
@@ -66,10 +111,6 @@ const thread = ref(new Thread())
         />
         <cyan-spacer />
         <cyan-button
-          :label="t('action.cancel')"
-          text
-        />
-        <cyan-button
           :label="t('action.preview')"
           text
           noun="eye"
@@ -78,6 +119,8 @@ const thread = ref(new Thread())
         <cyan-button
           :label="t('action.send')"
           noun="send"
+          :disabled="!valid"
+          @click="send"
         />
       </cyan-toolbar>
     </template>
@@ -91,6 +134,21 @@ const thread = ref(new Thread())
         {{ thread.author }}, {{ thread.topicid }}
       </p>
       <MarkdownSection :content="thread.markdownContent" />
+      <cyan-toolbar>
+        <cyan-spacer />
+        <cyan-button
+          noun="edit"
+          :label="t('action.edit')"
+          text
+          @click="preview = false"
+        />
+        <cyan-button
+          :label="t('action.send')"
+          noun="send"
+          :disabled="!valid"
+          @click="send"
+        />
+      </cyan-toolbar>
     </template>
   </div>
 </template>
