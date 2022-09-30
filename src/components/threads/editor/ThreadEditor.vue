@@ -43,7 +43,7 @@ async function send() {
     logError('Anonymous user tried to send a thread')
     return
   }
-  if (frozen.value) {
+  if (frozen.value.includes(uid.value)) {
     pushSnack(t('error.frozen'))
     logError('User tried to send a thread while frozen')
     return
