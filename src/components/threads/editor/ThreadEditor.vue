@@ -25,11 +25,11 @@ const preview = ref(false)
 
 const thread = ref(new Thread())
 
-const titleError = computed(() => thread.value.title.length && thread.value.title.length > 42)
+const titleError = computed(() => thread.value.title.length > 42)
 
 const valid = computed(() => {
   return thread.value.title.length > 0 &&
-    thread.value.title.length < 42 &&
+    !titleError.value &&
     thread.value.markdownContent.length > 0
 })
 
