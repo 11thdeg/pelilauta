@@ -4,6 +4,7 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useMeta } from '../../../composables/useMeta'
 import MarkdownSection from '../../content/MarkdownSection.vue'
+import YoutubePreview from '../../content/YoutubePreview.vue'
 
 const { t } = useI18n()
 
@@ -22,7 +23,10 @@ const thread = ref(new Thread())
     <template v-if="!preview">
       <cyan-toolbar>
         <div style="flex-grow: 1">
-          <cyan-textfield :label="t('fields.thread.name')" />
+          <cyan-textfield
+            :label="t('fields.thread.name')"
+            @change="thread.title = $event.detail"
+          />
         </div>
         <cyan-button
           text
@@ -40,7 +44,7 @@ const thread = ref(new Thread())
         <div style="flex-grow: 1">
           <cyan-textfield
             :label="t('fields.thread.youtubeId')"
-            @change="thread.youtubeId = $event"
+            @change="thread.youtubeId = $event.detail"
           />
         </div>
         <cyan-button
@@ -51,13 +55,14 @@ const thread = ref(new Thread())
       </cyan-toolbar>
       <cyan-markdown-area
         :label="t('fields.thread.content')"
-        @change="thread.markdownContent = $event"
+        @change="thread.markdownContent = $event.detail"
       />
       <cyan-toolbar>
         <cyan-select
           :options="topics"
           :value="chosenTopic"
           :label="t('fields.thread.topic')"
+          @change="thread.topicid = $event.target.value"
         />
         <cyan-spacer />
         <cyan-button
@@ -78,6 +83,10 @@ const thread = ref(new Thread())
     </template>
     <template v-else>
       <h1>{{ thread.title }}</h1>
+      <YoutubePreview
+        v-if="thread.youtubeId"
+        :video-id="thread.youtubeId"
+      />
       <p class="typeCaption">
         {{ thread.author }}, {{ thread.topicid }}
       </p>
