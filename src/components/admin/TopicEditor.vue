@@ -3,19 +3,24 @@ import { computed, onMounted, Ref, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Dialog from '../ui/Dialog.vue'
 import nounsFile from '../../nouns.json'
+import { StreamData } from '../../composables/useMeta';
 
 const nouns = nounsFile as Record<string, string>
 
 const props = defineProps<{
-  topic?: {
+  topic?: StreamData
+}>()
+const emit = defineEmits<{
+  (e: 'save', topic: {
     name: string
     icon: string
     slug: string
     description: string,
-    order: string
-  }
+    order: number
+  }): void
 }>()
-const item:Ref<Record<string, string>|undefined> = ref(props.topic)
+
+const item:Ref<StreamData|undefined> = ref(props.topic)
 const open = computed({
   get: () => !!item.value,
   set: (value) => {
@@ -31,21 +36,33 @@ onMounted(() => {
   })
 })
 
-function setField(field: string, value: string){
-  if (item.value) {
-    item.value[field] = value
-    if(field === 'name') item.value['slug'] = value.toLowerCase()
-  }
+function setField(field: string, value: string|number) {
+  if (!item.value) return
+  (item.value as unknown as Record<string,string|number>)[field] = value
 }
 
 const nounOptions = Object.keys(nouns).map(key => ({ value:key, label: key }))
+
+function save () {
+  if (item.value) {
+    if (!item.value.slug) item.value.slug = item.value.name.toLowerCase()
+    emit('save', item.value as {
+      name: string
+      icon: string
+      slug: string
+      description: string,
+      order: number
+    })
+  }
+  item.value = undefined
+}
 </script>
 <template>
   <cyan-button
     noun="add"
     :label="t('actions.add.new')"
     text
-    @click="item = { name: '', icon: '', slug: '', description: '' }"
+    @click="item = { name: '', icon: '', slug: '', description: '', count: 0, order: -1 }"
   />
   <Dialog
     v-model="open"
@@ -57,6 +74,7 @@ const nounOptions = Object.keys(nouns).map(key => ({ value:key, label: key }))
         :value="item.name"
         @change="setField('name', $event.detail)"
       />
+      {{ t('fields.meta.topic.slug') }}: {{ item.slug || item.name.toLowerCase() }}
       <cyan-textfield
         :label="t('fields.meta.topic.description')"
         :value="item.description"
@@ -77,9 +95,12 @@ const nounOptions = Object.keys(nouns).map(key => ({ value:key, label: key }))
         <cyan-button
           :label="t('action.cancel')"
           text
-          @click="open =false"
+          @click="open = false"
         />
-        <cyan-button :label="t('action.save')" />
+        <cyan-button
+          :label="t('action.save')"
+          @click="save"
+        />
       </cyan-toolbar>
     </template>
   </Dialog>
