@@ -56,6 +56,15 @@
       "create": "Luo uusi",
       "send": "Lähetä"
     },
+    "admin": {
+      "settings": {
+        "title": "Hallinta"
+      },
+      "gamesystemtool": {
+        "title": "Pelit",
+        "info": "Mekanismin sivustoille valittavissa olevat pelit ja teemat"
+      }
+    },
     "assets": {
       "title": "Lataukset",
       "list": {
@@ -120,6 +129,13 @@
         "nick": "Nimimerkki",
         "avatarURL": "Avatar",
         "bio": "Kuvaus"
+      },
+      "meta": {
+        "sitetheme": {
+          "name": "Pelin tai sivustotyypin nimi",
+          "id": "tekninen tunniste (uniikki)",
+          "icon": "Pelin tai sivustotyypin ikoni"
+        }
       }
     }
   }

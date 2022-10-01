@@ -19,7 +19,7 @@ export interface SiteFamily {
   icon: string
   id: string
 }
-const siteFamilies = ref<SiteFamily[]>([])
+const siteThemes = ref<SiteFamily[]>([])
 
 function init () {
   if (_init) return
@@ -31,7 +31,7 @@ function init () {
       if (data) {
         if (data.admins) admins.value = data.admins
         if (data.frozen) frozen.value = data.frozen
-        siteFamilies.value = data.siteThemes || []
+        siteThemes.value = data.sitethemes || []
       }
       for (const key in snapshot.data()?.streams) {
         if(key === '-') continue // skip the '-' key as it's reserved for unassigned streams
@@ -76,7 +76,7 @@ export function useMeta () {
     streams: computed(() => Array.from(streams.value.values()).sort((a,b) => a.order > b.order ? 1 : -1)),
     admins: computed(() => admins.value),
     frozen: computed(() => frozen.value),
-    siteFamilies: computed(() => siteFamilies.value),
+    siteThemes: computed(() => siteThemes.value),
     saveStreams
   }
 }
