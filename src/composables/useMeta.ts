@@ -1,16 +1,18 @@
-import { doc, getFirestore, onSnapshot } from "firebase/firestore"
+import { doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"
 import { computed, ref } from "vue"
+import { useSession } from "./useSession"
 
-interface StreamData {
+export interface StreamData {
     slug: string
-    name: string,
+    name: string
     icon: string
     count: number
     order: number
+    description: string
   }
 
 let _init = false
-const streams = ref<StreamData[]>([])
+const streams = ref(new Map<string, StreamData>())
 
 export interface SiteFamily {
   name: string
@@ -25,7 +27,6 @@ function init () {
   onSnapshot(
     doc(getFirestore(), 'meta', 'pelilauta'),
     (snapshot) => {
-      const s = new Array<StreamData>()
       const data = snapshot.data()
       if (data) {
         if (data.admins) admins.value = data.admins
@@ -34,18 +35,9 @@ function init () {
       }
       for (const key in snapshot.data()?.streams) {
         if(key === '-') continue // skip the '-' key as it's reserved for unassigned streams
-        s.push({
-          slug: key,
-          name: snapshot.data()?.streams[key]?.name || key,
-          icon: snapshot.data()?.streams[key]?.icon || 'none',
-          count: snapshot.data()?.streams[key]?.count || 0,
-          order: snapshot.data()?.streams[key]?.order || 0
-        })
+        const stream = snapshot.data()?.streams[key]
+        streams.value.set(key, stream)
       }
-      streams.value = s.sort((a, b) => {
-        if (a.order === b.order) return a.name > b.name ? 1 : -1
-        return a.order > b.order ? 1 : -1
-      })
     }
   )
 }
@@ -53,12 +45,38 @@ function init () {
 const admins = ref<string[]>([])
 const frozen = ref<string[]>([])
 
+async function saveStreams (arr:StreamData[]) {
+  const { admin } = useSession()
+  if (!admin.value) throw new Error('Requires admin access to DB, aborting at client side')
+  const map:Record<string, StreamData> = {}
+  arr.forEach((stream, index) => {
+    const data = {
+      name: stream.name,
+      order: index,
+      count: stream.count,
+      slug: stream.slug,
+      icon: stream.icon || 'fox',
+      description: stream.description || ''
+    }
+    map[stream.name] = data
+  })
+  return updateDoc(
+    doc(
+      getFirestore(),
+      'meta',
+      'pelilauta'
+    ),
+    { streams: map }
+  )
+}
+
 export function useMeta () {
   init()
   return {
-    streams: computed(() => streams.value),
+    streams: computed(() => Array.from(streams.value.values()).sort((a,b) => a.order > b.order ? 1 : -1)),
     admins: computed(() => admins.value),
     frozen: computed(() => frozen.value),
-    siteFamilies: computed(() => siteFamilies.value)
+    siteFamilies: computed(() => siteFamilies.value),
+    saveStreams
   }
 }

@@ -37,6 +37,13 @@ const { admin, anonymous } = useSession()
     <cyan-spacer />
     <NavButton
       v-if="admin"
+      noun="settings"
+      :label="t('admin.settings.title')"
+      to="/admin/settings"
+      :active="route.path === '/admin/settings'" 
+    />
+    <NavButton
+      v-if="admin"
       noun="admin"
       label="Sandbox"
       to="/editorSandBox"

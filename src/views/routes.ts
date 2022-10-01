@@ -22,4 +22,5 @@ export const routes = [
   { path: '/sites', component: () => import('./sites/SitesHomeView.vue') },
   { path: '/sites/:sitekey', component: () => import('./sites/SiteView.vue'), props: true },
   { path: '/add/thread', component: () => import('./threads/ThreadEditorView.vue') },
+  { path: '/admin/settings', component: () => import('./admin/SiteSettings.vue') },
 ]
