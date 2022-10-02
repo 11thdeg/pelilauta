@@ -14,23 +14,23 @@ const { siteThemes } = useMeta()
 
 const activeTheme:Ref<SiteFamily|undefined> = ref(undefined)
 
+function update(themes: SiteFamily[]) {
+  logDebug('updating', themes)
+  updateDoc(doc(getFirestore(), 'meta', 'pelilauta'), {
+    sitethemes: themes
+  })
+}
+
 function moveUp(index: number) {
   if(index > 0) {
     const arr = Array.from(siteThemes.value)
     const temp = arr[index]
     arr[index] = arr[index - 1]
     arr[index - 1] = temp
-    updateDoc(
-      doc(
-        getFirestore(),
-        'meta',
-        'pelilauta'),
-      {
-        sitethemes: arr
-      }
-    )
+    update(arr)
   }
 }
+
 function save(theme:SiteFamily) {
   logDebug('save', theme)
   if (admin.value) {
@@ -43,16 +43,14 @@ function save(theme:SiteFamily) {
       }
       arr.push(th)
     }
-    updateDoc(
-      doc(
-        getFirestore(),
-        'meta',
-        'pelilauta'),
-      {
-        sitethemes: arr
-      }
-    )
+    update(arr)
   }
+}
+
+function deleteTheme (index: number) {
+  const arr = Array.from(siteThemes.value)
+  arr.splice(index, 1)
+  update(arr)
 }
 </script>
 <template>
@@ -88,12 +86,12 @@ function save(theme:SiteFamily) {
         <cyan-button
           noun="delete"
           text
-          @click="activeTheme = theme"
+          @click="deleteTheme(index)"
         />
       </template>
     </div>
     <SiteThemeEditor
-      v-model="activeTheme"
+      :theme="activeTheme"
       @save="save($event)"
     />
   </div>

@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import { Ref, ref, computed } from 'vue'
+import { Ref, ref, computed, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { SiteFamily } from '../../composables/useMeta'
+import { logDebug } from '../../utils/logHelpers'
 import Dialog from '../ui/Dialog.vue'
 import NounSelect from '../ui/NounSelect.vue'
 
 const props = defineProps<{
-  siteTheme?: SiteFamily
+  theme?: SiteFamily
 }>()
 const emit = defineEmits<{
   (e: 'save', theme: SiteFamily): void
@@ -14,13 +15,21 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 
-const item:Ref<SiteFamily|undefined> = ref(props.siteTheme)
+const item:Ref<SiteFamily|undefined> = ref(undefined)
 const open = computed({
   get: () => !!item.value,
   set: (value) => {
     if (!value) item.value = undefined
   }
 })
+
+onMounted(() => {
+  watch(props, () => {
+    logDebug('watch', props.theme)
+    item.value = props.theme
+  })
+})
+
 function setField(field: string, value: string|number) {
   if (!item.value) return
   (item.value as unknown as Record<string,string|number>)[field] = value
@@ -37,7 +46,7 @@ function save() {
     <cyan-spacer />
     <cyan-button
       noun="add"
-      :label="t('actions.add.new')"
+      :label="t('action.add.new')"
       text
       @click="item = { name: '', id: '', icon: ''}"
     />
