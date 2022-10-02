@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import AppBar from '../../components/ui/AppBar.vue'
 import SiteList from '../../components/sites/SiteList.vue'
+import MekanismiAd from '../../components/cta/MekanismiAd.vue'
 
 const { t } = useI18n()
 </script>
@@ -13,6 +14,9 @@ const { t } = useI18n()
     />
     <main class="bookLayout">
       <SiteList />
+      <article class="Column">
+        <MekanismiAd />
+      </article>
     </main>
   </div>
 </template>

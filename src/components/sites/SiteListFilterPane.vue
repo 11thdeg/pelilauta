@@ -5,7 +5,7 @@ import { logDebug } from "../../utils/logHelpers"
 import { useI18n } from "vue-i18n"
 
 
-const { siteFamilies } = useMeta()
+const { siteThemes } = useMeta()
 const { t } = useI18n()
 
 const props = defineProps<{
@@ -63,7 +63,7 @@ function isActiveFamily (id:string) {
       @click="togglePlayer()"
     />
     <FilterChip
-      v-for="theme in siteFamilies"
+      v-for="theme in siteThemes"
       :key="theme.id"
       :label="theme.name"
       :value="isActiveFamily(theme.id)"

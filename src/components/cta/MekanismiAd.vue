@@ -45,7 +45,7 @@ const { anonymous } = useSession()
       </router-link>
       <router-link
         v-if="!anonymous"
-        to="/create/site"
+        to="/add/site"
       >
         <cyan-button
           text

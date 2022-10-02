@@ -4,9 +4,12 @@ import SiteListFilterPane from './SiteListFilterPane.vue'
 import { useSites } from '../../composables/useSites'
 import { useSession } from '../../composables/useSession'
 import SiteCard from './SiteCard.vue'
+import { useI18n } from 'vue-i18n'
+import EmptyCollection from '../ui/EmptyCollection.vue'
 
 const { uid } = useSession()
 const { allSites } = useSites()
+const { t } = useI18n()
 
 const filteredSites = computed(() => {
   let arr = allSites.value
@@ -30,7 +33,10 @@ const filter = ref(new Array<string>())
 <template>
   <article class="Column double">
     <SiteListFilterPane v-model="filter" />
-    <div class="siteListing">
+    <div
+      v-if="filteredSites.length"
+      class="siteListing"
+    >
       <router-link
         v-for="site in filteredSites"
         :key="site.key"
@@ -41,6 +47,12 @@ const filter = ref(new Array<string>())
         />
       </router-link>
     </div>
+    <EmptyCollection
+      v-else
+      noun="mekanismi"
+      :title="t('sites.empty.title')"
+      :message="t('sites.empty.message')"
+    />
   </article>
 </template>
 
