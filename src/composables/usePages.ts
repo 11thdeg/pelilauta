@@ -7,6 +7,7 @@ import { addStore } from "./useSession"
 let sitekey = ''
 let unsubscribe:CallableFunction|undefined
 const pageCache = ref(new Map<string, Page>())
+const loading = ref(false)
 
 function reset() {
   sitekey = ''
@@ -17,6 +18,7 @@ async function init (key?: string) {
   if (!key || sitekey === key) return
   logDebug('usePages', 'init', key, Site.collectionName, Page.collectionName)
   reset()
+  loading.value = true
   sitekey = key
   unsubscribe = await onSnapshot(
     collection(
@@ -38,6 +40,7 @@ async function init (key?: string) {
       logDebug('page snapshot loaded')
     }
   )
+  loading.value = false
   addStore('pages', reset)
 }
 
@@ -54,6 +57,7 @@ export function usePages(key?: string) {
   init(key)
   return {
     pages: computed(() => Array.from(pageCache.value.values())),
-    categories
+    categories,
+    loading: computed(() => loading.value)
   }
 }

@@ -5,12 +5,14 @@ import AppBar from '../../components/ui/AppBar.vue'
 import { fetchSite } from '../../composables/useSites'
 import PageContentArticle from '../../components/pages/PageContentArticle.vue'
 import { usePages } from '../../composables/usePages'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   sitekey: string
 }>()
 
 const site = ref(new Site())
+const { t } = useI18n()
 
 onMounted(async () => {
   usePages(props.sitekey)
@@ -26,10 +28,15 @@ onMounted(async () => {
       :noun="site.systemBadge"
     />
     <main class="bookLayout">
-      <PageContentArticle :pagekey="site.homepage" />
+      <PageContentArticle :pagekey="site.homepage" :sitekey="sitekey"/>
       <article class="chroma-box-a Column card">
         <h3>{{ site.name }}</h3>
         <p>{{ site.description }}</p>
+        <cyan-button
+          :label="t('action.edit')"
+          noun="tools"
+          @click="$router.push(`/sites/${props.sitekey}/edit`)"
+        />
       </article>
     </main>
   </div>

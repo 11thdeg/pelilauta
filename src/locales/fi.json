@@ -101,6 +101,12 @@
         "emailFieldLabel": "Osoite"
       }
     },
+    "page": {
+      "empty": {
+        "title": "404",
+        "message": "Luo sivu alla olevasta painikkeesta."
+      }
+    },
     "profile": {
       "stream": {
         "title": "Ketjut"

@@ -27,7 +27,9 @@ const sectionTitle = computed(() => props.title || t('app.emptycollection.title'
       {{ message }}
     </p>
     <cyan-toolbar class="centered">
+      <cyan-spacer />
       <slot />
+      <cyan-spacer />
     </cyan-toolbar>
   </section>
 </template>
