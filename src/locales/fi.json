@@ -44,6 +44,7 @@
       "toProfile": "Profiili",
       "login": "Kirjaudu",
       "loginOrRegister": "Kirjaudu / rekisteröidy",
+      "preview": "Esikatselu",
       "register": "Rekisteröidy",
       "useInApp": "Ota Käyttöön",
       "toSettings": "Asetukset",
@@ -107,6 +108,11 @@
         "message": "Luo sivu alla olevasta painikkeesta."
       }
     },
+    "pages": {
+      "edit": {
+        "title": "Muokkaa sivua"
+      }
+    },
     "profile": {
       "stream": {
         "title": "Ketjut"
@@ -134,6 +140,10 @@
         "description": "Kuvaus",
         "license": "Lisenssi",
         "mimetype": "Muoto"
+      },
+      "page": {
+        "name": "Sivun nimi",
+        "content": "Sisältö"
       },
       "profile":{
         "nick": "Nimimerkki",

@@ -2,7 +2,6 @@
 import { Page } from '@11thdeg/skaldstore'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { usePages } from '../../composables/usePages'
 import { logDebug } from '../../utils/logHelpers'
 
@@ -13,7 +12,6 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const { pages } = usePages(props.sitekey)
-const router = useRouter()
 
 const newPage = computed(() => !props.pagekey)
 const page = ref(new Page())
@@ -25,10 +23,6 @@ onMounted(async () => {
 
 function savePage () {
   logDebug('savePage', page.value)
-}
-function cancel () {
-  page.value = new Page()
-  router.back()
 }
 </script>
 
@@ -47,11 +41,6 @@ function cancel () {
     <cyan-toolbar>
       <cyan-select />
       <cyan-spacer />
-      <cyan-button
-        :label="t('action.cancel')"
-        text
-        @click="cancel"
-      />
       <cyan-button
         :label="t('action.preview')"
         text
