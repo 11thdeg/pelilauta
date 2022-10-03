@@ -28,7 +28,10 @@ onMounted(async () => {
       :noun="site.systemBadge"
     />
     <main class="bookLayout">
-      <PageContentArticle :pagekey="site.homepage" :sitekey="sitekey"/>
+      <PageContentArticle
+        :pagekey="site.homepage"
+        :sitekey="sitekey"
+      />
       <article class="chroma-box-a Column card">
         <h3>{{ site.name }}</h3>
         <p>{{ site.description }}</p>
