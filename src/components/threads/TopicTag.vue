@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useMeta } from '../../composables/useMeta'
     
 const props = defineProps<{
-  slug:string
+  slug?:string
 }>()
 
 const { streams } = useMeta()
@@ -16,7 +16,10 @@ const topic = computed(() => {
 </script>
     
 <template>
-  <router-link :to="`/streams/${props.slug}`">
+  <router-link
+    v-if="props.slug"
+    :to="`/streams/${props.slug}`"
+  >
     <cyan-tag
       :label="topic.name"
       :noun="topic.icon"
