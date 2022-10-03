@@ -29,7 +29,11 @@
     "sites": {
       "title": "Mekanismi",
       "ownedByMe": "Omistan",
-      "playsIn": "Pelaan"
+      "playsIn": "Pelaan",
+      "empty": {
+        "title": "Ei sivustoja",
+        "message": "Haku ei löytänyt yhtään sivustoa."
+      }
     },
     "action": {
       "add": {

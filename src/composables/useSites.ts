@@ -29,7 +29,6 @@ let unsubscribePlays:CallableFunction|undefined
 
 async function subscribe () {
   const { anonymous, uid } = useSession()
-  if (anonymous.value) return
 
   if (_init) return
   _init = true
@@ -49,10 +48,12 @@ async function subscribe () {
     }
   )
 
+  if (anonymous.value) return
+
   unsubscribeOwn = onSnapshot(
     query(
       collection(getFirestore(), Site.collectionName),
-      where('owner', '==', uid.value)
+      where('owners', 'array-contains', uid.value)
     ),
     (snapshot) => {
       snapshot.docChanges().forEach((change) => {

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { computed } from '@vue/reactivity';
-import { useI18n } from 'vue-i18n';
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   title?: string
@@ -26,9 +26,9 @@ const sectionTitle = computed(() => props.title || t('app.emptycollection.title'
     <p v-if="message">
       {{ message }}
     </p>
-    <Toolbar class="centered">
+    <cyan-toolbar class="centered">
       <slot />
-    </Toolbar>
+    </cyan-toolbar>
   </section>
 </template>
 

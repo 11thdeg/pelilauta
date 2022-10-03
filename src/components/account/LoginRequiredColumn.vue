@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
-import { useSession } from '../../composables/useSession';
-import ProfileButton from '../actions/ProfileButton.vue';
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+import { useSession } from '../../composables/useSession'
+import ProfileButton from '../actions/ProfileButton.vue'
 
 const props = defineProps<{
   origin?: string
