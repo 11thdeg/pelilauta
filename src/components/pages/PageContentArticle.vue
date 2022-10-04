@@ -21,7 +21,7 @@ const page = computed(() => {
 </script>
 
 <template>
-  <article class="Column double">
+  <article class="Column double-cut">
     <cyan-loader
       v-if="loading"
       large

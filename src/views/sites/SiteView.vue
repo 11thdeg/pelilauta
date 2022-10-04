@@ -19,6 +19,8 @@ onMounted(async () => {
   site.value = await fetchSite(props.sitekey) || new Site()
 })
 
+const { pages } = usePages(props.sitekey)
+
 </script>
 
 <template>
@@ -40,6 +42,17 @@ onMounted(async () => {
           noun="tools"
           @click="$router.push(`/sites/${props.sitekey}/edit`)"
         />
+        <hr>
+        <ul>
+          <li
+            v-for="page in pages"
+            :key="page.key"
+          >
+            <router-link :to="`/sites/${site.key}/pages/${page.key}`">
+              {{ page.name }}
+            </router-link>
+          </li>
+        </ul>
       </article>
     </main>
   </div>
