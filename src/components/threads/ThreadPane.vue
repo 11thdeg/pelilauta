@@ -6,6 +6,7 @@ import ProfileTag from '../profiles/ProfileTag.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import LoveAThreadButton from './LoveAThreadButton.vue'
+import ShareButton from '../actions/ShareButton.vue'
 
 const props = defineProps<{
   threadkey: string
@@ -32,6 +33,7 @@ onMounted(async () => {
       <ProfileTag :uid="thread.author" />
       <cyan-spacer />
       <FlowTimeCaption :flow-time="thread.flowTime" />
+      <ShareButton />
     </cyan-toolbar>
     <MarkdownSection
       v-if="thread.markdownContent"

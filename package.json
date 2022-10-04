@@ -1,7 +1,7 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "14.0.0-alpha.8",
+  "version": "14.0.0-alpha.9",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,13 +10,13 @@
     "lint": "eslint --ext .ts,.js,.vue src"
   },
   "dependencies": {
-    "@11thdeg/cyan": "^0.15.3",
+    "@11thdeg/cyan": "^0.15.5",
     "@11thdeg/skaldstore": "^0.2.6",
     "downscale": "^1.0.6",
     "europa": "^6.0.0",
-    "firebase": "^9.9.3",
-    "luxon": "^3.0.3",
-    "marked": "^4.1.0",
+    "firebase": "^9.10.0",
+    "luxon": "^3.0.4",
+    "marked": "^4.1.1",
     "vue": "^3.2.37",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.4"

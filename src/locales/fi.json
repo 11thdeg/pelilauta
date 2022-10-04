@@ -40,6 +40,8 @@
         "new": "Lisää uusi",
         "thread": "Uusi keskustelu"
       },
+      "cancel": "Peruuta",
+      "create": "Luo uusi",
       "toLogin": "Kirjaudu sisään",
       "toProfile": "Profiili",
       "login": "Kirjaudu",
@@ -51,15 +53,14 @@
       "toSites": "Mekanismi",
       "logout": "Kirjaudu ulos",
       "change": "Vaihda",
-      "cancel": "Peruuta",
       "select": "Valitse",
       "selectImage": "Valitse kuva",
       "save": "Tallenna",
       "addImage": "Kuva",
       "upload": "Lähetä",
       "edit": "Muokkaa",
-      "create": "Luo uusi",
-      "send": "Lähetä"
+      "send": "Lähetä",
+      "share": "Jaa"
     },
     "admin": {
       "settings": {

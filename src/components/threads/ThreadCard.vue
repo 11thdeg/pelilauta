@@ -61,10 +61,6 @@ const siteIcon = computed(() => undefined)
         v-if="siteIcon"
         :noun="siteIcon"
       />
-      <cyan-icon
-        noun="share"
-        small
-      />
     </section>
     <div
       class="TypeBody2"
