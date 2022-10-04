@@ -6,6 +6,7 @@ import { fetchSite } from '../../composables/useSites'
 import PageContentArticle from '../../components/pages/PageContentArticle.vue'
 import { usePages } from '../../composables/usePages'
 import { useI18n } from 'vue-i18n'
+import SiteFabs from '../../components/sites/SiteFabs.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -55,5 +56,6 @@ const { pages } = usePages(props.sitekey)
         </ul>
       </article>
     </main>
+    <SiteFabs :sitekey="sitekey" />
   </div>
 </template>

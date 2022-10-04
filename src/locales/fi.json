@@ -38,7 +38,8 @@
     "action": {
       "add": {
         "new": "Lisää uusi",
-        "thread": "Uusi keskustelu"
+        "thread": "Luo keskustelu",
+        "page": "Luo sivu"
       },
       "cancel": "Peruuta",
       "create": "Luo uusi",
