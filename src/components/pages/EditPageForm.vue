@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Page, Site } from '@11thdeg/skaldstore'
 import { addDoc, collection, doc, DocumentData, getDoc, getFirestore, setDoc, updateDoc } from '@firebase/firestore'
+import { marked } from 'marked'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -94,6 +95,7 @@ async function add (p:DocumentData) {
 async function savePage () {
   logDebug('savePage', page.value)
   page.value.addOwner(uid.value)
+  page.value.htmlContent = marked(page.value.markdownContent)
   let key = ''
   if (page.value && page.value.key) {
     await update(page.value.docData)
