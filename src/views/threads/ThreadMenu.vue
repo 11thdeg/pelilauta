@@ -19,16 +19,19 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
   <cyan-menu noun="kebab">
     <cyan-menu-item
       v-if="fromMe"
-      :label="t('thread.edit')"
+      noun="edit"
       @click="$router.push('/threads/' + thread.key + '/edit')"
     >
-      aaa
+      {{ t('thread.edit') }}
     </cyan-menu-item>
     <cyan-menu-item
       v-if="fromMe"
+      noun="delete"
       :title="t('thread.delete')"
       @click="$router.push('/threads/' + thread.key + '/delete')"
-    />
+    >
+      {{ t('thread.delete') }}
+    </cyan-menu-item>
     <cyan-menu-item
       v-if="admin"
       secondary
