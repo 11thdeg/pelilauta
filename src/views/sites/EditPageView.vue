@@ -9,7 +9,7 @@ import EditPageForm from '../../components/pages/EditPageForm.vue'
 
 const props = defineProps<{
   sitekey: string
-  pagekey: string
+  pagekey?: string
 }>()
 
 const { t } = useI18n()

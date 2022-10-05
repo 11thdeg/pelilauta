@@ -53,6 +53,13 @@ const categories = computed(() => {
   return Array.from(cats)
 })
 
+export async function fetchPage (sk: string, pagekey: string) {
+  if (sitekey === sk) {
+    return pageCache.value.get(pagekey) || undefined
+  }
+  return undefined
+}
+
 export function usePages(key?: string) {
   init(key)
   return {

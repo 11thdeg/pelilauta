@@ -84,6 +84,11 @@ async function reset() {
   unsubscribePlays && unsubscribePlays()
 }
 
+export function patchSite (site: Site) {
+  if(!site.key) throw new Error('Caching a site requres a site.key')
+  siteCache.value.set(site.key, site)
+}
+
 export function useSites () {
   subscribe()
   return {

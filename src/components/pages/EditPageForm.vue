@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { usePages } from '../../composables/usePages'
 import { useSession } from '../../composables/useSession'
+import { useSite } from '../../composables/useSite'
 import { useSnack } from '../../composables/useSnack'
 import { logDebug } from '../../utils/logHelpers'
 
@@ -18,6 +19,7 @@ const { t } = useI18n()
 const { pages } = usePages(props.sitekey)
 const { uid } = useSession()
 const { pushSnack } = useSnack()
+const { chapters } = useSite(props.sitekey)
 const router = useRouter()
 
 const newPage = computed(() => !props.pagekey)
@@ -26,6 +28,15 @@ const preview = ref(false)
 
 onMounted(async () => {
   page.value = newPage.value ? new Page() : pages.value.find(p => p.key === props.pagekey) || new Page()
+})
+
+const chapterOptions = computed(() => {
+  return [
+    { label: '-', value: '-' },
+    ...chapters.value.map(c => ({
+      label: c.name,
+      value: c.slug
+    }))]
 })
 
 async function update (p:DocumentData) {
@@ -91,7 +102,7 @@ async function savePage () {
     key = await add(page.value.docData)
   }
   pushSnack(t('page.saved'))
-  router.push('/' + props.sitekey + '/pages/' + key)
+  router.push('/sites/' + props.sitekey + '/pages/' + key)
 }
 </script>
 
@@ -108,7 +119,11 @@ async function savePage () {
       @change="page.markdownContent = $event.detail"
     />
     <cyan-toolbar>
-      <cyan-select />
+      <cyan-select
+        :options="chapterOptions"
+        :value="page.category"
+        @change="page.category = $event.target.value"
+      />
       <cyan-spacer />
       <cyan-button
         :label="t('action.preview')"
