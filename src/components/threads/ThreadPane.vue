@@ -1,39 +1,44 @@
 <script lang="ts" setup>
-import { Thread } from '@11thdeg/skaldstore'
-import { onMounted, ref } from 'vue'
-import { fetchThread } from '../../composables/useThreads'
 import ProfileTag from '../profiles/ProfileTag.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import LoveAThreadButton from './LoveAThreadButton.vue'
 import ShareButton from '../actions/ShareButton.vue'
+import { useSession } from '../../composables/useSession'
+import { computed } from 'vue'
+import ThreadMenu from '../../views/threads/ThreadMenu.vue'
 
 const props = defineProps<{
-  threadkey: string
+  thread: {
+    key?: string,
+    title: string,
+    author: string,
+    flowTime: number,
+    markdownContent: string,
+    htmlContent: string,
+    lovedCount: number,
+    hasOwner: (uid: string) => boolean
+  }
 }>()
 
-const thread = ref<Thread|undefined>(undefined)
+const { uid, admin } = useSession()
 
-onMounted(async () => {
-  if (props.threadkey) thread.value = await fetchThread(props.threadkey)
-})
+const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
+
 </script>
 
 <template>
-  <cyan-loader
-    v-if="!thread"
-    wide
-  />
-  <article
-    v-if="thread"
-    class="ThreadPane"
-  >
+  <article class="ThreadPane">
     <h1>{{ thread.title }}</h1>
     <cyan-toolbar>
       <ProfileTag :uid="thread.author" />
       <cyan-spacer />
       <FlowTimeCaption :flow-time="thread.flowTime" />
       <ShareButton />
+      <ThreadMenu
+        v-if="fromMe || admin"
+        :thread="thread"
+      />
     </cyan-toolbar>
     <MarkdownSection
       v-if="thread.markdownContent"

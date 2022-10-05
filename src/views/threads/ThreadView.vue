@@ -6,15 +6,18 @@ import { fetchThread } from '../../composables/useThreads'
 import TopBar from '../../components/ui/TopBar.vue'
 import ThreadPane from '../../components/threads/ThreadPane.vue'
 import ThreadDiscussion from '../../components/discussion/ThreadDiscussion.vue'
+import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 
 const props = defineProps<{
   threadkey: string
 }>()
 const { t } = useI18n()
 const thread:Ref<Thread|undefined> = ref(undefined)
+const loading = ref(true)
 
 onMounted(async () => {
-  if (props.threadkey) thread.value = await fetchThread(props.threadkey)
+  thread.value = await fetchThread(props.threadkey)
+  loading.value = false
 })
 
 const title = computed(() => {
@@ -30,14 +33,27 @@ const title = computed(() => {
       sticky
     />
     <main class="bookLayout">
-      <div class="Column double">
-        <ThreadPane :threadkey="threadkey" />
-        <ThreadDiscussion :threadkey="threadkey" />
+      <div v-if="loading">
+        <cyan-loader large />
       </div>
-      
-      <article class="code">
-        {{ threadkey }}
-      </article>
+      <template v-else>
+        <EmptyCollection
+          v-if="!thread"
+          :title="t('thread.missing.title')"
+          noun="discussion"
+          :message="t('thread.missing.message')"
+        />
+        <template v-else>
+          <div class="Column double">
+            <ThreadPane
+              :thread="thread"
+            />
+            <ThreadDiscussion
+              :threadkey="threadkey"
+            />
+          </div>
+        </template>
+      </template>
     </main>
   </div>
 </template>
