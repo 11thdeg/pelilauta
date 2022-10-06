@@ -13,32 +13,27 @@ const props = defineProps<{
 const { t } = useI18n()
 const { uid, admin } = useSession()
 const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
+const showForAdmin = computed(() => !fromMe.value && admin.value)
 </script>
 
 <template>
   <cyan-menu noun="kebab">
     <cyan-menu-item
-      v-if="fromMe"
-      noun="edit"
+      v-if="fromMe || admin"
+      :secondary="showForAdmin"
+      :noun="showForAdmin ? 'admin' : 'edit'"
       @click="$router.push('/threads/' + thread.key + '/edit')"
     >
       {{ t('thread.edit') }}
     </cyan-menu-item>
     <cyan-menu-item
-      v-if="fromMe"
-      noun="delete"
+      v-if="fromMe || admin"
+      :secondary="showForAdmin"
+      :noun="showForAdmin ? 'admin' : 'edit'"
       :title="t('thread.delete')"
       @click="$router.push('/threads/' + thread.key + '/delete')"
     >
       {{ t('thread.delete') }}
-    </cyan-menu-item>
-    <cyan-menu-item
-      v-if="admin"
-      secondary
-      noun="admin"
-      @click="$router.push('/threads/' + thread.key + '/delete')"
-    >
-      {{ t('action.delete') }}
     </cyan-menu-item>
   </cyan-menu>
 </template>

@@ -12,8 +12,8 @@ async function loadThread(threadkey: string) {
   loading.value = false
 }
 
-export function useThread(threadKey: string) {
-  loadThread(threadKey)
+export function useThread(threadkey?: string) {
+  if (threadkey) loadThread(threadkey)
   return {
     loading,
     thread,

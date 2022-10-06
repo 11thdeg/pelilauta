@@ -30,7 +30,6 @@ async function init () {
         if(change.type === 'removed') {
           threadCache.value.delete(change.doc.id)
         } else {
-          logDebug('thread', change.doc.data()?.title)
           threadCache.value.set(change.doc.id, new Thread(change.doc.data(), change.doc.id))
         }
       })
@@ -91,18 +90,24 @@ export async function fetchStreamThreads(stream: string, count = 11) {
   return streamThreads
 }
 
+export async function forgetThread (threadkey: string) {
+  threadCache.value.delete(threadkey)
+}
+
 export async function fetchThread (key:string) {
-  if (!threadCache.value.has(key)) {
+  if (threadCache.value.has(key)) {
     return threadCache.value.get(key)
   }
+  logDebug('fetchThread', key, 'not in cache')
   const document = await getDoc(
-    doc(getFirestore(), 'stream', key)
+    doc(getFirestore(), Thread.collectionName, key)
   )
   if (document.exists()) {
     const thread = new Thread(document.data(), key)
     threadCache.value.set(key, thread)
     return thread
   }
+  logDebug('fetchThread', key, 'not found')
   return undefined
 }
 
