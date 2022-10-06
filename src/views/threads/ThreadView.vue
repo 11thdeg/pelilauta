@@ -37,7 +37,10 @@ const title = computed(() => {
           :message="t('thread.missing.message')"
         />
         <template v-else>
-          <div class="Column double" v-if="thread">
+          <div
+            v-if="thread"
+            class="Column double"
+          >
             <ThreadPane
               :thread="thread"
             />
