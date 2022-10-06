@@ -36,7 +36,7 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
       v-if="admin"
       secondary
       noun="admin"
-      @click="$router.push('/admin/threads/' + thread.key)"
+      @click="$router.push('/threads/' + thread.key + '/delete')"
     >
       {{ t('action.delete') }}
     </cyan-menu-item>
