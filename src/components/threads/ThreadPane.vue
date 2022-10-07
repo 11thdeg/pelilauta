@@ -30,17 +30,18 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
 
 <template>
   <article class="ThreadPane">
-    <h1>{{ thread.title }}</h1>
-    <cyan-toolbar>
-      <ProfileTag :uid="thread.author" />
+    <!-- header -->
+    <cyan-toolbar class="separator">
+      <h2>{{ thread.title }}</h2>
       <cyan-spacer />
-      <FlowTimeCaption :flow-time="thread.flowTime" />
       <ShareButton />
       <ThreadMenu
-        v-if="fromMe || admin"
+        v-if="fromMe || admin"
         :thread="thread"
       />
     </cyan-toolbar>
+    
+    <!-- content -->
     <MarkdownSection
       v-if="thread.markdownContent"
       :content="thread.markdownContent"
@@ -49,16 +50,22 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
       v-else
       :innerHTML="thread.htmlContent"
     />
-    <ProfilePane :uid="thread.author" />
+
+    <!-- footer -->
     <cyan-toolbar>
+      <FlowTimeCaption :flow-time="thread.flowTime" />
       <cyan-spacer />
-      <cyan-icon
-        noun="eye"
-        xsmall
-      />
       <LoveAThreadButton
         :thread="thread"
       />
     </cyan-toolbar>
+    <ProfilePane :uid="thread.author" />
   </article>
 </template>
+
+<style lang="sass" scoped>
+.separator
+  border-bottom: 1px solid var(--cyan-divider-color)
+  padding-bottom: 3px
+  margin-bottom: 32px
+</style>

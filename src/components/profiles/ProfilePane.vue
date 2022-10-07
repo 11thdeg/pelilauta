@@ -56,6 +56,9 @@ onMounted(async () => {
   display: flex
   gap: 12px
   border-top: solid 1px var(--cyan-divider-color)
+  margin: 0
+  padding: 0
+  padding-top: 12px
 .avatar
   width: 72px
   height: 72px
