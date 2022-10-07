@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import ProfileTag from '../profiles/ProfileTag.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import LoveAThreadButton from './LoveAThreadButton.vue'

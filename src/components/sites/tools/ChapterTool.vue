@@ -24,7 +24,7 @@ async function moveUp(index: number) {
 
 function save(chapter: PageCategory) {
   logDebug('save', chapter, site.value?.owners, uid.value)
-  if(!site.value?.hasOwner(uid.value)) throw new Error('You can not edit categories if you are not the owner of the site', site.value?.key, uid.value)
+  if(!site.value?.hasOwner(uid.value)) throw new Error('You can not edit categories if you are not the owner of the site')
 
   const arr = Array.from(chapters.value)
   if(!arr.find(a => a.slug === chapter.slug)) {
