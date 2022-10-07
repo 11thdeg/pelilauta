@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { Site } from '@11thdeg/skaldstore'
 import { onMounted, ref } from 'vue'
-import AppBar from '../../components/ui/AppBar.vue'
 import { fetchSite } from '../../composables/useSites'
 import PageContentArticle from '../../components/pages/PageContentArticle.vue'
 import { usePages } from '../../composables/usePages'
 import { useI18n } from 'vue-i18n'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
+import SiteAppBar from '../../components/sites/SiteAppBar.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -26,10 +26,7 @@ const { pages } = usePages(props.sitekey)
 
 <template>
   <div id="SiteView">
-    <AppBar
-      :title="site.name"
-      :noun="site.systemBadge"
-    />
+    <SiteAppBar :sitekey="sitekey" />
     <main class="bookLayout">
       <PageContentArticle
         :pagekey="site.homepage"

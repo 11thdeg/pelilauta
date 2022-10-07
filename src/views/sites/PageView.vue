@@ -3,10 +3,10 @@ import { Page, Site } from '@11thdeg/skaldstore'
 import { computed, onMounted } from 'vue'
 import { ref, Ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import AppBar from '../../components/ui/AppBar.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import { fetchPage } from '../../composables/usePages'
 import { fetchSite } from '../../composables/useSites'
+import SiteAppBar from '../../components/sites/SiteAppBar.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -19,7 +19,6 @@ const loading = ref(true)
 const notFound = computed(() => {
   return !loading.value && (!page.value || !site.value)
 })
-const title = computed(() => site.value?.name || '')
 
 onMounted(async () => {
   site.value = await fetchSite(props.sitekey)
@@ -32,7 +31,11 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <AppBar :title="title" />
+  <SiteAppBar
+    :sitekey="sitekey"
+    :pagekey="pagekey"
+    sticky
+  />
   <main class="bookLayout">
     <div
       v-if="loading"
