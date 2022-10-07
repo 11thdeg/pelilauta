@@ -7,6 +7,7 @@ import ShareButton from '../actions/ShareButton.vue'
 import { useSession } from '../../composables/useSession'
 import { computed } from 'vue'
 import ThreadMenu from '../../views/threads/ThreadMenu.vue'
+import ProfilePane from '../profiles/ProfilePane.vue'
 
 const props = defineProps<{
   thread: {
@@ -48,6 +49,7 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
       v-else
       :innerHTML="thread.htmlContent"
     />
+    <ProfilePane :uid="thread.author" />
     <cyan-toolbar>
       <cyan-spacer />
       <cyan-icon
