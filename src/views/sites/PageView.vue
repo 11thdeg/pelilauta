@@ -1,32 +1,21 @@
 <script lang="ts" setup>
-import { Page, Site } from '@11thdeg/skaldstore'
-import { computed, onMounted } from 'vue'
-import { ref, Ref } from 'vue'
+
 import { useI18n } from 'vue-i18n'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
-import { fetchPage } from '../../composables/usePages'
-import { fetchSite } from '../../composables/useSites'
 import SiteAppBar from '../../components/sites/SiteAppBar.vue'
+import { usePage } from '../../composables/usePage'
+import MarkdownSection from '../../components/content/MarkdownSection.vue'
+import SideBar from '../../components/sites/SideBar.vue'
+import SiteFabs from '../../components/sites/SiteFabs.vue'
 
 const props = defineProps<{
   sitekey: string
   pagekey: string
 }>()
 
-const site:Ref<Site|undefined> = ref(undefined)
-const page:Ref<Page|undefined> = ref(undefined)
-const loading = ref(true)
-const notFound = computed(() => {
-  return !loading.value && (!page.value || !site.value)
-})
-
-onMounted(async () => {
-  site.value = await fetchSite(props.sitekey)
-  page.value = await fetchPage(props.sitekey, props.pagekey)
-  loading.value = false
-})
-
 const { t } = useI18n()
+
+const { page, loading } = usePage(props.pagekey)
 
 </script>
 
@@ -37,14 +26,34 @@ const { t } = useI18n()
     sticky
   />
   <main class="bookLayout">
+    <!-- Loader -->
     <div
       v-if="loading"
       class="loading"
     >
       <cyan-loader large />
     </div>
+    <!-- Page-->
+    <template v-else-if="page">
+      <article class="Column double">
+        <h1>{{ page.name }}</h1>
+        <MarkdownSection
+          v-if="page.markdownContent"
+          :content="page.markdownContent"
+        />
+        <div
+          v-else
+          :innerHTML="page.htmlContent"
+        />
+      </article>
+      <SideBar />
+      <SiteFabs
+        :sitekey="sitekey"
+        :pagekey="pagekey"
+      />
+    </template>
     <EmptyCollection
-      v-else-if="notFound"
+      v-else
       noun="page"
       :title="t('page.notFound.title')"
       :message="t('page.notFound.message')"
@@ -56,14 +65,5 @@ const { t } = useI18n()
         @click="$router.push(`/sites/${props.sitekey}/add/page`)"
       />
     </EmptyCollection>
-    <div
-      v-if="page"
-      class="page"
-    >
-      <h1>{{ page.name }}</h1>
-      <div class="content">
-        <Markdown :content="page.markdownContent" />
-      </div>
-    </div>
   </main>
 </template>
