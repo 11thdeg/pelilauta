@@ -57,7 +57,7 @@ async function subscribeNotifications (uid: string) {
 
 const notifications = computed(() => {
   const arr = Array.from(_notificationsCache.value.values())
-  arr.sort((b, a) =>  (b.createdAt ? b.createdAt.toDate().getTime() : 0) - (a.createdAt ? a.createdAt.toDate().getTime() : 0))
+  arr.sort((a, b) =>  (b.createdAt ? b.createdAt.toDate().getTime() : 0) - (a.createdAt ? a.createdAt.toDate().getTime() : 0))
   return arr
 })
 

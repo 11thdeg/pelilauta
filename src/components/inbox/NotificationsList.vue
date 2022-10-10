@@ -14,3 +14,10 @@ const { notifications } = useNotifications()
     />
   </div>
 </template>
+
+<style scoped lang="sass">
+.NotificationsList
+  display: flex
+  flex-direction: column
+  gap: 8px
+</style>
