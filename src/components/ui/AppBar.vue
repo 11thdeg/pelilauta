@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ProfileButton from '../actions/ProfileButton.vue'
+import InboxButton from '../actions/InboxButton.vue'
 
 const props = defineProps<{
   title?: string,
@@ -50,6 +51,7 @@ const noun = computed(() => {
     
     <cyan-spacer />
     <cyan-lightmode-toggle />
+    <InboxButton />
     <ProfileButton />
   </nav>
 </template>

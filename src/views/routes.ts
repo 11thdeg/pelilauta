@@ -7,10 +7,12 @@ import AssetView from './AssetView.vue'
 import ProfileView from './ProfileView.vue'
 import ThreadView from './threads/ThreadView.vue'
 import StreamView from './threads/StreamView.vue'
+import InboxView from './InboxView.vue'
 
 export const routes = [
   { path: '/', component: HomeView },
   { path: '/about', component: AboutView },
+  { path: '/inbox', component: InboxView },
   { path: '/login', component: LoginView },
   { path: '/settings', component: SettingsView },
   { path: '/assets', component: AssetsView },
