@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
 import { useNotifications } from '../../composables/useNotifications'
 
-const { notifications } = useNotifications()
-const count = computed(() => notifications.value.length)
+const { newCount } = useNotifications()
 </script>
 
 <template>
@@ -16,7 +14,7 @@ const count = computed(() => notifications.value.length)
     <cyan-tag
       highlight
       class="InboxButton__count"
-      :label="count"
+      :label="newCount"
     />
   </div>
 </template>

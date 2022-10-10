@@ -1,7 +1,7 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "14.0.0-alpha.10",
+  "version": "14.0.0-alpha.11",
   "type": "module",
   "scripts": {
     "dev": "vite",

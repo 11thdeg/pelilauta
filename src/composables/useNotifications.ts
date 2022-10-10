@@ -7,6 +7,7 @@ import { useSession } from "./useSession"
 let _init = false
 let _unsubscribeNotifications:CallableFunction|undefined
 const _notificationsCache = ref(new Map<string, Notification>())
+const subscriptionLimit = 30
 
 function init () {
   if (_init) return
@@ -31,7 +32,7 @@ async function subscribeNotifications (uid: string) {
     collection(getFirestore(), Notification.collectionName),
     where('to','==', uid),
     orderBy('createdAt', 'desc'),
-    limit(30)
+    limit(subscriptionLimit)
   )
 
   const docs = await getDocs(q)
@@ -54,13 +55,22 @@ async function subscribeNotifications (uid: string) {
   )
 }
 
+const notifications = computed(() => {
+  const arr = Array.from(_notificationsCache.value.values())
+  arr.sort((b, a) =>  (b.createdAt ? b.createdAt.toDate().getTime() : 0) - (a.createdAt ? a.createdAt.toDate().getTime() : 0))
+  return arr
+})
+
+const newCount = computed(() => {
+  const l = notifications.value.filter(n => !n.read).length
+  if (l > subscriptionLimit) return '29+'
+  return l.toString()
+})
+
 export function useNotifications () {
   if (!_init) init()
   return {
-    notifications: computed(() => {
-      const arr = Array.from(_notificationsCache.value.values())
-      arr.sort((b, a) =>  (b.createdAt ? b.createdAt.toDate().getTime() : 0) - (a.createdAt ? a.createdAt.toDate().getTime() : 0))
-      return arr
-    })
+    notifications,
+    newCount
   }
 }
