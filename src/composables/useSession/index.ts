@@ -2,8 +2,9 @@ import { Account, Profile } from "@11thdeg/skaldstore"
 import { getAuth, User } from "firebase/auth"
 import { doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"
 import { ref, computed } from "vue"
-import { logDebug, logError } from "../utils/logHelpers"
-import { useMeta } from "./useMeta"
+import { logDebug, logError } from "../../utils/logHelpers"
+import { subscibeToAssets } from "./useAssets"
+import { useMeta } from "../useMeta"
 
 // Set to true, if the session is active
 const active = ref(false)
@@ -78,6 +79,7 @@ export function login(user: User|null) {
     account.value = new Account(user)
     subscribeToAccount()
     subscribeToProfile()
+    subscibeToAssets()
     logError("useSession", "login", "Not implemented for actual users")
     account.value = new Account(user)
     active.value = true
@@ -88,7 +90,7 @@ export function login(user: User|null) {
 const resetters:Map<string, CallableFunction> = new Map()
 
 export function addStore(name: string, resetter: () => void) {
-  logDebug("useSession", "addStore", name, resetter)
+  logDebug("useSession", "Added a store reset method", name)
   resetters.set(name, resetter)
 }
 

@@ -3,17 +3,22 @@ import { FirebaseError } from "firebase/app"
 import { addDoc, collection, deleteDoc, doc, getDoc, getFirestore, onSnapshot, query, where } from "firebase/firestore"
 import { deleteObject, getDownloadURL, getStorage, ref as storageRef, uploadString } from "firebase/storage"
 import { computed, ref, Ref } from "vue"
-import { logError } from "../utils/logHelpers"
-import { addStore, useSession } from "./useSession"
+import { logError, logEvent } from "../../utils/loghelpers"
+import { addStore, useSession } from "."
+import { useI18n } from "vue-i18n"
 
 let init = false
 const assetCache: Ref<Map<string, Asset>> = ref(new Map())
-let unsubscribeAssets:undefined|CallableFunction
+let _unsubscribeAssets:undefined|CallableFunction
 
 export function reset() {
-  unsubscribeAssets?.()
+  _unsubscribeAssets && _unsubscribeAssets()
   assetCache.value = new Map()
   init = false
+}
+
+export function subscibeToAssets() {
+  initAssets()
 }
 
 async function initAssets() {
@@ -21,10 +26,13 @@ async function initAssets() {
     logError('Can not reinitialize assets')
     return
   }
+
+  const { anonymous, uid } = useSession()
+  if (anonymous.value || !uid.value) return // Do not initialize assets for anonymous users
+
+  logEvent('subscribeAssets', { uid: uid.value })
   init = true
   addStore('assets', reset)
-
-  const { account } = useSession()
 
   // Get all assets for the current account, and store them in the cache
   const q = query(
@@ -32,10 +40,10 @@ async function initAssets() {
       getFirestore(),
       'assets'
     ),
-    where('owners', 'array-contains', account.value.uid)
+    where('owners', 'array-contains', uid.value)
   )
 
-  unsubscribeAssets = onSnapshot(q, snapshot => {
+  _unsubscribeAssets = onSnapshot(q, snapshot => {
     snapshot.docChanges().forEach(change => {
       if (change.type === 'removed') {
         assetCache.value.delete(change.doc.id)
@@ -143,6 +151,15 @@ export function useAssets() {
   return {
     assets: computed(() => Array.from(assetCache.value.values())),
     uploadAsset,
-    deleteAsset
+    deleteAsset,
+    licenses: computed(() => {
+      const { t } = useI18n()
+      return [
+        { label: t('fields.asset.licenses.0'), option: '0' },
+        { label: t('fields.asset.licenses.1'), option: '1' },
+        { label: t('fields.asset.licenses.2'), option: '2' },
+        { label: t('fields.asset.licenses.3'), option: '3' },
+      ]
+    })
   }
 }

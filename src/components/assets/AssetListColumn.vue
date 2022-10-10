@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { useAssets, assetName, assetDescription, assetLicense } from '../../composables/useAssets'
+import { useAssets, assetName, assetDescription, assetLicense } from '../../composables/useSession/useAssets'
 import AddAssetButton from './AddAssetButton.vue'
 
 const { t } = useI18n()

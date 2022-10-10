@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAssets } from '../../composables/useAssets'
+import { useAssets } from '../../composables/useSession/useAssets'
 import { useSession } from '../../composables/useSession'
 import Dialog from '../ui/Dialog.vue'
 

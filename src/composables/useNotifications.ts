@@ -1,7 +1,7 @@
 import { Notification } from "@11thdeg/skaldstore"
-import { collection, getDocs, getFirestore, limit, onSnapshot, orderBy, query, where } from "firebase/firestore"
+import { collection, getFirestore, limit, onSnapshot, orderBy, query, where } from "firebase/firestore"
 import { computed, ref, watch } from "vue"
-import { logDebug } from "../utils/logHelpers"
+import { logEvent } from "../utils/logHelpers"
 import { useSession } from "./useSession"
 
 let _init = false
@@ -20,13 +20,11 @@ function init () {
 }
 
 async function subscribeNotifications (uid: string) {
-  logDebug("subscribeNotifications", uid)
   _unsubscribeNotifications && _unsubscribeNotifications()
   _notificationsCache.value = new Map<string, Notification>()
   if (!uid) return // Anonyous user, no need to subscribe
 
-
-  logDebug("subscribeNotifications", "subscribing", Notification.collectionName)
+  logEvent("subscribeNotifications", { uid: uid })
 
   const q = query(
     collection(getFirestore(), Notification.collectionName),
@@ -35,14 +33,9 @@ async function subscribeNotifications (uid: string) {
     limit(subscriptionLimit)
   )
 
-  const docs = await getDocs(q)
-
-  logDebug("subscribeNotifications", "subscribing", Notification.collectionName, "docs", docs.size)
-
   _unsubscribeNotifications = onSnapshot(
     q,
     (snapshot) => {
-      logDebug("notifications snapshot", snapshot.docs)
       snapshot.docChanges().forEach((change) => {
         if (change.type === 'removed') {
           _notificationsCache.value.delete(change.doc.id)

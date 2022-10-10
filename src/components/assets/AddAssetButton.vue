@@ -5,7 +5,7 @@ import { FileData } from '../../utils/fileHelpers'
 import { useSnack } from '../../composables/useSnack'
 import { useI18n } from 'vue-i18n'
 import Dialog from '../ui/Dialog.vue'
-import { useAssets } from '../../composables/useAssets'
+import { useAssets } from '../../composables/useSession/useAssets'
     
 const { t } = useI18n()
 const { pushSnack } = useSnack()
@@ -17,10 +17,10 @@ const fileName = ref('')
 const description = ref('')
 const license = ref('0')
 const licenses = [
-  { label: t('assets.licenses.0'), option: '0' },
-  { label: t('assets.licenses.1'), option: '1' },
-  { label: t('assets.licenses.2'), option: '2' },
-  { label: t('assets.licenses.3'), option: '3' },
+  { label: t('fields.asset.licenses.0'), option: '0' },
+  { label: t('fields.asset.licenses.1'), option: '1' },
+  { label: t('fields.asset.licenses.2'), option: '2' },
+  { label: t('fields.asset.licenses.3'), option: '3' },
 ]
     
 const file:Ref<FileData|undefined> = ref(undefined)

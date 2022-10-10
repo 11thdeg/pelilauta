@@ -1,9 +1,12 @@
 {
+    "about": {
+      "title": "Tietoja"
+    },
     "app": {
       "title": "Pelilauta"
     },
-    "about": {
-      "title": "Tietoja"
+    "assetView": {
+      "title": "Lataukset"
     },
     "settings":{
       "title": "Asetukset",
@@ -141,7 +144,13 @@
         "name": "Nimi",
         "description": "Kuvaus",
         "license": "Lisenssi",
-        "mimetype": "Muoto"
+        "mimetype": "Muoto",
+        "licenses": {
+          "0": "-",
+          "1": "CC BY 4.0",
+          "2": "CC BY-SA 4.0",
+          "3": "CC BY-ND 4.0"
+        }
       },
       "page": {
         "name": "Sivun nimi",
