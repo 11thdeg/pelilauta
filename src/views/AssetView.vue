@@ -7,6 +7,7 @@ import ForbiddenView from '../components/ui/ForbiddenView.vue'
 import ProfileTag from '../components/profiles/ProfileTag.vue'
 import FlowTimeCaption from '../components/content/FlowTimeCaption.vue'
 import AssetEntryForm from '../components/assets/AssetEntryForm.vue'
+import AssetEntryColumn from '../components/assets/AssetEntryColumn.vue'
 
 const props = defineProps<{
   assetkey: string
@@ -40,6 +41,7 @@ const owner = computed(() => {
             :alt="asset.name"
           >
         </article>
+        <AssetEntryColumn v-model="asset" />
         <article class="Column">
           <h4>{{ assetName(asset) }}</h4>
           <AssetEntryForm
