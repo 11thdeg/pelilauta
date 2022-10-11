@@ -71,12 +71,20 @@ function onSelectAvatar (e: string) {
       @select="onSelectPoster($event)"
     />
     <cyan-button
+      label="REMOVE POSTER"
+      @click="onSelectPoster('')"
+    />
+    <cyan-button
       label="SELECT AVATAR"
       @click="selectAvatarDialog = true"
     />
     <SelectAssetDialog
       v-model="selectAvatarDialog"
       @select="onSelectAvatar($event)"
+    />
+    <cyan-button
+      label="REMOVE AVATAR"
+      @click="onSelectAvatar('')"
     />
   </div>
 </template>

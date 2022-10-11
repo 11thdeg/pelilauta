@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import NavigationRail from './components/ui/NavigationRail.vue'
 import SnackBar from './components/ui/SnackBar.vue'
+import { useUxState } from './composables/useUXState'
+
+const { navTrayVisible } = useUxState()
 </script>
 
 <template>
   <NavigationRail />
-  <div class="appContainer">
+  <div
+    id="appContainer"
+    :class="{ navTrayVisible: navTrayVisible }"
+  >
     <router-view />
   </div>
   <SnackBar />
@@ -13,10 +19,11 @@ import SnackBar from './components/ui/SnackBar.vue'
 
 <style lang="sass" scoped>
 @media screen and (min-width: 600px)
-  div.appContainer
+  div#appContainer
     margin: 0
     padding: 0
     padding-left: 80px
-
+    &.navTrayVisible
+      padding-left: calc(80px + 360px)
 </style>
 

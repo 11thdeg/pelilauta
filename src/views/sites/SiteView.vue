@@ -7,6 +7,8 @@ import { usePages } from '../../composables/usePages'
 import { useI18n } from 'vue-i18n'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
 import SiteAppBar from '../../components/sites/SiteAppBar.vue'
+import NavigationTray from '../../components/navigation/NavigationTray.vue'
+import SiteTray from '../../components/sites/tray/SiteTray.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -54,5 +56,8 @@ const { pages } = usePages(props.sitekey)
       </article>
     </main>
     <SiteFabs :sitekey="sitekey" />
+    <NavigationTray>
+      <SiteTray />
+    </NavigationTray>
   </div>
 </template>
