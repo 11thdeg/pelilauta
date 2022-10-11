@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from '@vue/reactivity'
 import { usePages } from '../../../composables/usePages'
 import { useSession } from '../../../composables/useSession'
 import { useSite } from '../../../composables/useSite'
@@ -12,7 +13,7 @@ const { pages } = usePages()
 function inChapter(c: string) {
   return pages.value.filter(p => p.category === c)
 }
-
+const key = computed(() => site.value?.key || '')
 </script>
 
 <template>
@@ -33,8 +34,8 @@ function inChapter(c: string) {
         v-if="site.hasOwner(uid)"
         text
         noun="tools"
-        :disabled="$route.fullPath === `/sites/${site.key}/edit`"
-        @click="$router.push(`/sites/${site.key}/edit`)"
+        :disabled="$route.fullPath === `/sites/${key}/edit`"
+        @click="$router.push(`/sites/${key}/edit`)"
       />
     </cyan-toolbar>
 
