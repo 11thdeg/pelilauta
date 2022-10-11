@@ -24,6 +24,6 @@ const { navTrayVisible } = useUxState()
     padding: 0
     padding-left: 80px
     &.navTrayVisible
-      padding-left: calc(80px + 360px)
+      padding-left: calc(72px + 256px + 12px)
 </style>
 

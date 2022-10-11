@@ -7,6 +7,8 @@ import { usePage } from '../../composables/usePage'
 import MarkdownSection from '../../components/content/MarkdownSection.vue'
 import SideBar from '../../components/sites/SideBar.vue'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
+import NavigationTray from '../../components/navigation/NavigationTray.vue'
+import SiteTray from '../../components/sites/tray/SiteTray.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -65,5 +67,8 @@ const { page, loading } = usePage(props.pagekey)
         @click="$router.push(`/sites/${props.sitekey}/add/page`)"
       />
     </EmptyCollection>
+    <NavigationTray>
+      <SiteTray />
+    </NavigationTray>
   </main>
 </template>

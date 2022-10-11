@@ -40,12 +40,12 @@ const showTrayOnMobile = computed(() => uxState.showNavTrayOnMobile.value)
   background-color: var(--cyan-base-color)
   position: fixed
   top: 0
-  left: 80px
+  left: 72px
   width: 255px
   border-right: 1px solid var(--cyan-divider-color)
   height: 100vh
   margin: 0
-  padding: 12px 16px
+  padding: 12px 12px
   box-sizing: border-box
   overflow-y: scroll
   scroll-bar-width: none

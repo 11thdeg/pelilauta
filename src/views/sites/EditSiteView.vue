@@ -8,6 +8,8 @@ import LoginRequiredColumn from '../../components/account/LoginRequiredColumn.vu
 import ChapterTool from '../../components/sites/tools/ChapterTool.vue'
 import { useSite } from '../../composables/useSite'
 import ThemeEditor from '../../components/sites/tools/ThemeEditor.vue'
+import NavigationTray from '../../components/navigation/NavigationTray.vue'
+import SiteTray from '../../components/sites/tray/SiteTray.vue'
 const props = defineProps<{
   sitekey: string
 }>()
@@ -34,5 +36,8 @@ onMounted(async () => {
         <ThemeEditor :sitekey="site.key" />
       </template>
     </main>
+    <NavigationTray>
+      <SiteTray />
+    </NavigationTray>
   </div>
 </template>
