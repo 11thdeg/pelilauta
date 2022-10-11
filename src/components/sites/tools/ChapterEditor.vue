@@ -57,11 +57,11 @@ function save() {
   </cyan-toolbar>
   <Dialog
     v-model="open"
-    :label="t('fields.site.chapter.title')"
+    :label="t('action.add.new')"
   >
     <template v-if="item">
       <cyan-textfield
-        :label="t('fields.site.chapter.name')"
+        :label="t('fields.site.chapter')"
         :value="item.name || ''"
         @change="setField('name', $event.detail)"
       />

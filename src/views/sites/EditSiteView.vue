@@ -7,6 +7,7 @@ import { fetchSite } from '../../composables/useSites'
 import LoginRequiredColumn from '../../components/account/LoginRequiredColumn.vue'
 import ChapterTool from '../../components/sites/tools/ChapterTool.vue'
 import { useSite } from '../../composables/useSite'
+import ThemeEditor from '../../components/sites/tools/ThemeEditor.vue'
 const props = defineProps<{
   sitekey: string
 }>()
@@ -30,6 +31,7 @@ onMounted(async () => {
       <LoginRequiredColumn v-if="anonymous || !site.hasOwner(uid)" />
       <template v-else>
         <ChapterTool :sitekey="site.key" />
+        <ThemeEditor :sitekey="site.key" />
       </template>
     </main>
   </div>
