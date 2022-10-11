@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { Asset } from '@11thdeg/skaldstore'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref, Ref } from 'vue'
 import { useSession } from '../../composables/useSession'
 import AssetEntryForm from './AssetEntryForm.vue'
 import isEqual from 'lodash/isEqual'
-import { DocumentData } from '@firebase/firestore'
+import clone from 'lodash/clone'
+import { DocumentData, getFirestore, updateDoc, doc } from '@firebase/firestore'
 import { useI18n } from 'vue-i18n'
 import { logDebug } from '../../utils/logHelpers'
 import ProfileTag from '../profiles/ProfileTag.vue'
@@ -19,7 +20,7 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const { uid } = useSession()
 
-let carbonCopy:DocumentData = {}
+let carbonCopy:Ref<DocumentData> = ref({})
 
 const asset = computed({
   get: () => props.modelValue,
@@ -27,17 +28,23 @@ const asset = computed({
 })
 
 onMounted(() => {
-  carbonCopy = props.modelValue.docData
+  carbonCopy.value = clone(props.modelValue.docData)
 })
 
 const hasChanged = computed(() => {
-  const eq = isEqual(carbonCopy, asset.value.docData)
-  logDebug('AssetEntryColumn.hasChanged', eq, carbonCopy, asset.value.docData)
-  return eq
+  return !isEqual(carbonCopy.value, asset.value.docData)
 })
 
 function save () {
   logDebug('AssetEntryColumn', 'save', asset.value.docData)
+  updateDoc(
+    doc(
+      getFirestore(),
+      Asset.collectionName,
+      asset.value.key || ''
+    ),
+    asset.value.docData
+  )
 }
 </script>
 
@@ -47,11 +54,15 @@ function save () {
       <AssetEntryForm
         v-model="asset"
       />
-      <cyan-button
-        :disabled="!hasChanged + ''"
-        :label="t('action.save')"
-        @click="save"
-      />
+      <cyan-toolbar>
+        <cyan-spacer />
+        <cyan-button
+          noun="save"
+          :disabled="!hasChanged"
+          :label="t('action.save')"
+          @click="save"
+        />
+      </cyan-toolbar>
     </template>
     <template v-else>
       <h4>{{ asset.name }}</h4>

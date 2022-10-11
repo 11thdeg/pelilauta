@@ -2,7 +2,9 @@
 import { Asset } from '@11thdeg/skaldstore'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAssets } from '../../composables/useSession/useAssets'
+import { assetName, useAssets } from '../../composables/useSession/useAssets'
+import ProfileTag from '../profiles/ProfileTag.vue'
+import { entryOwnersAsArray } from '../../utils/entryOwnersAsArray'
 
 const props = defineProps<{
   modelValue: Asset
@@ -26,9 +28,18 @@ const asset = computed({
     <cyan-textfield
       :value="asset.name"
       :label="t('fields.asset.name')"
-      :placeholder="t('fields.asset.placeholder.name')"
+      :placeholder="assetName(asset)"
       @change="asset.name = $event.target.value"
     />
+    <div>
+      <strong>{{ t('fields.asset.owners') }}</strong> <cyan-code>
+        <ProfileTag
+          v-for="owner in entryOwnersAsArray(asset)"
+          :key="owner"
+          :uid="owner"
+        />
+      </cyan-code>
+    </div>
     <div>
       <strong>{{ t('fields.asset.mimetype') }}</strong> <cyan-code>
         {{ asset.mimetype }}
@@ -47,3 +58,10 @@ const asset = computed({
     />
   </div>
 </template>
+
+<style lang="sass" scoped>
+.AssetEntryForm
+  display: flex
+  flex-direction: column
+  gap: 8px
+</style>

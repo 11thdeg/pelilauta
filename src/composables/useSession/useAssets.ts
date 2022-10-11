@@ -155,10 +155,10 @@ export function useAssets() {
     licenses: computed(() => {
       const { t } = useI18n()
       return [
-        { label: t('fields.asset.licenses.0'), option: '0' },
-        { label: t('fields.asset.licenses.1'), option: '1' },
-        { label: t('fields.asset.licenses.2'), option: '2' },
-        { label: t('fields.asset.licenses.3'), option: '3' },
+        { label: t('fields.asset.licenses.0'), value: '0' },
+        { label: t('fields.asset.licenses.1'), value: '1' },
+        { label: t('fields.asset.licenses.2'), value: '2' },
+        { label: t('fields.asset.licenses.3'), value: '3' },
       ]
     })
   }
