@@ -25,6 +25,34 @@ export function watch(key: string) {
   save()
 }
 
+export function unwatch(key: string) {
+  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  subscriber.value.removeWatch(key)
+  save()
+}
+
+export function mute(key: string) {
+  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  subscriber.value.addMute(key)
+  save()
+}
+
+export function unmute(key: string) {
+  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  subscriber.value.removeMute(key)
+  save()
+}
+
+export function isWatchingAt(key: string) {
+  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  return subscriber.value.watches(key)
+}
+
+export function hasMuted(key: string) {
+  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  return subscriber.value.hasMuted(key)
+}
+
 export async function initSubscriber () {
   if (_init) throw new Error('Can not reinitialize subscriptions')
   _init = true

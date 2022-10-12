@@ -5,6 +5,7 @@ import { ref, computed } from "vue"
 import { logDebug, logError } from "../../utils/logHelpers"
 import { subscibeToAssets } from "./useAssets"
 import { useMeta } from "../useMeta"
+import { initSubscriber } from "./useSubscriber"
 
 // Set to true, if the session is active
 const active = ref(false)
@@ -80,6 +81,7 @@ export function login(user: User|null) {
     subscribeToAccount()
     subscribeToProfile()
     subscibeToAssets()
+    initSubscriber()
     logError("useSession", "login", "Not implemented for actual users")
     account.value = new Account(user)
     active.value = true
