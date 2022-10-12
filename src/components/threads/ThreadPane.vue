@@ -7,6 +7,7 @@ import { useSession } from '../../composables/useSession'
 import { computed } from 'vue'
 import ThreadMenu from '../../views/threads/ThreadMenu.vue'
 import ProfilePane from '../profiles/ProfilePane.vue'
+import WatchButton from '../actions/WatchButton.vue'
 
 const props = defineProps<{
   thread: {
@@ -17,6 +18,7 @@ const props = defineProps<{
     markdownContent: string,
     htmlContent: string,
     lovedCount: number,
+    followerCount: number,
     hasOwner: (uid: string) => boolean
   }
 }>()
@@ -54,6 +56,7 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
     <cyan-toolbar>
       <FlowTimeCaption :flow-time="thread.flowTime" />
       <cyan-spacer />
+      <WatchButton :entry="thread" />
       <LoveAThreadButton
         :thread="thread"
       />
