@@ -1,6 +1,6 @@
 import { Site } from "@11thdeg/skaldstore"
 import { PageCategory } from "@11thdeg/skaldstore/dist/entries/Site"
-import { doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"
+import { doc, DocumentData, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"
 import { computed, ref, Ref } from "vue"
 import { addStore } from "../useSession"
 import { patchSite } from "../useSites"
@@ -42,6 +42,15 @@ function subscribeSite (key: string) {
   )
 }
 
+async function update (data: DocumentData) {
+  const s = site.value
+  if(!s || !s.key) throw new Error('No site to update')
+  return updateDoc(
+    doc(getFirestore(), Site.collectionName, s.key),
+    data
+  )
+}
+
 export function useSite (id?: string) {
   if (id && site.value?.key !== id) {
     subscribeSite(id)
@@ -49,6 +58,7 @@ export function useSite (id?: string) {
   return {
     site: computed(() => site.value),
     chapters: computed(() => site.value?.pageCategories || []),
-    updateChapters
+    updateChapters,
+    update
   }
 }

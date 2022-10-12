@@ -6,8 +6,9 @@ import SelectAssetDialog from '../../assets/SelectAssetDialog.vue'
 import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { Site } from '@11thdeg/skaldstore'
 import { logDebug } from '../../../utils/logHelpers'
+import SiteThemeSelect from '../SiteThemeSelect.vue'
 
-const { site } = useSite()
+const { site, update } = useSite()
 
 const posterStyle = computed(() => {
   logDebug('ThemeEditor', 'posterStyle', site.value?.posterURL)
@@ -44,6 +45,21 @@ function onSelectAvatar (e: string) {
     }
   )
 }
+
+
+const siteTheme = computed({
+  get: () => site.value?.systemBadge || 'default',
+  set: (e: string) => {
+    if (site.value) {
+      site.value.system = e
+      site.value.systemBadge = e
+    }
+    update({
+      system: e,
+      systemBadge: e
+    })
+  }
+})
 </script>
 
 <template>
@@ -62,6 +78,9 @@ function onSelectAvatar (e: string) {
         class="siteAvatar"
       />
     </div>
+    <section style="border-bottom: solid 1px var(--cyan-divider-color); padding-bottom: 11px; margin-bottom: 12px">
+      <SiteThemeSelect v-model="siteTheme" />
+    </section>
     <cyan-button
       label="SELECT POSTER"
       @click="selectPosterDialog = true"

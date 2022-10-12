@@ -48,7 +48,7 @@ function drop(index: number) {
 <template>
   <div class="Column">
     <h3>{{ t('site.tools.chapters.title') }}</h3>
-    <p>{{ t('site.tools.chapters.title') }}</p>
+    <p>{{ t('site.tools.chapters.info') }}</p>
     <div
       v-for="chapter, index in chapters"
       :key="chapter.name"

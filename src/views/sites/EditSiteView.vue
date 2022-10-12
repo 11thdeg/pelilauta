@@ -10,6 +10,7 @@ import { useSite } from '../../composables/useSite'
 import ThemeEditor from '../../components/sites/tools/ThemeEditor.vue'
 import NavigationTray from '../../components/navigation/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
+import LinksTool from '../../components/sites/tools/LinksTool.vue'
 const props = defineProps<{
   sitekey: string
 }>()
@@ -32,8 +33,9 @@ onMounted(async () => {
     <main class="dashboardLayout">
       <LoginRequiredColumn v-if="anonymous || !site.hasOwner(uid)" />
       <template v-else>
-        <ChapterTool :sitekey="site.key" />
-        <ThemeEditor :sitekey="site.key" />
+        <ThemeEditor />
+        <ChapterTool />
+        <LinksTool />
       </template>
     </main>
     <NavigationTray>

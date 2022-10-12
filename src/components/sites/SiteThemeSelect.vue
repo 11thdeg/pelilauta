@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n';
 import { useMeta } from '../../composables/useMeta'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   modelValue: string;
@@ -24,6 +27,7 @@ const options = computed(() => siteThemes.value.map(theme => ({
 
 <template>
   <cyan-select
+    :label="t('fields.site.system')"
     :value="selected"
     :options="options"
     @change="selected = $event.target.value"
