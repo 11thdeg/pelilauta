@@ -7,7 +7,9 @@ import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { Site } from '@11thdeg/skaldstore'
 import { logDebug } from '../../../utils/logHelpers'
 import SiteThemeSelect from '../SiteThemeSelect.vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const { site, update } = useSite()
 
 const posterStyle = computed(() => {
@@ -60,6 +62,15 @@ const siteTheme = computed({
     })
   }
 })
+
+const name = computed({
+  get: () => site.value?.name || '',
+  set: (e: string) => {
+    update({
+      name: e
+    })
+  }
+})
 </script>
 
 <template>
@@ -78,32 +89,71 @@ const siteTheme = computed({
         class="siteAvatar"
       />
     </div>
-    <section style="border-bottom: solid 1px var(--cyan-divider-color); padding-bottom: 11px; margin-bottom: 12px">
+    <section class="toolset">
+      <cyan-textfield
+        :value="name"
+        :label="t('fields.site.name')"
+        @change="name = $event.target.value"
+      />
       <SiteThemeSelect v-model="siteTheme" />
     </section>
-    <cyan-button
-      label="SELECT POSTER"
-      @click="selectPosterDialog = true"
-    />
+
+    <!-- Poster Actions -->
+    <section class="toolset">
+      <p
+        class="TypeUI"
+        style="margin:0"
+      >
+        {{ t('fields.site.posterurl') }}
+      </p>
+      <cyan-toolbar>
+        <cyan-button
+          text
+          noun="assets"
+          :label="t('action.select')"
+          @click="selectPosterDialog = true"
+        />
+        <cyan-button
+          text
+          noun="delete"
+          :label="t('action.delete')"
+          @click="onSelectPoster('')"
+        />
+      </cyan-toolbar>
+    </section>
+
+    <!-- Avatar actions -->
+    <section>
+      <p
+        class="TypeUI"
+        style="margin:0"
+      >
+        {{ t('fields.site.avatarurl') }}
+      </p>
+      <cyan-toolbar>
+        <cyan-button
+          text
+          noun="assets"
+          :label="t('action.select')"
+          @click="selectAvatarDialog = true"
+        />
+        <cyan-button
+          text
+          noun="delete"
+          :label="t('action.delete')"
+          @click="onSelectAvatar('')"
+        />
+      </cyan-toolbar>
+    </section>
+
+    <!-- Dialogs -->
     <SelectAssetDialog
       v-model="selectPosterDialog"
       @select="onSelectPoster($event)"
     />
-    <cyan-button
-      label="REMOVE POSTER"
-      @click="onSelectPoster('')"
-    />
-    <cyan-button
-      label="SELECT AVATAR"
-      @click="selectAvatarDialog = true"
-    />
     <SelectAssetDialog
       v-model="selectAvatarDialog"
       @select="onSelectAvatar($event)"
-    />
-    <cyan-button
-      label="REMOVE AVATAR"
-      @click="onSelectAvatar('')"
     />
   </div>
 </template>
@@ -129,5 +179,11 @@ const siteTheme = computed({
   background-size: cover
   background-position: center
   background-repeat: no-repeat
-    
+.toolset
+  border-bottom: solid 1px var(--cyan-divider-color)
+  padding-bottom: 11px
+  margin-bottom: 12px
+  p
+    margin:0
+    padding: 0
 </style>

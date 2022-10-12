@@ -3,7 +3,11 @@
       "title": "Tietoja"
     },
     "app": {
-      "title": "Pelilauta"
+      "title": "Pelilauta",
+      "loginrequired": {
+        "title": "500",
+        "message": "Kirjaudu sisään jatkaaksesi"
+      }
     },
     "assetView": {
       "title": "Lataukset"
@@ -32,7 +36,8 @@
     "site":{
       "tools": {
         "chapters": {
-          "title": "Aiheet"
+          "title": "Aiheet",
+          "info": "Sivut ryhmitellään aiheiden alle sisällysluettelossa"
         }
       }
     },
@@ -53,6 +58,7 @@
       },
       "cancel": "Peruuta",
       "create": "Luo uusi",
+      "delete": "Poista",
       "toLogin": "Kirjaudu sisään",
       "toProfile": "Profiili",
       "login": "Kirjaudu",
@@ -169,7 +175,11 @@
         "bio": "Kuvaus"
       },
       "site": {
-        "chapter": "Aihe"
+        "name": "Pelin, tai sivuston nimi",
+        "system": "Pelijärjestelmä tai sivuston luokka",
+        "chapter": "Aihe",
+        "avatarurl": "Kuvake",
+        "posterurl": "Taustakuva"
       },
       "meta": {
         "sitetheme": {

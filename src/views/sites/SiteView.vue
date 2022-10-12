@@ -34,26 +34,6 @@ const { pages } = usePages(props.sitekey)
         :pagekey="site.homepage"
         :sitekey="sitekey"
       />
-      <article class="chroma-box-a Column card">
-        <h3>{{ site.name }}</h3>
-        <p>{{ site.description }}</p>
-        <cyan-button
-          :label="t('action.edit')"
-          noun="tools"
-          @click="$router.push(`/sites/${props.sitekey}/edit`)"
-        />
-        <hr>
-        <ul>
-          <li
-            v-for="page in pages"
-            :key="page.key"
-          >
-            <router-link :to="`/sites/${site.key}/pages/${page.key}`">
-              {{ page.name }}
-            </router-link>
-          </li>
-        </ul>
-      </article>
     </main>
     <SiteFabs :sitekey="sitekey" />
     <NavigationTray>
