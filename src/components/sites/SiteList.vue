@@ -58,9 +58,10 @@ const filter = ref(new Array<string>())
 
 <style lang="sass" scoped>
 .siteListing
-  display: grid
-  grid-template-columns: 1fr 1fr
-  gap: 1rem
+  display: flex
+  gap: var(--cyan-col-gap)
+  flex-wrap: wrap
+  width: 100%
   a
     text-decoration: none
 </style>

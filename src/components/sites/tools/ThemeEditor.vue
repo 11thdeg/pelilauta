@@ -71,6 +71,14 @@ const name = computed({
     })
   }
 })
+const description = computed({
+  get: () => site.value?.description || '',
+  set: (e: string) => {
+    update({
+      description: e
+    })
+  }
+})
 </script>
 
 <template>
@@ -94,6 +102,11 @@ const name = computed({
         :value="name"
         :label="t('fields.site.name')"
         @change="name = $event.target.value"
+      />
+      <cyan-textfield
+        :value="description"
+        :label="t('fields.site.description')"
+        @change="description = $event.target.value"
       />
       <SiteThemeSelect v-model="siteTheme" />
     </section>
