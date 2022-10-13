@@ -15,6 +15,7 @@ const props = defineProps<{
     posterURL: string;
     hasOwner: (u: string) => boolean;
     players?: string[];
+    hidden: boolean;
   }
 }>()
 
@@ -30,8 +31,12 @@ function hasPlayer(key: string) {
   if (!props.site.players) return false
   return props.site.players.includes(key)
 }
-
-
+/*
+const visibleNoun = computed(() => {
+  if (props.site.hidden) return 'eye-closed'
+  return 'eye-open'
+})
+*/
 </script>
 
 <template>
@@ -65,6 +70,11 @@ function hasPlayer(key: string) {
       {{ site.description }}
     </p>
     <cyan-toolbar small>
+      <!--cyan-icon
+        style="opacity: 0.44;"
+        xsmall
+        :noun="visibleNoun"
+      /-->
       <cyan-tag
         v-if="site.hasOwner(uid)"
         noun="avatar"
