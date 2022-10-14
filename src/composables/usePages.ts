@@ -7,11 +7,17 @@ import { addStore } from "./useSession"
 let sitekey = ''
 let unsubscribe:CallableFunction|undefined
 const pageCache = ref(new Map<string, Page>())
+const masterPageCache = ref(new Map<string, Map<string, page>>())
 const loading = ref(false)
 
+/**
+ * Remove all session related info from the store
+ */
 function reset() {
   sitekey = ''
   unsubscribe && unsubscribe()
+  pageCache.value = new Map()
+  masterPageCache.value = new Map()
 }
 
 async function init (key?: string) {
@@ -19,6 +25,14 @@ async function init (key?: string) {
   logDebug('usePages', 'init', key, Site.collectionName, Page.collectionName)
   reset()
   loading.value = true
+
+  // Stash site pages for further use
+  if (pageCache.value) masterPageCache.value.set(sitekey, pageCache.value)
+
+  // Empty the cache
+  pageCache.value = new Map()
+
+  // subscribe to the site pages
   sitekey = key
   unsubscribe = await onSnapshot(
     collection(
@@ -56,6 +70,9 @@ const categories = computed(() => {
 export async function fetchPage (sk: string, pagekey: string) {
   if (sitekey === sk) {
     return pageCache.value.get(pagekey) || undefined
+  }
+  else if (masterPageCache.value.has(sk)) {
+    return masterPageCache.value.get(sk)?.get(pagekey) || undefined
   }
   return undefined
 }

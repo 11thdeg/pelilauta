@@ -39,6 +39,24 @@ const key = computed(() => site.value?.key || '')
       />
     </cyan-toolbar>
 
+
+    <template
+      v-for="link in site.links"
+      :key="link.url"
+    >
+      <a :href="link.url">
+        <cyan-icon
+          v-if="link.noun"
+          :noun="link.noun"
+        />
+        {{ link.name }}
+        <cyan-icon
+          xsmall
+          noun="outlink"
+        />
+      </a>
+    </template>
+
     <template
       v-for="chapter in chapters"
       :key="chapter.slug"
