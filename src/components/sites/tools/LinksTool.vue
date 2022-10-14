@@ -50,9 +50,9 @@ function addLink(l: SiteLink) {
     class="Column card rise-b"
   >
     <h3>{{ t('site.tools.links.title') }}</h3>
-    <p>{{ t('site.tools.links.info') }}</p>
-
-    {{ site.links }}
+    <p class="TypeCaption lowEmphasis">
+      {{ t('site.tools.links.info') }}
+    </p>
 
     <div
       v-for="link, index in site.links"
@@ -61,8 +61,8 @@ function addLink(l: SiteLink) {
     >
       <div class="linkInfo hoverable">
         <p>{{ linkText(link) }}</p>
-        <p class="TypeCaption">
-          {{ link.url }}
+        <p class="TypeCaption link oneLiner">
+          <a :href="link.url">[ {{ link.url.length < 17 ? link.url : link.url.substring(0, 16) + '...' }} ]</a>
         </p>
       </div>
       <cyan-button
@@ -90,6 +90,12 @@ function addLink(l: SiteLink) {
 </template>
 
 <style lang="sass" scoped>
+.linkInfo
+  p
+    margin: 0
+    padding: 0
+.link
+  overflow: hidden
 .sortableTable
   display: grid
   grid-template-columns: auto 32px 32px 32px

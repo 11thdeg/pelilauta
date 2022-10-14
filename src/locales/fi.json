@@ -38,6 +38,10 @@
         "chapters": {
           "title": "Aiheet",
           "info": "Sivut ryhmitellään aiheiden alle sisällysluettelossa"
+        },
+        "links": {
+          "title": "Linkit",
+          "info": "Linkit avataan uuteen välilehteen."
         }
       }
     },
@@ -179,7 +183,13 @@
         "system": "Pelijärjestelmä tai sivuston luokka",
         "chapter": "Aihe",
         "avatarurl": "Kuvake",
-        "posterurl": "Taustakuva"
+        "posterurl": "Taustakuva",
+        "description": "Kuvaus",
+        "link": {
+          "title": "Linkit",
+          "url": "Linkin URL -osoite",
+          "name": "Linkin teksti"
+        }
       },
       "meta": {
         "sitetheme": {
