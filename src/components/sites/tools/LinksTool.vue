@@ -3,6 +3,7 @@ import { SiteLink } from '@11thdeg/skaldstore/dist/entries/Site'
 import { ref, Ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSite } from '../../../composables/useSite'
+import LinkEditor from './LinkEditor.vue'
 
 const { t } = useI18n()
 const { site, update } = useSite()
@@ -28,11 +29,25 @@ function linkText(link: SiteLink) {
   return link.name || link.url || '-'
 }
 
+function addLink(l: SiteLink) {
+  const arr = site.value?.links ? Array.from(site.value.links) : []
+  if (!arr.find(a => a.url === l.url)) {
+    arr.push(l)
+  } else {
+    arr.forEach((a, i) => {
+      if (a.url === l.url) {
+        arr[i] = l
+      }
+    })
+  }
+  update({ links: arr })
+}
+
 </script>
 <template>
   <div
     v-if="site"
-    class="Column"
+    class="Column card rise-b"
   >
     <h3>{{ t('site.tools.links.title') }}</h3>
     <p>{{ t('site.tools.links.info') }}</p>
@@ -67,6 +82,10 @@ function linkText(link: SiteLink) {
         @click="drop(index)"
       />
     </div>
+    <LinkEditor
+      :link="activeLink"
+      @save="addLink($event)"
+    />
   </div>
 </template>
 

@@ -46,7 +46,7 @@ function drop(index: number) {
 </script>
 
 <template>
-  <div class="Column">
+  <div class="Column card rise-b">
     <h3>{{ t('site.tools.chapters.title') }}</h3>
     <p class="TypeCaption">
       {{ t('site.tools.chapters.info') }}
