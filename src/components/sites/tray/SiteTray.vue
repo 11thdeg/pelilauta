@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { usePages } from '../../../composables/usePages'
 import { useSession } from '../../../composables/useSession'
 import { useSite } from '../../../composables/useSite'
 import ShareButton from '../../actions/ShareButton.vue'
 import SiteTrayHeader from './SiteTrayHeader.vue'
 
+const { t } = useI18n()
 const { site, chapters } = useSite()
 const { uid } = useSession()
 const { pages } = usePages()
@@ -40,39 +42,43 @@ const key = computed(() => site.value?.key || '')
     </cyan-toolbar>
 
 
-    <template
-      v-for="link in site.links"
-      :key="link.url"
+    <cyan-nav-section
+      v-if="site.links && site.links.length"
+      folds
+      :label="t('fields.site.links.title')"
     >
-      <a :href="link.url">
-        <cyan-icon
-          v-if="link.noun"
-          :noun="link.noun"
-        />
-        {{ link.name }}
-        <cyan-icon
-          xsmall
-          noun="outlink"
-        />
-      </a>
-    </template>
+      <template
+        v-for="link in site.links"
+        :key="link.url"
+      >
+        <a :href="link.url">
+          <cyan-nav-button
+            style="margin-left: -12px"
+            noun="outlink"
+          >{{ link.name }}</cyan-nav-button>
+        </a>
+      </template>
+    </cyan-nav-section>
 
-    <template
+    <cyan-nav-section
       v-for="chapter in chapters"
       :key="chapter.slug"
+      :label="chapter.name"
     >
-      <h4>{{ chapter.name }}</h4>
-      <p
+      <router-link
         v-for="page in inChapter(chapter.slug)"
         :key="page.key"
+        :to="`/sites/${site.key}/pages/${page.key}`"
       >
-        - <router-link :to="`/sites/${site.key}/pages/${page.key}`">
-          {{ page.name }}
-        </router-link>
-      </p>
-    </template>
-
-    <hr>
-    {{ site }}
+        <cyan-nav-button
+          style="margin-left: -12px; padding-left: 12px; margin-right: -4px"
+          compact
+        >
+          <div class="oneLiner TypeCaption">
+            {{ page.name }}
+          </div>
+        </cyan-nav-button>
+      </router-link>
+    </cyan-nav-section>
   </div>
 </template>

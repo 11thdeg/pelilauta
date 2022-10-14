@@ -14,35 +14,50 @@ const posterStyle = computed(() => {
 </script>
 
 <template>
-  <div
+  <section
     v-if="site"
     id="SiteTrayHeader"
-    :style="posterStyle"
   >
-    <router-link
-      :to="`/sites/${site.key}`"
-      class="avatar"
+    <div
+      id="TrayPoster"
+      :style="posterStyle"
     >
-      <SiteAvatar
-        :site="site"
-        class="clickable hoverable"
-      />
-    </router-link>
-  </div>
+      <router-link
+        :to="`/sites/${site.key}`"
+        class="avatar"
+      >
+        <SiteAvatar
+          :site="site"
+          class="clickable hoverable"
+        />
+      </router-link>
+    </div>
+    <h1 class="TypeBody2 title">
+      {{ site.name }}
+    </h1>
+    <p class="TypeCaption lowEmphasis">
+      {{ site.description }}
+    </p>
+  </section>
 </template>
 
 <style scoped lang="sass">
 #SiteTrayHeader
-  margin: -4px
-  padding: 12px
-  background-position: center
-  background-size: cover
-  border-radius: 12px
-  display: flex
-  justify-content: center
-  align-items: bottom
-  margin-bottom: 12px
-  .avatar
-    margin-bottom: -24px
-    margin-top: 24px
+  #TrayPoster
+    margin: -4px
+    padding: 12px
+    background-position: center
+    background-size: cover
+    border-radius: 12px
+    display: flex
+    justify-content: center
+    align-items: bottom
+    margin-bottom: 12px
+    .avatar
+      margin-bottom: -24px
+      margin-top: 24px
+  .title
+    margin: 0
+    margin-top: 16px
+    text-align: center
 </style>

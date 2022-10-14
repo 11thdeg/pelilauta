@@ -7,7 +7,7 @@ import { addStore } from "./useSession"
 let sitekey = ''
 let unsubscribe:CallableFunction|undefined
 const pageCache = ref(new Map<string, Page>())
-const masterPageCache = ref(new Map<string, Map<string, page>>())
+const masterPageCache = ref(new Map<string, Map<string, Page>>())
 const loading = ref(false)
 
 /**
