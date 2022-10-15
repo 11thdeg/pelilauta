@@ -56,7 +56,7 @@ function deleteTheme (index: number) {
 <template>
   <div
     v-if="admin"
-    class="GameSystenTool Column"
+    class="GameSystenTool Column card rise-a"
   >
     <h3>{{ t('admin.gamesystemtool.title') }}</h3>
     <p class="TypeBody2">

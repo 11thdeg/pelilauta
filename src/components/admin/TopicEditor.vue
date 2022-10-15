@@ -60,7 +60,7 @@ function save () {
 <template>
   <cyan-button
     noun="add"
-    :label="t('actions.add.new')"
+    :label="t('action.add.new')"
     text
     @click="item = { name: '', icon: '', slug: '', description: '', count: 0, order: -1 }"
   />

@@ -2,6 +2,25 @@
     "about": {
       "title": "Tietoja"
     },
+    "admin": {
+      "title": "Hallinto",
+      "description": "Sovelluksen hallintatyökalut. Sivu näkyy vain ylläpidolle, jote älä jaa tietoja täältä.",
+      "settings": {
+        "title": "Asetukset"
+      },
+      "gamesystemtool": {
+        "title": "Pelit",
+        "info": "Mekanismin sivustoille valittavissa olevat pelit ja teemat"
+      },
+      "users": {
+        "title": "Käyttäjät",
+        "info": "Käyttäjät, jotka ovat rekisteröityneet sivustolle"
+      },
+      "topictool": {
+        "title": "Aiheet",
+        "info": "Aiheiden hallinta"
+      }
+    },
     "app": {
       "title": "Pelilauta",
       "loginrequired": {
@@ -82,15 +101,6 @@
       "edit": "Muokkaa",
       "send": "Lähetä",
       "share": "Jaa"
-    },
-    "admin": {
-      "settings": {
-        "title": "Hallinta"
-      },
-      "gamesystemtool": {
-        "title": "Pelit",
-        "info": "Mekanismin sivustoille valittavissa olevat pelit ja teemat"
-      }
     },
     "assets": {
       "title": "Lataukset",
@@ -196,6 +206,9 @@
           "name": "Pelin tai sivustotyypin nimi",
           "id": "tekninen tunniste (uniikki)",
           "icon": "Pelin tai sivustotyypin ikoni"
+        },
+        "streams": {
+          "title": "Aihealueet"
         }
       }
     }

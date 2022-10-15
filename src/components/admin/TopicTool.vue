@@ -44,8 +44,8 @@ function saveTopic(s: StreamData) {
 </script>
 
 <template>
-  <div class="Column">
-    <h3>{{ t('meta.field.streams') }}</h3>
+  <div class="Column card rise-a">
+    <h3>{{ t('admin.topictool.title') }}</h3>
     <p class="TypeBody2">
       {{ t('admin.topictool.info') }}
     </p>
@@ -73,10 +73,13 @@ function saveTopic(s: StreamData) {
         @click="activeTopic = stream"
       />
     </div>
-    <TopicEditor
-      :topic="activeTopic"
-      @save="saveTopic($event as StreamData)"
-    />
+    <cyan-toolbar>
+      <cyan-spacer />
+      <TopicEditor
+        :topic="activeTopic"
+        @save="saveTopic($event as StreamData)"
+      />
+    </cyan-toolbar>
   </div>
 </template>
 

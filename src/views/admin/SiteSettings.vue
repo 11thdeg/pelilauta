@@ -4,6 +4,7 @@ import AppBar from '../../components/ui/AppBar.vue'
 import TopBar from '../../components/ui/TopBar.vue'
 import TopicTool from '../../components/admin/TopicTool.vue'
 import SiteThemeTool from '../../components/admin/SiteThemeTool.vue'
+import AdminTray from '../../components/admin/AdminTray.vue'
 
 const { admin } = useSession()
 </script>
@@ -18,6 +19,7 @@ const { admin } = useSession()
       <TopicTool />
       <SiteThemeTool />
     </main>
+    <AdminTray />
   </div>
   <div v-else>
     <TopBar title="500" />
