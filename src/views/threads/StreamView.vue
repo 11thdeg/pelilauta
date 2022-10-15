@@ -4,6 +4,7 @@ import StreamThreadCardList from '../../components/threads/StreamThreadCardList.
 import AppBar from '../../components/ui/AppBar.vue'
 import { computed } from 'vue'
 import { useMeta } from '../../composables/useMeta'
+import StreamTray from '../../components/threads/StreamTray.vue'
     
 const props = defineProps<{
     streamkey: string
@@ -22,11 +23,14 @@ const stream = computed(() => {
 </script>
 
 <template>
-  <AppBar
-    :title="stream.name"
-    :noun="stream.icon"
-  />
-  <main class="bookLayout">
-    <StreamThreadCardList :streamkey="streamkey" />
-  </main>
+  <div id="StreamView">
+    <AppBar
+      :title="stream.name"
+      :noun="stream.icon"
+    />
+    <main class="bookLayout">
+      <StreamThreadCardList :streamkey="streamkey" />
+    </main>
+    <StreamTray />
+  </div>
 </template>
