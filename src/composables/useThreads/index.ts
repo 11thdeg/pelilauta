@@ -1,5 +1,5 @@
 import { Thread } from "@11thdeg/skaldstore"
-import { collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, orderBy, query, where } from "firebase/firestore"
+import { collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, orderBy, Query, query, startAt, where } from "firebase/firestore"
 import { computed, ref } from "vue"
 import { logDebug, logEvent } from "../../utils/logHelpers"
 import { addStore } from "./../useSession"
@@ -67,26 +67,43 @@ export async function fetchAuthorThreads (uid:string, count = 11) {
   return authorThreads
 }
 
-export async function fetchStreamThreads(stream: string, count = 11) {
+export async function fetchStreamThreads(stream: string, count = 11, offset=0) {
   await init()
   logDebug('fetchStreamThreads')
-  const threads = await getDocs(
-    query(
-      collection(
-        getFirestore(),
-        'stream'
-      ),
+
+  const c = collection(
+    getFirestore(),
+    Thread.collectionName
+  )
+
+  let q:undefined|Query = undefined
+
+  if (offset === 0) {
+    q = query(
+      c,
+      where('stream', '==', stream),
       where('public', '==', true),
-      where('topic', '==', stream),
       limit(count),
       orderBy('flowTime', 'desc')
     )
-  )
+  } else {
+    q = query(
+      c,
+      where('stream', '==', stream),
+      where('public', '==', true),
+      limit(count),
+      orderBy('flowTime', 'desc'),
+      startAt(offset)
+    )
+  }
+
+  const threads = await getDocs(q)
   const streamThreads = new Array<Thread>()
   threads.forEach((thread) => {
     streamThreads.push(new Thread(thread.data(), thread.id))
     threadCache.value.set(thread.id, new Thread(thread.data(), thread.id))
   })
+  logDebug('fetchStreamThreads', streamThreads.length, count, offset)
   return streamThreads
 }
 

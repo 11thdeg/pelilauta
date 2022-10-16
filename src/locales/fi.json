@@ -73,6 +73,9 @@
         "message": "Haku ei löytänyt yhtään sivustoa."
       }
     },
+    "streams": {
+      "title": "Keskustelut"
+    },
     "action": {
       "add": {
         "new": "Lisää uusi",
