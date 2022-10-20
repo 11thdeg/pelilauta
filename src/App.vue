@@ -2,6 +2,7 @@
 import NavigationRail from './components/ui/NavigationRail.vue'
 import SnackBar from './components/ui/SnackBar.vue'
 import { useUxState } from './composables/useUXState'
+import EulaDialog from './components/account/EulaDialog.vue'
 
 const { navTrayVisible } = useUxState()
 </script>
@@ -14,6 +15,7 @@ const { navTrayVisible } = useUxState()
   >
     <router-view />
   </div>
+  <EulaDialog />
   <SnackBar />
 </template>
 

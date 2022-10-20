@@ -10,6 +10,7 @@ import { initSubscriber } from "./useSubscriber"
 // Set to true, if the session is active
 const active = ref(false)
 const uid = ref('')
+const accountLoaded = ref(false)
 // If firebase session has started, and we do not have an uid: the user is anonymous
 const anonymous = computed(() => active.value && !uid.value)
 
@@ -47,6 +48,7 @@ function reset () {
 }
 
 async function subscribeToAccount () {
+  accountLoaded.value = false
   logDebug("useSession", "subscribeToAccount()")
   unsubscribeAccount = onSnapshot(
     doc(getFirestore(), 'account', uid.value),
@@ -54,6 +56,7 @@ async function subscribeToAccount () {
       if (snapshot.exists()) {
         account.value.docData = snapshot.data()
       }
+      accountLoaded.value = true
     }
   )
 }
@@ -131,6 +134,11 @@ export function useSession () {
     updateProfile,
     admin,
     frozen,
-    uid: computed(() => account.value.uid)
+    uid: computed(() => account.value.uid),
+    eulaMissing: computed(() => 
+      accountLoaded.value &&
+      !anonymous.value && 
+      !account.value.updatedAt
+    ) // eula has to be agreed, before updating account for the first time
   }
 }
