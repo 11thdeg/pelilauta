@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import SiteAppBar from '../../components/sites/SiteAppBar.vue'
-import { usePage } from '../../composables/usePage'
+import { loadPage } from '../../composables/usePage'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
 import NavigationTray from '../../components/navigation/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
@@ -11,9 +11,8 @@ const props = defineProps<{
   pagekey: string
 }>()
 
-
 // init composable with sitekey and pagekey
-usePage(props.pagekey, props.sitekey)
+loadPage(props.pagekey, props.sitekey)
 
 </script>
 
@@ -24,7 +23,6 @@ usePage(props.pagekey, props.sitekey)
     sticky
   />
   <main class="bookLayout">
-    <div>{{ sitekey + '/' + pagekey }}</div>
     <PageArticle />
     <SiteFabs
       :pagekey="pagekey"

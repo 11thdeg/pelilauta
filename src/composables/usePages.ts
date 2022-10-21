@@ -22,7 +22,7 @@ function reset() {
 
 async function init (key?: string) {
   if (!key || sitekey === key) return
-  logDebug('usePages', 'init', key, Site.collectionName, Page.collectionName)
+  logDebug('usePages', 'init', key, Page.collectionName)
   reset()
   loading.value = true
 
@@ -49,6 +49,7 @@ async function init (key?: string) {
         else {
           const page = new Page(change.doc.data(), change.doc.id)
           pageCache.value.set(change.doc.id, page)
+          // logDebug('usePages', 'caching', 'page', page.key)
         }
       })
       logDebug('page snapshot loaded')
@@ -68,6 +69,8 @@ const categories = computed(() => {
 })
 
 export async function fetchPage (sk: string, pagekey: string) {
+  if (!pagekey) return undefined // no pagekey, no page to fetch
+
   if (sitekey === sk) {
     if (pageCache.value.has(pagekey))
       return pageCache.value.get(pagekey)
@@ -96,6 +99,11 @@ export async function fetchPage (sk: string, pagekey: string) {
   }
   logDebug('fetchPage not found', sk, pagekey)
   return undefined
+}
+
+export function subscribePages (key: string) {
+  logDebug('subscribePages: reroutes to usePages(key)', key)
+  usePages(key)
 }
 
 export function usePages(key?: string) {

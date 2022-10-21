@@ -3,7 +3,8 @@ import { useI18n } from 'vue-i18n'
 import TopBar from '../../components/ui/TopBar.vue'
 import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 import EditPageForm from '../../components/pages/EditPageForm.vue'
-import { usePage } from '../../composables/usePage'
+import { loadPage } from '../../composables/usePage'
+import { loadSite } from '../../composables/useSite'
 
 const props = defineProps<{
   sitekey: string
@@ -12,8 +13,11 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
+// init composable
+loadSite(props.sitekey)
+
 // init composable with sitekey and pagekey
-usePage(props.pagekey, props.sitekey)
+loadPage(props.pagekey || '', props.sitekey)
 
 </script>
 

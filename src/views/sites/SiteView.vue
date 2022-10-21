@@ -1,23 +1,31 @@
 <script lang="ts" setup>
 import { Site } from '@11thdeg/skaldstore'
-import { onMounted, ref } from 'vue'
-import { fetchSite } from '../../composables/useSites'
-import PageContentArticle from '../../components/pages/PageContentArticle.vue'
-import { usePages } from '../../composables/usePages'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
 import SiteAppBar from '../../components/sites/SiteAppBar.vue'
 import NavigationTray from '../../components/navigation/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
+import { loadSite, useSite } from '../../composables/useSite'
+import { loadPage } from '../../composables/usePage'
+import { watch } from 'vue'
+import PageArticle from '../../components/pages/PageArticle.vue'
+import { computed } from 'vue'
 
 const props = defineProps<{
   sitekey: string
 }>()
 
-const site = ref(new Site())
+loadSite(props.sitekey)
+// Load site default page
+loadPage(props.sitekey, props.sitekey)
 
-onMounted(async () => {
-  usePages(props.sitekey)
-  site.value = await fetchSite(props.sitekey) || new Site()
+const { site } = useSite()
+const s = computed (() => site.value || new Site())
+
+watch(s, (ns) => {
+  if (ns) {
+    const pageKey = ns.homepage || props.sitekey
+    loadPage(pageKey, props.sitekey)
+  }
 })
 
 </script>
@@ -26,10 +34,7 @@ onMounted(async () => {
   <div id="SiteView">
     <SiteAppBar :sitekey="sitekey" />
     <main class="bookLayout">
-      <PageContentArticle
-        :pagekey="site.homepage"
-        :sitekey="sitekey"
-      />
+      <PageArticle />
     </main>
     <SiteFabs :sitekey="sitekey" />
     <NavigationTray>

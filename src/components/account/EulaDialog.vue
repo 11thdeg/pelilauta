@@ -15,7 +15,7 @@ const eula = computed(() => pages.value.get('eula'))
 
 const showDialog = computed({
   get() {
-    return !eulaMissing.value && !dismissed.value
+    return eulaMissing.value && !dismissed.value
   },
   set(value) {
     dismissed.value = !value

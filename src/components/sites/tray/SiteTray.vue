@@ -8,77 +8,103 @@ import ShareButton from '../../actions/ShareButton.vue'
 import SiteTrayHeader from './SiteTrayHeader.vue'
 
 const { t } = useI18n()
-const { site, chapters } = useSite()
+const { site, chapters, loading } = useSite()
 const { uid } = useSession()
-const { pages } = usePages()
+const { pages, categories } = usePages()
 
 function inChapter(c: string) {
   return pages.value.filter(p => p.category === c)
 }
+const unCategorized = computed(() => {
+  return pages.value.filter(p => (!p.category || !chapters.value.find(c => c.slug === p.category)))
+})
 const key = computed(() => site.value?.key || '')
 </script>
 
 <template>
   <div
-    v-if="site"
     id="SiteTray"
   >
-    <SiteTrayHeader />
-    <cyan-toolbar>
-      <cyan-spacer />
-      <ShareButton icon />
-      <cyan-button
-        v-if="site.hasOwner(uid)"
-        text
-        noun="adventurer"
-      />
-      <cyan-button
-        v-if="site.hasOwner(uid)"
-        text
-        noun="tools"
-        :disabled="$route.fullPath === `/sites/${key}/edit`"
-        @click="$router.push(`/sites/${key}/edit`)"
-      />
-    </cyan-toolbar>
+    <template v-if="loading">
+      <cyan-loader inline />
+    </template>
+    <template v-else-if="site">
+      <SiteTrayHeader />
+      <cyan-toolbar>
+        <cyan-spacer />
+        <ShareButton icon />
+        <cyan-button
+          v-if="site.hasOwner(uid)"
+          text
+          noun="adventurer"
+        />
+        <cyan-button
+          v-if="site.hasOwner(uid)"
+          text
+          noun="tools"
+          :disabled="$route.fullPath === `/sites/${key}/edit`"
+          @click="$router.push(`/sites/${key}/edit`)"
+        />
+      </cyan-toolbar>
 
 
-    <cyan-nav-section
-      v-if="site.links && site.links.length"
-      folds
-      :label="t('fields.site.links.title')"
-    >
-      <template
-        v-for="link in site.links"
-        :key="link.url"
+      <cyan-nav-section
+        v-if="site.links && site.links.length"
+        folds
+        :label="t('fields.site.links.title')"
       >
-        <a :href="link.url">
-          <cyan-nav-button
-            style="margin-left: -12px"
-            noun="outlink"
-          >{{ link.name }}</cyan-nav-button>
-        </a>
-      </template>
-    </cyan-nav-section>
-
-    <cyan-nav-section
-      v-for="chapter in chapters"
-      :key="chapter.slug"
-      :label="chapter.name"
-    >
-      <router-link
-        v-for="page in inChapter(chapter.slug)"
-        :key="page.key"
-        :to="`/sites/${site.key}/pages/${page.key}`"
-      >
-        <cyan-nav-button
-          style="margin-left: -12px; padding-left: 12px; margin-right: -4px"
-          compact
+        <template
+          v-for="link in site.links"
+          :key="link.url"
         >
-          <div class="oneLiner TypeCaption">
-            {{ page.name }}
-          </div>
-        </cyan-nav-button>
-      </router-link>
-    </cyan-nav-section>
+          <a :href="link.url">
+            <cyan-nav-button
+              style="margin-left: -12px"
+              noun="outlink"
+            >{{ link.name }}</cyan-nav-button>
+          </a>
+        </template>
+      </cyan-nav-section>
+
+      <cyan-nav-section
+        v-for="chapter in chapters"
+        :key="chapter.slug"
+        :label="chapter.name"
+      >
+        <router-link
+          v-for="page in inChapter(chapter.slug)"
+          :key="page.key"
+          :to="`/sites/${site.key}/pages/${page.key}`"
+        >
+          <cyan-nav-button
+            style="margin-left: -12px; padding-left: 12px; margin-right: -4px"
+            compact
+          >
+            <div class="oneLiner TypeCaption">
+              {{ page.name }}
+            </div>
+          </cyan-nav-button>
+        </router-link>
+      </cyan-nav-section>
+      <cyan-nav-section
+        v-if="unCategorized.length"
+        :label="t('site.tray.unCategorizedPagesSection')"
+      >
+        <router-link
+          v-for="page in unCategorized"
+          :key="page.key"
+          :to="`/sites/${site.key}/pages/${page.key}`"
+        >
+          <cyan-nav-button
+            style="margin-left: -12px; padding-left: 12px; margin-right: -4px"
+            compact
+          >
+            <div class="oneLiner TypeCaption">
+              {{ page.name }}
+            </div>
+          </cyan-nav-button>
+        </router-link>
+      </cyan-nav-section>
+    </template>
   </div>
 </template>

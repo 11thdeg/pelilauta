@@ -7,7 +7,7 @@ import { useSite } from "./useSite"
 const loading = ref(false)
 const page = ref<Page | undefined>(undefined)
 
-async function loadPage(pagekey: string, sitekey?: string) {
+export async function loadPage(pagekey: string, sitekey?: string) {
   if (page.value?.key === pagekey) return
   loading.value = true
 
@@ -18,11 +18,7 @@ async function loadPage(pagekey: string, sitekey?: string) {
   loading.value = false
 }
 
-export function usePage(key?: string, sitekey?: string) {
-  // providing a site key loads the site
-  if (sitekey) useSite(sitekey)
-  // providing a page key loads the page
-  if (key && sitekey) loadPage(key, sitekey)
+export function usePage() {
   return {
     loading: computed(() => loading.value),
     page: computed(() => page.value || new Page()),

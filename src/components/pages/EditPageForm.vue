@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Page, Site } from '@11thdeg/skaldstore'
-import { addDoc, collection, doc, DocumentData, getDoc, getFirestore, setDoc, updateDoc } from '@firebase/firestore'
+import { addDoc, collection, doc, DocumentData, getFirestore, updateDoc } from '@firebase/firestore'
 import { marked } from 'marked'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -11,20 +11,17 @@ import { useSite } from '../../composables/useSite'
 import { useSnack } from '../../composables/useSnack'
 import { logDebug } from '../../utils/logHelpers'
 
-const props = defineProps<{
-  sitekey?: string
-  pagekey?: string
-}>()
-
 const { t } = useI18n()
 const { uid } = useSession()
 const { pushSnack } = useSnack()
 const { chapters } = useSite()
+const { key: sitekey, loading: siteLoading } = useSite()
+const { page, loading: pageLoading } = usePage()
+
 const router = useRouter()
 const preview = ref(false)
 
-const { page, loading } = usePage()
-const { key: sitekey } = useSite()
+const loading = computed(() => siteLoading.value || pageLoading.value)
 
 const chapterOptions = computed(() => {
   return [
@@ -35,72 +32,84 @@ const chapterOptions = computed(() => {
     }))]
 })
 
-async function update (p:DocumentData) {
-  if (!p.key) throw new Error('A Page key is required for update')
+async function update (data:DocumentData, key: string) {
+  if (!key) throw new Error('A Page key is required for update')
   return await updateDoc(
     doc(
       getFirestore(),
       Site.collectionName,
       sitekey.value,
       Page.collectionName,
-      p.key
+      key
     ),
-    p
+    data
   )
 }
 
-async function add (p:DocumentData) {
-  if (p.key) throw new Error('A Page key is not allowed for add')
-  if (props.pagekey && props.sitekey) {
-    const exists = await getDoc(
-      doc(
-        getFirestore(),
-        Site.collectionName,
-        props.sitekey,
-        Page.collectionName,
-        props.pagekey
-      )
-    )
-    if (exists.exists()) throw new Error('Duplicate page key in DB')
-    setDoc(
-      doc(
-        getFirestore(),
-        Site.collectionName,
-        props.sitekey,
-        Page.collectionName,
-        props.pagekey
-      ),
-      p
-    )
-    return props.pagekey
-  } else {
-    const newDoc = await addDoc(
-      collection(
-        getFirestore(),
-        Site.collectionName,
-        props.sitekey || sitekey.value,
-        Page.collectionName
-      ),
-      p
-    )
-    return newDoc.id
-  }
+async function add (data:DocumentData) {
+  const newPageDoc = await addDoc(
+    collection(
+      getFirestore(),
+      Site.collectionName,
+      sitekey.value,
+      Page.collectionName
+    ),
+    data
+  )
+  return newPageDoc.id
 }
 
 async function savePage () {
   logDebug('savePage', page.value)
-  page.value.addOwner(uid.value)
-  page.value.htmlContent = marked(page.value.markdownContent)
-  let key = ''
-  if (page.value && page.value.key) {
-    await update(page.value.docData)
-    key = page.value.key
+
+  const p = page.value
+  const u = uid.value
+
+  // Fix data after update
+  if (!p.hasOwner(u)) p.addOwner(u)
+  if (_name.value) p.name = _name.value
+
+  // Add htmlContent for backwards compatibility
+  p.htmlContent = marked(p.markdownContent)
+  logDebug('markdown', p.markdownContent)
+
+  let routekey = sitekey.value
+
+  if (!p.key) {
+    // We are creating a new page, as the page does not have a db identifier
+    logDebug('creating a new page')
+    routekey = await add(p.docData)
   } else {
-    key = await add(page.value.docData)
+    // We are updating an existing page
+    logDebug('updating an existing page', p.key)
+    await update(p.docData, p.key)
+    routekey = p.key
   }
+
   pushSnack(t('page.saved'))
-  router.push('/sites/' + props.sitekey + '/pages/' + key)
+  router.push('/sites/' + sitekey + '/pages/' + routekey)
 }
+
+// Form fields
+
+const _name = ref('')
+const name = computed({
+  get: () => _name.value || page.value.name,
+  set: (v) => {
+    _name.value = v
+    page.value.name = v
+  }
+})
+const nameError = computed(() => {
+  return _name.value && 
+    ( _name.value.length < 3 || name.value.length > 20 )
+})
+
+
+const hasUpdates = computed(() => {
+  return true && _name.value
+})
+
 </script>
 
 <template>
@@ -109,10 +118,12 @@ async function savePage () {
       <cyan-loader large />
     </template>
     <template v-else>
+      {{ hasUpdates }}
       <cyan-textfield
         :label="t('fields.page.name')"
-        :value="page.name"
-        @change="page.name = $event.detail"
+        :value="name"
+        :error="nameError"
+        @change="name = $event.detail"
       />
       <cyan-markdown-area
         :label="t('fields.page.content')"
