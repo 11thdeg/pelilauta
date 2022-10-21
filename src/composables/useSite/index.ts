@@ -58,6 +58,7 @@ export function useSite (id?: string) {
   return {
     site: computed(() => site.value),
     chapters: computed(() => site.value?.pageCategories || []),
+    key: computed(() => site.value?.key || ''),
     updateChapters,
     update
   }

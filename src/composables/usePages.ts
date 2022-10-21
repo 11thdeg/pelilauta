@@ -1,5 +1,5 @@
 import { Page, Site } from "@11thdeg/skaldstore"
-import { collection, getFirestore, onSnapshot } from "firebase/firestore"
+import { collection, doc, getDoc, getFirestore, onSnapshot } from "firebase/firestore"
 import { computed, ref } from "vue"
 import { logDebug } from "../utils/logHelpers"
 import { addStore } from "./useSession"
@@ -69,11 +69,32 @@ const categories = computed(() => {
 
 export async function fetchPage (sk: string, pagekey: string) {
   if (sitekey === sk) {
-    return pageCache.value.get(pagekey) || undefined
+    if (pageCache.value.has(pagekey))
+      return pageCache.value.get(pagekey)
   }
   else if (masterPageCache.value.has(sk)) {
-    return masterPageCache.value.get(sk)?.get(pagekey) || undefined
+    if (masterPageCache.value.get(sk)?.has(pagekey)) 
+      return masterPageCache.value.get(sk)?.get(pagekey)
   }
+  // not found in cache, fetch from db if available
+  logDebug('fetchPage from db', sk, pagekey)
+
+  const pageDoc = await getDoc(
+    doc(
+      getFirestore(),
+      Site.collectionName,
+      sk,
+      Page.collectionName,
+      pagekey
+    )
+  )
+  if (pageDoc.exists()) {
+    const page = new Page(pageDoc.data(), pageDoc.id)
+    if (sitekey === sk) pageCache.value.set(pagekey, page)
+    masterPageCache.value.get(sk)?.set(pagekey, page)
+    return page
+  }
+  logDebug('fetchPage not found', sk, pagekey)
   return undefined
 }
 

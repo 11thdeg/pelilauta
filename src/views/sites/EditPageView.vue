@@ -2,10 +2,8 @@
 import { useI18n } from 'vue-i18n'
 import TopBar from '../../components/ui/TopBar.vue'
 import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
-import { useSites } from '../../composables/useSites'
-import { onMounted, ref } from 'vue'
-import { Site } from '@11thdeg/skaldstore'
 import EditPageForm from '../../components/pages/EditPageForm.vue'
+import { usePage } from '../../composables/usePage'
 
 const props = defineProps<{
   sitekey: string
@@ -13,12 +11,9 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const { fetchSite } = useSites()
-const site = ref(new Site())
 
-onMounted(async () => {
-  site.value = await fetchSite(props.sitekey) || new Site()
-})
+// init composable with sitekey and pagekey
+usePage(props.pagekey, props.sitekey)
 
 </script>
 
@@ -26,11 +21,7 @@ onMounted(async () => {
   <div class="EditPageView">
     <TopBar :title="t('pages.edit.title')" />
     <main class="bookLayout">
-      <EditPageForm
-        v-if="site.key"
-        :sitekey="sitekey"
-        :pagekey="pagekey"
-      />
+      <EditPageForm />
       <MarkDownCheatSheetColumn />
     </main>
   </div>
