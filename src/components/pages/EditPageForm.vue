@@ -68,9 +68,12 @@ async function savePage () {
   // Fix data after update
   if (!p.hasOwner(u)) p.addOwner(u)
   if (_name.value) p.name = _name.value
+  if (_chapter.value) p.category = _chapter.value
+  else p.category = '-' // forcing a default category to db, not really necessary as missing category is  catched by error handling in the app
 
   // Add htmlContent for backwards compatibility
-  p.htmlContent = marked(p.markdownContent)
+  p.htmlContent = marked(markdown.value)
+  p.markdownContent = markdown.value
   logDebug('markdown', p.markdownContent)
 
   let routekey = sitekey.value
@@ -87,11 +90,13 @@ async function savePage () {
   }
 
   pushSnack(t('page.saved'))
-  router.push('/sites/' + sitekey + '/pages/' + routekey)
+  router.push('/sites/' + sitekey.value + '/pages/' + routekey)
 }
 
-// Form fields
+// *** Form fields *******************************************************
 
+
+// Name
 const _name = ref('')
 const name = computed({
   get: () => _name.value || page.value.name,
@@ -103,6 +108,33 @@ const name = computed({
 const nameError = computed(() => {
   return _name.value && 
     ( _name.value.length < 3 || name.value.length > 20 )
+})
+
+// Chapter
+const _chapter = ref('')
+const chapter = computed({
+  get: () => _chapter.value || page.value.category,
+  set: (v) => {
+    _chapter.value = v
+    page.value.category = v
+  }
+})
+
+// Markdown
+const _markdown = ref('')
+const markdown = computed({
+  get: () => _markdown.value || page.value.markdownContent,
+  set: (v) => {
+    _markdown.value = v
+    page.value.markdownContent = v
+  }
+})
+const markdownError = computed(() => {
+  return _markdown.value && 
+    ( _markdown.value.length > 1024 * 800 ) // 1MB, max size for firestore, some space left for metadata
+})
+const htmlConversionAvailable = computed(() => {
+  return page.value.htmlContent && !page.value.markdownContent
 })
 
 
@@ -118,7 +150,7 @@ const hasUpdates = computed(() => {
       <cyan-loader large />
     </template>
     <template v-else>
-      {{ hasUpdates }}
+      {{ hasUpdates }} // {{ htmlConversionAvailable }}
       <cyan-textfield
         :label="t('fields.page.name')"
         :value="name"
@@ -127,14 +159,15 @@ const hasUpdates = computed(() => {
       />
       <cyan-markdown-area
         :label="t('fields.page.content')"
-        :value="page.markdownContent"
-        @change="page.markdownContent = $event.detail"
+        :value="markdown"
+        :error="markdownError"
+        @change="markdown = $event.detail"
       />
       <cyan-toolbar>
         <cyan-select
           :options="chapterOptions"
-          :value="page.category"
-          @change="page.category = $event.target.value"
+          :value="chapter"
+          @change="chapter = $event.target.value"
         />
         <cyan-spacer />
         <cyan-button
