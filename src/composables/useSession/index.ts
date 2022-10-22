@@ -7,6 +7,8 @@ import { subscibeToAssets } from './useAssets'
 import { useMeta } from '../useMeta'
 import { initSubscriber } from './useSubscriber'
 
+export * from './register'
+
 // Set to true, if the session is active
 const active = ref(false)
 const uid = ref('')
