@@ -1,7 +1,7 @@
-import { Page } from "@11thdeg/skaldstore"
-import { computed, ref } from "vue"
-import { fetchPage } from "./usePages"
-import { useSite } from "./useSite"
+import { Page } from '@11thdeg/skaldstore'
+import { computed, ref } from 'vue'
+import { fetchPage } from './usePages'
+import { useSite } from './useSite'
 
 
 const loading = ref(false)
@@ -12,7 +12,7 @@ export async function loadPage(pagekey: string, sitekey?: string) {
   loading.value = true
 
   const sk = sitekey || useSite().key.value
-  if (!sk) throw new Error("No site key provided")
+  if (!sk) throw new Error('No site key provided')
   page.value = await fetchPage(sk, pagekey)
 
   loading.value = false

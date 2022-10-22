@@ -1,6 +1,6 @@
-import { Page, Site } from "@11thdeg/skaldstore"
-import { collection, getFirestore, onSnapshot } from "firebase/firestore"
-import { computed, ref } from "vue"
+import { Page, Site } from '@11thdeg/skaldstore'
+import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
+import { computed, ref } from 'vue'
 
 let _init = false
 let unsubscribe:CallableFunction|undefined

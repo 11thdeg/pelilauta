@@ -1,6 +1,6 @@
-import { Thread } from "@11thdeg/skaldstore"
-import { computed, ref } from "vue"
-import { fetchThread } from "./useThreads"
+import { Thread } from '@11thdeg/skaldstore'
+import { computed, ref } from 'vue'
+import { fetchThread } from './useThreads'
 
 const loading = ref(false)
 const thread = ref<Thread | undefined>(undefined)

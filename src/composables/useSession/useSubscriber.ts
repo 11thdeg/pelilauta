@@ -1,7 +1,7 @@
-import { Subscriber } from "@11thdeg/skaldstore"
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore"
-import { ref, Ref } from "vue"
-import { addStore, useSession } from "."
+import { Subscriber } from '@11thdeg/skaldstore'
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore'
+import { ref, Ref } from 'vue'
+import { addStore, useSession } from '.'
 
 let _init = false
 const subscriber: Ref<Subscriber|undefined> = ref(undefined)
@@ -20,36 +20,36 @@ async function save () {
 }
 
 export function watch(key: string) {
-  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
   subscriber.value.addWatch(key)
   save()
 }
 
 export function unwatch(key: string) {
-  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
   subscriber.value.removeWatch(key)
   save()
 }
 
 export function mute(key: string) {
-  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
   subscriber.value.addMute(key)
   save()
 }
 
 export function unmute(key: string) {
-  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
   subscriber.value.removeMute(key)
   save()
 }
 
 export function isWatchingAt(key: string) {
-  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
   return subscriber.value.watches(key)
 }
 
 export function hasMuted(key: string) {
-  if (!subscriber.value) throw new Error("Subscriber not initialized")
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
   return subscriber.value.hasMuted(key)
 }
 

@@ -11,7 +11,7 @@ const t = useI18n().t
 function singInWithEmail () {
   if (!emailAdress.value) {
     // TODO: show error in snackbar
-    logError('snackbar not implemented', `pushSnack('snacks.invalidEmail')`)
+    logError('snackbar not implemented', 'pushSnack(\'snacks.invalidEmail\')')
     return
   }
   signInWithEmailLink(getAuth(), emailAdress.value, window.location.href)
@@ -21,7 +21,7 @@ function singInWithEmail () {
     })
     .catch((error: Error) => {
       // TODO: show error in snackbar
-      logError('snackbar not implemented', `pushSnack('snacks.error', { params: { topic: error.message }})`)
+      logError('snackbar not implemented', 'pushSnack(\'snacks.error\', { params: { topic: error.message }})')
       logError(error)
     })
 }
@@ -50,12 +50,12 @@ const sendLinkToEmail = async () => {
       // if they open the link on the same device.
       window.localStorage.setItem('emailForSignIn', emailAdress.value)
       // TODO: show error in snackbar
-      logError('snackbar not implemented', `pushSnack('snacks.emailSent')`)
+      logError('snackbar not implemented', 'pushSnack(\'snacks.emailSent\')')
       // pushSnack('snacks.emailSent')
     })
     .catch((error: Error) => {
       // TODO: show error in snackbar
-      logError('snackbar not implemented', `pushSnack('snacks.error', { params: { topic: error.message }})`)
+      logError('snackbar not implemented', 'pushSnack(\'snacks.error\', { params: { topic: error.message }})')
       //pushSnack('snacks.error', { params: { topic: error.message }})
       logError(error)
     })

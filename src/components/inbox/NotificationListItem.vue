@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { Notification } from "@11thdeg/skaldstore"
-import { computed, onMounted, ref } from "vue"
-import { useI18n } from "vue-i18n"
-import { fetchThread } from "../../composables/useThreads"
-import { logError } from "../../utils/logHelpers"
-import ProfileTag from "../profiles/ProfileTag.vue"
+import { Notification } from '@11thdeg/skaldstore'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { fetchThread } from '../../composables/useThreads'
+import { logError } from '../../utils/logHelpers'
+import ProfileTag from '../profiles/ProfileTag.vue'
 
 const props = defineProps<{
   notification: Notification
@@ -13,7 +13,7 @@ const props = defineProps<{
 const { t } = useI18n()
 
 const noun = computed(() => {
-  return props.notification.read ? "fox" : "idea"
+  return props.notification.read ? 'fox' : 'idea'
 })
 
 const targetTitle = ref('')

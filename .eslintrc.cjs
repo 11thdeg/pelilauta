@@ -24,6 +24,7 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     'semi': [1, 'never'],
-    'indent': ['error', 2]
+    'indent': ['error', 2],
+    'quotes': ['error', 'single']
   }
 }

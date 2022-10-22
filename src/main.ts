@@ -9,8 +9,8 @@ import { createI18n } from 'vue-i18n'
 import en from './locales/en.json'
 import fi from './locales/fi.json'
 import { firebaseConfig } from './firebaseConfig'
-import { initializeApp } from "firebase/app"
-import { getAuth, onAuthStateChanged, User } from "firebase/auth"
+import { initializeApp } from 'firebase/app'
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 import { login } from './composables/useSession'
 
 const router = createRouter({

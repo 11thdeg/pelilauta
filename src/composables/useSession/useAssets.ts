@@ -1,11 +1,11 @@
-import { Asset } from "@11thdeg/skaldstore"
-import { FirebaseError } from "firebase/app"
-import { addDoc, collection, deleteDoc, doc, getDoc, getFirestore, onSnapshot, query, where } from "firebase/firestore"
-import { deleteObject, getDownloadURL, getStorage, ref as storageRef, uploadString } from "firebase/storage"
-import { computed, ref, Ref } from "vue"
-import { logError, logEvent } from "../../utils/loghelpers"
-import { addStore, useSession } from "."
-import { useI18n } from "vue-i18n"
+import { Asset } from '@11thdeg/skaldstore'
+import { FirebaseError } from 'firebase/app'
+import { addDoc, collection, deleteDoc, doc, getDoc, getFirestore, onSnapshot, query, where } from 'firebase/firestore'
+import { deleteObject, getDownloadURL, getStorage, ref as storageRef, uploadString } from 'firebase/storage'
+import { computed, ref, Ref } from 'vue'
+import { logError, logEvent } from '../../utils/loghelpers'
+import { addStore, useSession } from '.'
+import { useI18n } from 'vue-i18n'
 
 let init = false
 const assetCache: Ref<Map<string, Asset>> = ref(new Map())
@@ -131,17 +131,17 @@ async function deleteAsset (id:string): Promise<void> {
 export function assetName (asset: Asset) {
   if (asset.name) return asset.name
   if (asset.storagePath) return asset.storagePath.substring(asset.storagePath.lastIndexOf('/') + 1)
-  return "-"
+  return '-'
 }
 
 export function assetDescription (asset: Asset) {
   if (asset.description) return asset.description
-  return "-"
+  return '-'
 }
 
 export function assetLicense (asset: Asset) {
   if (asset.license) return asset.license
-  return "0"
+  return '0'
 }
 
 export function useAssets() {

@@ -1,9 +1,9 @@
-import { Thread } from "@11thdeg/skaldstore"
-import { collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, orderBy, Query, query, startAt, where } from "firebase/firestore"
-import { computed, ref } from "vue"
-import { logDebug, logEvent } from "../../utils/logHelpers"
-import { addStore } from "./../useSession"
-import { loveThread, unLoveThread } from "./reactions"
+import { Thread } from '@11thdeg/skaldstore'
+import { collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, orderBy, Query, query, startAt, where } from 'firebase/firestore'
+import { computed, ref } from 'vue'
+import { logDebug, logEvent } from '../../utils/logHelpers'
+import { addStore } from './../useSession'
+import { loveThread, unLoveThread } from './reactions'
 
 let _init = false
 let unsubscribeThreads:undefined|CallableFunction
@@ -13,7 +13,7 @@ async function init () {
   logDebug('init threads', _init)
   if (_init) return
   _init = true
-  addStore("threads", reset)
+  addStore('threads', reset)
   if(unsubscribeThreads) unsubscribeThreads()
   unsubscribeThreads = await onSnapshot(
     query(

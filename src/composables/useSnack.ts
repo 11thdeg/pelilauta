@@ -14,7 +14,7 @@ interface Config {
  * @param config { params: Record<string, string>, action: CallableFunction }
  */
 function pushSnack(message: string, config?:Config) {
-  logDebug("pushSnack", message)
+  logDebug('pushSnack', message)
   snackStack.value.push({ message, ...config })
 }
 

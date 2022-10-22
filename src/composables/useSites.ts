@@ -1,8 +1,8 @@
-import { Site } from "@11thdeg/skaldstore"
-import { collection, doc, getDoc, getFirestore, onSnapshot, query, where } from "firebase/firestore"
-import { computed, ref } from "vue"
-import { logError } from "../utils/logHelpers"
-import { addStore, useSession } from "./useSession"
+import { Site } from '@11thdeg/skaldstore'
+import { collection, doc, getDoc, getFirestore, onSnapshot, query, where } from 'firebase/firestore'
+import { computed, ref } from 'vue'
+import { logError } from '../utils/logHelpers'
+import { addStore, useSession } from './useSession'
 
 const siteCache = ref(new Map<string, Site>())
 

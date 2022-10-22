@@ -1,8 +1,8 @@
-import { Page, Site } from "@11thdeg/skaldstore"
-import { collection, doc, getDoc, getFirestore, onSnapshot } from "firebase/firestore"
-import { computed, ref } from "vue"
-import { logDebug } from "../utils/logHelpers"
-import { addStore } from "./useSession"
+import { Page, Site } from '@11thdeg/skaldstore'
+import { collection, doc, getDoc, getFirestore, onSnapshot } from 'firebase/firestore'
+import { computed, ref } from 'vue'
+import { logDebug } from '../utils/logHelpers'
+import { addStore } from './useSession'
 
 let sitekey = ''
 let unsubscribe:CallableFunction|undefined

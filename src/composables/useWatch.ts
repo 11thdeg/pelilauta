@@ -1,7 +1,7 @@
-import { Account, Thread } from "@11thdeg/skaldstore"
-import { doc, getFirestore, serverTimestamp, Timestamp, updateDoc } from "firebase/firestore"
-import { computed } from "vue"
-import { useSession } from "./useSession"
+import { Account, Thread } from '@11thdeg/skaldstore'
+import { doc, getFirestore, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore'
+import { computed } from 'vue'
+import { useSession } from './useSession'
 
 
 async function watchThread (thread: Thread) {

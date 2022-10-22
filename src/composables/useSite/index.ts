@@ -1,9 +1,9 @@
-import { Site } from "@11thdeg/skaldstore"
-import { PageCategory } from "@11thdeg/skaldstore/dist/entries/Site"
-import { doc, DocumentData, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"
-import { computed, ref, Ref } from "vue"
-import { addStore } from "../useSession"
-import { patchSite } from "../useSites"
+import { Site } from '@11thdeg/skaldstore'
+import { PageCategory } from '@11thdeg/skaldstore/dist/entries/Site'
+import { doc, DocumentData, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
+import { computed, ref, Ref } from 'vue'
+import { addStore } from '../useSession'
+import { patchSite } from '../useSites'
 import { subscribePages } from '../usePages'
 
 let subscribedSitekey = ''

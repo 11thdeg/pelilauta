@@ -1,6 +1,6 @@
-import { doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"
-import { computed, ref } from "vue"
-import { useSession } from "../useSession"
+import { doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
+import { computed, ref } from 'vue'
+import { useSession } from '../useSession'
 
 export * from './metaPages'
 

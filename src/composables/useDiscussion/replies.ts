@@ -1,6 +1,6 @@
-import { Reply, Thread } from "@11thdeg/skaldstore"
-import { doc, getDoc, getFirestore } from "firebase/firestore"
-import { ref } from "vue"
+import { Reply, Thread } from '@11thdeg/skaldstore'
+import { doc, getDoc, getFirestore } from 'firebase/firestore'
+import { ref } from 'vue'
 
 // Note: reply keys are unique across collectios --> thus replies can be cached
 // with key only, outside the thread/site/page context

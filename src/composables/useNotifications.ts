@@ -1,8 +1,8 @@
-import { Notification } from "@11thdeg/skaldstore"
-import { collection, getFirestore, limit, onSnapshot, orderBy, query, where } from "firebase/firestore"
-import { computed, ref, watch } from "vue"
-import { logEvent } from "../utils/logHelpers"
-import { useSession } from "./useSession"
+import { Notification } from '@11thdeg/skaldstore'
+import { collection, getFirestore, limit, onSnapshot, orderBy, query, where } from 'firebase/firestore'
+import { computed, ref, watch } from 'vue'
+import { logEvent } from '../utils/logHelpers'
+import { useSession } from './useSession'
 
 let _init = false
 let _unsubscribeNotifications:CallableFunction|undefined
@@ -24,7 +24,7 @@ async function subscribeNotifications (uid: string) {
   _notificationsCache.value = new Map<string, Notification>()
   if (!uid) return // Anonyous user, no need to subscribe
 
-  logEvent("subscribeNotifications", { uid: uid })
+  logEvent('subscribeNotifications', { uid: uid })
 
   const q = query(
     collection(getFirestore(), Notification.collectionName),

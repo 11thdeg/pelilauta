@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import FilterChip from "../ui/FilterChip.vue"
-import { useMeta } from "../../composables/useMeta"
-import { logDebug } from "../../utils/logHelpers"
-import { useI18n } from "vue-i18n"
+import FilterChip from '../ui/FilterChip.vue'
+import { useMeta } from '../../composables/useMeta'
+import { logDebug } from '../../utils/logHelpers'
+import { useI18n } from 'vue-i18n'
 
 
 const { siteThemes } = useMeta()
@@ -19,7 +19,7 @@ const emit = defineEmits<{
 // const state = computed(() => props.modelValue || [] )
 
 function onClick (id:string) {
-  logDebug("onclick", id)
+  logDebug('onclick', id)
   const arr = props.modelValue || []
   if (arr.includes('family:'+id)) arr.splice(arr.indexOf('family:'+id), 1)
   else arr.push('family:'+id)

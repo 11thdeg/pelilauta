@@ -81,7 +81,7 @@ function addImage (url: string) {
   reply.value.images?.push(url)
 }
 
-const replace=ref("")
+const replace=ref('')
 
 </script>
 

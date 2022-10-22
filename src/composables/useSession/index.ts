@@ -1,11 +1,11 @@
-import { Account, Profile } from "@11thdeg/skaldstore"
-import { getAuth, User } from "firebase/auth"
-import { doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore"
-import { ref, computed } from "vue"
-import { logDebug, logError } from "../../utils/logHelpers"
-import { subscibeToAssets } from "./useAssets"
-import { useMeta } from "../useMeta"
-import { initSubscriber } from "./useSubscriber"
+import { Account, Profile } from '@11thdeg/skaldstore'
+import { getAuth, User } from 'firebase/auth'
+import { doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
+import { ref, computed } from 'vue'
+import { logDebug, logError } from '../../utils/logHelpers'
+import { subscibeToAssets } from './useAssets'
+import { useMeta } from '../useMeta'
+import { initSubscriber } from './useSubscriber'
 
 // Set to true, if the session is active
 const active = ref(false)
@@ -21,7 +21,7 @@ let unsubscribeAccount:undefined|CallableFunction
 let unsubscribeProfile:undefined|CallableFunction
 
 function reset () {
-  logDebug("useSession", "reset()", active.value)
+  logDebug('useSession', 'reset()', active.value)
 
   if (active.value) {
     // Setting uid to ==false will trigger the anonymous computed property
@@ -49,7 +49,7 @@ function reset () {
 
 async function subscribeToAccount () {
   accountLoaded.value = false
-  logDebug("useSession", "subscribeToAccount()")
+  logDebug('useSession', 'subscribeToAccount()')
   unsubscribeAccount = onSnapshot(
     doc(getFirestore(), 'account', uid.value),
     (snapshot) => {
@@ -62,7 +62,7 @@ async function subscribeToAccount () {
 }
 
 async function subscribeToProfile () {
-  logDebug("useSession", "subscribeToProfile()")
+  logDebug('useSession', 'subscribeToProfile()')
   unsubscribeProfile = onSnapshot(
     doc(getFirestore(), 'profiles', uid.value),
     (snapshot) => {
@@ -73,7 +73,7 @@ async function subscribeToProfile () {
 }
 
 export function login(user: User|null) {
-  logDebug("useSession", "login", user)
+  logDebug('useSession', 'login', user)
   reset()
   if (user === null || user.isAnonymous ) {
     active.value = true
@@ -85,7 +85,7 @@ export function login(user: User|null) {
     subscribeToProfile()
     subscibeToAssets()
     initSubscriber()
-    logError("useSession", "login", "Not implemented for actual users")
+    logError('useSession', 'login', 'Not implemented for actual users')
     account.value = new Account(user)
     active.value = true
   }
@@ -95,7 +95,7 @@ export function login(user: User|null) {
 const resetters:Map<string, CallableFunction> = new Map()
 
 export function addStore(name: string, resetter: () => void) {
-  logDebug("useSession", "Added a store reset method", name)
+  logDebug('useSession', 'Added a store reset method', name)
   resetters.set(name, resetter)
 }
 
@@ -107,11 +107,11 @@ export async function logout() {
 function updateProfile(field: string, value:string) {
   if (!active.value) throw new Error('Session is not active')
   if (anonymous.value) throw new Error('Anonymous users can not update their profile')
-  logDebug("useSession", "updateProfile", field, value)
+  logDebug('useSession', 'updateProfile', field, value)
   if (field in profile.value && typeof profile.value.docData[field] === typeof value) {
     updateDoc(doc(getFirestore(), 'profiles', uid.value), { field: value })
   } else {
-    logError("useSession", "updateProfile", "Field does not exist or type does not match", field, value)
+    logError('useSession', 'updateProfile', 'Field does not exist or type does not match', field, value)
   }
 }
 
