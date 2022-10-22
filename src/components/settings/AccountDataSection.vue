@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { toDisplayString } from '../../utils/toDisplayString'
 import WithLoader from '../ui/WithLoader.vue'
+import VerifyAccountDeletionDialog from './VerifyAccountDeletionDialog.vue'
 
 const { t } = useI18n()
 const { active, profile, account} = useSession()
@@ -14,6 +15,7 @@ const updatedAt = computed(() => {
   return account.value.updatedAt.seconds +''+ account.value.updatedAt.nanoseconds
 })
 
+const verifyDialog = ref(false)
 </script>
 
 <template>
@@ -63,8 +65,10 @@ const updatedAt = computed(() => {
           :label="t('settings.dangerousDeleteAccountAction')"
           text
           noun="delete"
+          @click="verifyDialog = true"
         />
       </cyan-toolbar>
     </section>
+    <VerifyAccountDeletionDialog v-model="verifyDialog" />
   </WithLoader>
 </template>
