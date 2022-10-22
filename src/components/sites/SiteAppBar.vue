@@ -11,7 +11,7 @@ const props =  defineProps<{
 
 
 const { site } = useSite(props.sitekey)
-const { page } = usePage(props.pagekey || site.value?.homepage || props.sitekey, props.sitekey)
+const { page } = usePage()
 
 const title = computed(() => {
   if (props.pagekey) return page.value?.name || '...'

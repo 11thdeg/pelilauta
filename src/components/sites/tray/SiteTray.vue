@@ -10,7 +10,7 @@ import SiteTrayHeader from './SiteTrayHeader.vue'
 const { t } = useI18n()
 const { site, chapters, loading } = useSite()
 const { uid } = useSession()
-const { pages, categories } = usePages()
+const { pages } = usePages()
 
 function inChapter(c: string) {
   return pages.value.filter(p => p.category === c)
