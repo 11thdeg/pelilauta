@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import AppBar from '../../components/ui/AppBar.vue'
+import AppBar from '../../components/navigation/AppBar.vue'
 import SiteList from '../../components/sites/SiteList.vue'
 import MekanismiAd from '../../components/cta/MekanismiAd.vue'
 

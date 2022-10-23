@@ -4,7 +4,7 @@ import SsoDataSection from '../components/settings/SsoDataSection.vue'
 import AccountDataSection from '../components/settings/AccountDataSection.vue'
 import AppSettingsColumn from '../components/settings/AppSettingsColumn.vue'
 import ProfileDataColumn from '../components/settings/ProfileDataColumn.vue'
-import AppBar from '../components/ui/AppBar.vue'
+import AppBar from '../components/navigation/AppBar.vue'
 
 const { t } = useI18n()
 </script>

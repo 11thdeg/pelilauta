@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Site } from '@11thdeg/skaldstore'
 import { onMounted, ref } from 'vue'
-import AppBar from '../../components/ui/AppBar.vue'
+import AppBar from '../../components/navigation/AppBar.vue'
 import { useSession } from '../../composables/useSession'
 import { fetchSite } from '../../composables/useSites'
 import LoginRequiredColumn from '../../components/account/LoginRequiredColumn.vue'

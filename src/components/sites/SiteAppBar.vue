@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { usePage } from '../../composables/usePage'
 import { useSite } from '../../composables/useSite'
-import AppBar from '../ui/AppBar.vue'
+import AppBar from '../navigation/AppBar.vue'
 
 const props =  defineProps<{
   sitekey: string

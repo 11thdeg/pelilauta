@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { logDebug } from '../../utils/loghelpers'
 import StreamThreadCardList from '../../components/threads/StreamThreadCardList.vue'
-import AppBar from '../../components/ui/AppBar.vue'
+import AppBar from '../../components/navigation/AppBar.vue'
 import { computed } from 'vue'
 import { useMeta } from '../../composables/useMeta'
 import StreamTray from '../../components/threads/StreamTray.vue'

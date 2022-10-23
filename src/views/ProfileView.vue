@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Profile } from '@11thdeg/skaldstore'
 import { onMounted, Ref, ref } from 'vue'
-import AppBar from '../components/ui/AppBar.vue'
+import AppBar from '../components/navigation/AppBar.vue'
 import { fetchProfile } from '../composables/useProfiles'
 import PublicProfileColumn from '../components/profiles/PublicProfileColumn.vue'
 import ProfilePostsColumn from '../components/profiles/ProfilePostsColumn.vue'
