@@ -64,7 +64,10 @@ const sendLinkToEmail = async () => {
 </script>
 
 <template>
-  <section id="emailLoginForm">
+  <section
+    id="emailLoginForm"
+    class="card chroma-box-a rise-a"
+  >
     <div
       v-if="verify"
       class="verifyWarning"
@@ -75,21 +78,25 @@ const sendLinkToEmail = async () => {
     <template
       v-if="!verify"
     >
-      <div>
-        <h3>
-          {{ t('login.emailLoginForm.title') }}
-        </h3>
-      </div>
+      <h3>
+        {{ t('login.emailLoginForm.title') }}
+      </h3>
+      <p class="TypeBody2">
+        {{ t('login.emailLoginForm.info') }}
+      </p>
       <cyan-textfield
         :value="emailAdress"
         :label="t('login.emailLoginForm.emailFieldLabel')"
         @change="emailAdress = $event.target.value"
       />
-      <cyan-button
-        :disabled="!emailAdress"
-        :label="t('login.withEmail')"
-        @click="sendLinkToEmail"
-      />
+      <cyan-toolbar>
+        <cyan-spacer />
+        <cyan-button
+          :disabled="!emailAdress"
+          :label="t('login.withEmail')"
+          @click="sendLinkToEmail"
+        />
+      </cyan-toolbar>
     </template>
   </section>
 </template>

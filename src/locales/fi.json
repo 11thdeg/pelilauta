@@ -131,9 +131,10 @@
       "title": "Kirjaudu / Rekisteröidy",
       "withGoogle": "Googlella",
       "withFacebook": "Facebookilla",
-      "withEmail": "Lähetä kirjautumislinkki",
+      "withEmail": "Lähetä linkki",
       "emailLoginForm": {
-        "title": "Sähköpostilla",
+        "title": "Kirjaudu sähköpostilla",
+        "info": "Voit kirjautua pelkän sähköpostiosoitteen avulla. Syötä osoitteesi allaolevaan kenttään ja paina kirjaudu. Lähetämme sähköpostiisi maagisen linkin, jonka avulla voit kirjautua Pelilaudalle.",
         "emailFieldLabel": "Osoite"
       }
     },

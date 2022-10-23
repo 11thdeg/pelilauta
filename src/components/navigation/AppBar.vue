@@ -65,6 +65,7 @@ const noun = computed(() => {
   align-items: center
   height: 56px
   gap: 12px
+  padding-right: 8px
 .title
   height: 56px
   display: flex
