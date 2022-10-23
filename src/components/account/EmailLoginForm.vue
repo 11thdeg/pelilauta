@@ -2,16 +2,20 @@
 import { getAuth, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink } from '@firebase/auth'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useSnack } from '../../composables/useSnack'
 import { logError } from '../../utils/logHelpers'
+
+const t = useI18n().t
+const { pushSnack } = useSnack()
 
 const emailAdress = ref('')
 const verify = ref(isSignInWithEmailLink(getAuth(), window.location.href))
-const t = useI18n().t
+
 
 function singInWithEmail () {
   if (!emailAdress.value) {
-    // TODO: show error in snackbar
-    logError('snackbar not implemented', 'pushSnack(\'snacks.invalidEmail\')')
+    pushSnack(t('login.snacks.invalidEmail'))
+    logError('Missing email adress - this should not happen')
     return
   }
   signInWithEmailLink(getAuth(), emailAdress.value, window.location.href)
@@ -20,8 +24,7 @@ function singInWithEmail () {
       window.localStorage.removeItem('emailForSignIn')
     })
     .catch((error: Error) => {
-      // TODO: show error in snackbar
-      logError('snackbar not implemented', 'pushSnack(\'snacks.error\', { params: { topic: error.message }})')
+      pushSnack(t('login.snacks.error'))
       logError(error)
     })
 }
@@ -43,20 +46,21 @@ const actionCodeSettings = {
 const sendLinkToEmail = async () => {
   if (verify.value) singInWithEmail()
 
-  return sendSignInLinkToEmail(getAuth(), emailAdress.value, actionCodeSettings)
+  const adress = emailAdress.value
+  emailAdress.value = ''
+
+  return sendSignInLinkToEmail(getAuth(), adress, actionCodeSettings)
     .then(() => {
       // The link was successfully sent. Inform the user.
       // Save the email locally so you don't need to ask the user for it again
       // if they open the link on the same device.
-      window.localStorage.setItem('emailForSignIn', emailAdress.value)
-      // TODO: show error in snackbar
-      logError('snackbar not implemented', 'pushSnack(\'snacks.emailSent\')')
-      // pushSnack('snacks.emailSent')
+      window.localStorage.setItem('emailForSignIn', adress)
+      pushSnack(t('login.snacks.emailSent'))
     })
     .catch((error: Error) => {
       // TODO: show error in snackbar
       logError('snackbar not implemented', 'pushSnack(\'snacks.error\', { params: { topic: error.message }})')
-      //pushSnack('snacks.error', { params: { topic: error.message }})
+      pushSnack(t('login.snacks.error'))
       logError(error)
     })
 }
@@ -64,9 +68,9 @@ const sendLinkToEmail = async () => {
 </script>
 
 <template>
-  <section
+  <div
     id="emailLoginForm"
-    class="card chroma-box-a rise-a"
+    class="Column card chroma-box-a rise-a"
   >
     <div
       v-if="verify"
@@ -98,13 +102,5 @@ const sendLinkToEmail = async () => {
         />
       </cyan-toolbar>
     </template>
-  </section>
+  </div>
 </template>
-
-<style lang="sass" scoped>
-#emailLoginForm
-  display: flex
-  flex-direction: column
-  align-items: stretch
-  gap: 8px
-</style>

@@ -39,6 +39,7 @@ const { t } = useI18n()
 .CreateAccountAd
   padding: var(--cyan-col-gap)
   position: relative
+  margin-bottom: 12px
 .adicon
   display: block
   margin: 0 auto

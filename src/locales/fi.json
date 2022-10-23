@@ -132,10 +132,15 @@
       "withGoogle": "Googlella",
       "withFacebook": "Facebookilla",
       "withEmail": "Lähetä linkki",
+      "firstTime": "Jos et ole aiemmin kirjautunut Pelilaudalle, luomme sinulle tunnuksen samalla.",
       "emailLoginForm": {
         "title": "Kirjaudu sähköpostilla",
-        "info": "Voit kirjautua pelkän sähköpostiosoitteen avulla. Syötä osoitteesi allaolevaan kenttään ja paina kirjaudu. Lähetämme sähköpostiisi maagisen linkin, jonka avulla voit kirjautua Pelilaudalle.",
+        "info": "Voit myös kirjautua sähköpostia käyttäen. Syötä osoitteesi allaolevaan kenttään ja paina kirjaudu. Lähetämme sähköpostiisi maagisen linkin, jonka avulla voit kirjautua Pelilaudalle.",
         "emailFieldLabel": "Osoite"
+      },
+      "socialLoginForm": {
+        "title": "Kirjaudu toisella palvelulla",
+        "info": "Kirjaudu Pelilaudalle käyttämällä Facebookia tai Googlea."
       }
     },
     "page": {
