@@ -66,6 +66,9 @@
           "title": "Linkit",
           "info": "Linkit avataan uuteen välilehteen."
         }
+      },
+      "tray": {
+        "unCategorizedPagesSection": "Sivut"
       }
     },
     "sites": {

@@ -51,7 +51,7 @@ const key = computed(() => site.value?.key || '')
       <cyan-nav-section
         v-if="site.links && site.links.length"
         folds
-        :label="t('fields.site.links.title')"
+        :label="t('fields.site.link.title')"
       >
         <template
           v-for="link in site.links"
@@ -87,7 +87,7 @@ const key = computed(() => site.value?.key || '')
         </router-link>
       </cyan-nav-section>
       <cyan-nav-section
-        v-if="unCategorized.length"
+        v-if="unCategorized.length > 0"
         :label="t('site.tray.unCategorizedPagesSection')"
       >
         <router-link
@@ -100,7 +100,7 @@ const key = computed(() => site.value?.key || '')
             compact
           >
             <div class="oneLiner TypeCaption">
-              {{ page.name }}
+              {{ page.name }} 
             </div>
           </cyan-nav-button>
         </router-link>

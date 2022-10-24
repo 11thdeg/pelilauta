@@ -25,6 +25,7 @@ const filteredSites = computed(() => {
       arr = arr.filter(site => site.systemBadge === f.split(':')[1])
     }
   }
+  arr.sort((a, b) => a.compareFlowTime(b))
   return arr
 })
 

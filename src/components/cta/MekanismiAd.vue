@@ -85,6 +85,7 @@ const { anonymous } = useSession()
         color: white
   img.splash
     width: calc(100% + 24px)
+    max-width: calc(100% + 24px)
     opacity: 1
     margin: -12px
 </style>
