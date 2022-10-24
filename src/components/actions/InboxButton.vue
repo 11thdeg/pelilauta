@@ -12,7 +12,7 @@ const { newCount } = useNotifications()
       @click="$router.push('/inbox')"
     />
     <cyan-tag
-      :alert="parseInt(newCount) > 0"
+      :notification="parseInt(newCount) > 0"
       secondary
       class="InboxButton__count"
       :label="newCount"

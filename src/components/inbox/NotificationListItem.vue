@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { Notification } from '@11thdeg/skaldstore'
+import { deleteDoc, doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fetchThread } from '../../composables/useThreads'
-import { logError } from '../../utils/logHelpers'
 import ProfileTag from '../profiles/ProfileTag.vue'
 
 const props = defineProps<{
@@ -28,7 +28,24 @@ onMounted(async () => {
 })
 
 function markRed() {
-  logError('markRed() not implemented')
+  updateDoc(
+    doc(
+      getFirestore(),
+      Notification.collectionName,
+      props.notification.key
+    ),
+    { read: true }
+  )
+}
+
+function removeNotification() {
+  deleteDoc(
+    doc(
+      getFirestore(),
+      Notification.collectionName,
+      props.notification.key
+    )
+  )
 }
 </script>
 
@@ -58,6 +75,12 @@ function markRed() {
         /> {{ notification.message }}
       </p>
     </div>
+    <cyan-spacer />
+    <cyan-button
+      text
+      noun="delete"
+      @click.stop="removeNotification"
+    />
   </div>
 </template>
 
@@ -70,4 +93,8 @@ function markRed() {
   &.unread
     border-left: 4px solid var(--cyan-divider-color)
     padding-left: 4px
+    background-color: var(--chroma-secondary-i)
+  p
+    margin: 0
+
 </style>
