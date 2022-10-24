@@ -5,14 +5,23 @@ import SiteFabs from '../../components/sites/SiteFabs.vue'
 import NavigationTray from '../../components/navigation/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import PageArticle from '../../components/pages/PageArticle.vue'
+import { loadSite } from '../../composables/useSite'
+import { watch } from 'vue'
 
 const props = defineProps<{
   sitekey: string
   pagekey: string
 }>()
 
-// init composable with sitekey and pagekey
-loadPage(props.pagekey, props.sitekey)
+// We need to load state from the server when the route changes
+watch(props, () => {
+  // init composable
+  loadSite(props.sitekey)
+  // init composable with sitekey and pagekey
+  loadPage(props.pagekey || '', props.sitekey)
+}, { 
+  immediate: true 
+})
 
 </script>
 
