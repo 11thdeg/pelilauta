@@ -29,7 +29,9 @@
       },
       "markdowncheatsheet": {
         "title": "Markdown",
-        "description": "Tekstiä voi muotoilla käyttäen alla esiteltyjä Markdown merkintöjä. Voit tarkistaa tuloksen esikatselunäkymästä."
+        "description": "Tekstiä voi muotoilla käyttäen alla esiteltyjä Markdown merkintöjä. Voit tarkistaa tuloksen esikatselunäkymästä.",
+        "headings": "Otsikot",
+        "text": "Tekstin muotoilu"
       }
     },
     "assetView": {

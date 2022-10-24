@@ -10,6 +10,7 @@ import { useSession } from '../../composables/useSession'
 import { useSite } from '../../composables/useSite'
 import { useSnack } from '../../composables/useSnack'
 import { logDebug } from '../../utils/logHelpers'
+import MarkdownSection from '../content/MarkdownSection.vue'
 
 const { t } = useI18n()
 const { uid } = useSession()
@@ -132,14 +133,21 @@ const markdown = computed({
   }
 })
 const markdownError = computed(() => {
-  return _markdown.value && 
-    ( _markdown.value.length > 1024 * 800 ) // 1MB, max size for firestore, some space left for metadata
+  if (_markdown.value) {
+    if (_markdown.value.length > 1024 * 800) return t('fields.error.tooLong') // 1MB, max size for firestore, some space left for metadata
+  }
+  return false
 })
 const htmlConversionAvailable = computed(() => {
   return page.value.htmlContent && !page.value.markdownContent
 })
 
 const hasUpdates = computed(() => {
+  if (
+    _name.value ||
+    _chapter.value ||
+    _markdown.value
+  ) return true
   return false
 })
 
@@ -154,20 +162,30 @@ const hasUpdates = computed(() => {
       '
       <cyan-code>({{ htmlConversionAvailable }})</cyan-code>&nbsp;
       <cyan-code>({{ hasUpdates }})</cyan-code>&nbsp;
-      <cyan-code>({{ _markdown }})</cyan-code>&nbsp;
+      <cyan-code>({{ _chapter }})</cyan-code>&nbsp;
       <cyan-code>({{ markdownError }})</cyan-code>
-      <cyan-textfield
-        :label="t('fields.page.name')"
-        :value="name"
-        :error="nameError"
-        @change="name = $event.detail"
-      />
-      <cyan-markdown-area
-        :label="t('fields.page.content')"
-        :value="markdown"
-        :error="markdownError"
-        @change="markdown = $event.detail"
-      />
+      <section v-if="!preview">
+        <cyan-textfield
+          :label="t('fields.page.name')"
+          :value="name"
+          :error="nameError"
+          @change="name = $event.detail"
+        />
+        <cyan-markdown-area
+          :label="t('fields.page.content')"
+          :value="markdown"
+          :error="markdownError"
+          @change="markdown = $event.detail"
+        />
+      </section>
+
+      <section v-else>
+        <h4>{{ name }} <cyan-tag :label="chapter" /></h4>
+        <hr>
+        <MarkdownSection :content="markdown" />
+        <hr>
+      </section>
+
       <cyan-toolbar>
         <cyan-select
           :options="chapterOptions"
@@ -176,14 +194,23 @@ const hasUpdates = computed(() => {
         />
         <cyan-spacer />
         <cyan-button
+          v-if="!preview"
           :label="t('action.preview')"
           text
-          noun="eye"
+          noun="eye-open"
           @click="preview = true"
+        />
+        <cyan-button
+          v-if="preview"
+          :label="t('action.edit')"
+          text
+          noun="eye-closed"
+          @click="preview = false"
         />
         <cyan-button
           :label="t('action.save')"
           noun="send"
+          :disabled="!hasUpdates"
           @click="savePage"
         />
       </cyan-toolbar>

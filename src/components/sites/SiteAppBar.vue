@@ -19,14 +19,6 @@ const title = computed(() => {
   return '...'
 })
 
-const subtitle = computed(() => {
-  return site.value?.name || '...'
-})
-
-const subtitleLink = computed(() => {
-  return `/sites/${props.sitekey}`
-})
-
 const noun = computed(() => {
   return site.value?.systemBadge || 'mekanismi'
 })
@@ -35,8 +27,6 @@ const noun = computed(() => {
 <template>
   <AppBar
     :title="title"
-    :subtitle="subtitle"
-    :subtitle-link="subtitleLink"
     :noun="noun"
   />
 </template>

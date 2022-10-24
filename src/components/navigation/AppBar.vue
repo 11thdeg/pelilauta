@@ -29,26 +29,14 @@ const noun = computed(() => {
     <cyan-icon
       :noun="noun"
     />
-    <div class="title">
-      <h2
-        v-if="subtitle"
-        class="TypeCaption"
-      >
-        <router-link
-          v-if="subtitleLink"
-          :to="subtitleLink"
-        >
-          {{ subtitle }}
-        </router-link>
-        <template v-else>
-          {{ subtitle }}
-        </template>
-      </h2>
-      <h1 class="TypeHeadline5">
-        {{ title }}
-      </h1>
-    </div>
-    
+
+    <h1
+      id="viewTitle"
+      class="TypeHeadline5"
+    >
+      {{ title }}
+    </h1>
+
     <cyan-spacer />
     <cyan-lightmode-toggle />
     <InboxButton />
@@ -66,17 +54,8 @@ const noun = computed(() => {
   height: 56px
   gap: 12px
   padding-right: 8px
-.title
-  height: 56px
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  h2, h1
-    margin: 0
-    a
-      color: black
-      text-decoration: none
+  #viewTitle
+    padding-top: 10px
   h1:first-child
     line-height: 56px
   h2.TypeCaption
