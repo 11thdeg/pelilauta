@@ -150,7 +150,8 @@ const hasUpdates = computed(() => {
     <template v-if="loading">
       <cyan-loader large />
     </template>
-    <template v-else>'
+    <template v-else>
+      '
       <cyan-code>({{ htmlConversionAvailable }})</cyan-code>&nbsp;
       <cyan-code>({{ hasUpdates }})</cyan-code>&nbsp;
       <cyan-code>({{ _markdown }})</cyan-code>&nbsp;
