@@ -99,15 +99,17 @@ async function savePage () {
 // Name
 const _name = ref('')
 const name = computed({
-  get: () => _name.value || page.value.name,
+  get: () => _name.value || page.value.name,
   set: (v) => {
     _name.value = v
     page.value.name = v
   }
 })
 const nameError = computed(() => {
-  return _name.value && 
-    ( _name.value.length < 3 || name.value.length > 20 )
+  if (_name.value) {
+    if (_name.value.length > 22) return t('fields.error.tooLong')
+  }
+  return false
 })
 
 // Chapter
@@ -151,6 +153,9 @@ const hasUpdates = computed(() => {
     </template>
     <template v-else>
       {{ hasUpdates }} // {{ htmlConversionAvailable }}
+      <cyan-code>({{ _name }})</cyan-code>&nbsp;
+      <cyan-code>({{ name }})</cyan-code>&nbsp;
+      <cyan-code>({{ nameError }})</cyan-code>
       <cyan-textfield
         :label="t('fields.page.name')"
         :value="name"

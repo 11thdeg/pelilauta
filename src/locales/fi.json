@@ -26,6 +26,10 @@
       "loginrequired": {
         "title": "500",
         "message": "Kirjaudu sisään jatkaaksesi"
+      },
+      "markdowncheatsheet": {
+        "title": "Markdown",
+        "description": "Tekstiä voi muotoilla käyttäen alla esiteltyjä Markdown merkintöjä. Voit tarkistaa tuloksen esikatselunäkymästä."
       }
     },
     "assetView": {

@@ -5,6 +5,7 @@ import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatShee
 import EditPageForm from '../../components/pages/EditPageForm.vue'
 import { loadPage } from '../../composables/usePage'
 import { loadSite } from '../../composables/useSite'
+import { watch } from 'vue'
 
 const props = defineProps<{
   sitekey: string
@@ -13,11 +14,15 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-// init composable
-loadSite(props.sitekey)
-
-// init composable with sitekey and pagekey
-loadPage(props.pagekey || '', props.sitekey)
+// We need to load state from the server when the route changes
+watch(props, () => {
+  // init composable
+  loadSite(props.sitekey)
+  // init composable with sitekey and pagekey
+  loadPage(props.pagekey || '', props.sitekey)
+}, { 
+  immediate: true 
+})
 
 </script>
 
