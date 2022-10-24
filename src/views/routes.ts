@@ -14,6 +14,7 @@ export const routes = [
   { path: '/about', component: AboutView },
   { path: '/inbox', component: InboxView },
   { path: '/login', component: LoginView },
+  { path: '/login/:backroute', component: LoginView, props: true },
   { path: '/settings', component: SettingsView },
   { path: '/assets', component: AssetsView },
   { path: '/assets/:assetkey', component: AssetView, props: true },

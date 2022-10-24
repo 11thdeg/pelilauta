@@ -4,6 +4,10 @@ import SocialFacebookLoginButton from './SocialFacebookLoginButton.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+
+const props = defineProps<{
+  to: string
+}>()
 </script>
 
 <template>
@@ -17,8 +21,8 @@ const { t } = useI18n()
     </p>
     
     <div class="buttons">
-      <SocialGoogleLoginButton />
-      <SocialFacebookLoginButton />
+      <SocialGoogleLoginButton :to="props.to" />
+      <SocialFacebookLoginButton :to="props.to" />
     </div>
 
     <p

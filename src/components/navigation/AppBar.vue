@@ -71,11 +71,14 @@ const noun = computed(() => {
   display: flex
   flex-direction: column
   justify-content: center
+  align-items: center
   h2, h1
     margin: 0
     a
       color: black
       text-decoration: none
+  h1:first-child
+    line-height: 56px
   h2.TypeCaption
     margin-top: 8px
 </style>

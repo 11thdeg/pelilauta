@@ -2,10 +2,16 @@
 import { getAuth, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink } from '@firebase/auth'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { useSnack } from '../../composables/useSnack'
-import { logError } from '../../utils/logHelpers'
+import { logError, logEvent } from '../../utils/logHelpers'
+
+const props = defineProps<{
+  to: string
+}>()
 
 const t = useI18n().t
+const router = useRouter()
 const { pushSnack } = useSnack()
 
 const emailAdress = ref('')
@@ -22,6 +28,8 @@ function singInWithEmail () {
     .then(() => {
       // Clear email from storage.
       window.localStorage.removeItem('emailForSignIn')
+      logEvent('Login', { vendor: 'Email' })
+      router.push(props.to)
     })
     .catch((error: Error) => {
       pushSnack(t('login.snacks.error'))

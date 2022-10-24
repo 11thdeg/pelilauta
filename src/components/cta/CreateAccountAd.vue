@@ -29,6 +29,7 @@ const { t } = useI18n()
         dark
         noun="avatar"
         :label="t('action.loginOrRegister')"
+        @click.prevent="() => $router.push('/login')"
       />
       <cyan-spacer />
     </cyan-toolbar>
