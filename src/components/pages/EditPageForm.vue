@@ -107,7 +107,7 @@ const name = computed({
 })
 const nameError = computed(() => {
   if (_name.value) {
-    if (_name.value.length > 22) return t('fields.error.tooLong')
+    if (_name.value.length > 48) return t('fields.error.tooLong')
   }
   return false
 })
@@ -139,9 +139,8 @@ const htmlConversionAvailable = computed(() => {
   return page.value.htmlContent && !page.value.markdownContent
 })
 
-
 const hasUpdates = computed(() => {
-  return true && _name.value
+  return false
 })
 
 </script>
@@ -151,11 +150,11 @@ const hasUpdates = computed(() => {
     <template v-if="loading">
       <cyan-loader large />
     </template>
-    <template v-else>
-      {{ hasUpdates }} // {{ htmlConversionAvailable }}
-      <cyan-code>({{ _name }})</cyan-code>&nbsp;
-      <cyan-code>({{ name }})</cyan-code>&nbsp;
-      <cyan-code>({{ nameError }})</cyan-code>
+    <template v-else>'
+      <cyan-code>({{ htmlConversionAvailable }})</cyan-code>&nbsp;
+      <cyan-code>({{ hasUpdates }})</cyan-code>&nbsp;
+      <cyan-code>({{ _markdown }})</cyan-code>&nbsp;
+      <cyan-code>({{ markdownError }})</cyan-code>
       <cyan-textfield
         :label="t('fields.page.name')"
         :value="name"
