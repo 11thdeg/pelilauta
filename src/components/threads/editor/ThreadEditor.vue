@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Thread } from '@11thdeg/skaldstore'
 import { addDoc, collection, getFirestore } from '@firebase/firestore'
+import { marked } from 'marked'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -26,12 +27,45 @@ const preview = ref(false)
 
 const thread = ref(new Thread())
 
-const titleError = computed(() => thread.value.title.length > 42)
 
 const valid = computed(() => {
-  return thread.value.title.length > 0 &&
-    !titleError.value &&
-    thread.value.markdownContent.length > 0
+  return titleValid.value &&
+    (title.value.length > 0 || content.value.length > 0) &&
+    contentValid.value
+})
+
+// Title
+const _title = ref('')
+const title = computed({
+  get: () => _title.value || thread.value.title,
+  set: (value: string) => {
+    _title.value = value
+  }
+})
+const titleValid = computed(() => {
+  if (_title.value) {
+    if (_title.value.length > 72) {
+      return false
+    }
+  }
+  return true
+})
+
+// Content
+const _content = ref('')
+const content = computed({
+  get: () => _content.value || thread.value.markdownContent,
+  set: (value: string) => {
+    _content.value = value
+  }
+})
+const contentValid = computed(() => {
+  if (_content.value) {
+    if (_content.value.length > 1024 * 720) {
+      return false // Firebase entity size limit is 1MB, this leaves some space for other fields
+    }
+  }
+  return true
 })
 
 async function send() {
@@ -50,7 +84,15 @@ async function send() {
     return
   }
   if (!thread.value.topicid) thread.value.topicid = chosenTopic.value
+
+  // Prep data
   thread.value.author = uid.value
+  if (_title.value) thread.value.title = _title.value
+  if (_content.value) {
+    thread.value.markdownContent = _content.value
+    thread.value.htmlContent = marked(_content.value)
+  }
+  
   const doc = await addDoc(
     collection(
       getFirestore(),
@@ -67,13 +109,15 @@ const injected = ref('')
 
 <template>
   <div class="Column form double">
+    <cyan-code>{{ titleValid }}</cyan-code>
     <template v-if="!preview">
       <cyan-toolbar>
         <div style="flex-grow: 1">
           <cyan-textfield
+            :value="title"
             :label="t('fields.thread.name')"
-            :error="titleError"
-            @change="thread.title = $event.detail"
+            :error="!titleValid"
+            @change="title = $event.detail"
           />
         </div>
         <cyan-button
@@ -99,9 +143,10 @@ const injected = ref('')
         />
       </cyan-toolbar>
       <cyan-markdown-area
+        :value="content"
         :inject="injected"
         :label="t('fields.thread.content')"
-        @change="thread.markdownContent = $event.detail"
+        @change="content = $event.detail"
       />
       <cyan-toolbar>
         <cyan-select
@@ -134,7 +179,7 @@ const injected = ref('')
       <p class="typeCaption">
         {{ thread.author }}, {{ thread.topicid }}
       </p>
-      <MarkdownSection :content="thread.markdownContent" />
+      <MarkdownSection :content="content" />
       <cyan-toolbar>
         <cyan-spacer />
         <cyan-button
