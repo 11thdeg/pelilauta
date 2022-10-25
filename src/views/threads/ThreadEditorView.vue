@@ -2,7 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import TopBar from '../../components/ui/TopBar.vue'
 import ThreadEditor from '../../components/threads/editor/ThreadEditor.vue'
-import ThreadEditorGuide from '../../components/threads/editor/ThreadEditorGuide.vue'
+import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 
 const { t } = useI18n()
 
@@ -16,7 +16,7 @@ const { t } = useI18n()
     />
     <main class="bookLayout">
       <ThreadEditor />
-      <ThreadEditorGuide />
+      <MarkDownCheatSheetColumn />
     </main>
   </div>
 </template>

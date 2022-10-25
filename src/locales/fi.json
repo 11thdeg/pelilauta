@@ -94,6 +94,7 @@
       "cancel": "Peruuta",
       "create": "Luo uusi",
       "delete": "Poista",
+      "remove": "Poista",
       "toLogin": "Kirjaudu sisään",
       "toProfile": "Profiili",
       "login": "Kirjaudu",
@@ -218,6 +219,12 @@
           "url": "Linkin URL -osoite",
           "name": "Linkin teksti"
         }
+      },
+      "thread": {
+        "name": "Otsikko",
+        "content": "Viesti",
+        "topic": "Aihe",
+        "youtubeId": "Youtube videon tunniste"
       },
       "meta": {
         "sitetheme": {

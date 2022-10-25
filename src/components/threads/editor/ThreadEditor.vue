@@ -8,6 +8,7 @@ import { useMeta } from '../../../composables/useMeta'
 import { useSession } from '../../../composables/useSession'
 import { useSnack } from '../../../composables/useSnack'
 import { logError } from '../../../utils/logHelpers'
+import InsertImageButton from '../../actions/InsertImageButton.vue'
 import MarkdownSection from '../../content/MarkdownSection.vue'
 import YoutubePreview from '../../content/YoutubePreview.vue'
 
@@ -60,6 +61,8 @@ async function send() {
   pushSnack(t('snack.thread.added'))
   router.push('/threads/' + doc.id)
 }
+
+const injected = ref('')
 </script>
 
 <template>
@@ -79,10 +82,7 @@ async function send() {
           :disabled="videolink"
           @click="videolink = true"
         />
-        <cyan-button
-          text
-          noun="asset"
-        />
+        <InsertImageButton @insert="injected = `![${$event}](${$event})`" />
       </cyan-toolbar>
       <cyan-toolbar v-if="videolink || thread.youtubeId">
         <cyan-icon noun="youtube" />
@@ -99,6 +99,7 @@ async function send() {
         />
       </cyan-toolbar>
       <cyan-markdown-area
+        :inject="injected"
         :label="t('fields.thread.content')"
         @change="thread.markdownContent = $event.detail"
       />
