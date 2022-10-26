@@ -1,27 +1,21 @@
 import HomeView from './HomeView.vue'
 import AboutView from './AboutView.vue'
 import LoginView from './LoginView.vue'
-import SettingsView from './SettingsView.vue'
-import AssetsView from './AssetsView.vue'
-import AssetView from './AssetView.vue'
-import ProfileView from './ProfileView.vue'
-import ThreadView from './threads/ThreadView.vue'
-import StreamView from './threads/StreamView.vue'
-import InboxView from './InboxView.vue'
 
 export const routes = [
   { path: '/', component: HomeView },
   { path: '/about', component: AboutView },
-  { path: '/inbox', component: InboxView },
+  { path: '/inbox', component: () => import('./InboxView.vue') },
   { path: '/login', component: LoginView },
   { path: '/login/:backroute', component: LoginView, props: true },
-  { path: '/settings', component: SettingsView },
-  { path: '/assets', component: AssetsView },
-  { path: '/assets/:assetkey', component: AssetView, props: true },
-  { path: '/profiles/:uid', component: ProfileView, props: true },
-  { path: '/threads/:threadkey', component: ThreadView, props: true },
+  { path: '/settings', component: () => import('./SettingsView.vue') },
+  { path: '/assets', component: () => import('./AssetsView.vue') },
+  { path: '/assets/:assetkey', component: () => import('./AssetView.vue'), props: true },
+  { path: '/profiles/:uid', component: () => import('./ProfileView.vue'), props: true },
+  { path: '/threads/:threadkey', component: () => import('./threads/ThreadView.vue'), props: true },
   { path: '/threads/:threadkey/delete', component: () => import('./threads/ConfirmThreadDeletionView.vue'), props: true },
-  { path: '/streams/:streamkey', component: StreamView, props: true },
+  { path: '/streams/', component: () => import('./threads/StreamView.vue') },
+  { path: '/streams/:streamkey', component: () => import('./threads/StreamView.vue'), props: true },
   { path: '/editorSandbox', component: () => import('./admin/EditorSandbox.vue') },
   { path: '/sites', component: () => import('./sites/SitesHomeView.vue') },
   { path: '/sites/:sitekey', component: () => import('./sites/SiteView.vue'), props: true },

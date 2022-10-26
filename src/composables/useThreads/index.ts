@@ -1,5 +1,5 @@
 import { Thread } from '@11thdeg/skaldstore'
-import { collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, orderBy, Query, query, startAt, where } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, orderBy, Query, query, QueryDocumentSnapshot, startAfter, where } from 'firebase/firestore'
 import { computed, ref } from 'vue'
 import { logDebug, logEvent } from '../../utils/logHelpers'
 import { addStore } from './../useSession'
@@ -67,9 +67,13 @@ export async function fetchAuthorThreads (uid:string, count = 11) {
   return authorThreads
 }
 
-export async function fetchStreamThreads(stream: string, count = 11, offset=0) {
+// This is a very annoying Firestore feature: offset has to be docRef, even 
+// if documentation states it can be a number
+let offsetRef:QueryDocumentSnapshot|undefined = undefined
+
+export async function fetchStreamThreads(stream: string, count = 11, offset = false) {
   await init()
-  logDebug('fetchStreamThreads')
+  // logDebug('fetchStreamThreads', stream, count, offset)
 
   const c = collection(
     getFirestore(),
@@ -78,22 +82,23 @@ export async function fetchStreamThreads(stream: string, count = 11, offset=0) {
 
   let q:undefined|Query = undefined
 
-  if (offset === 0) {
+  if (!offset) {
     q = query(
       c,
-      where('stream', '==', stream),
+      where('topic', '==', stream),
       where('public', '==', true),
       limit(count),
       orderBy('flowTime', 'desc')
     )
   } else {
+    logDebug('fetchStreamThreads', 'offset', offset)
     q = query(
-      c,
-      where('stream', '==', stream),
+      c, 
+      where('topic', '==', stream),
       where('public', '==', true),
-      limit(count),
       orderBy('flowTime', 'desc'),
-      startAt(offset)
+      startAfter(offsetRef),
+      limit(count)
     )
   }
 
@@ -102,8 +107,9 @@ export async function fetchStreamThreads(stream: string, count = 11, offset=0) {
   threads.forEach((thread) => {
     streamThreads.push(new Thread(thread.data(), thread.id))
     threadCache.value.set(thread.id, new Thread(thread.data(), thread.id))
+    offsetRef = thread
   })
-  logDebug('fetchStreamThreads', streamThreads.length, count, offset)
+  // logDebug('fetchStreamThreads results', streamThreads.length, count, offset, threads.size)
   return streamThreads
 }
 

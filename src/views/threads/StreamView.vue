@@ -5,19 +5,21 @@ import AppBar from '../../components/navigation/AppBar.vue'
 import { computed } from 'vue'
 import { useMeta } from '../../composables/useMeta'
 import StreamTray from '../../components/threads/StreamTray.vue'
+import { useI18n } from 'vue-i18n'
     
 const props = defineProps<{
-    streamkey: string
+    streamkey?: string
 }>()
 
 logDebug('Streamview', props.streamkey)
 
+const { t } = useI18n()
 const { streams } = useMeta()
 
 const stream = computed(() => {
-  const t = streams.value.find(s => s.slug === props.streamkey)
-  if (t) return t
-  return { name: '---', icon: 'discussion' }
+  const topic = streams.value.find(s => s.slug === props.streamkey)
+  if (topic) return topic
+  return { name: t('streams.title'), icon: 'discussion' }
 })
 
 </script>

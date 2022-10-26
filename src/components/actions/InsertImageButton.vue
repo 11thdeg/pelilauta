@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { logDebug } from '../../utils/logHelpers';
+import { logDebug } from '../../utils/logHelpers'
 import SelectAssetDialog from '../assets/SelectAssetDialog.vue'
 
 const emit = defineEmits<{

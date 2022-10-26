@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import NavButton from './NavButton.vue'
+import NavButton from '../ui/NavButton.vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useSession } from '../../composables/useSession'
@@ -20,6 +20,12 @@ const { admin, anonymous } = useSession()
       :label="t('app.title')"
       to="/"
       :active="route.path === '/'"
+    />
+    <NavButton
+      noun="discussion"
+      :label="t('streams.title')"
+      to="/streams"
+      :active="route.path === '/streams'"
     />
     <NavButton
       noun="mekanismi"

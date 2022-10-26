@@ -2,11 +2,11 @@
 import { Thread } from '@11thdeg/skaldstore'
 import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { fetchStreamThreads } from '../../composables/useThreads'
+import { fetchStreamThreads, useThreads } from '../../composables/useThreads'
 import ThreadCard from './ThreadCard.vue'
 
 const props = defineProps<{
-  streamkey: string
+  streamkey?: string
 }>()
 
 const { t } = useI18n()
@@ -16,24 +16,25 @@ const loading = ref(true)
 const atEnd = ref(false)
 
 onMounted(async () => {
-  recent.value = await fetchStreamThreads(props.streamkey)
-  loading.value = false
   watch(props, async () => {
-    recent.value = await fetchStreamThreads(props.streamkey)
+    loading.value = true
+    if (props.streamkey) recent.value = await fetchStreamThreads(props.streamkey)
+    else recent.value = useThreads().recent.value
     loading.value = false
-  })
+    atEnd.value = false
+  }, 
+  { immediate: true })
 })
 
 async function loadMore() {
-  if (loading.value || atEnd.value) return
-  loading.value = true
-  const more = await fetchStreamThreads(props.streamkey, 11, recent.value.length)
+  if (loading.value || atEnd.value || !props.streamkey) return
+  const more = await fetchStreamThreads(props.streamkey, 11, true)
   if (more.length === 0) {
     atEnd.value = true
   } else {
+    atEnd.value = false
     recent.value = recent.value.concat(more)
   }
-  loading.value = false
 }
 
 
@@ -55,9 +56,10 @@ async function loadMore() {
     <cyan-toolbar>
       <cyan-spacer />
       <cyan-button
-        :disabled="loading || atEnd"
+        :disabled="loading || atEnd || !streamkey"
         :working="loading"
-        :label="t('actions.loadMore')"
+        :label="t('action.loadMore')"
+        noun="discussion"
         @click="loadMore"
       >
         <cyan-spacer />
