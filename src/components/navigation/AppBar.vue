@@ -47,13 +47,12 @@ const noun = computed(() => {
 <style scoped lang="sass">
 #AppBar
   margin: 0
-  padding: 0
+  padding: 0 8px
   display: flex
   justify-content: space-between
   align-items: center
   height: 56px
   gap: 12px
-  padding-right: 8px
   #viewTitle
     padding-top: 10px
   h1:first-child
