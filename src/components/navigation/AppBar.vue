@@ -28,7 +28,10 @@ const noun = computed(() => {
 
 </script>
 <template>
-  <nav id="AppBar" :class="{ withmenu: navTrayVisible }">
+  <nav
+    id="AppBar"
+    :class="{ withmenu: navTrayVisible }"
+  >
     <TrayMenuButton />
     <cyan-icon
       class="noun"
