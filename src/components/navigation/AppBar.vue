@@ -3,6 +3,8 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ProfileButton from '../actions/ProfileButton.vue'
 import InboxButton from '../actions/InboxButton.vue'
+import TrayMenuButton from './TrayMenuButton.vue'
+import { useUxState } from '../../composables/useUXState'
 
 const props = defineProps<{
   title?: string,
@@ -12,6 +14,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const { navTrayVisible } = useUxState()
 
 const title = computed(() => {
   if (props.title) return props.title
@@ -25,8 +28,10 @@ const noun = computed(() => {
 
 </script>
 <template>
-  <nav id="AppBar">
+  <nav id="AppBar" :class="{ withmenu: navTrayVisible }">
+    <TrayMenuButton />
     <cyan-icon
+      class="noun"
       :noun="noun"
     />
 
@@ -59,4 +64,11 @@ const noun = computed(() => {
     line-height: 56px
   h2.TypeCaption
     margin-top: 8px
+@media screen and (max-width: 600px)
+  #AppBar
+    padding: 0 16px
+    &.withmenu
+      padding-left: 56px
+      .noun
+        display: none
 </style>

@@ -1,5 +1,6 @@
 
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 const navTrayVisible= ref(false)
 const showNavTrayOnMobile = ref(false)
@@ -24,7 +25,19 @@ function unmountFabTray () {
   fabTrayVisible.value = false
 }
 
+let _init = false
+function init () {
+  if(_init) return
+  _init = true
+  const route = useRoute()
+  watch(route, () => {
+    showNavTrayOnMobile.value = false
+  })
+}
+
+
 export function useUxState () {
+  init()
   return {
     navTrayVisible: computed(() => navTrayVisible.value),
     showNavTrayOnMobile: computed(() => showNavTrayOnMobile.value),
