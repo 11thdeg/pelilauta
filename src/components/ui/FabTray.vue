@@ -1,3 +1,17 @@
+<script lang="ts" setup>
+import { onMounted, onUnmounted } from 'vue'
+import { useUxState } from '../../composables/useUXState'
+
+const { unmountFabTray, mountFabTray } = useUxState()
+
+onMounted(() => {
+  mountFabTray()
+})
+onUnmounted(() => {
+  unmountFabTray()
+})
+</script>
+
 <template>
   <nav id="FabTray">
     <slot />

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import NavButton from '../ui/NavButton.vue'
+import NavButton from './NavButton.vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useSession } from '../../composables/useSession'

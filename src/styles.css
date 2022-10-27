@@ -1,8 +1,13 @@
 :root {
   --pelilauta-z-index-base: 1000;
+  /* Level 1 */
   --pelilauta-dialog-z-index: calc(1 * var(--pelilauta-z-index-base));
-  --pelilauta-fabs-z-index: calc(2 * var(--pelilauta-z-index-base));
-  /* ... */
+  /* Level 2 */
+  --pelilauta-z-index-navigation: calc(4 * var(--pelilauta-z-index-base));
+  /* Level 3 */
+  --pelilauta-fabs-z-index: calc(3 * var(--pelilauta-z-index-base));
+
+  /* these need to go to cyan, later */
   --pelilauta-dialog-backdrop: rgba(0, 0, 0, 0.5);
   --pelilauta-dialog-background: #fff;
 

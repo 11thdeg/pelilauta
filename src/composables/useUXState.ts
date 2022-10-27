@@ -1,12 +1,11 @@
 
 import { computed, ref } from 'vue'
-import { logDebug } from '../utils/logHelpers'
 
 const navTrayVisible= ref(false)
 const showNavTrayOnMobile = ref(false)
+const fabTrayVisible = ref(false)
 
 function mountNavTray () {
-  logDebug('mountNavTray')
   navTrayVisible.value = true
 }
 
@@ -18,13 +17,22 @@ function toggleMobileNavTray () {
   showNavTrayOnMobile.value = !showNavTrayOnMobile.value
 }
 
+function mountFabTray () {
+  fabTrayVisible.value = true
+}
+function unmountFabTray () {
+  fabTrayVisible.value = false
+}
 
 export function useUxState () {
   return {
     navTrayVisible: computed(() => navTrayVisible.value),
     showNavTrayOnMobile: computed(() => showNavTrayOnMobile.value),
+    fabTrayVisible: computed(() => fabTrayVisible.value),
     mountNavTray,
     unmountNavTray,
-    toggleMobileNavTray
+    toggleMobileNavTray,
+    mountFabTray,
+    unmountFabTray
   }
 }

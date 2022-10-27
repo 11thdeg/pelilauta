@@ -3,6 +3,7 @@ import NavigationRail from './components/navigation/NavigationRail.vue'
 import SnackBar from './components/ui/SnackBar.vue'
 import { useUxState } from './composables/useUXState'
 import EulaDialog from './components/account/EulaDialog.vue'
+import NavigationBar from './components/navigation/NavigationBar.vue'
 
 const { navTrayVisible } = useUxState()
 </script>
@@ -17,6 +18,7 @@ const { navTrayVisible } = useUxState()
   </div>
   <EulaDialog />
   <SnackBar />
+  <NavigationBar />
 </template>
 
 <style lang="sass" scoped>
