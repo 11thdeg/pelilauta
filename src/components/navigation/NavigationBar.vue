@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import NavButton from './NavButton.vue'
 import { useUxState } from '../../composables/useUXState'
+import AccountNavButton from '../actions/AccountNavButton.vue'
 
 const { fabTrayVisible } = useUxState()
 const t = useI18n().t
@@ -52,7 +53,7 @@ const t = useI18n().t
   padding: 0 8px
   justify-content: space-between
   box-sizing: border-box
-  background: linear-gradient(-42deg,var(--chroma-secondary-e),var(--chroma-secondary-d))
+  background: linear-gradient(-42deg,var(--chroma-secondary-b),var(--chroma-secondary-d))
   z-index: var(--pelilauta-z-index-navigation)
   &.withFabs
     clip-path: polygon(0 0, calc(100% - 76px) 0, calc(100% - 64px) 8px, calc(100% - 24px) 8px, calc(100% - 12px) 0, 100% 0, 100% 100%, 0 100%)
