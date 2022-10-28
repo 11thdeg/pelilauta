@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import TopBar from '../../components/ui/TopBar.vue'
+import TopBar from '../../components/navigation/TopBar.vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { computed, ref } from 'vue'

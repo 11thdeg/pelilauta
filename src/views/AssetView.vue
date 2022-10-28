@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import TopBar from '../components/ui/TopBar.vue'
+import TopBar from '../components/navigation/TopBar.vue'
 import { useSession } from '../composables/useSession'
 import { useAssets, assetName } from '../composables/useSession/useAssets'
 import ForbiddenView from '../components/ui/ForbiddenView.vue'

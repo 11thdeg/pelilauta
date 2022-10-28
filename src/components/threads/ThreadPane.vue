@@ -23,7 +23,7 @@ const props = defineProps<{
   }
 }>()
 
-const { uid, admin } = useSession()
+const { uid, admin, anonymous } = useSession()
 
 const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
 
@@ -56,7 +56,10 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
     <cyan-toolbar>
       <FlowTimeCaption :flow-time="thread.flowTime" />
       <cyan-spacer />
-      <WatchButton :entry="thread" />
+      <WatchButton
+        v-if="!anonymous"
+        :entry="thread"
+      />
       <LoveAThreadButton
         :thread="thread"
       />

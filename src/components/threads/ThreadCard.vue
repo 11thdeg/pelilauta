@@ -46,7 +46,7 @@ const siteIcon = computed(() => undefined)
 <template>
   <article
     v-if="thread"
-    class="ThreadCard"
+    class="ThreadCard card rise-a"
   >
     <section class="cardHeader">
       <div class="meta">

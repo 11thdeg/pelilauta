@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import TopBar from '../../components/ui/TopBar.vue'
+import TopBar from '../../components/navigation/TopBar.vue'
 import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 import EditPageForm from '../../components/pages/EditPageForm.vue'
 import { loadPage } from '../../composables/usePage'

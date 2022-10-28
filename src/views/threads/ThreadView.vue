@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import TopBar from '../../components/ui/TopBar.vue'
+import TopBar from '../../components/navigation/TopBar.vue'
 import ThreadPane from '../../components/threads/ThreadPane.vue'
 import ThreadDiscussion from '../../components/discussion/ThreadDiscussion.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'

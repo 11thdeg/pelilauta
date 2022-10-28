@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import TopBar from '../../components/ui/TopBar.vue'
+import TopBar from '../../components/navigation/TopBar.vue'
 import AddSiteForm from '../../components/sites/AddSiteForm.vue'
 import { useSession } from '../../composables/useSession'
 import LoginRequiredColumn from '../../components/account/LoginRequiredColumn.vue'

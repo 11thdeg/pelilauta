@@ -13,7 +13,6 @@ const props = defineProps<{
 }>()
 const { uid } = useSession()
 
-
 const watches = computed(
   {
     get: () => isWatchingAt(props.entry.key || '') > 0,

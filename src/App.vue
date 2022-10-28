@@ -26,7 +26,7 @@ const { navTrayVisible } = useUxState()
   div#appContainer
     margin: 0
     padding: 0
-    margin-left: 76px
+    margin-left: 80px
     position: relative
     &.navTrayVisible
       margin-left: 324px

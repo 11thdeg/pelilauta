@@ -12,20 +12,20 @@ const { recent } = useThreads()
       v-if="!recent.length"
       large
     />
-    <ThreadCard
-      v-for="thread in recent"
-      v-else
-      :key="thread.key"
-      class="in-stream"
-      :threadkey="thread.key"
-    />
+    <div class="threadList">
+      <ThreadCard
+        v-for="thread in recent"
+        :key="thread.key"
+        class="in-stream"
+        :threadkey="thread.key"
+      />
+    </div>
   </div>
 </template>
 
 <style lang="sass" scoped>
-.in-stream
-  margin-bottom: 12px
-.in-stream + .in-stream
-  padding-top: 23px
-  border-top: 1px solid var(--chroma-secondary-h)
+.threadList
+  display: flex
+  flex-direction: column
+  gap: var(--cyan-column-gap)
 </style>

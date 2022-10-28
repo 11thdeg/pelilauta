@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import TopBar from '../components/ui/TopBar.vue'
+import TopBar from '../components/navigation/TopBar.vue'
 import { useSession } from '../composables/useSession'
 import ForbiddenView from '../components/ui/ForbiddenView.vue'
 import NotificationsList from '../components/inbox/NotificationsList.vue'
