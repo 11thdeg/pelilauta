@@ -5,9 +5,11 @@ import ProfileButton from '../actions/ProfileButton.vue'
 import InboxButton from '../actions/InboxButton.vue'
 import TrayMenuButton from './TrayMenuButton.vue'
 import { useUxState } from '../../composables/useUXState'
+import BarTitle from './BarTitle.vue'
 
 const props = defineProps<{
   title?: string,
+  to?: string
   subtitle?: string,
   subtitleLink?: string,
   noun?: string,
@@ -33,43 +35,30 @@ const noun = computed(() => {
     :class="{ withmenu: navTrayVisible }"
   >
     <TrayMenuButton />
-    <cyan-icon
-      class="noun"
-      :noun="noun"
-    />
-
-    <h1
-      id="viewTitle"
-      class="TypeHeadline5"
-    >
-      {{ title }}
-    </h1>
-
-    <cyan-spacer />
-    <cyan-lightmode-toggle />
-    <InboxButton />
-    <ProfileButton />
+    <cyan-toolbar>
+      <cyan-icon
+        v-if="!navTrayVisible"
+        class="noun"
+        :noun="noun"
+      />
+      <BarTitle
+        :title="title"
+        :to="to"
+      />
+      <cyan-spacer />
+      <cyan-lightmode-toggle />
+      <InboxButton />
+      <ProfileButton />
+    </cyan-toolbar>
   </nav>
 </template>
 
 <style scoped lang="sass">
 #AppBar
-  margin: 0
-  padding: 0 8px
-  display: flex
-  justify-content: space-between
-  align-items: center
-  height: 56px
-  gap: 12px
-  #viewTitle
-    padding-top: 10px
-  h1:first-child
-    line-height: 56px
-  h2.TypeCaption
-    margin-top: 8px
+  margin: 0 8px
 @media screen and (max-width: 600px)
   #AppBar
-    padding: 0 16px
+    padding: 0
     &.withmenu
       padding-left: 56px
       .noun

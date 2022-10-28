@@ -9,6 +9,7 @@ const { active, anonymous, profile } = useSession()
 <template>
   <cyan-button
     v-if="active && !anonymous"
+    class="hideOnMobile"
     noun="avatar"
     :label="profile.nick"
     text
