@@ -1,11 +1,16 @@
 <script lang="ts" setup>
 import { useNotifications } from '../../composables/useNotifications'
+import { useSession } from '../../composables/useSession'
 
+const { anonymous } = useSession()
 const { newCount } = useNotifications()
 </script>
 
 <template>
-  <div class="InboxButton">
+  <div
+    v-if="!anonymous"
+    class="InboxButton"
+  >
     <cyan-button
       noun="send"
       text

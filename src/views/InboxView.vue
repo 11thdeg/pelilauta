@@ -11,7 +11,7 @@ const { anonymous } = useSession()
 
 <template>
   <div class="InboxView">
-    <TopBar :label="t('inbox.title')" />
+    <TopBar :title="t('inbox.title')" />
     <main class="singleColumnLayout">
       <ForbiddenView v-if="anonymous" />
       <NotificationsList v-else />
