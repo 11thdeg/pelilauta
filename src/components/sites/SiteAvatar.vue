@@ -22,7 +22,7 @@ const noun = computed(() => props.site.systemBadge || 'mekanismi')
     <cyan-icon
       v-else
       large
-      class="avatar rise-b"
+      class="avatar rise-c"
       :noun="noun"
     />
   </div>

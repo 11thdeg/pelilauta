@@ -96,6 +96,7 @@
       "delete": "Poista",
       "loadMore": "Lataa lisää",
       "toLogin": "Kirjaudu sisään",
+      "toLoki": "Lokiin",
       "toProfile": "Profiili",
       "login": "Kirjaudu",
       "loginOrRegister": "Kirjaudu / rekisteröidy",
@@ -133,6 +134,9 @@
       "mekanismiAd": {
         "title": "Pelit ja sivustot",
         "description": "Voit luoda pelillesi oman sivuston, ja halutessasi julkaista sivuston Pelilaudalla. Julkaisemattomaan sivustoon pääsee vain suoralla linkillä, tai omien pelien listauksesta."
+      },
+      "loki": {
+        "title": "Uutta Lokissa"
       }
     },
     "discourse":{

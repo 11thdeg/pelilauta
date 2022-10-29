@@ -61,6 +61,7 @@ const { anonymous } = useSession()
 .MekanismiAd
   padding: var(--cyan-col-gap)
   position: relative
+  margin-bottom: var(--cyan-col-gap)
   h3, p
     text-align: center
   .boxHeader 

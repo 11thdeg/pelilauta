@@ -41,7 +41,7 @@ const visibleNoun = computed(() => {
 
 <template>
   <article
-    class="card rise-b SiteCard"
+    class="card rise-a SiteCard"
     :class="{ 
       hasPoster: !!props.site.posterURL,
       hasAvatar: !!props.site.avatarURL
