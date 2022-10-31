@@ -6,6 +6,8 @@ import ThreadPane from '../../components/threads/ThreadPane.vue'
 import ThreadDiscussion from '../../components/discussion/ThreadDiscussion.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import { useThread } from '../../composables/useThread'
+import ThreadMenu from './ThreadMenu.vue'
+import ShareButton from '../../components/actions/ShareButton.vue'
 
 const props = defineProps<{
   threadkey: string
@@ -24,7 +26,13 @@ const title = computed(() => {
     <TopBar
       :title="title"
       sticky
-    />
+    >
+      <ShareButton />
+      <ThreadMenu
+        v-if="thread"
+        :thread="thread"
+      />
+    </TopBar>
     <main class="bookLayout">
       <div v-if="loading">
         <cyan-loader large />

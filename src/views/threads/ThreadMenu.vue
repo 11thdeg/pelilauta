@@ -17,7 +17,10 @@ const showForAdmin = computed(() => !fromMe.value && admin.value)
 </script>
 
 <template>
-  <cyan-menu noun="kebab">
+  <cyan-menu
+    v-if="admin || fromMe"
+    noun="kebab"
+  >
     <cyan-menu-item
       v-if="fromMe || admin"
       :secondary="showForAdmin"

@@ -47,6 +47,7 @@ onMounted(() => {
     transition: all 0.2s ease-in-out
     margin-left: -8px
     padding-left: 8px
+    padding-right: 8px
     &.overlay
       transition: all 0.6s ease-in-out
       box-shadow: 0px 0px 55px -12px var(--chroma-secondary-d)

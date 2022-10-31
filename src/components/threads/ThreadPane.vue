@@ -2,12 +2,10 @@
 import MarkdownSection from '../content/MarkdownSection.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import LoveAThreadButton from './LoveAThreadButton.vue'
-import ShareButton from '../actions/ShareButton.vue'
 import { useSession } from '../../composables/useSession'
-import { computed } from 'vue'
-import ThreadMenu from '../../views/threads/ThreadMenu.vue'
 import ProfilePane from '../profiles/ProfilePane.vue'
 import WatchButton from '../actions/WatchButton.vue'
+import { computed } from 'vue'
 
 const props = defineProps<{
   thread: {
@@ -23,7 +21,7 @@ const props = defineProps<{
   }
 }>()
 
-const { uid, admin, anonymous } = useSession()
+const { anonymous, uid } = useSession()
 
 const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
 
@@ -31,18 +29,7 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
 
 <template>
   <article class="ThreadPane">
-    <!-- header -->
-    <cyan-toolbar class="separator">
-      <cyan-toolbar-heading :level="2">
-        {{ thread.title }}
-      </cyan-toolbar-heading>
-      <cyan-spacer />
-      <ShareButton />
-      <ThreadMenu
-        v-if="fromMe || admin"
-        :thread="thread"
-      />
-    </cyan-toolbar>
+    <h1>{{ thread.title }}</h1>
     
     <!-- content -->
     <MarkdownSection
@@ -66,7 +53,10 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
         :thread="thread"
       />
     </cyan-toolbar>
-    <ProfilePane :uid="thread.author" />
+    <ProfilePane
+      v-if="!fromMe"
+      :uid="thread.author"
+    />
   </article>
 </template>
 
