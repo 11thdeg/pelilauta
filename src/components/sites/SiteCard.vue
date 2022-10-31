@@ -63,18 +63,15 @@ const visibleNoun = computed(() => {
     <template v-else>
       <cyan-toolbar>
         <cyan-icon :noun="icon" />
-        <h3>{{ site.name }}</h3>
+        <cyan-toolbar-heading :level="2">
+          {{ site.name }}
+        </cyan-toolbar-heading>
       </cyan-toolbar>
     </template>
     <p class="TypeBody2">
       {{ site.description }}
     </p>
     <cyan-toolbar small>
-      <!--cyan-icon
-        style="opacity: 0.44;"
-        xsmall
-        :noun="visibleNoun"
-      /-->
       <cyan-tag
         v-if="site.hasOwner(uid)"
         noun="avatar"
