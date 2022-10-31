@@ -74,12 +74,12 @@ onUnmounted(() => {
         <FlowTimeCaption :flow-time="reply.flowTime" />
         <cyan-spacer />
         <cyan-icon
+          v-if="reply.key"
           text
           small
-          v-if="reply.key"
           noun="quote"
-          @click="emit('update:quote', [threadkey, reply.key || ''])"
           class="hoverable clickable"
+          @click="emit('update:quote', [threadkey, reply.key || ''])"
         />
         <LoveAReplyTag
           :reply="reply"
@@ -97,13 +97,13 @@ onUnmounted(() => {
         :replykey="reply.quoteRef"
       />
       <MarkdownSection
-        style="padding: 12px"
         v-if="reply.markdownContent"
+        style="padding: 12px"
         :content="reply.markdownContent"
       />
       <div
-        style="padding: 12px"
         v-else
+        style="padding: 12px"
         :innerHTML="reply.htmlContent"
       />
     </div>
