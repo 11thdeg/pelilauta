@@ -57,6 +57,15 @@ async function subscribeToAccount () {
     (snapshot) => {
       if (snapshot.exists()) {
         account.value.docData = snapshot.data()
+        if (account.value.lightMode === 'light') {
+          logDebug('useSession', 'login', 'Setting light mode')
+          document.body.classList.remove('cyan--mode--dark')
+          document.body.classList.add('cyan--mode--light')
+        } else if (account.value.lightMode === 'dark') {
+          logDebug('useSession', 'login', 'Setting dark mode')
+          document.body.classList.remove('cyan--mode--light')
+          document.body.classList.add('cyan--mode--dark')
+        }
       }
       accountLoaded.value = true
     }
@@ -83,12 +92,12 @@ export function login(user: User|null) {
   else {
     uid.value = user.uid
     account.value = new Account(user)
+  
     subscribeToAccount()
     subscribeToProfile()
     subscibeToAssets()
     initSubscriber()
-    logError('useSession', 'login', 'Not implemented for actual users')
-    account.value = new Account(user)
+    
     active.value = true
     updateDoc(doc(getFirestore(), Account.collectionName, uid.value), { lastLogin: serverTimestamp() })
   }
@@ -127,6 +136,13 @@ const frozen = computed(() => {
   const { frozen: frozens } = useMeta()
   return frozens.value.includes(uid.value)
 })
+
+export function setMode(mode: string) {
+  if (!active.value) throw new Error('Session is not active')
+  if (anonymous.value) throw new Error('Anonymous users can not update their profile')
+  logDebug('useSession', 'setMode', mode)
+  updateDoc(doc(getFirestore(), Account.collectionName, uid.value), { lightMode: mode })
+}
 
 export function useSession () {
   return {

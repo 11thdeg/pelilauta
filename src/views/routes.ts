@@ -8,6 +8,7 @@ export const routes = [
   { path: '/inbox', component: () => import('./InboxView.vue') },
   { path: '/login', component: LoginView },
   { path: '/login/:backroute', component: LoginView, props: true },
+  { path: '/characters', component: HomeView },
   { path: '/settings', component: () => import('./SettingsView.vue') },
   { path: '/assets', component: () => import('./AssetsView.vue') },
   { path: '/assets/:assetkey', component: () => import('./AssetView.vue'), props: true },

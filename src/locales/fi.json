@@ -37,6 +37,9 @@
     "assetView": {
       "title": "Lataukset"
     },
+    "characters": {
+      "title": "Hahmot"
+    },
     "settings":{
       "title": "Asetukset",
       "accountDataPane": {

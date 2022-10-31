@@ -4,8 +4,22 @@ import SnackBar from './components/ui/SnackBar.vue'
 import { useUxState } from './composables/useUXState'
 import EulaDialog from './components/account/EulaDialog.vue'
 import NavigationBar from './components/navigation/NavigationBar.vue'
+import { useSession, setMode } from './composables/useSession'
+import { onMounted } from 'vue'
 
 const { navTrayVisible } = useUxState()
+const { anonymous } = useSession()
+
+onMounted(() => {
+  if (!anonymous.value) {
+    document.addEventListener('cyan-mode-dark', () => {
+      setMode('dark')
+    })
+    document.addEventListener('cyan-mode-light', () => {
+      setMode('light')
+    })
+  }
+})
 </script>
 
 <template>
