@@ -53,16 +53,18 @@ onMounted(() => {
           dark
         />
       </cyan-toolbar>
-      <div
-        v-for="article in articles"
-        :key="article.ID"
-      >
-        <a :href="article.URL">
-          <h4 style="margin-bottom: 0">{{ htmlDecode(article.title) }}</h4>
-          <p class="TypeCaption">
-            {{ article.date.substring(0, 10) }}
-          </p>
-        </a>
+      <div class="articleContainer">
+        <div
+          v-for="article in articles"
+          :key="article.ID"
+        >
+          <a :href="article.URL">
+            <h4 style="margin-bottom: 0">{{ htmlDecode(article.title) }}</h4>
+            <p class="TypeCaption">
+              {{ article.date.substring(0, 10) }}
+            </p>
+          </a>
+        </div>
       </div>
       <cyan-toolbar>
         <cyan-spacer />
@@ -91,4 +93,8 @@ onMounted(() => {
     margin: -12px
     padding: 12px
     border-radius: 12px
+  .articleContainer
+    background: var(--cyan-background-overlay-dark)
+    margin: 0 -12px
+    padding: 4px 12px
 </style>
