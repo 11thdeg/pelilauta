@@ -39,6 +39,8 @@ const { anonymous } = useSession()
         <cyan-button
           noun="mekanismi"
           :label="t('action.toSites')"
+          text
+          dark
         />
       </router-link>
       <router-link
@@ -47,6 +49,8 @@ const { anonymous } = useSession()
       >
         <cyan-button
           noun="add"
+          text
+          dark
           :label="t('action.create')"
         />
       </router-link>

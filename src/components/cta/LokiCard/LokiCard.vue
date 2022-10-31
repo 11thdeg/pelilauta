@@ -40,7 +40,7 @@ onMounted(() => {
 <template>
   <section
     id="LokiCard"
-    class="chroma-box-a card"
+    class="chroma-box-a card rise-b"
   >
     <div class="overlay">
       <cyan-toolbar style="margin-bottom: var(--cyan-col-gap)">
@@ -74,6 +74,7 @@ onMounted(() => {
           rel="noopener noreferrer"
         >
           <cyan-button
+            text
             noun="loki"
             :label="t('action.toLoki')"
           />
