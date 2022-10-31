@@ -50,4 +50,5 @@ onMounted(async() => {
   padding: 12px
   border: solid 1px var(--chroma-primary-g)
   border-radius: 12px
+  background-color: var(--cyan-bubble-background-color-b)
 </style>

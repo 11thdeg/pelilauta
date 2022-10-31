@@ -70,21 +70,21 @@ onUnmounted(() => {
       :class="{ fromMe: reply.author === account.uid }"
     >
       <cyan-toolbar small>
-        <cyan-icon
-          noun="discussion"
-          small
-        />
+        <ProfileTag :uid="reply.author" />
         <FlowTimeCaption :flow-time="reply.flowTime" />
         <cyan-spacer />
-        <a
-          href="#ReplyToThreadSection"
+        <cyan-icon
+          text
+          small
+          v-if="reply.key"
+          noun="quote"
           @click="emit('update:quote', [threadkey, reply.key || ''])"
-        >QUOTE</a>
+          class="hoverable clickable"
+        />
         <LoveAReplyTag
           :reply="reply"
           :thread-key="threadkey"
         />
-        <ProfileTag :uid="reply.author" />
       </cyan-toolbar>
       <ImageListSection
         v-if="reply.images"
@@ -92,14 +92,17 @@ onUnmounted(() => {
       />
       <QuotedResponseSection
         v-if="reply.quoteRef"
+        style="margin: 12px"
         :threadkey="threadkey"
         :replykey="reply.quoteRef"
       />
       <MarkdownSection
+        style="padding: 12px"
         v-if="reply.markdownContent"
         :content="reply.markdownContent"
       />
       <div
+        style="padding: 12px"
         v-else
         :innerHTML="reply.htmlContent"
       />
@@ -110,7 +113,7 @@ onUnmounted(() => {
 <style lang="sass">
 .reply
   background-color: var(--cyan-bubble-background-color-a)
-  padding: 12px 16px
+  padding: 12px 4px
   padding-top: 0
   border-radius: 8px
   position: relative
