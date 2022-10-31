@@ -10,7 +10,9 @@ const { assets } = useAssets()
 <template>
   <article class="Column AssetListColumn double">
     <cyan-toolbar>
-      <h2>{{ t('assets.list.title') }}</h2>
+      <cyan-toolbar-heading :level="2">
+        {{ t('assets.list.title') }}
+      </cyan-toolbar-heading>
       <cyan-spacer />
       <AddAssetButton />
     </cyan-toolbar>

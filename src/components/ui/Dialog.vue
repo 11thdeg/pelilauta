@@ -28,9 +28,12 @@ function close () {
           noun="close"
           @click="close"
         />
-        <h3 style="flex-grow: 1; text-align: center;">
+        <cyan-toolbar-heading
+          level="3"
+          style="text-align: center;"
+        >
           {{ props.label }}
-        </h3>
+        </cyan-toolbar-heading>
       </cyan-toolbar>
       <div class="dialogContent">
         <slot />

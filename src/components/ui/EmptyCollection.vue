@@ -26,7 +26,7 @@ const sectionTitle = computed(() => props.title || t('app.emptycollection.title'
     <p v-if="message">
       {{ message }}
     </p>
-    <cyan-toolbar class="centered">
+    <cyan-toolbar>
       <cyan-spacer />
       <slot />
       <cyan-spacer />

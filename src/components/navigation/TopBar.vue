@@ -29,9 +29,9 @@ onMounted(() => {
       class="clickable hoverable"
       @click="$router.back()"
     />
-    <h1 class="TypeHeadline5">
+    <cyan-toolbar-heading>
       {{ title }}
-    </h1>
+    </cyan-toolbar-heading>
     <cyan-spacer />
     <slot />
   </cyan-toolbar>

@@ -8,13 +8,15 @@ const { t } = useI18n()
 const { streams } = useMeta()
 </script>
 <template>
-  <NavigationTray style="padding: 0">
-    <cyan-toolbar style="margin: 0">
+  <NavigationTray>
+    <cyan-toolbar>
       <cyan-icon
         noun="discussion"
         small
       />
-      <h3>{{ t('streams.title') }}</h3>
+      <cyan-toolbar-heading :level="3">
+        {{ t('streams.title') }}
+      </cyan-toolbar-heading>
     </cyan-toolbar>
     <router-link
       v-for="stream in streams"

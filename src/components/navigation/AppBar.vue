@@ -5,13 +5,9 @@ import ProfileButton from '../actions/ProfileButton.vue'
 import InboxButton from '../actions/InboxButton.vue'
 import TrayMenuButton from './TrayMenuButton.vue'
 import { useUxState } from '../../composables/useUXState'
-import BarTitle from './BarTitle.vue'
 
 const props = defineProps<{
   title?: string,
-  to?: string
-  subtitle?: string,
-  subtitleLink?: string,
   noun?: string,
 }>()
 
@@ -41,10 +37,9 @@ const noun = computed(() => {
         class="noun"
         :noun="noun"
       />
-      <BarTitle
-        :title="title"
-        :to="to"
-      />
+      <cyan-toolbar-heading v-if="title">
+        {{ title }}
+      </cyan-toolbar-heading>
       <cyan-spacer />
       <cyan-lightmode-toggle />
       <InboxButton />

@@ -44,9 +44,9 @@ onMounted(() => {
   >
     <div class="overlay">
       <cyan-toolbar style="margin-bottom: var(--cyan-col-gap)">
-        <h1 class="TypeHeadline5">
+        <cyan-toolbar-heading level="2">
           {{ t('cta.loki.title') }}
-        </h1>
+        </cyan-toolbar-heading>
         <cyan-spacer />
         <cyan-icon
           noun="loki"

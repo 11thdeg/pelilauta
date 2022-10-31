@@ -33,7 +33,9 @@ const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
   <article class="ThreadPane">
     <!-- header -->
     <cyan-toolbar class="separator">
-      <h2>{{ thread.title }}</h2>
+      <cyan-toolbar-heading :level="2">
+        {{ thread.title }}
+      </cyan-toolbar-heading>
       <cyan-spacer />
       <ShareButton />
       <ThreadMenu
