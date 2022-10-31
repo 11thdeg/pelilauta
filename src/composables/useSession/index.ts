@@ -1,6 +1,6 @@
 import { Account, Profile } from '@11thdeg/skaldstore'
 import { getAuth, User } from 'firebase/auth'
-import { doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
+import { doc, getFirestore, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { ref, computed } from 'vue'
 import { logDebug, logError } from '../../utils/logHelpers'
 import { subscibeToAssets } from './useAssets'
@@ -90,6 +90,7 @@ export function login(user: User|null) {
     logError('useSession', 'login', 'Not implemented for actual users')
     account.value = new Account(user)
     active.value = true
+    updateDoc(doc(getFirestore(), Account.collectionName, uid.value), { lastLogin: serverTimestamp() })
   }
 }
 

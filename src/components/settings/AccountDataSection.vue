@@ -47,7 +47,7 @@ const verifyDialog = ref(false)
         <p class="tableHead">
           {{ t('fields.account.lastLogin') }}
         </p>
-        <p>{{ toDisplayString(account.updatedAt) }} <span class="TypeBody2 lowEmphasis">( {{ updatedAt }})</span></p>
+        <p>{{ toDisplayString(account.lastLogin) }} <span class="TypeBody2 lowEmphasis">( {{ updatedAt }})</span></p>
         <!-- lightmode -->
         <p class="tableHead">
           {{ t('fields.account.lightMode') }}

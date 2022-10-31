@@ -13,7 +13,7 @@ const { account, active} = useSession()
       <!-- Login info -->
       <section>
         <h3>{{ t('settings.accountDataPane.ssoTitle') }}</h3>
-        <p class="lowEmphasis">
+        <p class="lowEmphasis TypeBody2">
           {{ t('settings.accountDataPane.ssoDescription') }}
         </p>
         <div class="dataTable">

@@ -64,7 +64,7 @@ async function save () {
     <cyan-loader v-if="!active" />
     <template v-else>
       <h2>{{ t('settings.profileData.title') }}</h2>
-      <p class="lowEmphasis">
+      <p class="lowEmphasis TypeBody2">
         {{ t('settings.profileData.description') }}
       </p>
       <div class="avatar">

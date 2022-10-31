@@ -86,6 +86,7 @@
       "title": "Keskustelut"
     },
     "action": {
+      "accept": "Hyväksy ehdot",
       "add": {
         "new": "Lisää uusi",
         "thread": "Luo keskustelu",
@@ -241,5 +242,10 @@
           "title": "Aihealueet"
         }
       }
+    },
+    "verifyAccountDeletion": {
+      "title": "Vahvista tunnuksen poisto",
+      "info": "Tilin tuhoaminen tuhoaa kaiken profiili, ja tilitiedon alustalta. Luomasi sisältö merkitään 'aiemman käyttäjän luomaksi', jos et poista sitä ensin. Tämä toiminto on peruuttamaton.",
+      "verifyToken": "Kirjoita tähän DELETE ja paina poista."
     }
   }

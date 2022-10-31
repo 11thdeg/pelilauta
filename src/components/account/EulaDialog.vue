@@ -66,11 +66,11 @@ function decline() {
       <cyan-button
         text
         noun="logout"
-        :label="t('actions.logout')"
+        :label="t('action.logout')"
         @click="decline"
       />
       <cyan-button
-        :label="t('actions.accept')"
+        :label="t('action.accept')"
         @click="accept"
       />
     </cyan-toolbar>

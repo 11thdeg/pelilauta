@@ -72,19 +72,19 @@ async function deleteAccountPermanently() {
       {{ t('verifyAccountDeletion.info') }}
     </p>
     <cyan-textfield
-      :label="t('verifyAccountDeletion.label')"
+      :label="t('verifyAccountDeletion.verifyToken')"
       @change="verifyToken = $event.detail"
     />
     <cyan-toolbar>
       <cyan-spacer />
       <cyan-button
-        :label="t('actions.cancel')"
+        :label="t('action.cancel')"
         text
         @click="open = false"
       />
       <cyan-button
         :disabled="verifyToken !== 'DELETE'"
-        :label="t('actions.delete')"
+        :label="t('action.delete')"
         @click="deleteAccountPermanently"
       />
     </cyan-toolbar>

@@ -28,10 +28,7 @@ function close () {
           noun="close"
           @click="close"
         />
-        <cyan-toolbar-heading
-          level="3"
-          style="text-align: center;"
-        >
+        <cyan-toolbar-heading>
           {{ props.label }}
         </cyan-toolbar-heading>
       </cyan-toolbar>
