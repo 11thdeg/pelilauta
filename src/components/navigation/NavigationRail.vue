@@ -68,6 +68,6 @@ const { admin, anonymous } = useSession()
   width: 72px
   height: 100vh
   z-index: var(--z-index-navigation)
-  background-color: var(--chroma-secondary-b)
+  background: linear-gradient(-42deg,var(--chroma-secondary-c),var(--chroma-secondary-d))
   padding-top: 0px
 </style>

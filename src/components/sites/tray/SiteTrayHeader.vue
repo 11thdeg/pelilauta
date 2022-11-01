@@ -43,8 +43,8 @@ const posterStyle = computed(() => {
 
 <style scoped lang="sass">
 #SiteTrayHeader
+  padding: 8px
   #TrayPoster
-    margin: -4px
     padding: 12px
     background-position: center
     background-size: cover

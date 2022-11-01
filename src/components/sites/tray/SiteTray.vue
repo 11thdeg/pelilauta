@@ -30,7 +30,7 @@ const key = computed(() => site.value?.key || '')
     </template>
     <template v-else-if="site">
       <SiteTrayHeader />
-      <cyan-toolbar>
+      <cyan-toolbar style="padding: 0 8px">
         <cyan-spacer />
         <ShareButton icon />
         <cyan-button
@@ -51,6 +51,7 @@ const key = computed(() => site.value?.key || '')
       <cyan-nav-section
         v-if="site.links && site.links.length"
         folds
+        style="padding: 0 8px"
         :label="t('fields.site.link.title')"
       >
         <template
@@ -59,7 +60,6 @@ const key = computed(() => site.value?.key || '')
         >
           <a :href="link.url">
             <cyan-nav-button
-              style="margin-left: -12px"
               noun="outlink"
             >{{ link.name }}</cyan-nav-button>
           </a>
@@ -77,7 +77,6 @@ const key = computed(() => site.value?.key || '')
           :to="`/sites/${site.key}/pages/${page.key}`"
         >
           <cyan-nav-button
-            style="margin-left: -12px; padding-left: 12px; margin-right: -4px"
             compact
           >
             <div class="oneLiner TypeCaption">
@@ -96,7 +95,6 @@ const key = computed(() => site.value?.key || '')
           :to="`/sites/${site.key}/pages/${page.key}`"
         >
           <cyan-nav-button
-            style="margin-left: -12px; padding-left: 12px; margin-right: -4px"
             compact
           >
             <div class="oneLiner TypeCaption">

@@ -17,6 +17,7 @@ const showTrayOnMobile = computed(() => uxState.showNavTrayOnMobile.value)
 <template>
   <nav
     id="NavigationTray"
+    class="rise-a"
     :class="{
       hideOnMobile: !showTrayOnMobile
     }"
@@ -37,7 +38,6 @@ const showTrayOnMobile = computed(() => uxState.showNavTrayOnMobile.value)
 
 <style lang="sass" scoped>
 #NavigationTray
-  background-color: var(--cyan-base-color)
   position: fixed
   top: 0
   left: 72px
@@ -45,7 +45,7 @@ const showTrayOnMobile = computed(() => uxState.showNavTrayOnMobile.value)
   border-right: 1px solid var(--cyan-divider-color)
   height: 100vh
   margin: 0
-  padding: 12px 12px
+  padding: 0
   box-sizing: border-box
   overflow-y: scroll
   scroll-bar-width: none
