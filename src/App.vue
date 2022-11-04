@@ -6,6 +6,7 @@ import EulaDialog from './components/account/EulaDialog.vue'
 import NavigationBar from './components/navigation/NavigationBar.vue'
 import { useSession, setMode } from './composables/useSession'
 import { onMounted } from 'vue'
+import { logDebug } from './utils/logHelpers'
 
 const { navTrayVisible } = useUxState()
 const { anonymous } = useSession()
@@ -13,9 +14,11 @@ const { anonymous } = useSession()
 onMounted(() => {
   if (!anonymous.value) {
     document.addEventListener('cyan-mode-dark', () => {
+      logDebug('Account settings: dark mode on')
       setMode('dark')
     })
     document.addEventListener('cyan-mode-light', () => {
+      logDebug('Account settings: light mode on')
       setMode('light')
     })
   }

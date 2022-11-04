@@ -62,11 +62,14 @@ const siteIcon = computed(() => undefined)
         :noun="siteIcon"
       />
     </section>
-    <div
+    <p
       class="TypeBody2"
       :innerHTML="snippet"
     />
-    <cyan-toolbar small>
+    <cyan-toolbar
+      small
+      style="margin-bottom: 4px"
+    >
       <ProfileTag :uid="thread.author" />
       <cyan-spacer />
       <FlowTimeCaption :flow-time="thread.flowTime" />
@@ -83,9 +86,15 @@ const siteIcon = computed(() => undefined)
 </template>
 
 <style lang="sass" scoped>
+
+.ThreadCard
+  &.card
+    padding: 16px
+    p
+      margin-bottom: 16px
 .cardHeader
   display: flex
-  margin-bottom: 12px
+  margin-bottom: 16px
   .meta
     a
       color: var(--cyan-heading-color-a)
