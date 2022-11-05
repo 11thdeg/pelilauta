@@ -162,6 +162,10 @@
         "info": "Kirjaudu Pelilaudalle käyttämällä Facebookia tai Googlea."
       }
     },
+    "orderBy":{
+      "flowtime": "aika",
+      "title": "nimi"
+    },
     "page": {
       "empty": {
         "title": "404",

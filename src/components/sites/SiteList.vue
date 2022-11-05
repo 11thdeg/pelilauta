@@ -11,6 +11,8 @@ const { uid } = useSession()
 const { allSites } = useSites()
 const { t } = useI18n()
 
+const orderBy = ref('flowtime')
+
 const filteredSites = computed(() => {
   let arr = allSites.value
   if (filter.value.includes('visibility:own')) {
@@ -25,7 +27,12 @@ const filteredSites = computed(() => {
       arr = arr.filter(site => site.systemBadge === f.split(':')[1])
     }
   }
-  arr.sort((a, b) => a.compareFlowTime(b))
+  // Sorting, ugly but works
+  if (orderBy.value === 'flowtime') arr.sort((a, b) => a.compareFlowTime(b))
+  else if (orderBy.value === '-flowtime') arr.sort((a, b) => b.compareFlowTime(a))
+  else if (orderBy.value === 'name') arr.sort((a, b) => a.name > b.name ? 1 : -1)
+  else if (orderBy.value === '-name') arr.sort((a, b) => a.name < b.name ? 1 : -1)
+  // ...
   return arr
 })
 
@@ -33,7 +40,10 @@ const filter = ref(new Array<string>())
 </script>
 <template>
   <article class="Column double">
-    <SiteListFilterPane v-model="filter" />
+    <SiteListFilterPane
+      v-model="filter"
+      v-model:order-by="orderBy"
+    />
     <div
       v-if="filteredSites.length"
       class="siteListing"
