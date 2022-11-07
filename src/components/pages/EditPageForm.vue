@@ -70,7 +70,7 @@ async function savePage () {
   if (!p.hasOwner(u)) p.addOwner(u)
   if (_name.value) p.name = _name.value
   if (_chapter.value) p.category = _chapter.value
-  else p.category = '-' // forcing a default category to db, not really necessary as missing category is  catched by error handling in the app
+  else if (!p.category) p.category = '-' // forcing a default category to db, not really necessary as missing category is  catched by error handling in the app
 
   // Add htmlContent for backwards compatibility
   p.htmlContent = marked(markdown.value)
@@ -138,9 +138,9 @@ const markdownError = computed(() => {
   }
   return false
 })
-const htmlConversionAvailable = computed(() => {
+/* const htmlConversionAvailable = computed(() => {
   return page.value.htmlContent && !page.value.markdownContent
-})
+}) */
 
 const hasUpdates = computed(() => {
   if (
@@ -159,12 +159,14 @@ const hasUpdates = computed(() => {
       <cyan-loader large />
     </template>
     <template v-else>
-      '
-      <cyan-code>({{ htmlConversionAvailable }})</cyan-code>&nbsp;
+      <!--cyan-code>({{ htmlConversionAvailable }})</cyan-code>&nbsp;
       <cyan-code>({{ hasUpdates }})</cyan-code>&nbsp;
       <cyan-code>({{ _chapter }})</cyan-code>&nbsp;
-      <cyan-code>({{ markdownError }})</cyan-code>
-      <section v-if="!preview">
+      <cyan-code>({{ markdownError }})</cyan-code-->
+      <section
+        v-if="!preview"
+        style="display:flex; flex-direction: column; gap: var(--cyan-column-gap)"
+      >
         <cyan-textfield
           :label="t('fields.page.name')"
           :value="name"

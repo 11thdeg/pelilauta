@@ -39,14 +39,14 @@ onMounted(() => {
 
 <style lang="sass" scoped>
 #TopBar
+  margin-left: -8px
+  padding-left: 8px
   &.sticky
     position: -webkit-sticky
     position: sticky
     top: 0px
     z-index: 100000
     transition: all 0.2s ease-in-out
-    margin-left: -8px
-    padding-left: 8px
     padding-right: 8px
     &.overlay
       transition: all 0.6s ease-in-out
