@@ -9,13 +9,16 @@ const { admin } = useSession()
 
 <template>
   <NavigationTray v-if="admin">
-    <h1>{{ t('admin.title') }}</h1>
-    <p class="TypeBody2 lowEmphasis">
-      {{ t('admin.description') }}
-    </p>
+    <section style="padding: 12px;">
+      <h1 class="TypeHeadline5">
+        {{ t('admin.title') }}
+      </h1>
+      <p class="TypeBody2 lowEmphasis">
+        {{ t('admin.description') }}
+      </p>
+    </section>
     <router-link to="/admin/settings">
       <cyan-nav-button
-        style="margin-left: -12px; padding-left: 12px;"
         noun="monsters"
       >
         {{ t('admin.settings.title') }}
@@ -23,10 +26,16 @@ const { admin } = useSession()
     </router-link>
     <router-link to="/admin/users">
       <cyan-nav-button
-        style="margin-left: -12px; padding-left: 12px;"
         noun="avatar"
       >
         {{ t('admin.users.title') }}
+      </cyan-nav-button>
+    </router-link>
+    <router-link to="/admin/testing-tools">
+      <cyan-nav-button
+        noun="admin"
+      >
+        {{ t('admin.testingTools.title') }}
       </cyan-nav-button>
     </router-link>
   </NavigationTray>

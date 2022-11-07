@@ -54,7 +54,6 @@ onMounted(() => {
     position: fixed
     bottom: 16px
     left: 16px
-    background-color: var(--cyan-color-background)
     z-index: var(--z-index-snacks)
     padding: 16px
     border-radius: 4px

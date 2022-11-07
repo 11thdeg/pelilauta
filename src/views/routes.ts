@@ -5,6 +5,7 @@ import LoginView from './LoginView.vue'
 export const routes = [
   { path: '/', component: HomeView },
   { path: '/about', component: AboutView },
+  { path: '/admin/testing-tools', component: () => import('./admin/TestingTools.vue') },
   { path: '/inbox', component: () => import('./InboxView.vue') },
   { path: '/login', component: LoginView },
   { path: '/login/:backroute', component: LoginView, props: true },
