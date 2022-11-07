@@ -7,9 +7,14 @@ import NavigationBar from './components/navigation/NavigationBar.vue'
 import { useSession, setMode } from './composables/useSession'
 import { onMounted } from 'vue'
 import { logDebug } from './utils/logHelpers'
+import { useBanner } from './composables/useBanner'
+import { Workbox } from 'workbox-window'
+import { useI18n } from 'vue-i18n'
 
 const { navTrayVisible } = useUxState()
 const { anonymous } = useSession()
+const { raise } = useBanner()
+const { t } = useI18n()
 
 onMounted(() => {
   if (!anonymous.value) {
@@ -23,6 +28,32 @@ onMounted(() => {
     })
   }
 })
+
+// *** Workbox/Service worker setup starts ******************************
+// let skipWaiting: CallableFunction|undefined
+if ('serviceWorker' in navigator) {
+  const workbox = new Workbox('/service-worker.js')
+  const skipWaiting = () => {
+    console.debug('App.js skipwaiting called')
+    workbox.addEventListener('controlling', (event) => {
+      console.debug('controlling', event)
+      window.location.reload()
+    })
+    workbox.messageSkipWaiting()
+  }
+  workbox.addEventListener('waiting', (event) => {
+    console.debug('WorkboxEvent', event.type)
+    raise(t('banner.updatesAvailable'), skipWaiting)
+  })
+  // WB debugs
+  workbox.addEventListener('message', (event) => { logDebug('WorkboxEvent', event) })
+  workbox.addEventListener('installed', (event) => { logDebug('WorkboxEvent', event) })
+  workbox.addEventListener('controlling', (event) => { logDebug('WorkboxEvent', event) })
+  workbox.addEventListener('activated', (event) => { logDebug('WorkboxEvent', event) })
+  workbox.addEventListener('redundant', (event) => { logDebug('WorkboxEvent', event) })
+  workbox.register()
+}
+// *** Workbox/Service worker setup ends ********************************
 </script>
 
 <template>

@@ -3,6 +3,7 @@ import { useSession } from '../../composables/useSession'
 import AppBar from '../../components/navigation/AppBar.vue'
 import AdminTray from '../../components/admin/AdminTray.vue'
 import SnackbarTester from '../../components/admin/SnackbarTester.vue'
+import BannerTester from '../../components/admin/BannerTester.vue';
 
 const { admin } = useSession()
 </script>
@@ -15,6 +16,7 @@ const { admin } = useSession()
     />
     <main class="SiteSettings dashboardLayout">
       <SnackbarTester />
+      <BannerTester />
     </main>
     <AdminTray />
   </div>

@@ -5,6 +5,7 @@ import ProfileButton from '../actions/ProfileButton.vue'
 import InboxButton from '../actions/InboxButton.vue'
 import TrayMenuButton from './TrayMenuButton.vue'
 import { useUxState } from '../../composables/useUXState'
+import Banner from '../ui/Banner.vue'
 
 const props = defineProps<{
   title?: string,
@@ -46,6 +47,7 @@ const noun = computed(() => {
       <ProfileButton />
     </cyan-toolbar>
   </nav>
+  <Banner />
 </template>
 
 <style scoped lang="sass">
