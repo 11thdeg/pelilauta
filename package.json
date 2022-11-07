@@ -1,11 +1,11 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "14.0.0-beta.25",
+  "version": "14.0.0-beta.28",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build && node workbox-build.js",
+    "build": "vue-tsc --noEmit && vite build && node workbox-build.cjs",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.js,.vue src"
   },
