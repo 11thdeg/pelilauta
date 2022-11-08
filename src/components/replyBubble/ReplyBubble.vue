@@ -4,6 +4,7 @@ import { useSession } from '../../composables/useSession'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ImageListSection from '../content/ImageListSection.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
+import LoveAReplyTag from '../discussion/LoveAReplyTag.vue'
 import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 
@@ -16,7 +17,9 @@ const props = defineProps<{
     images?: string[],
     quoteRef?: string,
     markdownContent: string,
-    htmlContent: string
+    htmlContent: string,
+    lovers?: string[]
+    hasOwner: (uid: string) => boolean
   } 
 }>()
 const emit = defineEmits<{
