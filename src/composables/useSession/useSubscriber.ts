@@ -1,13 +1,11 @@
 import { Subscriber } from '@11thdeg/skaldstore'
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore'
-import { ref, Ref } from 'vue'
-import { addStore, useSession } from '.'
+import { computed, ref, Ref } from 'vue'
+import { addStore } from '.'
 
-let _init = false
 const subscriber: Ref<Subscriber|undefined> = ref(undefined)
 
 function reset () {
-  _init = false
   subscriber.value = undefined
 }
 
@@ -43,31 +41,38 @@ export function unmute(key: string) {
   save()
 }
 
-export function isWatchingAt(key: string) {
-  if (!subscriber.value) throw new Error('Subscriber not initialized')
-  return subscriber.value.watches(key)
-}
-
 export function hasMuted(key: string) {
   if (!subscriber.value) throw new Error('Subscriber not initialized')
   return subscriber.value.hasMuted(key)
 }
+let loading = false
 
-export async function initSubscriber () {
-  if (_init) throw new Error('Can not reinitialize subscriptions')
-  _init = true
-
-  addStore('subscriptions', reset)
-  const { uid } = useSession()
-  if (!uid.value) throw new Error('Can not initialize subscriptions for anonymous users')
+async function initSubscriber (newSubscriberUid: string) {
+  if (!newSubscriberUid) throw new Error('Subscriber uid not provided, aborting init')
+  if (newSubscriberUid === subscriber.value?.key) return // already initialized
+  
+  if (loading) return
+  loading = true
 
   const subscriberDoc = await getDoc(
     doc(
       getFirestore(),
       Subscriber.collectionName,
-      uid.value
+      newSubscriberUid
     )
   )
-  if (!subscriberDoc.exists()) subscriber.value = new Subscriber(uid.value)
+  
+  if (!subscriberDoc.exists()) subscriber.value = new Subscriber(newSubscriberUid)
   else subscriber.value = new Subscriber(subscriberDoc.id, subscriberDoc.data())
+  
+  addStore('subscriptions', reset)  
+  
+  loading = false
+}
+
+export function useSubscriber (newSubscriberUid?: string) {
+  if (newSubscriberUid) initSubscriber(newSubscriberUid)
+  return {
+    subscriber: computed(() => subscriber.value)
+  }
 }

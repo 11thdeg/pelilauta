@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useSession } from '../../composables/useSession'
 import { logDebug } from '../../utils/loghelpers'
-import { isWatchingAt, unwatch, watch } from '../../composables/useSession/useSubscriber'
+import { unwatch, watch, useSubscriber } from '../../composables/useSession/useSubscriber'
 
 const props = defineProps<{
   entry: {
@@ -12,10 +12,17 @@ const props = defineProps<{
   }
 }>()
 const { uid } = useSession()
+const { subscriber } = useSubscriber()
 
 const watches = computed(
   {
-    get: () => isWatchingAt(props.entry.key || '') > 0,
+    get: () => 
+    {
+      if (props.entry.key && subscriber.value) {
+        return subscriber.value.watches(props.entry.key) > 0
+      }
+      return false
+    },
     set: async (value: boolean) => {
       logDebug('watch', props.entry.key, value)
       if (value) watch(props.entry.key || '')

@@ -5,7 +5,7 @@ import { ref, computed } from 'vue'
 import { logDebug, logError } from '../../utils/logHelpers'
 import { subscibeToAssets } from './useAssets'
 import { useMeta } from '../useMeta'
-import { initSubscriber } from './useSubscriber'
+import { useSubscriber } from './useSubscriber'
 
 export * from './register'
 
@@ -96,7 +96,7 @@ export function login(user: User|null) {
     subscribeToAccount()
     subscribeToProfile()
     subscibeToAssets()
-    initSubscriber()
+    useSubscriber(uid.value)
     
     active.value = true
     updateDoc(doc(getFirestore(), Account.collectionName, uid.value), { lastLogin: serverTimestamp() })
