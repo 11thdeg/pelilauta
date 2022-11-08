@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useSession } from '../../composables/useSession'
 import { logDebug } from '../../utils/loghelpers'
 import { unwatch, watch, useSubscriber } from '../../composables/useSession/useSubscriber'
@@ -11,8 +11,12 @@ const props = defineProps<{
     hasOwner: (uid: string) => boolean
   }
 }>()
-const { uid } = useSession()
+const { anonymous } = useSession()
 const { subscriber } = useSubscriber()
+
+onMounted(() => {
+  logDebug('WatchButton', 'onMounted', props.entry.followerCount)
+})
 
 const watches = computed(
   {
@@ -30,12 +34,11 @@ const watches = computed(
     }
   }
 )
-const owns = computed(() => props.entry.hasOwner(uid.value))
 </script>
 <template>
   <cyan-watch-button
+    v-if="!anonymous"
     :on="watches"
-    :disabled="owns"
     :count="props.entry.followerCount"
     @loves="watches = $event.detail.active"
   />
