@@ -52,3 +52,8 @@ body {
   margin: 0;
   padding: 8px;
 }
+.verticalList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

@@ -25,7 +25,7 @@ const props = defineProps<{
 
 function onCancel () {
   reply.value = new Reply()
-  replace.value = ''
+  replace.value = '&nbsp;'
 }
 
 onMounted(() => {
@@ -86,7 +86,11 @@ const replace=ref('')
 </script>
 
 <template>
-  <section id="ReplyToThreadSection">
+  <section
+    id="ReplyToThreadSection"
+    class="card rise-a"
+    style="margin-top: 12px"
+  >
     <SelectAssetDialog
       v-model="addImageDialog"
       @select="addImage($event)"
@@ -105,6 +109,7 @@ const replace=ref('')
       :label="t('reply.title')"
       collapse
       :value="replace"
+      style="margin-bottom: 12px"
       @change="reply.markdownContent = $event.target.value"
     />
     <cyan-toolbar>
