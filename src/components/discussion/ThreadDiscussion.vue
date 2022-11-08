@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import ReplyToThreadSection from './ReplyToThreadSection.vue'
+import ReplyToThreadSection from '../replyFrom/ReplyForm.vue'
 import ThreadRepliesSection from './ThreadRepliesSection.vue'
     
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

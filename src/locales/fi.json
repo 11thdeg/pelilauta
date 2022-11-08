@@ -144,7 +144,8 @@
       }
     },
     "discourse":{
-      "title": "Keskustelu"
+      "title": "Keskustelu",
+      "loginToJoinDiscourse": "Kirjaudu sisään osallistuaksesi keskusteluun"
     },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",

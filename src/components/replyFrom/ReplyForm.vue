@@ -2,19 +2,20 @@
 import { Reply } from '@11thdeg/skaldstore'
 import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { logDebug, logError } from '../../utils/loghelpers'
+import { logDebug, logError } from '../../utils/logHelpers'
 import { collection, getFirestore, addDoc, updateDoc, doc, serverTimestamp, increment } from '@firebase/firestore'
 import { useSnack } from '../../composables/useSnack'
 import { useSession } from '../../composables/useSession'
 import { marked } from 'marked'
 import ImageListSection from '../content/ImageListSection.vue'
 import SelectAssetDialog from '../assets/SelectAssetDialog.vue'
-import QuotedResponseSection from './QuotedResponseSection.vue'
+import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
 
 
 const { t } = useI18n()
 const { pushSnack } = useSnack()
 const { account } = useSession()
+const { anonymous, active } = useSession()
 
 const reply = ref(new Reply())
 
@@ -86,7 +87,33 @@ const replace=ref('')
 </script>
 
 <template>
+  <cyan-loader v-if="!active" />
+  <section v-else-if="anonymous">
+    <p
+      class="TypeBody2 lowEmphasis"
+      style="text-align: center;"
+    >
+      {{ t('discourse.loginToJoinDiscourse') }}
+    </p>
+  
+    <cyan-toolbar>
+      <cyan-spacer />
+      <router-link to="/login">
+        <cyan-button
+          noun="logout"
+          :label="t('action.login')"
+        />
+      </router-link>
+      <cyan-spacer />
+    </cyan-toolbar>
+    <cyan-icon
+      noun="fox"
+      xlarge
+      style="display: block; margin: 12px auto; opacity: 0.22"
+    />
+  </section>
   <section
+    v-else
     id="ReplyToThreadSection"
     class="card rise-a"
     style="margin-top: 12px"
