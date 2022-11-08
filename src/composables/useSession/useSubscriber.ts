@@ -73,6 +73,7 @@ async function initSubscriber (newSubscriberUid: string) {
 export function useSubscriber (newSubscriberUid?: string) {
   if (newSubscriberUid) initSubscriber(newSubscriberUid)
   return {
-    subscriber: computed(() => subscriber.value)
+    subscriber: computed(() => subscriber.value),
+    watch
   }
 }

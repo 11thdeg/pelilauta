@@ -12,10 +12,13 @@ const props = defineProps<{
   }
 }>()
 const { anonymous } = useSession()
-const { subscriber } = useSubscriber()
+const { subscriber, watch } = useSubscriber()
 
 onMounted(() => {
-  logDebug('WatchButton', 'onMounted', props.entry.followerCount)
+  if (subscriber.value?.watches(props.entry.key || '') || -1 > 0) {
+    logDebug('watching, stamping', props.entry.key)
+    watch(props.entry.key || '')
+  }
 })
 
 const watches = computed(

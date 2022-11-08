@@ -2,8 +2,8 @@
 import { Thread } from '@11thdeg/skaldstore'
 import { computed, onMounted, Ref, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import { fetchThread } from '../../composables/useThreads'
-import { useWatch } from '../../composables/useWatch'
 
 const props = defineProps<{
   threadkey: string
@@ -15,10 +15,19 @@ const thread:Ref<Thread|undefined> = ref(undefined)
 onMounted(async () => {
   if (props.threadkey) thread.value = await fetchThread(props.threadkey)
 })
-const { updatedSince } = useWatch()
+
+const { subscriber } = useSubscriber()
+
+
 const notification = computed(() => {
   if (!thread.value) return undefined
-  return updatedSince(thread.value.key || '', thread.value.flowTime) ? true : undefined
+  if (!subscriber.value) return undefined
+  const threadkey = thread.value.key || ''
+  const s = subscriber.value
+  if (s.hasMuted(threadkey)) return undefined
+  const wt = s.watches(threadkey)
+  if (wt > 0 && wt < thread.value.flowTime) return true
+  return undefined
 })
 
 </script>
