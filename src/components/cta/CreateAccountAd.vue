@@ -8,7 +8,7 @@ const { t } = useI18n()
 <template>
   <section
     v-if="anonymous"
-    class="CreateAccountAd chroma-box-a card"
+    class="CreateAccountAd chroma-box-b card"
   >
     <cyan-icon
       noun="fox"

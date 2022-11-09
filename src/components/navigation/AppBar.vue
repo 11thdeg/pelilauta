@@ -56,7 +56,7 @@ const noun = computed(() => {
   padding: 0 8px
 @media screen and (max-width: 600px)
   #AppBar
-    padding: 0
+    padding: 0px 8px
     &.withmenu
       padding-left: 56px
       .noun

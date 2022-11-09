@@ -60,10 +60,10 @@ const t = useI18n().t
 #NavigationBarShadow
   content: ''
   position: fixed
-  bottom: 50px
+  bottom: 58px
   left: 0
   width: 100vw
-  height: 32px
+  height: 48px
   z-index: calc(var(--z-index-navigation) - 10 )
   background: linear-gradient(0deg, rgba(0,35,55,1) 0%, rgba(0,35,55,0) 100%)
 </style>
