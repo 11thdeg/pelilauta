@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useNotifications } from '../../composables/useNotifications'
+import { useNotifications } from '../../composables/useSession/useNotifications'
 import { useSession } from '../../composables/useSession'
 
 const { anonymous } = useSession()

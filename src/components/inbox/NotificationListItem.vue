@@ -11,19 +11,23 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const typeNoun = ref('discussion')
 
 const noun = computed(() => {
-  return props.notification.read ? 'fox' : 'idea'
+  return props.notification.read ? 'dot' : typeNoun.value
 })
 
 const targetTitle = ref('')
 const targerRoute = ref('')
 
 onMounted(async () => {
-  if (props.notification.targetType === 'thread') {
+  if (props.notification.targetType.startsWith('thread')) {
     const thread = await fetchThread(props.notification.targetKey)
     targetTitle.value = thread? thread.title : t('thread.deleted')
     targerRoute.value = `/threads/${props.notification.targetKey}`
+  }
+  if (props.notification.targetType.endsWith('loved')) {
+    typeNoun.value = 'love'
   }
 })
 
@@ -72,7 +76,7 @@ function removeNotification() {
       <p class="TypeBody2 oneLiner">
         <ProfileTag
           :uid="notification.from"
-        /> {{ notification.message }}
+        /> {{ t(notification.message) }}
       </p>
     </div>
     <cyan-spacer />
@@ -93,7 +97,7 @@ function removeNotification() {
   &.unread
     border-left: 4px solid var(--cyan-divider-color)
     padding-left: 4px
-    background-color: var(--chroma-secondary-i)
+    background: hsla(var(--chroma-secondary-f-hsl), 0.11)
   p
     margin: 0
 

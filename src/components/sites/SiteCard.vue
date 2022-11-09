@@ -31,12 +31,6 @@ function hasPlayer(key: string) {
   if (!props.site.players) return false
   return props.site.players.includes(key)
 }
-/*
-const visibleNoun = computed(() => {
-  if (props.site.hidden) return 'eye-closed'
-  return 'eye-open'
-})
-*/
 </script>
 
 <template>
@@ -91,8 +85,9 @@ const visibleNoun = computed(() => {
 
 <style lang="sass" scoped>
 .SiteCard
-  width:330px
+  display: block
   flex-grow: 0
+  flex-shrink: 0
 .hasPoster
   .cardPoster
     position: relative

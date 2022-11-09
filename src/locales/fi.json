@@ -155,6 +155,13 @@
       "title": "Keskustelu",
       "loginToJoinDiscourse": "Kirjaudu sisään osallistuaksesi keskusteluun"
     },
+    "inbox": {
+      "title": "Nostot",
+      "empty": {
+        "title": "Ei viestejä",
+        "message": "Aloita uusi ketju, tai kommentoi ketjussa."
+      }
+    },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",
       "withGoogle": "Googlella",
@@ -169,6 +176,11 @@
       "socialLoginForm": {
         "title": "Kirjaudu toisella palvelulla",
         "info": "Kirjaudu Pelilaudalle käyttämällä Facebookia tai Googlea."
+      }
+    },
+    "notification": {
+      "thread": {
+        "loved": "merkitsi ketjun"
       }
     },
     "orderBy":{

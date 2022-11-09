@@ -1,27 +1,16 @@
 import { Notification } from '@11thdeg/skaldstore'
-import { collection, getFirestore, limit, onSnapshot, orderBy, query, where } from 'firebase/firestore'
-import { computed, ref, watch } from 'vue'
-import { logEvent } from '../utils/logHelpers'
-import { useSession } from './useSession'
+import { collection, getDocs, getFirestore, limit, onSnapshot, orderBy, query, where } from 'firebase/firestore'
+import { computed, ref } from 'vue'
+import { addStore } from '.'
+import { logDebug, logEvent } from '../../utils/logHelpers'
 
-let _init = false
 let _unsubscribeNotifications:CallableFunction|undefined
 const _notificationsCache = ref(new Map<string, Notification>())
-const subscriptionLimit = 30
+const subscriptionLimit = 33
 
-function init () {
-  if (_init) return
-  _init = true
 
-  const { uid } = useSession()
-  watch(uid, (newUid) => {
-    subscribeNotifications(newUid)
-  })
-}
-
-async function subscribeNotifications (uid: string) {
-  _unsubscribeNotifications && _unsubscribeNotifications()
-  _notificationsCache.value = new Map<string, Notification>()
+export async function subscribeNotifications (uid: string) {
+  reset()
   if (!uid) return // Anonyous user, no need to subscribe
 
   logEvent('subscribeNotifications', { uid: uid })
@@ -33,9 +22,12 @@ async function subscribeNotifications (uid: string) {
     limit(subscriptionLimit)
   )
 
+  getDocs(q)
+
   _unsubscribeNotifications = onSnapshot(
     q,
     (snapshot) => {
+      logDebug('subscribeNotifications', 'onSnapshot', snapshot.docs.length)
       snapshot.docChanges().forEach((change) => {
         if (change.type === 'removed') {
           _notificationsCache.value.delete(change.doc.id)
@@ -46,6 +38,12 @@ async function subscribeNotifications (uid: string) {
       })
     }
   )
+  addStore('notifications', reset)
+}
+
+function reset () {
+  _unsubscribeNotifications && _unsubscribeNotifications()
+  _notificationsCache.value = new Map<string, Notification>()
 }
 
 const notifications = computed(() => {
@@ -61,7 +59,6 @@ const newCount = computed(() => {
 })
 
 export function useNotifications () {
-  if (!_init) init()
   return {
     notifications,
     newCount

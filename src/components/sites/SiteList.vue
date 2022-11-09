@@ -6,6 +6,7 @@ import { useSession } from '../../composables/useSession'
 import SiteCard from './SiteCard.vue'
 import { useI18n } from 'vue-i18n'
 import EmptyCollection from '../ui/EmptyCollection.vue'
+import { useScreenSize } from '../../composables/useScreenSize'
 
 const { uid } = useSession()
 const { allSites } = useSites()
@@ -37,9 +38,16 @@ const filteredSites = computed(() => {
 })
 
 const filter = ref(new Array<string>())
+const { isLarge } = useScreenSize()
 </script>
 <template>
-  <article class="Column double">
+  <article
+    class="Column"
+    :class="{
+      double: isLarge,
+      'double-cut': !isLarge
+    }"
+  >
     <SiteListFilterPane
       v-model="filter"
       v-model:order-by="orderBy"
@@ -68,11 +76,14 @@ const filter = ref(new Array<string>())
 </template>
 
 <style lang="sass" scoped>
+.double
+  .siteListing
+    display: grid
+    grid-template-columns: calc(720px / 2 - 6px) calc(720px / 2 - 6px)
 .siteListing
   display: flex
+  flex-direction: column
   gap: var(--cyan-col-gap)
-  flex-wrap: wrap
-  width: 100%
   a
     text-decoration: none
 </style>
