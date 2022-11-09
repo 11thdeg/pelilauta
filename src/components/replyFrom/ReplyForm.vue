@@ -26,7 +26,7 @@ const props = defineProps<{
 
 function onCancel () {
   reply.value = new Reply()
-  replace.value = '&nbsp;'
+  replace.value = ''
 }
 
 onMounted(() => {
