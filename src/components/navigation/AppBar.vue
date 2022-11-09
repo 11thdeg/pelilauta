@@ -52,7 +52,8 @@ const noun = computed(() => {
 
 <style scoped lang="sass">
 #AppBar
-  margin: 0 8px
+  margin: 0
+  padding: 0 8px
 @media screen and (max-width: 600px)
   #AppBar
     padding: 0

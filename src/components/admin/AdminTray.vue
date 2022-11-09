@@ -9,10 +9,13 @@ const { admin } = useSession()
 
 <template>
   <NavigationTray v-if="admin">
-    <section style="padding: 12px;">
-      <h1 class="TypeHeadline5">
-        {{ t('admin.title') }}
-      </h1>
+    <section style="padding: 0 12px;">
+      <cyan-toolbar>
+        <cyan-icon noun="tools" />
+        <cyan-toolbar-heading :level="1">
+          {{ t('admin.title') }}
+        </cyan-toolbar-heading>
+      </cyan-toolbar>
       <p class="TypeBody2 lowEmphasis">
         {{ t('admin.description') }}
       </p>

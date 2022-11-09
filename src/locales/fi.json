@@ -19,6 +19,10 @@
       "topictool": {
         "title": "Aiheet",
         "info": "Aiheiden hallinta"
+      },
+      "testingTools": {
+        "title": "Testityökalut",
+        "info": "Testityökalut"
       }
     },
     "app": {
@@ -96,6 +100,7 @@
         "page": "Luo sivu"
       },
       "cancel": "Peruuta",
+      "continue": "Jatka",
       "create": "Luo uusi",
       "delete": "Poista",
       "loadMore": "Lataa lisää",
@@ -129,6 +134,9 @@
       "add": {
         "title": "Lisää tiedosto"
       }
+    },
+    "banner": {
+      "updatesAvailable": "Sovelluksesta on saatavilla uusi versio. Lataa uusin versio nyt (lataa sovelluksen uudestaan, joten tallennathan keskeneräiset työt)."
     },
     "cta": {
       "createAccount": {

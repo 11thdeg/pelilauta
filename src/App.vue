@@ -74,9 +74,9 @@ if ('serviceWorker' in navigator) {
   div#appContainer
     margin: 0
     padding: 0
-    margin-left: 80px
+    margin-left: 72px
     position: relative
     &.navTrayVisible
-      margin-left: 324px
+      margin-left: calc(72px + 256px)
 </style>
 
