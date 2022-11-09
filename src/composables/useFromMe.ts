@@ -2,7 +2,7 @@ import { computed, ref, Ref } from 'vue'
 import { useSession } from './useSession'
 
 export interface EntryWithAuhtors {
-  owners: string[]
+  owners: string|string[]
 }
 
 export function useFromMe(entry: EntryWithAuhtors|Ref<EntryWithAuhtors>) {
@@ -11,7 +11,10 @@ export function useFromMe(entry: EntryWithAuhtors|Ref<EntryWithAuhtors>) {
     fromMe: computed(() => {
       const { uid } = useSession()
       if (!uid.value) return false
-      return _entry.value.owners.includes(uid.value)
+      if (Array.isArray(_entry.value.owners)) {
+        return _entry.value.owners.includes(uid.value)
+      }
+      return _entry.value.owners === uid.value
     })
   }
 }

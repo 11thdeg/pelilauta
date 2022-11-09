@@ -19,7 +19,7 @@ const props = defineProps<{
     markdownContent: string,
     htmlContent: string,
     lovers?: string[],
-    owners: string[],
+    owners: string|string[],
     hasOwner: (uid: string) => boolean
   } 
 }>()
@@ -28,7 +28,6 @@ const emit = defineEmits<{
   (e: 'edit', key: string): void
   (e: 'delete', key: string): void
 }>()
-
 const { fromMe } = useFromMe(props.reply)
 </script>
 
