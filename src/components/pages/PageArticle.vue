@@ -4,14 +4,23 @@ import { usePage } from '../../composables/usePage'
 import { useSite } from '../../composables/useSite'
 import EmptyCollection from '../ui/EmptyCollection.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
+import { useScreenSize } from '../../composables/useScreenSize'
 
 const { t } = useI18n()
 const { page, loading, notFound } = usePage()
 const { key } = useSite()
+
+const { isLarge } = useScreenSize()
 </script>
 
 <template>
-  <article class="Column double">
+  <article
+    class="Column"
+    :class="{
+      double: isLarge,
+      'double-cut': !isLarge
+    }"
+  >
     <template v-if="loading">
       <cyan-loader large />
     </template>

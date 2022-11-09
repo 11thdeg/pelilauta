@@ -39,7 +39,6 @@ onMounted(() => {
 
 <style lang="sass" scoped>
 #TopBar
-  margin-left: -8px
   padding-left: 8px
   &.sticky
     position: -webkit-sticky

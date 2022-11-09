@@ -63,7 +63,7 @@ function save() {
       <cyan-textfield
         :label="t('fields.site.chapter')"
         :value="item.name || ''"
-        @change="setField('name', $event.detail)"
+        @change="setField('name', $event.target.value)"
       />
       <cyan-toolbar>
         <cyan-spacer />

@@ -9,7 +9,7 @@
 
   /* these need to go to cyan, later */
   --pelilauta-dialog-backdrop: rgba(0, 0, 0, 0.5);
-  --pelilauta-dialog-background: #fff;
+  --pelilauta-dialog-background: var(--chroma-secondary-c);
 
   
 }
