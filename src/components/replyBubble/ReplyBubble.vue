@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useSession } from '../../composables/useSession'
+import { useFromMe } from '../../composables/useFromMe'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ImageListSection from '../content/ImageListSection.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import LoveAReplyTag from '../discussion/LoveAReplyTag.vue'
 import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
+import ReplyMenu from './ReplyMenu.vue'
 
 const props = defineProps<{
   threadkey: string,
@@ -18,23 +18,22 @@ const props = defineProps<{
     quoteRef?: string,
     markdownContent: string,
     htmlContent: string,
-    lovers?: string[]
+    lovers?: string[],
+    owners: string[],
     hasOwner: (uid: string) => boolean
   } 
 }>()
 const emit = defineEmits<{
   (e: 'update:quote', keys: string[]): void
+  (e: 'edit', key: string): void
+  (e: 'delete', key: string): void
 }>()
 
-const { uid } = useSession()
-
-const isAuthor = computed(() => {
-  return props.reply.author === uid.value
-})
+const { fromMe } = useFromMe(props.reply)
 </script>
 
 <template>
-  <cyan-bubble :reply="isAuthor">
+  <cyan-bubble :reply="fromMe">
     <!-- The top toolbar -->
     <cyan-toolbar small>
       <ProfileLink :uid="reply.author" />
@@ -51,6 +50,11 @@ const isAuthor = computed(() => {
       <LoveAReplyTag
         :reply="reply"
         :thread-key="threadkey"
+      />
+      <ReplyMenu
+        :reply="reply"
+        @edit="emit('edit', reply.key || '')"
+        @delete="emit('delete', reply.key || '')"
       />
     </cyan-toolbar>
 
