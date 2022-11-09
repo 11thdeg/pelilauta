@@ -70,6 +70,7 @@ const key = computed(() => site.value?.key || '')
         v-for="chapter in chapters"
         :key="chapter.slug"
         :label="chapter.name"
+        folds
       >
         <router-link
           v-for="page in inChapter(chapter.slug)"
@@ -79,15 +80,14 @@ const key = computed(() => site.value?.key || '')
           <cyan-nav-button
             compact
           >
-            <div class="oneLiner TypeCaption">
-              {{ page.name }}
-            </div>
+            - {{ page.name }}
           </cyan-nav-button>
         </router-link>
       </cyan-nav-section>
       <cyan-nav-section
         v-if="unCategorized.length > 0"
         :label="t('site.tray.unCategorizedPagesSection')"
+        folds
       >
         <router-link
           v-for="page in unCategorized"
@@ -97,9 +97,7 @@ const key = computed(() => site.value?.key || '')
           <cyan-nav-button
             compact
           >
-            <div class="oneLiner TypeCaption">
-              {{ page.name }} 
-            </div>
+            - {{ page.name }} 
           </cyan-nav-button>
         </router-link>
       </cyan-nav-section>
