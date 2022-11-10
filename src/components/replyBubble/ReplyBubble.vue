@@ -9,6 +9,9 @@ import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import ReplyMenu from './ReplyMenu.vue'
 import ReplyEditor from './ReplyEditor.vue'
+import { deleteDoc, doc, getFirestore } from '@firebase/firestore'
+import { Reply, Thread } from '@11thdeg/skaldstore'
+import { useSnack } from '../../composables/useSnack'
 
 const props = defineProps<{
   threadkey: string,
@@ -27,10 +30,25 @@ const props = defineProps<{
 }>()
 const emit = defineEmits<{
   (e: 'update:quote', keys: string[]): void
-  (e: 'delete', key: string): void
 }>()
+
+const { pushSnack } = useSnack()
+
 const { fromMe } = useFromMe(props.reply)
 const editorActive = ref(false)
+
+async function trash () {
+  await deleteDoc(
+    doc(
+      getFirestore(),
+      Thread.collectionName,
+      props.threadkey,
+      Reply.collectionName,
+      props.reply.key || '')
+  )
+  pushSnack('replyBubble.snack.delete')
+  editorActive.value = false
+}
 </script>
 
 <template>
@@ -55,7 +73,7 @@ const editorActive = ref(false)
       <ReplyMenu
         :reply="reply"
         @edit="editorActive = true"
-        @delete="emit('delete', reply.key || '')"
+        @delete="trash"
       />
     </cyan-toolbar>
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Entry, Reply } from '@11thdeg/skaldstore'
+import { Reply } from '@11thdeg/skaldstore'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { collection, getFirestore, onSnapshot } from '@firebase/firestore'
 import { stashReply } from '../../composables/useDiscussion'
@@ -41,8 +41,18 @@ onMounted(async () => {
           const index = replies.value.findIndex((reply) => reply.key === change.doc.id)
           if (index >= 0) replies.value[index] = new Reply(change.doc.data(), change.doc.id)
         }
+        if (change.type === 'removed') {
+          const index = replies.value.findIndex((reply) => reply.key === change.doc.id)
+          if (index >= 0) replies.value.splice(index, 1)
+        }
       })
-      replies.value.sort((a, b) => b.compareFlowTime(a as unknown as Entry))
+      replies.value.sort((a, b) => {
+        if (!a) return 1
+        if (!b) return -1
+        if (a.flowTime || 0 < b.flowTime || 0) return 1
+        if (a.flowTime  || 0 > b.flowTime || 0) return -1
+        return 0
+      })
     })
 })
 onUnmounted(() => {
