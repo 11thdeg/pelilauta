@@ -28,6 +28,10 @@ const count = computed(() => props.images.length)
   gap: 12px
   align-items: center
   justify-content: center
+  margin: 6px 0
+  padding: 6px 12px
+  background: var(--cyan-background-overlay-dark)
+  border-radius: 8px
   img
     max-width: 100%
     max-height: 320px

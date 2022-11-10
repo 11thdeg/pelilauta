@@ -72,10 +72,10 @@ const { fromMe } = useFromMe(props.reply)
     />
 
     <!-- Markdown/Heritage content -->
-    <div style="padding: 0 8px; margin-top: -12px; margin-bottom: -12px;">
+    <div style="padding: 0 8px;">
       <MarkdownSection
         v-if="reply.markdownContent"
-        style="padding: 12px"
+        style="padding: 0 12px;margin-top: -12px"
         :content="reply.markdownContent"
       />
       <div
