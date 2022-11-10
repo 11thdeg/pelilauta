@@ -32,8 +32,8 @@ onMounted(async () => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === 'added') {
           const data = change.doc.data()
-          data.lovers = (data.lovers && Array.isArray(data.lovers)) ? data.lovers : []
-          logDebug('DANGEROUSLY FIXING A BUG INSIDE skaldbase/reply.ts', data.lovers)
+          // data.lovers = (data.lovers && Array.isArray(data.lovers)) ? data.lovers : []
+          // logDebug('DANGEROUSLY FIXING A BUG INSIDE skaldbase/reply.ts', data.lovers)
           const reply = new Reply(data, change.doc.id)
           replies.value.push(reply)
           stashReply(reply)

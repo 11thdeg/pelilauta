@@ -27,16 +27,16 @@ const showForAdmin = computed(() => !fromMe.value && admin.value)
       :noun="showForAdmin ? 'admin' : 'edit'"
       @click="$router.push('/threads/' + thread.key + '/edit')"
     >
-      {{ t('thread.edit') }}
+      {{ t('action.edit') }}
     </cyan-menu-item>
     <cyan-menu-item
       v-if="fromMe || admin"
       :secondary="showForAdmin"
       :noun="showForAdmin ? 'admin' : 'edit'"
-      :title="t('thread.delete')"
+      :title="t('action.delete')"
       @click="$router.push('/threads/' + thread.key + '/delete')"
     >
-      {{ t('thread.delete') }}
+      {{ t('action.delete') }}
     </cyan-menu-item>
   </cyan-menu>
 </template>
