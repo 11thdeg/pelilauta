@@ -181,6 +181,9 @@
     "notification": {
       "thread": {
         "loved": "merkitsi ketjun"
+      },
+      "reply": {
+        "loved": "merkitsi vastauksen"
       }
     },
     "orderBy":{

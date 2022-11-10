@@ -29,6 +29,12 @@ onMounted(async () => {
   if (props.notification.targetType.endsWith('loved')) {
     typeNoun.value = 'love'
   }
+  if (props.notification.targetType.startsWith('reply')) {
+    const keys = props.notification.targetKey.split('/')
+    const thread = await fetchThread(keys[0])
+    targetTitle.value = thread? thread.title : t('thread.deleted')
+    targerRoute.value = `/threads/${keys[0]}/replies/${keys[1]}`
+  }
 })
 
 function markRed() {
