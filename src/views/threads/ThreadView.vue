@@ -8,6 +8,7 @@ import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import { useThread } from '../../composables/useThread'
 import ThreadMenu from './ThreadMenu.vue'
 import ShareButton from '../../components/actions/ShareButton.vue'
+import { useScreenSize } from '../../composables/useScreenSize'
 
 const props = defineProps<{
   threadkey: string
@@ -19,6 +20,9 @@ const title = computed(() => {
   if (!thread.value) return '...'
   return thread.value.title
 })
+
+const { isLarge } = useScreenSize()
+
 </script>
 
 <template>
@@ -47,7 +51,11 @@ const title = computed(() => {
         <template v-else>
           <div
             v-if="thread"
-            class="Column double"
+            class="Column"
+            :class="{
+              double: isLarge,
+              'double-cut': !isLarge
+            }"
           >
             <ThreadPane
               :thread="thread"

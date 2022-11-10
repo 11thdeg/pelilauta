@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { useFromMe } from '../../composables/useFromMe'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ImageListSection from '../content/ImageListSection.vue'
@@ -7,6 +8,7 @@ import LoveAReplyTag from '../discussion/LoveAReplyTag.vue'
 import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import ReplyMenu from './ReplyMenu.vue'
+import ReplyEditor from './ReplyEditor.vue'
 
 const props = defineProps<{
   threadkey: string,
@@ -25,10 +27,10 @@ const props = defineProps<{
 }>()
 const emit = defineEmits<{
   (e: 'update:quote', keys: string[]): void
-  (e: 'edit', key: string): void
   (e: 'delete', key: string): void
 }>()
 const { fromMe } = useFromMe(props.reply)
+const editorActive = ref(false)
 </script>
 
 <template>
@@ -52,36 +54,46 @@ const { fromMe } = useFromMe(props.reply)
       />
       <ReplyMenu
         :reply="reply"
-        @edit="emit('edit', reply.key || '')"
+        @edit="editorActive = true"
         @delete="emit('delete', reply.key || '')"
       />
     </cyan-toolbar>
 
-    <!-- Images -->
-    <ImageListSection
-      v-if="reply.images"
-      :images="reply.images"
-    />
-
-    <!-- Quoted response -->
-    <QuotedResponseSection
-      v-if="reply.quoteRef"
-      style="margin: 12px"
-      :threadkey="threadkey"
-      :replykey="reply.quoteRef"
-    />
-
-    <!-- Markdown/Heritage content -->
-    <div style="padding: 0 8px;">
-      <MarkdownSection
-        v-if="reply.markdownContent"
-        style="padding: 0 12px;margin-top: -12px"
-        :content="reply.markdownContent"
+    <template v-if="!editorActive">
+      <!-- Images -->
+      <ImageListSection
+        v-if="reply.images"
+        :images="reply.images"
       />
-      <div
-        v-else
-        :innerHTML="reply.htmlContent"
+
+      <!-- Quoted response -->
+      <QuotedResponseSection
+        v-if="reply.quoteRef"
+        style="margin: 12px"
+        :threadkey="threadkey"
+        :replykey="reply.quoteRef"
       />
-    </div>
+
+      <!-- Markdown/Heritage content -->
+      <div style="padding: 0 8px;">
+        <MarkdownSection
+          v-if="reply.markdownContent"
+          style="padding: 0 12px;margin-top: -12px"
+          :content="reply.markdownContent"
+        />
+        <div
+          v-else
+          :innerHTML="reply.htmlContent"
+        />
+      </div>
+    </template>
+    <template v-else>
+      <ReplyEditor
+        :threadkey="threadkey"
+        :reply="reply"
+        @update:quote="emit('update:quote', $event)"
+        @close-editor="editorActive = false"
+      />
+    </template>
   </cyan-bubble>
 </template>
