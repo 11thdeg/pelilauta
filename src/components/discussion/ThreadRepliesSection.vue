@@ -3,7 +3,6 @@ import { Entry, Reply } from '@11thdeg/skaldstore'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { collection, getFirestore, onSnapshot } from '@firebase/firestore'
 import { stashReply } from '../../composables/useDiscussion'
-import { logDebug } from '../../utils/logHelpers'
 import ReplyBubble from '../replyBubble/ReplyBubble.vue'
 
 const props = defineProps<{
