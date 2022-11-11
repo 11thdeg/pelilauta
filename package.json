@@ -10,7 +10,7 @@
     "lint": "eslint --ext .ts,.js,.vue src"
   },
   "dependencies": {
-    "@11thdeg/cyan": "^0.23.4",
+    "@11thdeg/cyan": "^0.23.5",
     "@11thdeg/skaldstore": "^0.3.4",
     "@vueuse/core": "^9.5.0",
     "animate.css": "^4.1.1",
