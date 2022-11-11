@@ -4,6 +4,7 @@ import { onMounted, ref, computed } from 'vue'
 import { useProfiles } from '../../composables/useProfiles'
 
 const props = defineProps<{
+  noun?: string
   exclude?: string[]
 }>()
 const emits = defineEmits<{
@@ -30,11 +31,15 @@ onMounted(async () => {
 
 const selected = ref('')
 
+const icon = computed(() => {
+  return props.noun || 'adventurer'
+})
+
 </script>
 
 <template>
   <cyan-toolbar class="AccountSelect">
-    <cyan-icon noun="adventurer" />
+    <cyan-icon :noun="icon" />
     <cyan-select
       style="flex-grow: 1;"
       :options="options"

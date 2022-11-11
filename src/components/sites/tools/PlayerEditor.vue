@@ -12,14 +12,14 @@ const { t } = useI18n()
 const { uid } = useSession()
 
 const { site } = useSite()
-const owners = computed(() => {
-  const o = site.value?.owners || []
+const players = computed(() => {
+  const o = site.value?.players || []
   if (typeof o === 'string') return [o]
   return o
 })
 
-function removeOwner (e: string) {
-  const o = owners.value.filter((i) => i !== e)
+function removePlayer (e: string) {
+  const o = players.value.filter((i) => i !== e)
   updateDoc(
     doc(
       getFirestore(),
@@ -27,13 +27,13 @@ function removeOwner (e: string) {
       site.value?.key || ''
     ),
     {
-      owners: o
+      players: o
     }
   )
 }
 
-function addOwner (e: string) {
-  const o = owners.value
+function addPlayer (e: string) {
+  const o = players.value
   if (o.includes(e)) return
   o.push(e)
   updateDoc(
@@ -43,7 +43,7 @@ function addOwner (e: string) {
       site.value?.key || ''
     ),
     {
-      owners: o
+      players: o
     }
   )
 }
@@ -52,24 +52,24 @@ function addOwner (e: string) {
 
 <template>
   <div class="card rise-a Column">
-    <h3>{{ t('site.tools.owners.title') }}</h3>
+    <h3>{{ t('site.tools.players.title') }}</h3>
 
     <p class="TypeBody2 lowEmphasis">
-      {{ t('site.tools.owners.info') }}
+      {{ t('site.tools.players.info') }}
     </p>
 
-    <section class="currentOwners">
+    <section class="currentPlayers">
       <ProfileListItem
-        v-for="owner in owners"
-        :key="owner"
-        :class="{'me': uid === owner}"
-        :uid="owner"
+        v-for="player in players"
+        :key="player"
+        :class="{'me': uid === player}"
+        :uid="player"
       >
         <cyan-button
-          :disabled="uid === owner"
+          :disabled="uid === player"
           text
           noun="trashcan"
-          @click="removeOwner(owner)"
+          @click="removePlayer(player)"
         />
       </ProfileListItem>
     </section>
@@ -77,9 +77,8 @@ function addOwner (e: string) {
     <hr>
 
     <AccountSelect
-      noun="admin"
-      :exclude="owners"
-      @add-account="addOwner($event)"
+      :exclude="players"
+      @add-account="addPlayer($event)"
     />
   </div>
 </template>

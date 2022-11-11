@@ -6,6 +6,7 @@ import LoginRequiredColumn from '../../components/account/LoginRequiredColumn.vu
 import AppBar from '../../components/navigation/AppBar.vue'
 import NavigationTray from '../../components/navigation/NavigationTray.vue'
 import OwnerEditor from '../../components/sites/tools/OwnerEditor.vue'
+import PlayerEditor from '../../components/sites/tools/PlayerEditor.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import { useSession } from '../../composables/useSession'
 import { useSite } from '../../composables/useSite'
@@ -36,6 +37,7 @@ onMounted(async () => {
       <LoginRequiredColumn v-if="anonymous || !site.hasOwner(uid)" />
       <template v-else>
         <OwnerEditor />
+        <PlayerEditor />
       </template>
     </main>
     <NavigationTray>

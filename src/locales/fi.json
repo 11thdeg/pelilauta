@@ -74,6 +74,10 @@
         "links": {
           "title": "Linkit",
           "info": "Linkit avataan uuteen välilehteen."
+        },
+        "owners": {
+          "title": "Omistajat",
+          "info": "Omistajat voivat muokata sivun asetuksia ja sisältöä."
         }
       },
       "tray": {
