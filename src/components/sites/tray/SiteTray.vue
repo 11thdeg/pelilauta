@@ -33,11 +33,13 @@ const key = computed(() => site.value?.key || '')
       <cyan-toolbar style="padding: 0 8px">
         <cyan-spacer />
         <ShareButton icon />
-        <cyan-button
-          v-if="site.hasOwner(uid)"
-          text
-          noun="adventurer"
-        />
+        <router-link :to="`/sites/${key}/keeper`">
+          <cyan-button
+            v-if="site.hasOwner(uid)"
+            text
+            noun="adventurer"
+          />
+        </router-link>
         <cyan-button
           v-if="site.hasOwner(uid)"
           text

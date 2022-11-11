@@ -248,6 +248,7 @@
         "name": "Pelin, tai sivuston nimi",
         "system": "Pelijärjestelmä tai sivuston luokka",
         "chapter": "Aihe",
+        "hidden": "Piilotettu sivusto",
         "avatarurl": "Kuvake",
         "posterurl": "Taustakuva",
         "description": "Kuvaus",
