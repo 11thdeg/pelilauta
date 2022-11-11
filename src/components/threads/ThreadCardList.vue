@@ -20,6 +20,18 @@ const { recent } = useThreads()
         :threadkey="thread.key"
       />
     </div>
+    <hr>
+    <cyan-toolbar>
+      <cyan-spacer />
+      <router-link to="/threads">
+        <cyan-button
+          text
+          noun="discussion"
+          :label="$t('action.toDiscussion')"
+        />
+      </router-link>
+      <cyan-spacer />
+    </cyan-toolbar>
   </div>
 </template>
 

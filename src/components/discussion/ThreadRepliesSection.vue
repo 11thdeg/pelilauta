@@ -47,11 +47,9 @@ onMounted(async () => {
         }
       })
       replies.value.sort((a, b) => {
-        if (!a) return 1
-        if (!b) return -1
-        if (a.flowTime || 0 < b.flowTime || 0) return 1
-        if (a.flowTime  || 0 > b.flowTime || 0) return -1
-        return 0
+        const asec = a.createdAt?.seconds || 0
+        const bsec = b.createdAt?.seconds || 0
+        return asec - bsec
       })
     })
 })

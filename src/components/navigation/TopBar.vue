@@ -44,7 +44,7 @@ onMounted(() => {
     position: -webkit-sticky
     position: sticky
     top: 0px
-    z-index: 100000
+    z-index: var(--pelilauta-z-index-navigation)
     transition: all 0.2s ease-in-out
     padding-right: 8px
     &.overlay

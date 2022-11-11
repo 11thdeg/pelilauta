@@ -117,7 +117,7 @@ const injected = ref('')
             :value="title"
             :label="t('fields.thread.name')"
             :error="!titleValid"
-            @change="title = $event.detail"
+            @change="title = $event.target.value"
           />
         </div>
         <cyan-button
@@ -133,7 +133,7 @@ const injected = ref('')
         <div style="flex-grow: 1">
           <cyan-textfield
             :label="t('fields.thread.youtubeId')"
-            @change="thread.youtubeId = $event.detail"
+            @change="thread.youtubeId = $event.target.value"
           />
         </div>
         <cyan-button
@@ -146,7 +146,7 @@ const injected = ref('')
         :value="content"
         :inject="injected"
         :label="t('fields.thread.content')"
-        @change="content = $event.detail"
+        @change="content = $event.target.value"
       />
       <cyan-toolbar>
         <cyan-select

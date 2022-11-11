@@ -73,7 +73,7 @@ async function deleteAccountPermanently() {
     </p>
     <cyan-textfield
       :label="t('verifyAccountDeletion.verifyToken')"
-      @change="verifyToken = $event.detail"
+      @change="verifyToken = $event.target.value"
     />
     <cyan-toolbar>
       <cyan-spacer />

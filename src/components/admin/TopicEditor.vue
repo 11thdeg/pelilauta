@@ -78,7 +78,7 @@ function save () {
       <cyan-textfield
         :label="t('fields.meta.topic.description')"
         :value="item.description"
-        @change="setField('desciption', $event.detail)"
+        @change="setField('desciption', $event.target.value)"
       />
       <div style="display:flex; gap: 12px">
         <cyan-icon :noun="item.icon" />

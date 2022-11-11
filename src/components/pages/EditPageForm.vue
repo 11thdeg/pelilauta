@@ -171,13 +171,13 @@ const hasUpdates = computed(() => {
           :label="t('fields.page.name')"
           :value="name"
           :error="nameError"
-          @change="name = $event.detail"
+          @change="name = $event.target.value"
         />
         <cyan-markdown-area
           :label="t('fields.page.content')"
           :value="markdown"
           :error="markdownError"
-          @change="markdown = $event.detail"
+          @change="markdown = $event.target.value"
         />
       </section>
 

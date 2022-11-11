@@ -21,7 +21,7 @@ function close () {
   >
     <div
       id="DialogCard"
-      class="theme-surface"
+      class="theme-surface rise-d"
     >
       <cyan-toolbar style="margin: 0 8px">
         <cyan-icon
@@ -41,7 +41,6 @@ function close () {
     
 <style scoped lang="sass">
 #Dialog
-  background: var(--pelilauta-dialog-backdrop)
   position: fixed
   top: 0
   left: 0
@@ -56,6 +55,8 @@ function close () {
     height: auto
     background-color: var(--pelilauta-dialog-background)
     border-radius: 16px
+    max-height: calc(100vh - 32px)
+    overflow: scroll
     .dialogContent
       padding: 12px 16px
 @media screen and (min-width: 600px)

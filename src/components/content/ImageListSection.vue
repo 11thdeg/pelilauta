@@ -2,21 +2,28 @@
 import { computed } from 'vue'
 
 const props = defineProps<{
-  images: string[]
+  images?: string[]
 }>()
-const count = computed(() => props.images.length)
+const imageList = computed(() => {
+  return props.images || []
+})
 </script>
 
 <template>
   <section class="ImageListSection">
-    <img
-      v-for="url in images"
+    <div
+      v-for="url in imageList"
       :key="url"
-      alt="preview"
-      :src="url"
     >
-    <div class="count">
-      {{ count }}
+      <a
+        :href="url"
+        target="_blank"
+      >
+        <img
+          alt="preview"
+          :src="url"
+        >
+      </a>
     </div>
   </section>
 </template>
@@ -24,18 +31,18 @@ const count = computed(() => props.images.length)
 <style lang="sass" scoped>
 .ImageListSection
   display: flex
-  flex-wrap: wrap
   gap: 12px
-  align-items: center
-  justify-content: center
   margin: 6px 0
   padding: 6px 12px
   background: var(--cyan-background-overlay-dark)
   border-radius: 8px
+  overflow: hidden
+  align-items: center
+  justify-content: center
   img
-    max-width: 100%
+    flex-shrink: 1
     max-height: 320px
-    object-fit: cover
+    // object-fit: cover
   .count
     display: none
 </style>

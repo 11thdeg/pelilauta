@@ -54,7 +54,7 @@ async function deleteThread () {
           <cyan-textfield
             :value="confirm"
             :label="t('action.confirm')"
-            @change="confirm = $event.detail"
+            @change="confirm = $event.target.value"
           />
           <cyan-button
             :label="t('action.delete')"

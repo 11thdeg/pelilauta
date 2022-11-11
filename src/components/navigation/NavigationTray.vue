@@ -29,7 +29,7 @@ const showTrayOnMobile = computed(() => uxState.showNavTrayOnMobile.value)
     />
     <div
       id="TrayContainer"
-      :class="{ active: showTrayOnMobile }"
+      :class="{ active: showTrayOnMobile, 'rise-b': showTrayOnMobile }"
     >
       <slot />
     </div>
@@ -78,7 +78,6 @@ const showTrayOnMobile = computed(() => uxState.showNavTrayOnMobile.value)
       left: 0
       width: calc(100vw - 80px)
       height: calc(100vh - 24px)
-      background-color: white
       overflow-y: scroll
       box-model: border-box
       padding: 12px 16px

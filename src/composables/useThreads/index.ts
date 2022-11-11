@@ -21,7 +21,7 @@ async function init () {
         getFirestore(),
         'stream'
       ),
-      limit(11),
+      limit(5),
       where('public', '==', true),
       orderBy('flowTime', 'desc')
     ),
@@ -139,7 +139,7 @@ export function useThreads () {
   return {
     recent: computed(() => {
       const arr = Array.from(threadCache.value.values())
-      if (arr.length > 11) arr.length = 11
+      if (arr.length > 5) arr.length = 5
       arr.sort((a, b) => a.compareFlowTime(b))
       return arr
     }),

@@ -59,12 +59,12 @@ function save() {
       <cyan-textfield
         :label="t('fields.meta.sitetheme.name')"
         :value="item.name || ''"
-        @change="setField('name', $event.detail)"
+        @change="setField('name', $event.target.value)"
       />
       <cyan-textfield
         :label="t('fields.meta.sitetheme.id')"
         :value="item.id || ''"
-        @change="setField('id', $event.detail)"
+        @change="setField('id', $event.target.value)"
       />
       <NounSelect
         v-model="item.icon"

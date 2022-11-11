@@ -1,7 +1,7 @@
 :root {
   --pelilauta-z-index-base: 1000;
   /* Level 1 */
-  --pelilauta-dialog-z-index: calc(1 * var(--pelilauta-z-index-base));
+  --pelilauta-dialog-z-index: calc(6 * var(--pelilauta-z-index-base));
   /* Level 2 */
   --pelilauta-z-index-navigation: calc(4 * var(--pelilauta-z-index-base));
   /* Level 3 */

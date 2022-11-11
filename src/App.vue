@@ -76,6 +76,7 @@ if ('serviceWorker' in navigator) {
     padding: 0
     margin-left: 72px
     position: relative
+    padding-bottom: 72px
     &.navTrayVisible
       margin-left: calc(72px + 256px)
 </style>

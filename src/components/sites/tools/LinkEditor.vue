@@ -61,12 +61,12 @@ function save() {
       <cyan-textfield
         :label="t('fields.site.link.name')"
         :value="item.name || ''"
-        @change="setField('name', $event.detail)"
+        @change="setField('name', $event.target.value)"
       />
       <cyan-textfield
         :label="t('fields.site.link.url')"
         :value="item.url || ''"
-        @change="setField('url', $event.detail)"
+        @change="setField('url', $event.target.value)"
       />
       <cyan-toolbar>
         <cyan-spacer />

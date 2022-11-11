@@ -41,17 +41,17 @@ const site = ref(new Site())
   <div class="AddSiteForm Column">
     <cyan-textfield
       :label="t('fields.site.name')"
-      @change="site.name = $event.detail"
+      @change="site.name = $event.target.value"
     />
     <cyan-textfield
       :label="t('fields.site.description')"
-      @change="site.description = $event.detail"
+      @change="site.description = $event.target.value"
     />
     <SiteThemeSelect v-model="site.system" />
     <cyan-toggle
       :label="t('fields.site.isPublic')"
       :checkded="!site.hidden"
-      @change="site.hidden = $event.detail"
+      @change="site.hidden = $event.target.value"
     />
     <cyan-toolbar>
       <cyan-spacer />
