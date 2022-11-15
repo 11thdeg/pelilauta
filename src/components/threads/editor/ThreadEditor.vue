@@ -109,7 +109,6 @@ const injected = ref('')
 
 <template>
   <div class="Column form double">
-    <cyan-code>{{ titleValid }}</cyan-code>
     <template v-if="!preview">
       <cyan-toolbar>
         <div style="flex-grow: 1">
