@@ -1,18 +1,20 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import NavButton from './NavButton.vue'
+import NavButton from '../navigation/NavButton.vue'
 import { useUxState } from '../../composables/useUXState'
 import AccountNavButton from '../actions/AccountNavButton.vue'
 
-const { fabTrayVisible } = useUxState()
+const { fabTrayVisible, fieldFocused } = useUxState()
 const t = useI18n().t
 </script>
 <template>
   <div
+    v-if="!fieldFocused"
     id="NavigationBarShadow"
     class="onlyOnMobile"
   />
   <nav
+    v-if="!fieldFocused"
     id="NavigationBar"
     class="onlyOnMobile"
     :class="{ withFabs: fabTrayVisible }"
