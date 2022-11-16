@@ -15,6 +15,7 @@ export const routes = [
   { path: '/assets/:assetkey', component: () => import('./AssetView.vue'), props: true },
   { path: '/profiles/:uid', component: () => import('./ProfileView.vue'), props: true },
   { path: '/threads/:threadkey', component: () => import('./threads/ThreadView.vue'), props: true },
+  { path: '/threads/:threadkey/edit', component: () => import('./threads/EditThreadView.vue'), props: true },
   { path: '/threads/:threadkey/replies/:replykey', component: () => import('./threads/ThreadView.vue'), props: true },
   { path: '/threads/:threadkey/delete', component: () => import('./threads/ConfirmThreadDeletionView.vue'), props: true },
   { path: '/streams/', component: () => import('./threads/StreamView.vue') },

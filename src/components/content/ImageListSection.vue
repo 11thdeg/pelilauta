@@ -3,6 +3,10 @@ import { computed } from 'vue'
 
 const props = defineProps<{
   images?: string[]
+  edit?: boolean
+}>()
+const emit = defineEmits<{
+  (e: 'remove-image', image: string): void
 }>()
 const imageList = computed(() => {
   return props.images || []
@@ -14,7 +18,15 @@ const imageList = computed(() => {
     <div
       v-for="url in imageList"
       :key="url"
+      class="imageContainer"
     >
+      <cyan-button
+        v-if="edit"
+        noun="trashcan"
+        text
+        class="remove"
+        @click="emit('remove-image', url)"
+      />
       <a
         :href="url"
         target="_blank"
@@ -45,4 +57,13 @@ const imageList = computed(() => {
     // object-fit: cover
   .count
     display: none
+  .imageContainer
+    position: relative
+   
+    .remove
+      position: absolute
+      top: 4px
+      right: 4px
+      z-index: 1
+      
 </style>
