@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import TopBar from '../../components/navigation/TopBar.vue'
-import ThreadEditor from '../../components/threads/editor/ThreadEditor.vue'
-import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
+import ThreadEditorColumn from '../../components/ThreadEditorColumn/ThreadEditorColumn.vue'
+import { Thread } from '@11thdeg/skaldstore'
 
 const { t } = useI18n()
 
@@ -15,8 +15,7 @@ const { t } = useI18n()
       sticky
     />
     <main class="bookLayout">
-      <ThreadEditor />
-      <MarkDownCheatSheetColumn />
+      <ThreadEditorColumn :thread="new Thread()" />
     </main>
   </div>
 </template>
