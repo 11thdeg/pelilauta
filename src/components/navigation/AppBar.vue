@@ -29,10 +29,9 @@ const noun = computed(() => {
 <template>
   <nav
     id="AppBar"
-    :class="{ withmenu: navTrayVisible }"
   >
-    <TrayMenuButton />
     <cyan-toolbar>
+      <TrayMenuButton class="onlyOnMobile" />
       <cyan-icon
         v-if="!navTrayVisible"
         class="noun"

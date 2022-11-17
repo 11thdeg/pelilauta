@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { useUxState } from '../../composables/useUXState'
 import { logDebug } from '../../utils/logHelpers'
 
@@ -17,26 +18,32 @@ watch(showNavTrayOnMobile, (val:boolean) => {
   active.value = val
 })
 
+const route = useRoute()
+
+const noun = computed(() => {
+  if (route.path.startsWith('/sites')) return 'mekanismi'
+  return 'fox'
+})
+
 </script>
 
 <template>
-  <cyan-hamburger-button
+  <cyan-nav-menu-button
     v-if="navTrayVisible"
     id="TrayMenuButton"
-    class="onlyOnMobile"
-    :active="active"
-    @active="onActiveStateChange($event.detail)"
+    :open="active"
+    :class="{ active: active }"
+    :noun="noun"
+    @change="onActiveStateChange($event.detail)"
   />
 </template>
 
 <style lang="sass" scoped>
 #TrayMenuButton
-  position: fixed
-  top: 2px
-  left: 2px
-  z-index: 100000
-  transition: all 300ms ease-in-out
-  &[active]
-    left: calc(100vw - 84px)
-    box-shadow: 0 0 12px -2px rgba(0, 33, 55, 1)
+  z-index: 10000000
+  position: relative
+  box-shadow: none
+  &[open]
+    position: fixed
+    left: calc(100vw - 100px)
 </style>
