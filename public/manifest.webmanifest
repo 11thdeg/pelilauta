@@ -1,29 +1,30 @@
 {
-    "short_name": "Pelilauta 2",
-    "name": "Pelilauta 2",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#227286",
-    "theme_color": "#002337",
-    "description": "A Tabletop Gaming Community App",
-    "icons": [
-      {
-        "src": "/proprietary/ico/fox-ico-256.png",
-        "type": "image/png",
-        "sizes": "256x256",
-        "purpose": "any"
-      },
-      {
-        "src": "/proprietary/ico/fox-ico-96.png",
-        "type": "image/png",
-        "sizes": "96x96",
-        "purpose": "maskable"
-      },
-      {
-        "src": "/proprietary/ico/fox-ico-64.png",
-        "type": "image/png",
-        "sizes": "64x64",
-        "purpose": "maskable"
-      }
-    ]
-  }
+  "short_name": "Pelilauta 2",
+  "name": "Pelilauta 2",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#227286",
+  "theme_color": "#002337",
+  "description": "A Tabletop Gaming Community App",
+  "icons": [
+    {
+      "src": "/proprietary/ico/fox-ico-256.png",
+      "type": "image/png",
+      "sizes": "256x256",
+      "purpose": "any"
+    },
+    {
+      "src": "/proprietary/ico/fox-ico-96.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/proprietary/ico/fox-ico-64.png",
+      "type": "image/png",
+      "sizes": "64x64",
+      "purpose": "maskable"
+    }
+  ]
+}

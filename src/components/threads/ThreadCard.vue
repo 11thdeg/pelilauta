@@ -10,6 +10,7 @@ import { useI18n } from 'vue-i18n'
 import LoveAThreadButton from './LoveAThreadButton.vue'
 import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import ProfileLink from '../profileLink/ProfileLink.vue'
+import { useContentEntry } from '../../composables/useContentEntry'
 
 const props = defineProps<{
   threadkey?: string
@@ -21,24 +22,11 @@ const { t } = useI18n()
 
 onMounted(async () => {
   if (props.threadkey) thread.value = await fetchThread(props.threadkey)
+  const { snippet:s } = useContentEntry(thread.value)
+  snippet.value = s.value
 })
 
-const snippet = computed(() => {
-  if (!thread.value) return ''
-  if (thread.value.markdownContent) return thread.value.markdownContent.slice(0, 240) + '...'
-  const div = document.createElement('div')
-  div.innerHTML = thread.value.htmlContent
-  let snip = ''
-  if (div.firstChild) {
-    snip = div.firstChild.textContent || ''
-    if (snip.length > 240) snip = snip.substring(0, 240) + '...'
-  }
-  if (snip.length < 239 && div.firstChild?.nextSibling) {
-    snip += '<br><br>' + div.firstChild.nextSibling.textContent || ''
-    if (snip.length > 240) snip = snip.substring(0, 240) + '...'
-  } 
-  return snip
-})
+const snippet = ref('')
 
 const siteIcon = computed(() => undefined)
 
