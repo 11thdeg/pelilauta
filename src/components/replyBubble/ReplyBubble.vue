@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { useFromMe } from '../../composables/useFromMe'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ImageListSection from '../content/ImageListSection.vue'
-import MarkdownSection from '../content/MarkdownSection.vue'
 import LoveAReplyTag from '../discussion/LoveAReplyTag.vue'
 import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
@@ -12,6 +11,7 @@ import ReplyEditor from './ReplyEditor.vue'
 import { deleteDoc, doc, getFirestore } from '@firebase/firestore'
 import { Reply, Thread } from '@11thdeg/skaldstore'
 import { useSnack } from '../../composables/useSnack'
+import { useContentEntry } from '../../composables/useContentEntry'
 
 const props = defineProps<{
   threadkey: string,
@@ -49,6 +49,8 @@ async function trash () {
   pushSnack('replyBubble.snack.delete')
   editorActive.value = false
 }
+
+const { content } = useContentEntry(props.reply)
 </script>
 
 <template>
@@ -57,7 +59,10 @@ async function trash () {
     <cyan-toolbar small>
       <ProfileLink :uid="reply.author" />
       <cyan-spacer />
-      <FlowTimeCaption :flow-time="reply.flowTime" />
+      <FlowTimeCaption
+        class="hideOnMobile"
+        :flow-time="reply.flowTime"
+      />
       <cyan-icon
         v-if="reply.key"
         text
@@ -93,17 +98,10 @@ async function trash () {
       />
 
       <!-- Markdown/Heritage content -->
-      <div style="padding: 0 8px;">
-        <MarkdownSection
-          v-if="reply.markdownContent"
-          style="padding: 0 12px;margin-top: -12px"
-          :content="reply.markdownContent"
-        />
-        <div
-          v-else
-          :innerHTML="reply.htmlContent"
-        />
-      </div>
+      <div
+        :innerHTML="content"
+        class="TypeBody2 replyContent"
+      />
     </template>
     <template v-else>
       <ReplyEditor
@@ -115,3 +113,10 @@ async function trash () {
     </template>
   </cyan-bubble>
 </template>
+
+<style lang="sass">
+.replyContent
+  padding: 0 8px
+  p
+    font-size: 15px
+</style>

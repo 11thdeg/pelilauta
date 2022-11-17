@@ -20,10 +20,9 @@ const { recent } = useThreads()
         :threadkey="thread.key"
       />
     </div>
-    <hr>
-    <cyan-toolbar>
+    <cyan-toolbar class="border-top">
       <cyan-spacer />
-      <router-link to="/threads">
+      <router-link to="/streams">
         <cyan-button
           text
           noun="discussion"
@@ -32,6 +31,13 @@ const { recent } = useThreads()
       </router-link>
       <cyan-spacer />
     </cyan-toolbar>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <cyan-icon
+        noun="fox"
+        style="opacity: 0.37; margin-top: var(--cyan-gap-layout)"
+        large
+      />
+    </div>
   </div>
 </template>
 
@@ -40,4 +46,7 @@ const { recent } = useThreads()
   display: flex
   flex-direction: column
   gap: var(--cyan-column-gap)
+.border-top
+  border-top: 1px solid var(--cyan-divider-color)
+  margin-top: var(--cyan-gap-layout)
 </style>
