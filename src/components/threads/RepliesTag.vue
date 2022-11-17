@@ -24,12 +24,8 @@ const notification = computed(() => {
   if (!subscriber.value) return undefined
   const threadkey = thread.value.key || ''
   const s = subscriber.value
-  if (s.hasMuted(threadkey)) return undefined
-  const wt = s.watches(threadkey)
-  if (wt > 0 && wt < thread.value.flowTime) return true
-  return undefined
+  return s.shouldNotify(threadkey, thread.value.flowTime) || undefined
 })
-
 </script>
 
 <template>

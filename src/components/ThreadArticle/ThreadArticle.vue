@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useContentEntry } from '../../composables/useContentEntry'
 import { useSession } from '../../composables/useSession'
-import WatchButton from '../actions/WatchButton.vue'
+import WatchButton from '../WatchButton/WatchButton.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ImageListSection from '../content/ImageListSection.vue'
 import YoutubePreview from '../content/YoutubePreview.vue'

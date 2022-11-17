@@ -5,10 +5,11 @@ import { onMounted, Ref, ref } from 'vue'
 import { fetchThread } from '../../composables/useThreads'
 import TopicTag from './TopicTag.vue'
 import RepliesTag from './RepliesTag.vue'
-import ProfileTag from '../profiles/ProfileTag.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import { useI18n } from 'vue-i18n'
 import LoveAThreadButton from './LoveAThreadButton.vue'
+import { useSubscriber } from '../../composables/useSession/useSubscriber'
+import ProfileLink from '../profileLink/ProfileLink.vue'
 
 const props = defineProps<{
   threadkey?: string
@@ -41,12 +42,23 @@ const snippet = computed(() => {
 
 const siteIcon = computed(() => undefined)
 
+const { subscriber } = useSubscriber()
+const notify = computed(() => {
+  if (!thread.value || !thread.value.key) return false
+  if (!subscriber.value) return false
+  return subscriber.value.shouldNotify(thread.value.key, thread.value.flowTime)
+})
 </script>
 
 <template>
   <article
     v-if="thread"
-    class="ThreadCard card rise-a"
+    class="ThreadCard card"
+    :class="{
+      'rise-a': !notify,
+      'rise-b': notify,
+      'notify': notify
+    }"
   >
     <section class="cardHeader">
       <div class="meta">
@@ -70,7 +82,7 @@ const siteIcon = computed(() => undefined)
       small
       style="margin-bottom: 4px"
     >
-      <ProfileTag :uid="thread.author" />
+      <ProfileLink :uid="thread.author" />
       <cyan-spacer />
       <FlowTimeCaption :flow-time="thread.flowTime" />
     </cyan-toolbar>
@@ -88,6 +100,7 @@ const siteIcon = computed(() => undefined)
 <style lang="sass" scoped>
 
 .ThreadCard
+  position: relative
   &.card
     padding: 16px
     p
@@ -103,4 +116,23 @@ const siteIcon = computed(() => undefined)
       margin: 0
     h3
       line-height: 24px
+
+.notify:after
+  content: ''
+  position: absolute
+  top: 0
+  right: 0
+  width: 44px
+  height: 44px
+  background: var(--chroma-primary-i)
+  opacity: 0.22
+  z-index: 0
+  pointer-events: none
+  transition: opacity 0.2s ease-in-out
+  will-change: opacity
+  clip-path: polygon(100% 0, 0 0, 100% 100%)
+  border-radius: 0 12px 0 0
+.cyan--mode--light .notify:after
+  background: var(--chroma-primary-h)
+  opacity: 0.77
 </style>

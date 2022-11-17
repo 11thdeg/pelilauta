@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Reply } from '@11thdeg/skaldstore'
+import { Reply, Thread } from '@11thdeg/skaldstore'
 import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { logDebug, logError } from '../../utils/logHelpers'
@@ -10,6 +10,7 @@ import { marked } from 'marked'
 import ImageListSection from '../content/ImageListSection.vue'
 import SelectAssetDialog from '../assets/SelectAssetDialog.vue'
 import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
+import { useSubscriber } from '../../composables/useSession/useSubscriber'
 
 
 const { t } = useI18n()
@@ -45,12 +46,13 @@ async function onSubmit () {
   data.created = data.createdAt // TODO: remove this after migration
   logDebug('onSubmit', data)
   try {
+    const { subscribeTo } = useSubscriber()
     await addDoc(
       collection(
         getFirestore(),
-        'stream',
+        Thread.collectionName,
         props.threadkey,
-        'comments'
+        Reply.collectionName
       ),
       data
     )
@@ -58,7 +60,7 @@ async function onSubmit () {
     await updateDoc(
       doc(
         getFirestore(),
-        'stream',
+        Thread.collectionName,
         props.threadkey
       ),
       {
@@ -66,6 +68,7 @@ async function onSubmit () {
         replyCount: increment(1)
       }
     )
+    subscribeTo(props.threadkey)
     pushSnack('snacks.reply.success')
     onCancel()
   } catch (e) {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import TopBar from '../../components/navigation/TopBar.vue'
 import ThreadDiscussion from '../../components/discussion/ThreadDiscussion.vue'
@@ -9,12 +9,17 @@ import ThreadMenu from './ThreadMenu.vue'
 import ShareButton from '../../components/actions/ShareButton.vue'
 import { useScreenSize } from '../../composables/useScreenSize'
 import ThreadArticle from '../../components/ThreadArticle/ThreadArticle.vue'
+import { useSubscriber } from '../../composables/useSession/useSubscriber'
+import { logDebug } from '../../utils/logHelpers'
+import { useSession } from '../../composables/useSession'
 
 const props = defineProps<{
   threadkey: string
 }>()
 const { t } = useI18n()
 const { thread, loading, notFound } = useThread(props.threadkey)
+const { anonymous } = useSession()
+const { subscribeTo, subscriber } = useSubscriber()
 
 const title = computed(() => {
   if (!thread.value) return '...'
@@ -22,6 +27,18 @@ const title = computed(() => {
 })
 
 const { isLarge } = useScreenSize()
+
+watch(() => thread.value, (tr) => {
+  if (anonymous.value) return
+  if (tr && tr.key) {
+    if(subscriber.value?.shouldNotify(tr.key, tr.flowTime)) {
+      logDebug('Notifying of thread changes', tr.key , 'after this point in time')
+      logDebug('Current flow time', tr.flowTime)
+      logDebug('Current subscription time', subscriber.value?.watches(tr.key))
+      subscribeTo(tr.key)
+    }
+  }
+}, { immediate: true })
 
 </script>
 
