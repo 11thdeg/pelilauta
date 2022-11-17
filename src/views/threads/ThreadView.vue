@@ -37,6 +37,10 @@ watch(() => thread.value, (tr) => {
       logDebug('Current subscription time', subscriber.value?.watches(tr.key))
       subscribeTo(tr.key)
     }
+    else if(subscriber.value && !subscriber.value.hasMuted(tr.key)) {
+      logDebug('Opened a new thread', tr.key , 'will start notifying of changes')
+      subscribeTo(tr.key)
+    }
   }
 }, { immediate: true })
 
