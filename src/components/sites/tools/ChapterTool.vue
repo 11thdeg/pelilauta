@@ -46,40 +46,46 @@ function drop(index: number) {
 </script>
 
 <template>
-  <div class="Column card rise-b">
-    <h3>{{ t('site.tools.chapters.title') }}</h3>
-    <p class="TypeCaption">
-      {{ t('site.tools.chapters.info') }}
-    </p>
+  <div class="Column">
     <div
-      v-for="chapter, index in chapters"
-      :key="chapter.name"
-      class="sortableTable"
+      class="card rise-a"
     >
-      <p>
-        {{ chapter.name }}
+      <h3>
+        {{ t('site.tools.chapters.title') }}
+      </h3>
+      <p class="TypeCaption">
+        {{ t('site.tools.chapters.info') }}
       </p>
-      <cyan-button
-        noun="chevron-up"
-        text
-        :disabled="index === 0"
-        @click="moveUp(index)"
-      />
-      <cyan-button
-        noun="edit"
-        text
-        @click="activeChapter = chapter"
-      />
-      <cyan-button
-        noun="delete"
-        text
-        @click="drop(index)"
+      <div
+        v-for="chapter, index in chapters"
+        :key="chapter.name"
+        class="sortableTable"
+      >
+        <p>
+          {{ chapter.name }}
+        </p>
+        <cyan-button
+          noun="chevron-up"
+          text
+          :disabled="index === 0"
+          @click="moveUp(index)"
+        />
+        <cyan-button
+          noun="edit"
+          text
+          @click="activeChapter = chapter"
+        />
+        <cyan-button
+          noun="delete"
+          text
+          @click="drop(index)"
+        />
+      </div>
+      <ChapterEditor
+        :chapter="activeChapter"
+        @save="save($event)"
       />
     </div>
-    <ChapterEditor
-      :chapter="activeChapter"
-      @save="save($event)"
-    />
   </div>
 </template>
 

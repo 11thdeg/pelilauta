@@ -91,97 +91,99 @@ function setSiteVisibility(e: boolean) {
 <template>
   <div
     v-if="site"
-    class="Column card rise-b ThemeEditor"
+    class="Column ThemeEditor"
   >
-    <div
-      class="cardHeader"
-      :class="{hasPoster: !!site.posterURL}"
-      :style="posterStyle"
-    >
-      <h3>{{ site.name }}</h3>
-      <SiteAvatar
-        :site="site"
-        class="siteAvatar"
+    <div class="card rise-a">
+      <div
+        class="cardHeader"
+        :class="{hasPoster: !!site.posterURL}"
+        :style="posterStyle"
+      >
+        <h3>{{ site.name }}</h3>
+        <SiteAvatar
+          :site="site"
+          class="siteAvatar"
+        />
+      </div>
+      <section class="toolset">
+        <cyan-textfield
+          :value="name"
+          :label="t('fields.site.name')"
+          @change="name = $event.target.value"
+        />
+        <cyan-textfield
+          :value="description"
+          :label="t('fields.site.description')"
+          @change="description = $event.target.value"
+        />
+        <SiteThemeSelect v-model="siteTheme" />
+        <cyan-toolbar>
+          <cyan-toggle
+            :label="t('fields.site.hidden')"
+            :checked="site.hidden"
+            @change="setSiteVisibility($event.detail)"
+          />
+        </cyan-toolbar>
+      </section>
+
+      <!-- Poster Actions -->
+      <section class="toolset">
+        <p
+          class="TypeUI"
+          style="margin:0"
+        >
+          {{ t('fields.site.posterurl') }}
+        </p>
+        <cyan-toolbar>
+          <cyan-button
+            text
+            noun="assets"
+            :label="t('action.select')"
+            @click="selectPosterDialog = true"
+          />
+          <cyan-button
+            text
+            noun="delete"
+            :label="t('action.delete')"
+            @click="onSelectPoster('')"
+          />
+        </cyan-toolbar>
+      </section>
+
+      <!-- Avatar actions -->
+      <section>
+        <p
+          class="TypeUI"
+          style="margin:0"
+        >
+          {{ t('fields.site.avatarurl') }}
+        </p>
+        <cyan-toolbar>
+          <cyan-button
+            text
+            noun="assets"
+            :label="t('action.select')"
+            @click="selectAvatarDialog = true"
+          />
+          <cyan-button
+            text
+            noun="delete"
+            :label="t('action.delete')"
+            @click="onSelectAvatar('')"
+          />
+        </cyan-toolbar>
+      </section>
+
+      <!-- Dialogs -->
+      <SelectAssetDialog
+        v-model="selectPosterDialog"
+        @select="onSelectPoster($event)"
+      />
+      <SelectAssetDialog
+        v-model="selectAvatarDialog"
+        @select="onSelectAvatar($event)"
       />
     </div>
-    <section class="toolset">
-      <cyan-textfield
-        :value="name"
-        :label="t('fields.site.name')"
-        @change="name = $event.target.value"
-      />
-      <cyan-textfield
-        :value="description"
-        :label="t('fields.site.description')"
-        @change="description = $event.target.value"
-      />
-      <SiteThemeSelect v-model="siteTheme" />
-      <cyan-toolbar>
-        <cyan-toggle
-          :label="t('fields.site.hidden')"
-          :checked="site.hidden"
-          @change="setSiteVisibility($event.detail)"
-        />
-      </cyan-toolbar>
-    </section>
-
-    <!-- Poster Actions -->
-    <section class="toolset">
-      <p
-        class="TypeUI"
-        style="margin:0"
-      >
-        {{ t('fields.site.posterurl') }}
-      </p>
-      <cyan-toolbar>
-        <cyan-button
-          text
-          noun="assets"
-          :label="t('action.select')"
-          @click="selectPosterDialog = true"
-        />
-        <cyan-button
-          text
-          noun="delete"
-          :label="t('action.delete')"
-          @click="onSelectPoster('')"
-        />
-      </cyan-toolbar>
-    </section>
-
-    <!-- Avatar actions -->
-    <section>
-      <p
-        class="TypeUI"
-        style="margin:0"
-      >
-        {{ t('fields.site.avatarurl') }}
-      </p>
-      <cyan-toolbar>
-        <cyan-button
-          text
-          noun="assets"
-          :label="t('action.select')"
-          @click="selectAvatarDialog = true"
-        />
-        <cyan-button
-          text
-          noun="delete"
-          :label="t('action.delete')"
-          @click="onSelectAvatar('')"
-        />
-      </cyan-toolbar>
-    </section>
-
-    <!-- Dialogs -->
-    <SelectAssetDialog
-      v-model="selectPosterDialog"
-      @select="onSelectPoster($event)"
-    />
-    <SelectAssetDialog
-      v-model="selectAvatarDialog"
-      @select="onSelectAvatar($event)"
-    />
   </div>
 </template>
 

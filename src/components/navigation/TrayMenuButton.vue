@@ -43,7 +43,9 @@ const noun = computed(() => {
   z-index: 10000000
   position: relative
   box-shadow: none
+  transition: all 0.3s ease-in-out
   &[open]
     position: fixed
-    left: calc(100vw - 100px)
+    transform: translateX(73vw)
+    
 </style>

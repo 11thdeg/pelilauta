@@ -111,6 +111,11 @@ export function usePages(key?: string) {
   return {
     pages: computed(() => Array.from(pageCache.value.values())),
     categories,
-    loading: computed(() => loading.value)
+    loading: computed(() => loading.value),
+    pageOptions: computed(() => {
+      return Array.from(pageCache.value.values()).map((page) => {
+        return { value: page.key, label: page.name }
+      })
+    })
   }
 }

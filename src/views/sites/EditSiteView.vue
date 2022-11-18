@@ -11,6 +11,7 @@ import ThemeEditor from '../../components/sites/tools/ThemeEditor.vue'
 import NavigationTray from '../../components/navigation/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import LinksTool from '../../components/sites/tools/LinksTool.vue'
+import SiteMetaTool from '../../components/sites/tools/SiteMetaTool.vue'
 const props = defineProps<{
   sitekey: string
 }>()
@@ -34,6 +35,7 @@ onMounted(async () => {
       <LoginRequiredColumn v-if="anonymous || !site.hasOwner(uid)" />
       <template v-else>
         <ThemeEditor />
+        <SiteMetaTool />
         <ChapterTool />
         <LinksTool />
       </template>

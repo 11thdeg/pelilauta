@@ -47,45 +47,47 @@ function addLink(l: SiteLink) {
 <template>
   <div
     v-if="site"
-    class="Column card rise-b"
+    class="Column"
   >
-    <h3>{{ t('site.tools.links.title') }}</h3>
-    <p class="TypeCaption lowEmphasis">
-      {{ t('site.tools.links.info') }}
-    </p>
+    <div class="card rise-a">
+      <h3>{{ t('site.tools.links.title') }}</h3>
+      <p class="TypeCaption lowEmphasis">
+        {{ t('site.tools.links.info') }}
+      </p>
 
-    <div
-      v-for="link, index in site.links"
-      :key="link.url"
-      class="sortableTable"
-    >
-      <div class="linkInfo hoverable">
-        <p>{{ linkText(link) }}</p>
-        <p class="TypeCaption link oneLiner">
-          <a :href="link.url">[ {{ link.url.length < 17 ? link.url : link.url.substring(0, 16) + '...' }} ]</a>
-        </p>
+      <div
+        v-for="link, index in site.links"
+        :key="link.url"
+        class="sortableTable"
+      >
+        <div class="linkInfo hoverable">
+          <p>{{ linkText(link) }}</p>
+          <p class="TypeCaption link oneLiner">
+            <a :href="link.url">[ {{ link.url.length < 17 ? link.url : link.url.substring(0, 16) + '...' }} ]</a>
+          </p>
+        </div>
+        <cyan-button
+          noun="chevron-up"
+          text
+          :disabled="index === 0"
+          @click="moveUp(index)"
+        />
+        <cyan-button
+          noun="edit"
+          text
+          @click="activeLink = link"
+        />
+        <cyan-button
+          noun="delete"
+          text
+          @click="drop(index)"
+        />
       </div>
-      <cyan-button
-        noun="chevron-up"
-        text
-        :disabled="index === 0"
-        @click="moveUp(index)"
+      <LinkEditor
+        :link="activeLink"
+        @save="addLink($event)"
       />
-      <cyan-button
-        noun="edit"
-        text
-        @click="activeLink = link"
-      />
-      <cyan-button
-        noun="delete"
-        text
-        @click="drop(index)"
-      />
-    </div>
-    <LinkEditor
-      :link="activeLink"
-      @save="addLink($event)"
-    />
+    </div> 
   </div>
 </template>
 
