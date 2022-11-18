@@ -56,16 +56,18 @@ const key = computed(() => site.value?.key || '')
         style="padding: 0 8px"
         :label="t('fields.site.link.title')"
       >
-        <template
-          v-for="link in site.links"
-          :key="link.url"
-        >
-          <a :href="link.url">
-            <cyan-nav-button
-              noun="outlink"
-            >{{ link.name }}</cyan-nav-button>
-          </a>
-        </template>
+        <div class="linkList">
+          <template
+            v-for="link in site.links"
+            :key="link.url"
+          >
+            <a :href="link.url">
+              <cyan-nav-button
+                noun="outlink"
+              >{{ link.name }}</cyan-nav-button>
+            </a>
+          </template>
+        </div>
       </cyan-nav-section>
 
       <cyan-nav-section
@@ -74,35 +76,48 @@ const key = computed(() => site.value?.key || '')
         :label="chapter.name"
         folds
       >
-        <router-link
-          v-for="page in inChapter(chapter.slug)"
-          :key="page.key"
-          :to="`/sites/${site.key}/pages/${page.key}`"
-        >
-          <cyan-nav-button
-            compact
+        <div class="linkList">
+          <router-link
+            v-for="page in inChapter(chapter.slug)"
+            :key="page.key"
+            :to="`/sites/${site.key}/pages/${page.key}`"
           >
-            - {{ page.name }}
-          </cyan-nav-button>
-        </router-link>
+            <cyan-nav-button
+              compact
+            >
+              - {{ page.name }}
+            </cyan-nav-button>
+          </router-link>
+        </div>
       </cyan-nav-section>
       <cyan-nav-section
         v-if="unCategorized.length > 0"
         :label="t('site.tray.unCategorizedPagesSection')"
         folds
       >
-        <router-link
-          v-for="page in unCategorized"
-          :key="page.key"
-          :to="`/sites/${site.key}/pages/${page.key}`"
-        >
-          <cyan-nav-button
-            compact
+        <div class="linkList">
+          <router-link
+            v-for="page in unCategorized"
+            :key="page.key"
+            :to="`/sites/${site.key}/pages/${page.key}`"
           >
-            - {{ page.name }} 
-          </cyan-nav-button>
-        </router-link>
+            <cyan-nav-button
+              compact
+            >
+              - {{ page.name }} 
+            </cyan-nav-button>
+          </router-link>
+        </div>
       </cyan-nav-section>
     </template>
   </div>
 </template>
+
+<style lang="sass">
+.linkList
+  padding: 0 8px
+  margin: 0
+  display: flex
+  flex-direction: column
+  gap: 8px
+</style>
