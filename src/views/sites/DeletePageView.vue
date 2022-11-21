@@ -1,11 +1,15 @@
 <script lang="ts" setup>
+import { Page, Site } from '@11thdeg/skaldstore'
+import { deleteDoc, doc, getFirestore } from '@firebase/firestore'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import DeleteConfirmForm from '../../components/DeleteConfirmForm/DeleteConfirmForm.vue'
 import TopBar from '../../components/navigation/TopBar.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import WithPermission from '../../components/ui/WithPermission.vue'
 import { usePage } from '../../composables/usePage'
+import { useSnack } from '../../composables/useSnack'
 
 const props = defineProps<{
   sitekey: string;
@@ -13,10 +17,27 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const { pushSnack } = useSnack()
+const router = useRouter()
 
 const { loading, canEdit, page } = usePage(props.pagekey, props.sitekey)
 
 const verified = ref(false)
+
+async function deletePage () {
+  if(!verified.value) return
+  await deleteDoc(
+    doc(
+      getFirestore(),
+      Site.collectionName,
+      props.sitekey,
+      Page.collectionName,
+      props.pagekey
+    )
+  )
+  pushSnack('snack.page.delete.success')
+  router.push(`/sites/${props.sitekey}`)
+}
 </script>
 <template>
   <TopBar :title="page.name" />
@@ -39,6 +60,7 @@ const verified = ref(false)
             <cyan-button
               :disabled="!verified"
               :label="t('action.remove')"
+              @click="deletePage"
             />
           </cyan-toolbar>
         </article>

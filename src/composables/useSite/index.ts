@@ -2,7 +2,7 @@ import { Site } from '@11thdeg/skaldstore'
 import { PageCategory } from '@11thdeg/skaldstore/dist/entries/Site'
 import { doc, DocumentData, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
 import { computed, ref, Ref } from 'vue'
-import { addStore } from '../useSession'
+import { addStore, useSession } from '../useSession'
 import { patchSite } from '../useSites'
 import { subscribePages } from '../usePages'
 
@@ -61,6 +61,16 @@ export function loadSite (key: string) {
   subscribePages(key)
 }
 
+const canEdit = computed(() => {
+  if (!site.value?.key) return false
+  const { uid, admin } = useSession()
+  if (admin.value) return true
+  const u = uid.value
+  if (site.value.members?.includes(u)) return true
+  if (site.value.hasOwner(u)) return true
+  return false
+})
+
 export function useSite (id?: string) {
   if (id && site.value?.key !== id) {
     subscribeSite(id)
@@ -72,6 +82,7 @@ export function useSite (id?: string) {
     updateChapters,
     update,
     loading,
-    notFound: computed(() => !loading.value && !site.value)
+    notFound: computed(() => !loading.value && !site.value),
+    canEdit
   }
 }
