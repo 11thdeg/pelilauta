@@ -7,7 +7,7 @@ import MarkdownSection from '../content/MarkdownSection.vue'
 import { useScreenSize } from '../../composables/useScreenSize'
 
 const { t } = useI18n()
-const { page, loading, notFound } = usePage()
+const { key: pageKey, page, loading, notFound } = usePage()
 const { key } = useSite()
 
 const { isLarge } = useScreenSize()
@@ -28,7 +28,7 @@ const { isLarge } = useScreenSize()
       <EmptyCollection
         noun="page"
         :title="t('page.notFound.title')"
-        :message="t('page.notFound.message')"
+        :message="t('page.notFound.message') + ' ' + pageKey"
       >
         <cyan-button
           :label="t('action.add.new')"
