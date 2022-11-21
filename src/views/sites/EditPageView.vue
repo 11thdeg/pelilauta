@@ -3,9 +3,11 @@ import { useI18n } from 'vue-i18n'
 import TopBar from '../../components/navigation/TopBar.vue'
 import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 import EditPageForm from '../../components/pages/EditPageForm.vue'
-import { loadPage } from '../../composables/usePage'
+import { loadPage, usePage } from '../../composables/usePage'
 import { loadSite } from '../../composables/useSite'
 import { watch } from 'vue'
+import WithLoader from '../../components/ui/WithLoader.vue'
+import WithPermission from '../../components/ui/WithPermission.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -24,14 +26,31 @@ watch(props, () => {
   immediate: true 
 })
 
+const { loading, canEdit } = usePage()
+
 </script>
 
 <template>
   <div class="EditPageView">
-    <TopBar :title="t('pages.edit.title')" />
+    <TopBar :title="t('pages.edit.title')">
+      <template v-if="canEdit">
+        <cyan-menu>
+          <cyan-menu-item
+            noun="trashcan"
+            @click="$router.push(`/sites/${props.sitekey}/pages/${props.pagekey}/delete`)"
+          >
+            {{ t('page.deleteConfirm.title') }}
+          </cyan-menu-item>
+        </cyan-menu>
+      </template>
+    </TopBar>
     <main class="bookLayout">
-      <EditPageForm />
-      <MarkDownCheatSheetColumn />
+      <WithLoader :suspended="loading">
+        <WithPermission :forbidden="!canEdit">
+          <EditPageForm />
+          <MarkDownCheatSheetColumn />
+        </WithPermission>
+      </WithLoader>
     </main>
   </div>
 </template>

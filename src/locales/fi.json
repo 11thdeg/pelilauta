@@ -203,7 +203,7 @@
     "page": {
       "deleteConfirm": {
         "title": "Poista sivu",
-        "message": "Haluatko varmasti poistaa sivun? Toimenpidettä ei vcoida perua."
+        "message": "Haluatko varmasti poistaa sivun? Toimenpidettä ei voida perua."
       },
       "empty": {
         "title": "404",
