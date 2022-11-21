@@ -156,6 +156,11 @@
         "title": "Uutta Lokissa"
       }
     },
+    "deleteConfirm":{
+      "info": "Vahvistaaksesi poiston, kirjoita alla olevaan kenttään: ",
+      "defaultVerifier": "poista",
+      "fieldLabel": "Vahvistus"
+    },
     "discourse":{
       "title": "Keskustelu",
       "loginToJoinDiscourse": "Kirjaudu sisään osallistuaksesi keskusteluun"
@@ -196,6 +201,10 @@
       "title": "nimi"
     },
     "page": {
+      "deleteConfirm": {
+        "title": "Poista sivu",
+        "message": "Haluatko varmasti poistaa sivun? Toimenpidettä ei vcoida perua."
+      },
       "empty": {
         "title": "404",
         "message": "Luo sivu alla olevasta painikkeesta."
@@ -214,6 +223,10 @@
     "reply": {
       "title": "Vastaa ketjuun",
       "placeholder": "..."
+    },
+    "restrictedContent":{
+      "title": "500",
+      "description": "Uh, oh. Näyttää siltä että yrität tehdä jotain, jonka ei pitäisi onnistua (tai sitten jotain meni pieleen)."
     },
     "threads": {
       "replies": "vastausta",
