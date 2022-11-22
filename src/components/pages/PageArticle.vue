@@ -34,7 +34,7 @@ const { isLarge } = useScreenSize()
           :label="t('action.add.new')"
           noun="page"
           text
-          @click="$router.push(`/sites/${key}/add/page`)"
+          @click="$router.push(`/sites/${key}/add/page${pageKey === key ? '/' + pageKey : ''}`)"
         />
       </EmptyCollection>
     </template>

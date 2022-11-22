@@ -12,6 +12,10 @@ import { useSnack } from '../../composables/useSnack'
 import { logDebug } from '../../utils/logHelpers'
 import MarkdownSection from '../content/MarkdownSection.vue'
 
+const props = defineProps<{
+  homepage?: boolean;
+}>()
+
 const { t } = useI18n()
 const { uid } = useSession()
 const { pushSnack } = useSnack()
@@ -57,6 +61,16 @@ async function add (data:DocumentData) {
     ),
     data
   )
+  if (props.homepage) {
+    await updateDoc(
+      doc(
+        getFirestore(),
+        Site.collectionName,
+        sitekey.value
+      ),
+      { homepage: newPageDoc.id }
+    )
+  }
   return newPageDoc.id
 }
 
@@ -159,7 +173,8 @@ const hasUpdates = computed(() => {
       <cyan-loader large />
     </template>
     <template v-else>
-      <!--cyan-code>({{ htmlConversionAvailable }})</cyan-code>&nbsp;
+      <!-- <cyan-code>{{ props.homepage }}</cyan-code>
+      <cyan-code>({{ htmlConversionAvailable }})</cyan-code>&nbsp;
       <cyan-code>({{ hasUpdates }})</cyan-code>&nbsp;
       <cyan-code>({{ _chapter }})</cyan-code>&nbsp;
       <cyan-code>({{ markdownError }})</cyan-code-->

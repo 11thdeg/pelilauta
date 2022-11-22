@@ -114,6 +114,7 @@
       "toProfile": "Profiili",
       "login": "Kirjaudu",
       "loginOrRegister": "Kirjaudu / rekisteröidy",
+      "move": "Siirrä",
       "preview": "Esikatselu",
       "register": "Rekisteröidy",
       "useInApp": "Ota Käyttöön",
@@ -208,6 +209,11 @@
       "empty": {
         "title": "404",
         "message": "Luo sivu alla olevasta painikkeesta."
+      },
+      "move": {
+        "title": "Siirrä sivu",
+        "description": "Voit siirtää sivun toiseen sivustoon tai peliin tästä",
+        "site": "Kohdesivusto tai -peli"
       }
     },
     "pages": {

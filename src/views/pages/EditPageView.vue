@@ -36,6 +36,12 @@ const { loading, canEdit } = usePage()
       <template v-if="canEdit">
         <cyan-menu>
           <cyan-menu-item
+            noun="arrow-right"
+            @click="$router.push(`/sites/${props.sitekey}/pages/${props.pagekey}/move`)"
+          >
+            {{ t('action.move') }}
+          </cyan-menu-item>
+          <cyan-menu-item
             noun="trashcan"
             @click="$router.push(`/sites/${props.sitekey}/pages/${props.pagekey}/delete`)"
           >

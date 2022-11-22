@@ -89,6 +89,15 @@ export function patchSite (site: Site) {
   siteCache.value.set(site.key, site)
 }
 
+const sitesAsOptions = computed(() => {
+  const options:Record<string, string>[] = []
+  const { uid } = useSession()
+  siteCache.value.forEach((site) => {
+    if (site.hasOwner(uid.value)) options.push({ value: site.key || '', label: site.name })
+  })
+  return options
+})
+
 export function useSites () {
   subscribe()
   return {
@@ -104,6 +113,7 @@ export function useSites () {
     }),
     allSites: computed(() => {
       return Array.from(siteCache.value.values())
-    })
+    }),
+    sitesAsOptions
   }
 }
