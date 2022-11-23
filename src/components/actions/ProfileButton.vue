@@ -18,6 +18,7 @@ const { active, anonymous, profile } = useSession()
   <cyan-button
     v-if="active && anonymous"
     noun="avatar"
+    class="hideOnMobile"
     :label="t('action.toLogin')"
     text
     @click="$router.push('/login')"
