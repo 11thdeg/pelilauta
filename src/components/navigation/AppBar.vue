@@ -41,9 +41,9 @@ const noun = computed(() => {
         {{ title }}
       </cyan-toolbar-heading>
       <cyan-spacer />
-      <cyan-lightmode-toggle />
+      <cyan-lightmode-toggle class="hideOnMobile" />
       <InboxButton />
-      <ProfileButton />
+      <ProfileButton class="hideOnMobile" />
     </cyan-toolbar>
   </nav>
   <Banner />
