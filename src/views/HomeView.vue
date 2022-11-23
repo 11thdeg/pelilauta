@@ -7,9 +7,16 @@ import { useI18n } from 'vue-i18n'
 import FabTray from '../components/ui/FabTray.vue'
 import { useSession } from '../composables/useSession'
 import LokiCard from '../components/cta/LokiCard/LokiCard.vue'
+import { useTitle } from '@vueuse/core'
+import { onMounted } from 'vue'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
+const title = useTitle()
+
+onMounted(() => {
+  title.value = t('app.title')
+})
 
 </script>
 <template>

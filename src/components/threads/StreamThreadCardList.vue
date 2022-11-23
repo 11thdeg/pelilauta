@@ -41,18 +41,15 @@ async function loadMore() {
 </script>
 
 <template>
-  <div class="Column double-cut">
-    <cyan-loader
-      v-if="loading"
-      large
-    />
-    <ThreadCard
-      v-for="thread in recent"
-      v-else
-      :key="thread.key"
-      class="in-stream"
-      :threadkey="thread.key"
-    />
+  <article class="Column double-cut">
+    <section class="cardList">
+      <ThreadCard
+        v-for="thread in recent"
+        :key="thread.key"
+        class="in-stream"
+        :threadkey="thread.key"
+      />
+    </section>
     <cyan-toolbar>
       <cyan-spacer />
       <cyan-button
@@ -65,13 +62,12 @@ async function loadMore() {
         <cyan-spacer />
       </cyan-button>
     </cyan-toolbar>
-  </div>
+  </article>
 </template>
-  
-  <style lang="sass" scoped>
-  .in-stream
-    margin-bottom: 12px
-  .in-stream + .in-stream
-    padding-top: 23px
-    border-top: 1px solid var(--chroma-secondary-h)
-  </style>
+
+<style lang="sass" scoped>
+.cardList
+  display: flex
+  flex-direction: column
+  gap: var(--cyan-column-gap)
+</style>

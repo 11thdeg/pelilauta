@@ -30,11 +30,11 @@ const noun = computed(() => {
   <nav
     id="AppBar"
   >
-    <cyan-toolbar>
+    <cyan-toolbar large>
       <TrayMenuButton class="onlyOnMobile" />
       <cyan-icon
         v-if="!navTrayVisible"
-        class="noun"
+        class="noun onlyOnMobile"
         :noun="noun"
       />
       <cyan-toolbar-heading v-if="title">
