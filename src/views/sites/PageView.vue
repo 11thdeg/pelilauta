@@ -29,7 +29,6 @@ watch(props, () => {
   <SiteAppBar
     :sitekey="sitekey"
     :pagekey="pagekey"
-    sticky
   />
   <main class="bookLayout">
     <PageArticle />

@@ -28,5 +28,6 @@ const noun = computed(() => {
   <AppBar
     :title="title"
     :noun="noun"
+    sticky
   />
 </template>

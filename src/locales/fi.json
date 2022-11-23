@@ -234,6 +234,9 @@
       "title": "500",
       "description": "Uh, oh. Näyttää siltä että yrität tehdä jotain, jonka ei pitäisi onnistua (tai sitten jotain meni pieleen)."
     },
+    "snacks": {
+      "linkCopiedToClipboard": "Linkki kopioitu leikepöydälle"
+    },
     "threads": {
       "replies": "vastausta",
       "inTopic": "Aiheessa"

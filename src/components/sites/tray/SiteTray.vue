@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { usePages } from '../../../composables/usePages'
 import { useSession } from '../../../composables/useSession'
 import { useSite } from '../../../composables/useSite'
-import ShareButton from '../../actions/ShareButton.vue'
+import ShareButton from '../../ShareButton/ShareButton.vue'
 import SiteTrayHeader from './SiteTrayHeader.vue'
 
 const { t } = useI18n()

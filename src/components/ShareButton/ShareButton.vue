@@ -7,7 +7,7 @@ const { pushSnack } = useSnack()
 
 function copyUrl ():void {
   navigator.clipboard.writeText(window.location.href)
-  pushSnack(t('messages.copiedToClipboard'))
+  pushSnack(t('snacks.linkCopiedToClipboard'))
 }
 </script>
     
