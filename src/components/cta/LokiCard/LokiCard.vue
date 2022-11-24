@@ -17,7 +17,7 @@ const { t } = useI18n()
 const articles = ref<WordpressArticle[]>([])
 
 async function fetchArticles () {
-  const after = '?after=' + new Date(Date.now() - (1000 * 3600 * 24) * 30).toISOString().substring(0, 10)
+  const after = '?after=' + new Date(Date.now() - (1000 * 3600 * 24) * 60).toISOString().substring(0, 10)
   const url = 'https://public-api.wordpress.com/rest/v1.1/sites/roolipeliloki.wordpress.com/posts' + after
   try {
     const response = await fetch(url)
@@ -59,7 +59,7 @@ onMounted(() => {
           :key="article.ID"
         >
           <a :href="article.URL">
-            <h4 style="margin-bottom: 0">{{ htmlDecode(article.title) }}</h4>
+            <h3 style="margin-bottom: 0">{{ htmlDecode(article.title) }}</h3>
             <p class="TypeCaption">
               {{ article.date.substring(0, 10) }}
             </p>

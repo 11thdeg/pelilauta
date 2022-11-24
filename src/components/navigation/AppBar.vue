@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ProfileButton from '../actions/ProfileButton.vue'
 import InboxButton from '../actions/InboxButton.vue'
-import TrayMenuButton from './TrayMenuButton.vue'
+
 import { useUxState } from '../../composables/useUXState'
 import Banner from '../ui/Banner.vue'
+import { logDebug } from '../../utils/logHelpers'
+import TrayMenuButton from './TrayMenuButton.vue'
 
 const props = defineProps<{
   title?: string,
@@ -14,74 +16,37 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const { navTrayVisible } = useUxState()
 
 const title = computed(() => {
   if (props.title) return props.title
   return t('app.title')
 })
 
-const noun = computed(() => {
-  if (props.noun) return props.noun
-  return 'fox'
-})
-
-const raised = ref(false)
-onMounted(() => {
-  if (props.sticky) {
-    document.addEventListener('scroll', (e: Event) => {
-      const top = window.pageYOffset || (e.target as HTMLElement).scrollTop || 0
-      raised.value = top > 2
-    })
-  }
-})
+const { navTrayVisible } = useUxState()
 
 </script>
 <template>
-  <header :class="{ sticky: sticky, 'overlay': raised }">
-    <nav
-      id="AppBar"
+  <div>
+    <cyan-top-app-bar
+      :title="title"
+      :sticky="props.sticky"
+      :menu="navTrayVisible"
+      @change="logDebug('AppBar', 'onchange', $event.detail)"
     >
-      <cyan-toolbar large>
-        <TrayMenuButton class="onlyOnMobile" />
-        <cyan-icon
-          v-if="!navTrayVisible"
-          class="noun onlyOnMobile"
-          :noun="noun"
-        />
-        <cyan-toolbar-heading v-if="title">
-          {{ title }}
-        </cyan-toolbar-heading>
-        <cyan-spacer />
-        <cyan-lightmode-toggle class="hideOnMobile" />
-        <InboxButton />
-        <ProfileButton />
-      </cyan-toolbar>
-    </nav>
+      <TrayMenuButton class="onlyOnMobile" />
+      <cyan-icon
+        v-if="!navTrayVisible"
+        class="noun onlyOnMobile"
+        :noun="noun"
+      />
+      <h2 v-if="title">
+        {{ title }}
+      </h2>
+      <cyan-spacer />
+      <cyan-lightmode-toggle class="hideOnMobile" />
+      <InboxButton />
+      <ProfileButton />
+    </cyan-top-app-bar>
     <Banner />
-  </header>
+  </div>
 </template>
-
-<style scoped lang="sass">
-#AppBar
-  margin: 0
-  padding: 0 8px
-  background-color: var(--cyan-background-color)
-.sticky
-  position: -webkit-sticky
-  position: sticky
-  top: 0px
-  z-index: var(--pelilauta-z-index-navigation)
-  transition: all 0.2s ease-in-out
-  padding-right: 8px
-  &.overlay
-    transition: all 0.6s ease-in-out
-    box-shadow: 0px 0px 55px -12px var(--chroma-secondary-d)
-@media screen and (max-width: 600px)
-  #AppBar
-    padding: 0px 8px
-    &.withmenu
-      padding-left: 56px
-      .noun
-        display: none
-</style>
