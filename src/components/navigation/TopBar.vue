@@ -1,53 +1,30 @@
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed } from 'vue'
+
 
 const props = defineProps<{
-  title: string,
-  sticky?: boolean
+  title: string
 }>()
 
-const raised = ref(false)
-onMounted(() => {
-  if (props.sticky) {
-    document.addEventListener('scroll', (e: Event) => {
-      const top = window.pageYOffset || (e.target as HTMLElement).scrollTop || 0
-      raised.value = top > 2
-    })
-  }
+const barTitle = computed(() => {
+  if (props.title) return props.title
+  return '...'
 })
+
 </script>
 
 <template>
-  <cyan-toolbar
+  <cyan-top-app-bar
     id="TopBar"
-    :class="{ sticky: sticky, 'overlay': raised }"
-    class="rise-a"
+    modal
+    back
+    @back="$router.back()"
   >
-    <cyan-icon
-      noun="back"
-      class="clickable hoverable"
-      @click="$router.back()"
-    />
-    <cyan-toolbar-heading>
-      {{ title }}
-    </cyan-toolbar-heading>
+    <h2>
+      {{ barTitle }}
+    </h2>
     <cyan-spacer />
     <slot />
-  </cyan-toolbar>
+  </cyan-top-app-bar>
 </template>
-
-<style lang="sass" scoped>
-#TopBar
-  padding-left: 8px
-  &.sticky
-    position: -webkit-sticky
-    position: sticky
-    top: 0px
-    z-index: var(--pelilauta-z-index-navigation)
-    transition: all 0.2s ease-in-out
-    padding-right: 8px
-    &.overlay
-      transition: all 0.6s ease-in-out
-      box-shadow: 0px 0px 55px -12px var(--chroma-secondary-d)
-</style>
