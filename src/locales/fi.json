@@ -214,6 +214,9 @@
         "title": "Siirrä sivu",
         "description": "Voit siirtää sivun toiseen sivustoon tai peliin tästä",
         "site": "Kohdesivusto tai -peli"
+      },
+      "create": {
+        "title": "Luo uusi sivu"
       }
     },
     "pages": {

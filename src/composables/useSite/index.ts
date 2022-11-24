@@ -71,6 +71,17 @@ const canEdit = computed(() => {
   return false
 })
 
+const chapterOptions = computed(() => {
+  const cats = site.value?.pageCategories
+  if (!cats) return []
+  return [
+    { label: '-', value: '-' },
+    ...cats.map(c => ({
+      label: c.name,
+      value: c.slug
+    }))]
+})
+
 export function useSite (id?: string) {
   if (id && site.value?.key !== id) {
     subscribeSite(id)
@@ -78,8 +89,9 @@ export function useSite (id?: string) {
   return {
     site: computed(() => site.value),
     chapters: computed(() => site.value?.pageCategories || []),
-    key: computed(() => site.value?.key || ''),
+    chapterOptions,
     updateChapters,
+    key: computed(() => site.value?.key || ''),
     update,
     loading,
     notFound: computed(() => !loading.value && !site.value),

@@ -27,11 +27,17 @@ const pageslug = computed(() => {
 
 <template>
   <FabTray>
-    <cyan-fab
+    <!--cyan-fab
       v-if="owns"
       :label="t('action.add.thread')"
       noun="discussion"
       @click="$router.push('/sites/' + sitekey + '/add/thread')"
+    /-->
+    <cyan-fab
+      v-if="owns"
+      :label="t('action.edit')"
+      noun="edit"
+      @click="$router.push('/sites/' + sitekey + '/pages/' + pageslug + '/edit')"
     />
     <cyan-fab
       v-if="owns"
@@ -40,14 +46,6 @@ const pageslug = computed(() => {
       :label="t('action.add.page')"
       noun="add"
       @click="$router.push('/sites/' + sitekey + '/add/page')"
-    />
-    <cyan-fab
-      v-if="owns"
-      small
-      secondary
-      :label="t('action.edit')"
-      noun="edit"
-      @click="$router.push('/sites/' + sitekey + '/pages/' + pageslug + '/edit')"
     />
   </FabTray>
 </template>

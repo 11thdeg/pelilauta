@@ -53,7 +53,7 @@ const { loading, canEdit } = usePage()
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <WithPermission :forbidden="!canEdit">
-          <EditPageForm />
+          <EditPageForm :pagekey="pagekey" />
           <MarkDownCheatSheetColumn />
         </WithPermission>
       </WithLoader>

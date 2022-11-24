@@ -2,10 +2,10 @@
 import { Page, Site } from '@11thdeg/skaldstore'
 import { addDoc, collection, doc, DocumentData, getFirestore, updateDoc } from '@firebase/firestore'
 import { marked } from 'marked'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { usePage } from '../../composables/usePage'
+import { fetchPage } from '../../composables/usePages'
 import { useSession } from '../../composables/useSession'
 import { useSite } from '../../composables/useSite'
 import { useSnack } from '../../composables/useSnack'
@@ -14,27 +14,24 @@ import MarkdownSection from '../content/MarkdownSection.vue'
 
 const props = defineProps<{
   homepage?: boolean;
+  pagekey?: string;
 }>()
 
 const { t } = useI18n()
 const { uid } = useSession()
 const { pushSnack } = useSnack()
-const { chapters } = useSite()
-const { key: sitekey, loading: siteLoading } = useSite()
-const { page, loading: pageLoading } = usePage()
+const { key: sitekey, chapterOptions} = useSite()
+const page = ref(new Page())
+const loading = ref(true)
 
 const router = useRouter()
 const preview = ref(false)
 
-const loading = computed(() => siteLoading.value || pageLoading.value)
-
-const chapterOptions = computed(() => {
-  return [
-    { label: '-', value: '-' },
-    ...chapters.value.map(c => ({
-      label: c.name,
-      value: c.slug
-    }))]
+onMounted(async() => {
+  if (props.pagekey) {
+    page.value = await fetchPage(sitekey.value, props.pagekey) || new Page()
+  }
+  loading.value = false
 })
 
 async function update (data:DocumentData, key: string) {

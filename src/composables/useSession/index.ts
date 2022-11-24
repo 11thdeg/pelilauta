@@ -52,18 +52,18 @@ function reset () {
 
 async function subscribeToAccount () {
   accountLoaded.value = false
-  logDebug('useSession', 'subscribeToAccount()')
+  // logDebug('useSession', 'subscribeToAccount()')
   unsubscribeAccount = onSnapshot(
     doc(getFirestore(), 'account', uid.value),
     (snapshot) => {
       if (snapshot.exists()) {
         account.value.docData = snapshot.data()
         if (account.value.lightMode === 'light') {
-          logDebug('useSession', 'login', 'Setting light mode')
+          // logDebug('useSession', 'login', 'Setting light mode')
           document.body.classList.remove('cyan--mode--dark')
           document.body.classList.add('cyan--mode--light')
         } else if (account.value.lightMode === 'dark') {
-          logDebug('useSession', 'login', 'Setting dark mode')
+          // logDebug('useSession', 'login', 'Setting dark mode')
           document.body.classList.remove('cyan--mode--light')
           document.body.classList.add('cyan--mode--dark')
         }
@@ -74,7 +74,7 @@ async function subscribeToAccount () {
 }
 
 async function subscribeToProfile () {
-  logDebug('useSession', 'subscribeToProfile()')
+  // logDebug('useSession', 'subscribeToProfile()')
   unsubscribeProfile = onSnapshot(
     doc(getFirestore(), 'profiles', uid.value),
     (snapshot) => {
@@ -85,7 +85,7 @@ async function subscribeToProfile () {
 }
 
 export function login(user: User|null) {
-  logDebug('useSession', 'login', user)
+  // logDebug('useSession', 'login', user)
   reset()
   if (user === null || user.isAnonymous ) {
     active.value = true
@@ -109,7 +109,7 @@ export function login(user: User|null) {
 const resetters:Map<string, CallableFunction> = new Map()
 
 export function addStore(name: string, resetter: () => void) {
-  logDebug('useSession', 'Added a store reset method', name)
+  // logDebug('useSession', 'Added a store reset method', name)
   resetters.set(name, resetter)
 }
 
