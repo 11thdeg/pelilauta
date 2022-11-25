@@ -2,7 +2,6 @@
   "short_name": "Pelilauta 2",
   "name": "Pelilauta 2",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
   "background_color": "#227286",
   "theme_color": "#002337",

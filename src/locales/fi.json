@@ -78,6 +78,10 @@
         "owners": {
           "title": "Omistajat",
           "info": "Omistajat voivat muokata sivun asetuksia ja sisältöä."
+        },
+        "meta": {
+          "title": "Muut",
+          "info": "Erilaisia lisäasetuksia"
         }
       },
       "tray": {
@@ -282,6 +286,7 @@
         "avatarurl": "Kuvake",
         "posterurl": "Taustakuva",
         "description": "Kuvaus",
+        "homepage": "Kotisivu",
         "link": {
           "title": "Linkit",
           "url": "Linkin URL -osoite",
@@ -302,6 +307,9 @@
         },
         "streams": {
           "title": "Aihealueet"
+        },
+        "topic": {
+          "title": "Aiheet"
         }
       }
     },
