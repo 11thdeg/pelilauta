@@ -78,7 +78,8 @@ const sendLinkToEmail = async () => {
 <template>
   <div
     id="emailLoginForm"
-    class="Column card chroma-box-a rise-a"
+    class="Column card"
+    style="border: solid 1px var(--chroma-secondary-c)"
   >
     <div
       v-if="verify"

@@ -7,7 +7,7 @@ const { recent } = useThreads()
 </script>
 
 <template>
-  <div class="Column double-cut">
+  <div class="Column medium">
     <cyan-loader
       v-if="!recent.length"
       large

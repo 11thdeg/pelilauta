@@ -23,7 +23,7 @@ onMounted(() => {
   <AppBar />
   <main class="bookLayout">
     <ThreadCardList />
-    <div class="Column">
+    <div class="Column medium">
       <CreateAccountAd />
       <MekanismiAd />
       <LokiCard />

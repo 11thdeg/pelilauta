@@ -13,7 +13,7 @@ const props = defineProps<{
 <template>
   <article
     id="LoginButtonContainer"
-    class="Column card rise-a"
+    class="Column card rise-a small"
   >
     <h3>{{ t('login.socialLoginForm.title') }}</h3>
     <p class="TypeBody2">

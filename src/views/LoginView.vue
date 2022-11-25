@@ -18,8 +18,11 @@ const to = computed(() => {
 
 <template>
   <TopBar :title="t('login.title')" />
-  <main class="bookLayout">
-    <LoginPanel :to="to" />
+  <main
+    class="bookLayout"
+    style="margin-top: 24px"
+  >
     <EmailLoginForm :to="to" />
+    <LoginPanel :to="to" />
   </main>
 </template>
