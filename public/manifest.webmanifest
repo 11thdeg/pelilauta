@@ -24,6 +24,12 @@
       "type": "image/png",
       "sizes": "64x64",
       "purpose": "maskable"
+    },
+    {
+      "src": "/proprietary/ico/fox-ico-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ]
 }
