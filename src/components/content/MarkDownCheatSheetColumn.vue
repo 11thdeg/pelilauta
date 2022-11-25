@@ -5,17 +5,19 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <article class="Column">
+  <article class="Column small">
     <div class="card chroma-box-a">
-      <h3>{{ t('app.markdowncheatsheet.title') }}</h3>
-      <p>{{ t('app.markdowncheatsheet.description') }}</p>
+      <h4>{{ t('app.markdowncheatsheet.title') }}</h4>
+      <p class="TypeBody2 lowEmphasis">
+        {{ t('app.markdowncheatsheet.description') }}
+      </p>
       <hr>
-      <h4>{{ t('app.markdowncheatsheet.headings') }}</h4>
+      <h5>{{ t('app.markdowncheatsheet.headings') }}</h5>
       <p><cyan-code># Head 1</cyan-code></p>
       <p><cyan-code>## Head 2</cyan-code></p>
       <p><cyan-code>### Head 3</cyan-code></p>
       <hr>
-      <h4>{{ t('app.markdowncheatsheet.text') }}</h4>
+      <h5>{{ t('app.markdowncheatsheet.text') }}</h5>
       <p><cyan-code>**Bold**</cyan-code></p>
       <p><cyan-code>*Italic*</cyan-code></p>
       <p><cyan-code>~~Strikethrough~~</cyan-code></p>

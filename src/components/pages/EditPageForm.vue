@@ -165,7 +165,7 @@ const hasUpdates = computed(() => {
 </script>
 
 <template>
-  <div class="Column double">
+  <div class="Column large">
     <template v-if="loading">
       <cyan-loader large />
     </template>
@@ -202,6 +202,7 @@ const hasUpdates = computed(() => {
 
       <cyan-toolbar>
         <cyan-select
+          v-if="chapterOptions.length > 1"
           :options="chapterOptions"
           :value="chapter"
           @change="chapter = $event.target.value"
