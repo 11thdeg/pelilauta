@@ -7,11 +7,11 @@ import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import { useThread } from '../../composables/useThread'
 import ThreadMenu from './ThreadMenu.vue'
 import ShareButton from '../../components/ShareButton/ShareButton.vue'
-import { useScreenSize } from '../../composables/useScreenSize'
 import ThreadArticle from '../../components/ThreadArticle/ThreadArticle.vue'
 import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import { logDebug } from '../../utils/logHelpers'
 import { useSession } from '../../composables/useSession'
+import WithLoader from '../../components/ui/WithLoader.vue'
 
 const props = defineProps<{
   threadkey: string
@@ -25,8 +25,6 @@ const title = computed(() => {
   if (!thread.value) return '...'
   return thread.value.title
 })
-
-const { isLarge } = useScreenSize()
 
 watch(() => thread.value, (tr) => {
   if (anonymous.value) return
@@ -59,10 +57,7 @@ watch(() => thread.value, (tr) => {
       />
     </TopBar>
     <main class="bookLayout">
-      <div v-if="loading">
-        <cyan-loader large />
-      </div>
-      <template v-else>
+      <WithLoader :suspended="loading">
         <EmptyCollection
           v-if="notFound"
           :title="t('thread.missing.title')"
@@ -72,11 +67,7 @@ watch(() => thread.value, (tr) => {
         <template v-else>
           <div
             v-if="thread"
-            class="Column"
-            :class="{
-              double: isLarge,
-              'double-cut': !isLarge
-            }"
+            class="Column large"
           >
             <ThreadArticle
               :thread="thread"
@@ -86,7 +77,7 @@ watch(() => thread.value, (tr) => {
             />
           </div>
         </template>
-      </template>
+      </WithLoader>
     </main>
   </div>
 </template>
