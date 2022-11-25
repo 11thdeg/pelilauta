@@ -6,6 +6,7 @@ export const routes = [
   { path: '/', component: HomeView },
   { path: '/about', component: AboutView },
   { path: '/admin/testing-tools', component: () => import('./admin/TestingTools.vue') },
+  { path: '/admin/users', component: () => import('./admin/AdminUsersView.vue') },
   { path: '/inbox', component: () => import('./InboxView.vue') },
   { path: '/login', component: LoginView },
   { path: '/login/:backroute', component: LoginView, props: true },
