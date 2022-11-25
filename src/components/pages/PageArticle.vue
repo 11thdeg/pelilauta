@@ -1,13 +1,21 @@
 <script lang="ts" setup>
+import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useContentEntry } from '../../composables/useContentEntry'
 import { usePage } from '../../composables/usePage'
 import { useSite } from '../../composables/useSite'
 import EmptyCollection from '../ui/EmptyCollection.vue'
-import MarkdownSection from '../content/MarkdownSection.vue'
 
 const { t } = useI18n()
 const { key: pageKey, page, loading, notFound } = usePage()
 const { key } = useSite()
+const content = ref('')
+onMounted(() => {
+  watch(page, (p) => {
+    content.value = useContentEntry(p).content.value
+  }, { immediate: true })
+})
+
 </script>
 
 <template>
@@ -32,14 +40,8 @@ const { key } = useSite()
       </EmptyCollection>
     </template>
     <template v-else-if="page">
-      <h1>{{ page.name }}</h1>
-      <MarkdownSection
-        v-if="page.markdownContent"
-        :content="page.markdownContent"
-      />
       <div
-        v-else
-        :innerHTML="page.htmlContent"
+        :innerHTML="content"
       />
     </template>
   </article>

@@ -36,21 +36,23 @@ const { admin, anonymous } = useSession()
         :active="route.path.startsWith('/sites')"
       />
     </router-link>
-    <NavButton
-      v-if="!anonymous"
-      noun="assets"
-      :label="t('assets.title')"
-      to="/assets"
-      :active="route.path === '/assets'"
-    />
+    <router-link to="/assets">
+      <cyan-navigation-button
+        v-if="!anonymous"
+        noun="assets"
+        :label="t('assets.title')"
+        :active="route.path === '/assets'"
+      />
+    </router-link>
     <cyan-spacer />
-    <NavButton
-      v-if="admin"
-      noun="admin"
-      :label="t('admin.settings.title')"
-      to="/admin/settings"
-      :active="route.path === '/admin/settings'" 
-    />
+    <router-link to="/admin/settings">
+      <cyan-navigation-button
+        v-if="admin"
+        noun="admin"
+        :label="t('admin.settings.title')"
+        :active="route.path === '/admin'"
+      />
+    </router-link>
     <router-link to="/about">
       <cyan-navigation-button
         noun="monsters"

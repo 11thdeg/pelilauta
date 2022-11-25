@@ -39,7 +39,7 @@
       }
     },
     "assetView": {
-      "title": "Lataukset"
+      "title": "Media"
     },
     "characters": {
       "title": "Hahmot"
@@ -133,7 +133,7 @@
       "share": "Jaa"
     },
     "assets": {
-      "title": "Lataukset",
+      "title": "Media",
       "list": {
         "title": "Lataukset"
       },
