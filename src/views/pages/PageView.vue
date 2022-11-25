@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import SiteAppBar from '../../components/sites/SiteAppBar.vue'
-import { loadPage } from '../../composables/usePage'
+import { loadPage, usePage } from '../../composables/usePage'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import PageArticle from '../../components/pages/PageArticle.vue'
-import { loadSite } from '../../composables/useSite'
+import { loadSite, useSite } from '../../composables/useSite'
 import { watch } from 'vue'
+import { useTitle } from '@vueuse/core'
 
 const props = defineProps<{
   sitekey: string
@@ -21,6 +22,16 @@ watch(props, () => {
   loadPage(props.pagekey || '', props.sitekey)
 }, { 
   immediate: true 
+})
+
+const { site } = useSite()
+const { page } = usePage()
+const title = useTitle()
+
+watch(page, () => {
+  if (page.value) {
+    title.value = site.value?.name + '/' + page.value.name
+  }
 })
 
 </script>

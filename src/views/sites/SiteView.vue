@@ -7,12 +7,14 @@ import { loadSite, useSite } from '../../composables/useSite'
 import { loadPage } from '../../composables/usePage'
 import { onMounted, watch } from 'vue'
 import PageArticle from '../../components/pages/PageArticle.vue'
+import { useTitle } from '@vueuse/core'
 
 const props = defineProps<{
   sitekey: string
 }>()
 
 const { site } = useSite()
+const title = useTitle()
 
 onMounted(() => {
   loadSite(props.sitekey)
@@ -20,6 +22,7 @@ onMounted(() => {
     if (ns) {
       const pageKey = ns.homepage || ns.key || ''
       loadPage(pageKey, props.sitekey)
+      title.value = ns.name
     }
   }, { immediate: true })
 })

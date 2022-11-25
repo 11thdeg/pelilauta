@@ -12,6 +12,7 @@ import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import { logDebug } from '../../utils/logHelpers'
 import { useSession } from '../../composables/useSession'
 import WithLoader from '../../components/ui/WithLoader.vue'
+import { useTitle } from '@vueuse/core'
 
 const props = defineProps<{
   threadkey: string
@@ -39,6 +40,7 @@ watch(() => thread.value, (tr) => {
       logDebug('Opened a new thread', tr.key , 'will start notifying of changes')
       subscribeTo(tr.key)
     }
+    useTitle().value = tr.title
   }
 }, { immediate: true })
 
