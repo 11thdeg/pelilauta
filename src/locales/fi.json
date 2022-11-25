@@ -85,7 +85,7 @@
       }
     },
     "sites": {
-      "title": "Mekanismi",
+      "title": "Pelit",
       "ownedByMe": "Omistan",
       "playsIn": "Pelaan",
       "empty": {
@@ -94,7 +94,7 @@
       }
     },
     "streams": {
-      "title": "Keskustelut"
+      "title": "Aiheet"
     },
     "action": {
       "accept": "Hyväksy ehdot",

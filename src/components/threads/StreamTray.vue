@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import NavigationTray from '../navigation/NavigationTray.vue'
+import NavigationTray from '../NavigationTray/NavigationTray.vue'
 import { useMeta } from '../../composables/useMeta'
 
 const { t } = useI18n()

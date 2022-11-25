@@ -8,7 +8,7 @@ import LoginRequiredColumn from '../../components/account/LoginRequiredColumn.vu
 import ChapterTool from '../../components/sites/tools/ChapterTool.vue'
 import { useSite } from '../../composables/useSite'
 import ThemeEditor from '../../components/sites/tools/ThemeEditor.vue'
-import NavigationTray from '../../components/navigation/NavigationTray.vue'
+import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import LinksTool from '../../components/sites/tools/LinksTool.vue'
 import SiteMetaTool from '../../components/sites/tools/SiteMetaTool.vue'

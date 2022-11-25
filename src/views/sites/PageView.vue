@@ -2,7 +2,7 @@
 import SiteAppBar from '../../components/sites/SiteAppBar.vue'
 import { loadPage } from '../../composables/usePage'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
-import NavigationTray from '../../components/navigation/NavigationTray.vue'
+import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import PageArticle from '../../components/pages/PageArticle.vue'
 import { loadSite } from '../../composables/useSite'

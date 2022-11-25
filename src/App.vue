@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NavigationRail from './components/navigation/NavigationRail.vue'
+import NavigationRail from './components/NavigationRail/NavigationRail.vue'
 import SnackBar from './components/ui/SnackBar.vue'
 import { useUxState } from './composables/useUXState'
 import EulaDialog from './components/account/EulaDialog.vue'

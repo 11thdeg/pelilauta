@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
-import NavigationTray from '../navigation/NavigationTray.vue'
+import NavigationTray from '../NavigationTray/NavigationTray.vue'
 
 const { t } = useI18n()
 const { admin } = useSession()
