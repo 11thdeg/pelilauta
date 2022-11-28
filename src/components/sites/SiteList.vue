@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import SiteListFilterPane from './SiteListFilterPane.vue'
 import { useSites } from '../../composables/useSites'
 import { useSession } from '../../composables/useSession'
-import SiteCard from './SiteCard.vue'
+import SiteCard from '../SiteCard/SiteCard.vue'
 import { useI18n } from 'vue-i18n'
 import EmptyCollection from '../ui/EmptyCollection.vue'
 

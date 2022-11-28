@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useSession } from '../../composables/useSession'
-import SiteAvatar from './SiteAvatar.vue'
+import SiteAvatar from '../sites/SiteAvatar.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import SystemTag from '../actions/SystemTag.vue'
 
@@ -21,47 +21,33 @@ const props = defineProps<{
 
 const { uid } = useSession()
 
-const icon = computed(() => {
-  return props.site.systemBadge ? props.site.systemBadge : 'adventurer'
-})
-const posterStyle = computed(() => {
-  return props.site.posterURL ? `background-image: url(${props.site.posterURL})` : ''
-})
 function hasPlayer(key: string) {
   if (!props.site.players) return false
   return props.site.players.includes(key)
 }
+const cover = computed(() => {
+  return props.site.posterURL || undefined
+})
 </script>
 
 <template>
-  <article
-    class="card rise-a SiteCard"
-    :class="{ 
-      hasPoster: !!props.site.posterURL,
-      hasAvatar: !!props.site.avatarURL
-    }"
+  <cyan-card
+    elevation="1"
+    :cover="cover"
   >
-    <div
-      v-if="!!props.site.posterURL"
-      class="cardPoster"
-      :style="posterStyle"
+    <h3
+      slot="title"
+      class="downscaled"
     >
-      <h3 class="siteName">
-        {{ site.name }}
-      </h3>
+      {{ site.name }}
+    </h3>
+    <div slot="avatar">
       <SiteAvatar
+        :large="cover"
         :site="site"
         class="siteAvatar"
       />
     </div>
-    <template v-else>
-      <cyan-toolbar>
-        <cyan-icon :noun="icon" />
-        <cyan-toolbar-heading :level="2">
-          {{ site.name }}
-        </cyan-toolbar-heading>
-      </cyan-toolbar>
-    </template>
     <p class="TypeBody2">
       {{ site.description }}
     </p>
@@ -80,7 +66,7 @@ function hasPlayer(key: string) {
       <FlowTimeCaption :flow-time="site.flowTime" />
       <SystemTag :system-family="site.systemBadge" />
     </cyan-toolbar>
-  </article>
+  </cyan-card>
 </template>
 
 <style lang="sass" scoped>

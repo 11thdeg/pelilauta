@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 
 const props = defineProps<{
+  large?: string;
   site: {
     avatarURL: string,
     systemBadge: string
@@ -9,6 +10,7 @@ const props = defineProps<{
 }>()
 
 const noun = computed(() => props.site.systemBadge || 'mekanismi')
+const largeIcon = computed(() => !!props.large || undefined)
 </script>
 
 <template>
@@ -21,8 +23,8 @@ const noun = computed(() => props.site.systemBadge || 'mekanismi')
     >
     <cyan-icon
       v-else
-      large
-      class="avatar rise-c"
+      :large="largeIcon"
+      class="avatar"
       :noun="noun"
     />
   </div>
@@ -30,14 +32,14 @@ const noun = computed(() => props.site.systemBadge || 'mekanismi')
 
 <style lang="sass" scoped>
 .SiteAvatar
-  height: 72px
-  width: 72px
-  border-radius: 50%
-  background-color: var(--cyan-base-color)
   img.avatar
     height: 100%
     width: 100%
+    height: 72px
+    width: 72px
+    border-radius: 50%
     object-fit: cover
+    background-color: var(--cyan-base-color)
   .avatar
     border-radius: 50%
 </style>
