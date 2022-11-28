@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useThreads } from '../../composables/useThreads'
-import ThreadCard from './ThreadCard.vue'
+import ThreadCard from '../ThreadCard/ThreadCard.vue'
 
 const { recent } = useThreads()
 

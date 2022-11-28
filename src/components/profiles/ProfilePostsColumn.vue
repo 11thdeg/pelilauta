@@ -3,7 +3,7 @@ import { Thread } from '@11thdeg/skaldstore'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fetchAuthorThreads } from '../../composables/useThreads'
-import ThreadCard from '../threads/ThreadCard.vue'
+import ThreadCard from '../ThreadCard/ThreadCard.vue'
 
 const props = defineProps<{
   uid: string

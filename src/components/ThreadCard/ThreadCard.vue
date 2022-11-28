@@ -3,14 +3,15 @@ import { Thread } from '@11thdeg/skaldstore'
 import { computed } from 'vue'
 import { onMounted, Ref, ref } from 'vue'
 import { fetchThread } from '../../composables/useThreads'
-import TopicTag from './TopicTag.vue'
-import RepliesTag from './RepliesTag.vue'
+import TopicTag from '../threads/TopicTag.vue'
+import RepliesTag from '../threads/RepliesTag.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import { useI18n } from 'vue-i18n'
-import LoveAThreadButton from './LoveAThreadButton.vue'
+import LoveAThreadButton from '../threads/LoveAThreadButton.vue'
 import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import { useContentEntry } from '../../composables/useContentEntry'
+import TopicIcon from '../threads/TopicIcon.vue'
 
 const props = defineProps<{
   threadkey?: string
@@ -34,25 +35,33 @@ const notify = computed(() => {
   if (!subscriber.value) return false
   return subscriber.value.shouldNotify(thread.value.key, thread.value.flowTime)
 })
+
+const level = computed(() => {
+  return notify.value === true ? 2 : 1
+})
 </script>
 
 <template>
   <cyan-card
     v-if="thread"
-    class="ThreadCard card"
+    class="ThreadCard"
+    :elevation="level"
     :class="{
-      'rise-a': !notify,
-      'rise-b': notify,
       'notify': notify
     }"
   >
-    <section slot="title">
-      <h3 class="downscaled">
-        <router-link :to="`/threads/${thread.key}`">
-          {{ thread.title }}
-        </router-link>
-      </h3>
-    </section>
+    <TopicIcon
+      slot="avatar"
+      :slug="thread.topicid || 'pelilauta' "
+    />
+    <h3
+      slot="title"
+      class="downscaled"
+    >
+      <router-link :to="`/threads/${thread.key}`">
+        {{ thread.title }}
+      </router-link>
+    </h3>
     <p
       class="TypeBody2"
       :innerHTML="snippet"

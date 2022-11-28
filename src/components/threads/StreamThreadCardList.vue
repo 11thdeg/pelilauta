@@ -3,7 +3,7 @@ import { Thread } from '@11thdeg/skaldstore'
 import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fetchStreamThreads, useThreads } from '../../composables/useThreads'
-import ThreadCard from './ThreadCard.vue'
+import ThreadCard from '../ThreadCard/ThreadCard.vue'
 
 const props = defineProps<{
   streamkey?: string
