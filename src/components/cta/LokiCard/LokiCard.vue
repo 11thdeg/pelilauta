@@ -59,7 +59,10 @@ onMounted(() => {
           :key="article.ID"
         >
           <a :href="article.URL">
-            <h3 style="margin-bottom: 0">{{ htmlDecode(article.title) }}</h3>
+            <h4
+              style="margin-bottom: 0"
+              class="downscaled"
+            >{{ htmlDecode(article.title) }}</h4>
             <p class="TypeCaption">
               {{ article.date.substring(0, 10) }}
             </p>

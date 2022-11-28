@@ -103,7 +103,7 @@ const notify = computed(() => {
     h3, p
       margin: 0
     h3
-      line-height: 24px
+      line-height: 36px
 
 .notify:after
   content: ''
