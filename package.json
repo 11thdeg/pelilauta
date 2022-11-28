@@ -1,7 +1,7 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "14.0.0-beta.60",
+  "version": "14.0.0-beta.61",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "lint": "eslint --ext .ts,.js,.vue src"
   },
   "dependencies": {
-    "@11thdeg/cyan": "^0.25.4",
+    "@11thdeg/cyan": "^0.26.0",
     "@11thdeg/skaldstore": "^0.3.6",
     "@vueuse/core": "^9.5.0",
     "animate.css": "^4.1.1",

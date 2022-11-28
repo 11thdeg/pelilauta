@@ -4,10 +4,10 @@ module.exports = {
     node: true,
   },
   // parser: '@typescript-eslint/parser',
-  parser: "vue-eslint-parser",
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: "@typescript-eslint/parser",
-    sourceType: "module"
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module'
   },
   plugins: [
     '@typescript-eslint',
@@ -19,6 +19,7 @@ module.exports = {
   ],
   rules: {
     'vue/multi-word-component-names': 'off',
+    'vue/no-deprecated-slot-attribute': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
     'no-unused-vars': 'off',

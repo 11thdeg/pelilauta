@@ -28,8 +28,6 @@ onMounted(async () => {
 
 const snippet = ref('')
 
-const siteIcon = computed(() => undefined)
-
 const { subscriber } = useSubscriber()
 const notify = computed(() => {
   if (!thread.value || !thread.value.key) return false
@@ -39,7 +37,7 @@ const notify = computed(() => {
 </script>
 
 <template>
-  <article
+  <cyan-card
     v-if="thread"
     class="ThreadCard card"
     :class="{
@@ -48,19 +46,12 @@ const notify = computed(() => {
       'notify': notify
     }"
   >
-    <section class="cardHeader">
-      <div class="meta">
-        <h3>
-          <router-link :to="`/threads/${thread.key}`">
-            {{ thread.title }}
-          </router-link>
-        </h3>
-      </div>
-      <cyan-spacer />
-      <cyan-icon
-        v-if="siteIcon"
-        :noun="siteIcon"
-      />
+    <section slot="title">
+      <h3 class="downscaled">
+        <router-link :to="`/threads/${thread.key}`">
+          {{ thread.title }}
+        </router-link>
+      </h3>
     </section>
     <p
       class="TypeBody2"
@@ -82,29 +73,10 @@ const notify = computed(() => {
       <cyan-spacer />
       <RepliesTag :threadkey="thread.key || ''" />
     </cyan-toolbar>
-  </article>
+  </cyan-card>
 </template>
 
 <style lang="sass" scoped>
-
-.ThreadCard
-  position: relative
-  &.card
-    padding: 16px
-    p
-      margin-bottom: 16px
-.cardHeader
-  display: flex
-  margin-bottom: 16px
-  .meta
-    a
-      color: var(--cyan-heading-color-a)
-      text-decoration: none
-    h3, p
-      margin: 0
-    h3
-      line-height: 36px
-
 .notify:after
   content: ''
   position: absolute
