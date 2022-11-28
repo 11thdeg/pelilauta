@@ -17,10 +17,10 @@ const { t } = useI18n()
       leave-active-class="animate__animated animate__bounceOut"
       :duration="200"
     >
-      <div
+      <cyan-card
         v-if="visible"
         id="BannerContent"
-        class="rise-b"
+        elevation="0"
       >
         <p>{{ t(text) }}</p>
         <cyan-toolbar>
@@ -37,18 +37,15 @@ const { t } = useI18n()
             @click="onConfirm"
           />
         </cyan-toolbar>
-      </div>
+      </cyan-card>
     </transition>
   </div>
 </template>
 
 <style lang="sass" scoped>
 #BannerContent
-  border-top: solid 1px var(--cyan-color-divider)
-  border-bottom: solid 1px var(--cyan-color-divider)
-  margin: 0
-  margin-left: 0px
-  padding: 16px 12px
+  margin: 12px 8px
+  padding: 12px
   padding-bottom: 0
   p
     margin: 0
