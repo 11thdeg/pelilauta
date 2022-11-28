@@ -10,6 +10,7 @@ import { logDebug } from './utils/logHelpers'
 import { useBanner } from './composables/useBanner'
 import { Workbox } from 'workbox-window'
 import { useI18n } from 'vue-i18n'
+import SessionCard from './components/admin/SessionCard/SessionCard.vue'
 
 const { navTrayVisible } = useUxState()
 const { anonymous } = useSession()
@@ -67,6 +68,7 @@ if ('serviceWorker' in navigator) {
   <EulaDialog />
   <SnackBar />
   <NavigationBar />
+  <SessionCard />
 </template>
 
 <style lang="sass" scoped>

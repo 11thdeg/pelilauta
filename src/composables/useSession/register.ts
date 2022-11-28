@@ -13,6 +13,8 @@ export async function register() {
   if (accountDoc.exists()) throw new Error('Account already exists')
 
   const account = new Account(user)
+  if (document.body.classList.contains('cyan--mode--dark')) account.lightMode = 'dark'
+  else account.lightMode = 'light'
   await setDoc(doc(db, Account.collectionName, user.uid), account.docData)
 
   const profileDoc = await getDoc(doc(db, Profile.collectionName, user.uid))

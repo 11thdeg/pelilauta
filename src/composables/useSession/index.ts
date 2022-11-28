@@ -14,8 +14,7 @@ export * from './register'
 const active = ref(false)
 const uid = ref('')
 const accountLoaded = ref(false)
-// If firebase session has started, and we do not have an uid: the user is anonymous
-const anonymous = computed(() => active.value && !uid.value)
+const anonymous = computed(() => !uid.value)
 
 const profile = ref(new Profile())
 const account = ref(new Account(null))
