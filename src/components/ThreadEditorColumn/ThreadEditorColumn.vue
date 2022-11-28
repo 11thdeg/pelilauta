@@ -123,11 +123,11 @@ async function createThread () {
   try {
     const threadDoc = await addDoc(
       collection(getFirestore(), Thread.collectionName), thread.docData)
-    pushSnack(t('snack.thread.added'))
+    pushSnack(t('snack.thread.created'))
     router.push('/threads/' + threadDoc.id)
   } catch (e: unknown){
     logError(e)
-    pushSnack(t('snack.thread.addFailsError'))
+    pushSnack(t('snack.thread.createFailsError'))
   }
 }
 
@@ -157,11 +157,11 @@ async function updateThread () {
       doc(getFirestore(), Thread.collectionName, thread.key as string),
       thread.docData
     )
-    pushSnack(t('snack.thread.added'))
+    pushSnack(t('snack.thread.updated'))
     router.push('/threads/' + thread.key)
   } catch (e: unknown){
     logError(e)
-    pushSnack(t('snack.thread.addFailsError'))
+    pushSnack(t('snack.thread.updateFailsError'))
   }
 }
 
@@ -175,7 +175,7 @@ const author = computed(() => props.thread.author || uid.value)
 <template>
   <LoginRequiredColumn v-if="mode === 'edit' && !thread.hasOwner(uid) " />
   <template v-else>
-    <div class="Column full form">
+    <div class="Column large form">
       <template v-if="!preview">
         <cyan-toolbar>
           <cyan-textfield
