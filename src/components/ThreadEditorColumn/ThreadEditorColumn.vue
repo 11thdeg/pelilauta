@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Thread } from '@11thdeg/skaldstore'
 import { addDoc, collection, doc, getFirestore, updateDoc } from '@firebase/firestore'
+import { marked } from 'marked'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -109,6 +110,7 @@ async function createThread () {
 
   thread.title = title.value.toString()
   thread.markdownContent = content.value.toString()
+  thread.htmlContent = marked(content.value.toString())
   thread.topicid = topic.value.toString()
 
   if (youtubeId.value.toString().length > 0) {
