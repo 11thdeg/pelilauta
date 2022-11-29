@@ -13,6 +13,7 @@ import { firebaseConfig } from './firebaseConfig'
 import { initializeApp } from 'firebase/app'
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 import { enableIndexedDbPersistence, getFirestore } from 'firebase/firestore'
+import { getAnalytics } from 'firebase/analytics'
 import { login } from './composables/useSession'
 
 const router = createRouter({
@@ -37,6 +38,9 @@ app.use(router)
 const fb = initializeApp(firebaseConfig)
 const auth = getAuth(fb)
 enableIndexedDbPersistence(getFirestore(fb))
+
+// Initialize Analytics
+getAnalytics(fb)
 
 onAuthStateChanged(auth, (user: User|null) => {
   login(user)

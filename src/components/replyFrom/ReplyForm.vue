@@ -69,7 +69,7 @@ async function onSubmit () {
       }
     )
     subscribeTo(props.threadkey)
-    pushSnack('snacks.reply.success')
+    pushSnack('snacks.reply.created')
     onCancel()
   } catch (e) {
     pushSnack('snacks.reply.error')

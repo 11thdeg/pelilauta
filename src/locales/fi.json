@@ -98,6 +98,12 @@
       }
     },
     "snacks": {
+      "reply": {
+        "created":"Vastaus lähetetty",
+        "error": "Vastauksen lähettäminen epäonnistui",
+        "deleted": "Vastaus poistettu",
+        "updated": "Vastaus päivitetty"
+      },
       "thread": {
         "created": "Keskustelu luotu",
         "createFailsError": "Keskustelun luominen epäonnistui",

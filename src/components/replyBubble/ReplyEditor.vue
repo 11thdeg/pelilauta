@@ -41,7 +41,7 @@ async function save () {
       props.reply.key || ''),
     update
   )
-  pushSnack('replyBubble.snack.saved')
+  pushSnack('snacks.reply.updated')
   emit('closeEditor')
 }
 </script>

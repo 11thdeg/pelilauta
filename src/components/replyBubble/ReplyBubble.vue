@@ -46,7 +46,7 @@ async function trash () {
       Reply.collectionName,
       props.reply.key || '')
   )
-  pushSnack('replyBubble.snack.delete')
+  pushSnack('snacks.reply.deleted')
   editorActive.value = false
 }
 
