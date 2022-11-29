@@ -1,12 +1,32 @@
 import { Profile } from '@11thdeg/skaldstore'
-import { doc, getFirestore, getDoc, collection, getDocs } from '@firebase/firestore'
+import { doc, getFirestore, getDoc, collection, getDocs, DocumentData } from '@firebase/firestore'
 import { computed } from 'vue'
+
+function getStoredProfile (key: string) {
+  const stored = localStorage.getItem('profiles-'+key)
+  if (stored) {
+    const raw = JSON.parse(stored)
+    return new Profile(raw as DocumentData)
+  }
+  return undefined
+}
+function storeProfile (profile: Profile) {
+  const key = 'profiles-'+profile.key
+  const data = JSON.stringify(profile.docData)
+  localStorage.setItem(key, data)
+}
 
 const profileCache = new Map<string, Profile>()
 
 export async function fetchProfile (uid: string): Promise<Profile|undefined> {
   const cached = profileCache.get(uid)
   if (cached) return cached
+
+  const stored = getStoredProfile(uid)
+  if (stored) {
+    profileCache.set(uid, stored)
+    return stored
+  }
 
   const authorDoc = await getDoc(
     doc(
@@ -19,6 +39,7 @@ export async function fetchProfile (uid: string): Promise<Profile|undefined> {
   if (authorDoc.exists()) {
     const ac = new Profile(authorDoc.data(), uid)
     profileCache.set(uid, ac)
+    storeProfile(ac)
     return ac
   }
 
