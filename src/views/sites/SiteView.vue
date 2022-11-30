@@ -4,7 +4,7 @@ import SiteAppBar from '../../components/sites/SiteAppBar.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import { loadSite, useSite } from '../../composables/useSite'
-import { loadPage } from '../../composables/usePage'
+import { usePage } from '../../composables/usePage'
 import { onMounted, watch } from 'vue'
 import PageArticle from '../../components/pages/PageArticle.vue'
 import { useTitle } from '@vueuse/core'
@@ -21,7 +21,7 @@ onMounted(() => {
   watch(site, (ns) => {
     if (ns) {
       const pageKey = ns.homepage || ns.key || ''
-      loadPage(pageKey, props.sitekey)
+      usePage(pageKey, props.sitekey)
       title.value = ns.name
     }
   }, { immediate: true })

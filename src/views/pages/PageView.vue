@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import SiteAppBar from '../../components/sites/SiteAppBar.vue'
-import { loadPage, usePage } from '../../composables/usePage'
+import { usePage } from '../../composables/usePage'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
@@ -19,7 +19,7 @@ watch(props, () => {
   // init composable
   loadSite(props.sitekey)
   // init composable with sitekey and pagekey
-  loadPage(props.pagekey || '', props.sitekey)
+  usePage(props.pagekey || '', props.sitekey)
 }, { 
   immediate: true 
 })

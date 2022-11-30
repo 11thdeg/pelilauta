@@ -28,7 +28,7 @@ async function movePage() {
     return
   }
   try {
-    const data = page.value.docData
+    const data = page.value?.docData
     const newDoc = await addDoc(
       collection(
         getFirestore(),
@@ -64,7 +64,9 @@ async function movePage() {
 <template>
   <div class="Column">
     <h3>{{ t('page.move.title') }}</h3>
-    <h4>{{ page.name }}</h4>
+    <h4 v-if="page">
+      {{ page.name }}
+    </h4>
     <p>{{ t('page.move.description') }}</p>
     <cyan-toolbar>
       <cyan-select

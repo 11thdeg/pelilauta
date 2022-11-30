@@ -1,7 +1,6 @@
 import { Page, Site } from '@11thdeg/skaldstore'
 import { collection, doc, getDoc, getFirestore, onSnapshot } from 'firebase/firestore'
 import { computed, ref } from 'vue'
-import { logDebug } from '../utils/logHelpers'
 import { addStore } from './useSession'
 
 let sitekey = ''
@@ -22,7 +21,6 @@ function reset() {
 
 async function init (key?: string) {
   if (!key || sitekey === key) return
-  logDebug('usePages', 'init', key, Page.collectionName)
   reset()
   loading.value = true
 
@@ -52,7 +50,6 @@ async function init (key?: string) {
           // logDebug('usePages', 'caching', 'page', page.key)
         }
       })
-      logDebug('page snapshot loaded')
     }
   )
   loading.value = false
@@ -79,8 +76,6 @@ export async function fetchPage (sk: string, pagekey: string) {
     if (masterPageCache.value.get(sk)?.has(pagekey)) 
       return masterPageCache.value.get(sk)?.get(pagekey)
   }
-  // not found in cache, fetch from db if available
-  logDebug('fetchPage from db', sk, pagekey)
 
   const pageDoc = await getDoc(
     doc(
@@ -97,20 +92,27 @@ export async function fetchPage (sk: string, pagekey: string) {
     masterPageCache.value.get(sk)?.set(pagekey, page)
     return page
   }
-  logDebug('fetchPage not found', sk, pagekey)
   return undefined
 }
 
 export function subscribePages (key: string) {
-  logDebug('subscribePages: reroutes to usePages(key)', key)
   usePages(key)
+}
+
+function pushToCache(sk:string, pk:string, page:Page) {
+  if (!masterPageCache.value.has(sk)) {
+    masterPageCache.value.set(sk, new Map())
+  }
+  masterPageCache.value.get(sk)?.set(pk, page)
 }
 
 export function usePages(key?: string) {
   init(key)
   return {
+    masterPageCache: computed(() => masterPageCache.value),
     pages: computed(() => Array.from(pageCache.value.values())),
     categories,
+    pushToCache,
     loading: computed(() => loading.value),
     pageOptions: computed(() => {
       return Array.from(pageCache.value.values()).map((page) => {

@@ -40,7 +40,7 @@ async function deletePage () {
 }
 </script>
 <template>
-  <TopBar :title="page.name" />
+  <TopBar :title="page?.name || ''" />
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">
