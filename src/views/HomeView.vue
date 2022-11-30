@@ -28,7 +28,10 @@ onMounted(() => {
       <MekanismiAd />
       <LokiCard />
     </div>
-    <article class="Column small hideOnMobile">
+    <article
+      class="Column small hideOnMobile"
+      style="display: none;"
+    >
       <cyan-card
         style="overflow: hidden;"
         class="chroma-box-b"
