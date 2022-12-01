@@ -34,5 +34,4 @@ const license = computed({
     :options="licenses"
     @change="(license = $event.target.value)"
   />
-  {{ license }}
 </template>
