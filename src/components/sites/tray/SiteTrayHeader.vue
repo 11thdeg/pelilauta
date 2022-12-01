@@ -3,8 +3,7 @@ import { computed } from 'vue'
 import { useSite } from '../../../composables/useSite'
 import SiteAvatar from '../SiteAvatar.vue'
 
-const { site } = useSite()
-
+const { site, loading } = useSite()
 
 const posterStyle = computed(() => {
   if (site.value?.posterURL) return 'background-image: url(' + site.value.posterURL + ')'
@@ -14,12 +13,14 @@ const posterStyle = computed(() => {
 </script>
 
 <template>
+  <cyan-loader v-if="loading" />
   <section
-    v-if="site"
+    v-else-if="site"
     id="SiteTrayHeader"
   >
     <div
       id="TrayPoster"
+      :class="{ withPoster: !!site.posterURL }"
       :style="posterStyle"
     >
       <router-link
@@ -27,15 +28,16 @@ const posterStyle = computed(() => {
         class="avatar"
       >
         <SiteAvatar
+          large
           :site="site"
           class="clickable hoverable"
         />
       </router-link>
     </div>
-    <h1 class="TypeBody2 title">
+    <h4 class="downscaled title">
       {{ site.name }}
-    </h1>
-    <p class="TypeCaption lowEmphasis">
+    </h4>
+    <p class="TypeCaption lowEmphasis title">
       {{ site.description }}
     </p>
   </section>
@@ -56,8 +58,14 @@ const posterStyle = computed(() => {
     .avatar
       margin-bottom: -24px
       margin-top: 24px
+    &.withPoster
+      height: 124px
+      .avatar
+        margin-top:77px
+        filter: drop-shadow(0px 0px 8px var(--chroma-secondary-b))
   .title
     margin: 0
     margin-top: 16px
     text-align: center
+  
 </style>

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 const props = defineProps<{
-  large?: string;
+  large?: boolean;
   site: {
     avatarURL: string,
     systemBadge: string
@@ -23,6 +23,7 @@ const largeIcon = computed(() => !!props.large || undefined)
     >
     <cyan-icon
       v-else
+      dark
       :large="largeIcon"
       class="avatar"
       :noun="noun"

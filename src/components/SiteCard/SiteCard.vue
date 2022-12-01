@@ -43,7 +43,7 @@ const cover = computed(() => {
     </h3>
     <div slot="avatar">
       <SiteAvatar
-        :large="cover"
+        :large="!!cover"
         :site="site"
         class="siteAvatar"
       />
