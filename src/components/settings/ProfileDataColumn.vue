@@ -61,48 +61,51 @@ async function save () {
     
 <template>
   <article class="ProfileDataColumn Column">
-    <cyan-loader v-if="!active" />
-    <template v-else>
-      <h2>{{ t('settings.profileData.title') }}</h2>
-      <p class="lowEmphasis TypeBody2">
-        {{ t('settings.profileData.description') }}
-      </p>
-      <div class="avatar">
-        <img
-          style="max-width: 200px; display: block; margin: 0 auto;border-radius: 50%;"
-          :src="avatarURL"
-        >
-        <cyan-button
-          noun="edit"
-          class="avatarButton"
-          :label="t('action.change')"
-          @click="avatarDialog = true"
+    <cyan-card>
+      <cyan-loader v-if="!active" />
+      <template v-else>
+        <h2>{{ t('settings.profileData.title') }}</h2>
+        <p class="lowEmphasis TypeBody2">
+          {{ t('settings.profileData.description') }}
+        </p>
+        <div class="avatar">
+          <img
+            style="max-width: 200px; display: block; margin: 0 auto;border-radius: 50%;"
+            :src="avatarURL"
+          >
+          <cyan-button
+            noun="edit"
+            class="avatarButton"
+            :label="t('action.change')"
+            @click="avatarDialog = true"
+          />
+        </div>
+        <SelectAssetDialog
+          v-model="avatarDialog"
+          @select="avatarURL = $event"
         />
-      </div>
-      <SelectAssetDialog
-        v-model="avatarDialog"
-        @select="avatarURL = $event"
-      />
-      <cyan-textfield
-        :label="t('fields.profile.nick')"
-        :value="profile.nick"
-        @blur="nick = $event.target.value"
-      />
-      <cyan-textfield
-        :label="t('fields.profile.bio')"
-        :value="profile.bio"
-        @blur="bio = $event.target.value"
-      />
-      <cyan-toolbar>
-        <cyan-spacer />
-        <cyan-button
-          noun="save"
-          :label="t('action.save')"
-          :disabled="!changes"
-          @click="save"
+        <cyan-textfield
+          :label="t('fields.profile.nick')"
+          :value="profile.nick"
+          style="margin-bottom: 8px; margin-top: 8px;"
+          @blur="nick = $event.target.value"
         />
-      </cyan-toolbar>
-    </template>
+        <cyan-textfield
+          :label="t('fields.profile.bio')"
+          :value="profile.bio"
+          @blur="bio = $event.target.value"
+        />
+        <cyan-toolbar>
+          <cyan-spacer />
+          <cyan-button
+            noun="save"
+            :label="t('action.save')"
+            :disabled="!changes"
+            @click="save"
+          />
+        </cyan-toolbar>
+      </template>
+    </cyan-card>
   </article>
 </template>
 

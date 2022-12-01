@@ -53,7 +53,8 @@
         
       },
       "appSettings": {
-        "title": "Toiminnot"
+        "title": "Toiminnot",
+        "darkMode": "Tumma/Kirkas teema"
       },
       "profileData": {
         "title": "Profiili",

@@ -23,15 +23,15 @@ onMounted(async () => {
 <template>
   <article
     v-if="profile"
-    class="Column single-cut"
+    class="Column small"
   >
-    <section class="identity">
+    <cyan-card class="identity">
       <img
         class="avatar"
         :src="profile.avatarURL"
       >
       <h3>{{ profile.nick }}</h3>
-      <p class="TypeBody2 lowEmphasis">
+      <p class="TypeBody2">
         {{ profile.bio }}
       </p>
       <cyan-toolbar v-if="account.uid === uid">
@@ -44,7 +44,7 @@ onMounted(async () => {
         />
         <cyan-spacer />
       </cyan-toolbar>
-    </section>
+    </cyan-card>
   </article>
 </template>
 
@@ -60,5 +60,4 @@ onMounted(async () => {
     text-align: center
   p
     text-align: center
-    font-style: italic
 </style>

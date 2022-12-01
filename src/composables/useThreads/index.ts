@@ -44,7 +44,7 @@ function reset () {
   _init = false
 }
 
-export async function fetchAuthorThreads (uid:string, count = 11) {
+export async function fetchAuthorThreads (uid:string, count = 3) {
   await init()
   logDebug('fetchAuthorThreads', uid)
   const threads = await getDocs(
