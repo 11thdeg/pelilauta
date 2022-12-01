@@ -5,9 +5,9 @@ const props = defineProps<{
       width?: number
       height?: number
     }>()
-const w = computed(() => props.width || 320)
-const h = computed(() => props.height || 180)
-const IN_CARD_WIDTH = '100vw - 16px'
+const w = computed(() => props.width || 440)
+const h = computed(() => props.height || 247)
+const IN_CARD_WIDTH = '100vw - 32px'
 const style = computed(() => {
   return `width: min(${IN_CARD_WIDTH}, ${w.value}px);` +
       `height: min( ${IN_CARD_WIDTH} / 3 * 2, ${h.value}px);` //max( calc( 100vw - 36px ), ${w.value} ); height: max( calc ( (100vw - 36px) / 3 * 2, ${h.value} );`

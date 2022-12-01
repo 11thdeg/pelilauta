@@ -39,6 +39,8 @@ const { content } = useContentEntry(props.thread)
     >
       <YoutubePreview
         :video-id="thread.youtubeId"
+        :width="600"
+        style="margin: 12px 0"
       />
     </div>
     <ImageListSection

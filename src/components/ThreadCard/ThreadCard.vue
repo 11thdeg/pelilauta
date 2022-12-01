@@ -12,6 +12,7 @@ import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import { useContentEntry } from '../../composables/useContentEntry'
 import TopicIcon from '../threads/TopicIcon.vue'
+import YoutubePreview from '../content/YoutubePreview.vue'
 
 const props = defineProps<{
   threadkey?: string
@@ -62,7 +63,13 @@ const level = computed(() => {
         {{ thread.title }}
       </router-link>
     </h3>
+    <YoutubePreview
+      v-if="thread.youtubeId"
+      style="margin: 12px -12px"
+      :video-id="thread.youtubeId"
+    />
     <p
+      v-else
       class="TypeBody2"
       :innerHTML="snippet"
     />
