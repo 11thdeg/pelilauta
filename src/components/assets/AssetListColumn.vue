@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { useAssets, assetName, assetDescription, assetLicense } from '../../composables/useSession/useAssets'
 import AssetCard from '../AssetCard.vue/AssetCard.vue'
 import AddAssetButton from './AddAssetButton.vue'
+import AddAssetButtonNew from '../AddAssetButton/AddAssetButton.vue'
 
 const { t } = useI18n()
 const { assets } = useAssets()
@@ -15,6 +16,7 @@ const { assets } = useAssets()
         {{ t('assets.list.title') }}
       </cyan-toolbar-heading>
       <cyan-spacer />
+      <AddAssetButtonNew />
       <AddAssetButton />
     </cyan-toolbar>
     <section class="cardGrid">

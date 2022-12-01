@@ -29,6 +29,7 @@ async function onFileChange (e: Event) {
         @change="onFileChange"
       >
       <cyan-icon
+        dark
         noun="assets"
         xlarge
       />
@@ -46,14 +47,17 @@ label.FileInput
   display: block
   width: 128px
   height: 128px
-  background-color: var(--chroma-secondary-d)
+  background-color: var(--chroma-secondary-f)
   border: none
-  border-radius: 4px
+  border-radius: 8px
     
 input[type="file"]
   display: none
 
 .FileInputImage
-  max-width: 100%
-  max-height: 100%
+  width: 122px
+  height: 122px
+  margin: 3px
+  object-fit: cover
+  border-radius: 7px
 </style>
