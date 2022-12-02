@@ -51,6 +51,7 @@ function save () {
 <template>
   <div class="Column">
     <template v-if="asset.hasOwner(uid)">
+      <h4>{{ t('asset.title') }}</h4>
       <AssetEntryForm
         v-model="asset"
       />

@@ -3,9 +3,14 @@ import { useI18n } from 'vue-i18n'
 import NavButton from '../navigation/NavButton.vue'
 import { useUxState } from '../../composables/useUXState'
 import AccountNavButton from '../actions/AccountNavButton.vue'
+import { useRoute } from 'vue-router'
+import { useSession } from '../../composables/useSession'
 
 const { fabTrayVisible, fieldFocused } = useUxState()
 const t = useI18n().t
+const route = useRoute()
+const { anonymous } = useSession()
+
 </script>
 <template>
   <div
@@ -34,12 +39,13 @@ const t = useI18n().t
       :label="t('sites.title')"
       to="/sites"
     />
-    <NavButton
-      noun="adventurer"
-      :label="t('characters.title')"
-      to="/characters"
-      disabled
-    />
+    <router-link to="/assets">
+      <cyan-navigation-button
+        :disabled="anonymous"
+        noun="assets"
+        :active="route.path === '/assets'"
+      />
+    </router-link>
     <AccountNavButton />
   </nav>
 </template>

@@ -24,7 +24,7 @@ const asset = computed({
 </script>
 
 <template>
-  <div class="AssetEntryForm">
+  <section class="AssetEntryForm fieldset">
     <cyan-textfield
       :value="asset.name"
       :label="t('fields.asset.name')"
@@ -56,12 +56,5 @@ const asset = computed({
       :options="licenses"
       @change="asset.license = $event.target.value"
     />
-  </div>
+  </section>
 </template>
-
-<style lang="sass" scoped>
-.AssetEntryForm
-  display: flex
-  flex-direction: column
-  gap: 8px
-</style>

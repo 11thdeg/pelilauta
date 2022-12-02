@@ -133,6 +133,9 @@
       },
       "cancel": "Peruuta",
       "continue": "Jatka",
+      "copy": {
+        "markdown": "Markdown"
+      },
       "create": "Luo uusi",
       "delete": "Poista",
       "loadMore": "Lataa lisää",
