@@ -19,7 +19,7 @@ onMounted(async () => {
     collection(getFirestore(), Thread.collectionName),
     where('site', '==', props.sitekey),
     orderBy('flowTime', 'asc'),
-    limit(5)
+    limit(21)
   )
 
   // const docs = await getDocs(q)

@@ -8,7 +8,7 @@ const props = defineProps<{
   thread: {
     key?: string,
     title: string,
-    topicid: string,
+    topicid?: string,
     flowTime: number,
     author: string
   }
@@ -20,7 +20,7 @@ const threadkey = computed(() => props.thread.key || '')
 <template>
   <li>
     <router-link :to="`/threads/${threadkey}`">
-      <TopicIcon :slug="thread.topicid" />
+      <TopicIcon :slug="thread.topicid || 'fox'" />
       <div>
         <h4 class="downscaled">
           {{ thread.title }}
