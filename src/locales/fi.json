@@ -137,6 +137,9 @@
       "toLogin": "Kirjaudu sisään",
       "toLoki": "Lokiin",
       "toProfile": "Profiili",
+      "link": {
+        "site": "Lisää sivusto"
+      },
       "login": "Kirjaudu",
       "loginOrRegister": "Kirjaudu / rekisteröidy",
       "move": "Siirrä",

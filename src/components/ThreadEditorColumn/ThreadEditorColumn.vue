@@ -5,7 +5,7 @@ import { marked } from 'marked'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { useFormField } from '../../composables/useFormField'
+import { useFormField, useStringField } from '../../composables/useFormField'
 import { useMeta } from '../../composables/useMeta'
 import { useSession } from '../../composables/useSession'
 import { useSnack } from '../../composables/useSnack'
@@ -19,12 +19,14 @@ import MarkdownSection from '../content/MarkdownSection.vue'
 import YoutubePreview from '../content/YoutubePreview.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import TopicTag from '../threads/TopicTag.vue'
+import SiteSelectionDialogButton from './SiteSelectionDialogButton.vue'
 
 const props = defineProps<{
   thread: {
     key?: string
     title: string
     youtubeId?: string
+    siteid?: string
     images?: string[]
     markdownContent?: string
     topicid?: string
@@ -79,6 +81,8 @@ const contentValid = computed(() => contentChanged.value ? content.value.toStrin
 
 const { computed: topic, dirty: topicChanged } = useFormField(props.thread.topicid || 'Yleinen')
 
+const { computed: site, dirty: siteChanged } = useStringField(props.thread.siteid || '')
+
 const enableSave = computed(() => {
   // we want to have at least 3 characters in the title
   if (title.value.toString().length < 3) return false
@@ -93,6 +97,7 @@ const enableSave = computed(() => {
   if (imagesChanged.value) return true
   if (youtubeIdChanged.value) return true
   if (topicChanged.value) return true
+  if (siteChanged.value) return true
 
   return false
 })
@@ -118,6 +123,9 @@ async function createThread () {
   }
   if ((images.value as string[]).length > 0) {
     thread.images = images.value as string[]
+  }
+  if (site.value.toString().length > 0) {
+    thread.siteid = site.value.toString()
   }
 
   thread.addOwner(uid.value)
@@ -153,6 +161,7 @@ async function updateThread () {
   if (imagesChanged.value) thread.images = images.value as string[]
   if (youtubeIdChanged.value) thread.youtubeId = youtubeId.value.toString()
   if (topicChanged.value) thread.topicid = topic.value.toString()
+  if (siteChanged.value) thread.siteid = site.value.toString()
 
   try {
     await updateDoc(
@@ -246,6 +255,7 @@ const author = computed(() => props.thread.author || uid.value)
             :label="t('fields.thread.topic')"
             @change="topic = $event.target.value"
           />
+          <SiteSelectionDialogButton v-model="site" />
           <cyan-spacer />
           <cyan-button
             :label="t('action.preview')"
