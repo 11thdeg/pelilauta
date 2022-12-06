@@ -4,6 +4,10 @@ import { useRoute } from 'vue-router'
 import { useSession } from '../../composables/useSession'
 import { useNotifications } from '../../composables/useSession/useNotifications'
 
+const props = defineProps<{
+ label?: string
+}>()
+
 const route = useRoute()
 const { anonymous } = useSession()
 
@@ -16,6 +20,9 @@ const notification = computed(() => {
   }
   return count > 0 ? newCount.value : undefined
 })
+
+const buttonLabel = computed(() => props.label || undefined)
+
 </script>
 
 <template>
@@ -23,6 +30,7 @@ const notification = computed(() => {
     to="/inbox"
   >
     <cyan-navigation-button
+      :label="buttonLabel"
       :disabled="anonymous"
       noun="send"
       :active="route.path === '/inbox'"

@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useSession } from '../../composables/useSession'
+import NotificationNavigationButton from '../NotificationNavigationButton/NotificationNavigationButton.vue'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -20,6 +21,7 @@ const { admin, anonymous } = useSession()
         :active="route.path === '/'"
       />
     </router-link>
+    <NotificationNavigationButton :label="t('inbox.title')" />
     <router-link to="/streams">
       <cyan-navigation-button
         noun="discussion"
