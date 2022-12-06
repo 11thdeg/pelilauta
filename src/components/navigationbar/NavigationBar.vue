@@ -5,6 +5,7 @@ import { useUxState } from '../../composables/useUXState'
 import AccountNavButton from '../actions/AccountNavButton.vue'
 import { useRoute } from 'vue-router'
 import { useSession } from '../../composables/useSession'
+import NotificationNavigationButton from '../NotificationNavigationButton/NotificationNavigationButton.vue'
 
 const { fabTrayVisible, fieldFocused } = useUxState()
 const t = useI18n().t
@@ -30,11 +31,6 @@ const { anonymous } = useSession()
       to="/"
     />
     <NavButton
-      noun="discussion"
-      :label="t('streams.title')"
-      to="/streams"
-    />
-    <NavButton
       noun="mekanismi"
       :label="t('sites.title')"
       to="/sites"
@@ -46,6 +42,7 @@ const { anonymous } = useSession()
         :active="route.path === '/assets'"
       />
     </router-link>
+    <NotificationNavigationButton />
     <AccountNavButton />
   </nav>
 </template>
@@ -63,6 +60,7 @@ const { anonymous } = useSession()
   box-sizing: border-box
   background: linear-gradient(-42deg,var(--chroma-secondary-b),var(--chroma-secondary-d))
   z-index: var(--pelilauta-z-index-navigation)
+  align-items: center
   &.withFabs
     clip-path: polygon(0 0, calc(100% - 76px) 0, calc(100% - 64px) 8px, calc(100% - 24px) 8px, calc(100% - 12px) 0, 100% 0, 100% 100%, 0 100%)
 #NavigationBarShadow
