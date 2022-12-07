@@ -35,7 +35,7 @@ async function deletePage () {
       props.pagekey
     )
   )
-  pushSnack('snack.page.delete.success')
+  pushSnack('snacks.page.deleted')
   router.push(`/sites/${props.sitekey}`)
 }
 </script>

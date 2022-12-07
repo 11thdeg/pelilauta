@@ -101,7 +101,7 @@ async function savePage () {
     routekey = p.key
   }
 
-  pushSnack(t('page.saved'))
+  pushSnack(t('snacks.page.updated'))
   router.push('/sites/' + sitekey.value + '/pages/' + routekey)
 }
 
