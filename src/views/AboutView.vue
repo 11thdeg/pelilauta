@@ -5,6 +5,7 @@ import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import MarkdownSection from '../components/content/MarkdownSection.vue'
 import AppBar from '../components/navigation/AppBar.vue'
+import SiteMetaDataColumn from '../components/SiteMetaDataColumn.vue'
 import { fetchPage } from '../composables/usePages'
 
 const { t } = useI18n()
@@ -22,9 +23,9 @@ onMounted(async () => {
     <AppBar />
     <main
       v-if="page.name"
-      class="singleColumnLayout"
+      class="bookLayout"
     >
-      <article class="Column">
+      <article class="large Column">
         <h1>{{ page.name }}</h1>
         <MarkdownSection 
           v-if="page.markdownContent"
@@ -35,6 +36,7 @@ onMounted(async () => {
           :innerHTML="page.htmlContent"
         />
       </article>
+      <SiteMetaDataColumn />
     </main>
   </main>
 </template>

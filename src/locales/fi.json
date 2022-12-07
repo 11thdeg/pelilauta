@@ -36,6 +36,10 @@
         "description": "Tekstiä voi muotoilla käyttäen alla esiteltyjä Markdown merkintöjä. Voit tarkistaa tuloksen esikatselunäkymästä.",
         "headings": "Otsikot",
         "text": "Tekstin muotoilu"
+      },
+      "meta": {
+        "release": "Versio",
+        "source": "Koodi"
       }
     },
     "assetView": {
