@@ -20,7 +20,7 @@ async function doLogout () {
         <h4 class="downscaled">
           {{ t('settings.appSettings.darkMode') }}
         </h4>
-        <cyan-lightmode-toggle />
+        <!--cyan-lightmode-toggle /-->
       </cyan-toolbar>
       <cyan-toolbar>
         <cyan-spacer />

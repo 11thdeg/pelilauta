@@ -43,7 +43,7 @@ const { navTrayVisible } = useUxState()
         {{ title }}
       </h2>
       <cyan-spacer />
-      <cyan-lightmode-toggle class="hideOnMobile" />
+      <!--cyan-lightmode-toggle class="hideOnMobile" /-->
       <InboxButton />
       <ProfileButton />
     </cyan-top-app-bar>
