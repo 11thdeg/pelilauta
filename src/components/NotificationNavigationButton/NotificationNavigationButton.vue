@@ -26,15 +26,22 @@ const buttonLabel = computed(() => props.label || undefined)
 </script>
 
 <template>
-  <router-link
-    to="/inbox"
+  <transition
+    mode="out-in"
+    enter-active-class="animate__animated animate__fadeIn"
+    leave-active-class="animate__animated animate__zoomOut"
+    :duration="330"
   >
-    <cyan-navigation-button
-      :label="buttonLabel"
-      :disabled="anonymous"
-      noun="send"
-      :active="route.path === '/inbox'"
-      :notification="notification"
-    />
-  </router-link>
+    <router-link
+      v-if="!anonymous"
+      to="/inbox"
+    >
+      <cyan-navigation-button
+        :label="buttonLabel"
+        noun="send"
+        :active="route.path === '/inbox'"
+        :notification="notification"
+      />
+    </router-link>
+  </transition>
 </template>

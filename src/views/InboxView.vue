@@ -2,8 +2,8 @@
 import { useI18n } from 'vue-i18n'
 import TopBar from '../components/navigation/TopBar.vue'
 import { useSession } from '../composables/useSession'
-import ForbiddenView from '../components/ui/ForbiddenView.vue'
 import NotificationsList from '../components/inbox/NotificationsList.vue'
+import WithPermission from '../components/ui/WithPermission.vue'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
@@ -13,8 +13,9 @@ const { anonymous } = useSession()
   <div class="InboxView">
     <TopBar :title="t('inbox.title')" />
     <main class="singleColumnLayout">
-      <ForbiddenView v-if="anonymous" />
-      <NotificationsList v-else />
+      <WithPermission :forbidden="anonymous">
+        <NotificationsList />
+      </WithPermission>
     </main>
   </div>
 </template>
