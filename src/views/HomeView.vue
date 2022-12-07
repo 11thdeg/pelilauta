@@ -28,7 +28,7 @@ onMounted(() => {
       <MekanismiAd />
       <LokiCard />
     </div>
-    <article
+    <!--article
       class="Column small hideOnMobile"
       style="display: none;"
     >
@@ -55,7 +55,7 @@ onMounted(() => {
           sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
         />
       </cyan-card>
-    </article>
+    </article-->
   </main>
   <FabTray v-if="!anonymous">
     <router-link to="/add/thread">

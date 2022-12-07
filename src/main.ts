@@ -15,6 +15,8 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 import { enableIndexedDbPersistence, getFirestore } from 'firebase/firestore'
 import { getAnalytics } from 'firebase/analytics'
 import { login } from './composables/useSession'
+// import { testFirestore } from './testFirestore'
+// import { testStorage } from './testStorage'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -52,3 +54,9 @@ app.mount('#app')
 document.body.classList.add('cyan--themed')
 // Force dark mode, as light is still experimental
 document.body.classList.add('cyan--mode--dark')
+
+// Test firebase storage connection
+// testStorage()
+
+// Test firestore connection
+// testFirestore()
