@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@11thdeg/cyan": "^0.28.2",
-    "@11thdeg/skaldstore": "^0.3.6",
+    "@11thdeg/skaldstore": "^0.3.7",
     "@vueuse/core": "^9.6.0",
     "animate.css": "^4.1.1",
     "downscale": "^1.0.6",

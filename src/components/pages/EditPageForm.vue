@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Page, Site } from '@11thdeg/skaldstore'
 import { addDoc, collection, doc, DocumentData, getFirestore, updateDoc } from '@firebase/firestore'
+import Europa from 'europa'
 import { marked } from 'marked'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -76,6 +77,16 @@ async function savePage () {
 
   const p = page.value
   const u = uid.value
+
+  // Save revision, if any
+  if (p.updatedAt) {
+    if (!p.markdownContent) {
+      logDebug('converting html to markdown, legacy page')
+      const e = new Europa()
+      p.markdownContent = e.toMarkdown(p.htmlContent)
+    }
+    p.saveRevision()
+  }
 
   // Fix data after update
   if (!p.hasOwner(u)) p.addOwner(u)
