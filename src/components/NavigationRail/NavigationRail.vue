@@ -2,12 +2,13 @@
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useSession } from '../../composables/useSession'
+import AssetsNavigationButton from '../AssetsNavigationButton/AssetsNavigationButton.vue'
 import NotificationNavigationButton from '../NotificationNavigationButton/NotificationNavigationButton.vue'
 
 const { t } = useI18n()
 const route = useRoute()
 
-const { admin, anonymous } = useSession()
+const { admin } = useSession()
 </script>
 
 <template>
@@ -37,14 +38,7 @@ const { admin, anonymous } = useSession()
         :active="route.path.startsWith('/sites')"
       />
     </router-link>
-    <router-link to="/assets">
-      <cyan-navigation-button
-        v-if="!anonymous"
-        noun="assets"
-        :label="t('assets.title')"
-        :active="route.path === '/assets'"
-      />
-    </router-link>
+    <AssetsNavigationButton :label="t('assets.title')" />
     <cyan-spacer />
     <router-link to="/admin/settings">
       <cyan-navigation-button

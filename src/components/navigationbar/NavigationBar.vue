@@ -1,16 +1,13 @@
 <script lang="ts" setup>
-import { useI18n } from 'vue-i18n'
-import NavButton from '../navigation/NavButton.vue'
 import { useUxState } from '../../composables/useUXState'
 import AccountNavButton from '../actions/AccountNavButton.vue'
-import { useRoute } from 'vue-router'
-import { useSession } from '../../composables/useSession'
 import NotificationNavigationButton from '../NotificationNavigationButton/NotificationNavigationButton.vue'
+import AssetsNavigationButton from '../AssetsNavigationButton/AssetsNavigationButton.vue'
+import { useRoute } from 'vue-router'
 
 const { fabTrayVisible, fieldFocused } = useUxState()
-const t = useI18n().t
+
 const route = useRoute()
-const { anonymous } = useSession()
 
 </script>
 <template>
@@ -25,23 +22,17 @@ const { anonymous } = useSession()
     class="onlyOnMobile"
     :class="{ withFabs: fabTrayVisible }"
   >
-    <NavButton
+    <cyan-navigation-button
       noun="fox"
-      label="Pelilauta"
       to="/"
+      :active="route.path === '/'"
     />
-    <NavButton
+    <cyan-navigation-button
       noun="mekanismi"
-      :label="t('sites.title')"
       to="/sites"
+      :active="route.path.startsWith('/sites')"
     />
-    <router-link to="/assets">
-      <cyan-navigation-button
-        :disabled="anonymous"
-        noun="assets"
-        :active="route.path === '/assets'"
-      />
-    </router-link>
+    <AssetsNavigationButton />
     <NotificationNavigationButton />
     <AccountNavButton />
   </nav>
