@@ -32,6 +32,7 @@ export const routes = [
   { path: '/sites/:sitekey/pages/:pagekey/move', component: () => import('./pages/MovePageView.vue'), props: true },
   { path: '/sites/:sitekey/pages/:pagekey', component: () => import('./pages/PageView.vue'), props: true },
   { path: '/sites/:sitekey/pages/:pagekey/delete', component: () => import('./sites/DeletePageView.vue'), props: true },
+  { path: '/sites/:sitekey/pages/:pagekey/revisions', component: () => import('./pages/PageHistoryView.vue'), props: true },
   { path: '/add/site', component: () => import('./sites/AddSiteView.vue') },
   { path: '/add/thread', component: () => import('./threads/CreateThreadView.vue') },
   { path: '/admin/settings', component: () => import('./admin/SiteSettings.vue') },

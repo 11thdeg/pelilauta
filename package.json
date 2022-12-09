@@ -14,6 +14,7 @@
     "@11thdeg/skaldstore": "^0.3.7",
     "@vueuse/core": "^9.6.0",
     "animate.css": "^4.1.1",
+    "diff": "^5.1.0",
     "downscale": "^1.0.6",
     "europa": "^6.0.0",
     "firebase": "^9.14.0",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^6.0.1",
+    "@types/diff": "^5.0.2",
     "@types/downscale": "^1.0.1",
     "@types/lodash": "^4.14.191",
     "@types/luxon": "^3.1.0",
