@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import * as Diff from 'diff'
-import { marked } from 'marked'
 import { watch, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FlowTimeCaption from '../../components/content/FlowTimeCaption.vue'

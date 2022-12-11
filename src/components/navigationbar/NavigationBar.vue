@@ -22,16 +22,18 @@ const route = useRoute()
     class="onlyOnMobile"
     :class="{ withFabs: fabTrayVisible }"
   >
-    <cyan-navigation-button
-      noun="fox"
-      to="/"
-      :active="route.path === '/'"
-    />
-    <cyan-navigation-button
-      noun="mekanismi"
-      to="/sites"
-      :active="route.path.startsWith('/sites')"
-    />
+    <router-link to="/">
+      <cyan-navigation-button
+        noun="fox"
+        :active="route.path === '/'"
+      />
+    </router-link>
+    <router-link to="/sites">
+      <cyan-navigation-button
+        noun="mekanismi"
+        :active="route.path.startsWith('/sites')"
+      />
+    </router-link>
     <AssetsNavigationButton />
     <NotificationNavigationButton />
     <AccountNavButton />
