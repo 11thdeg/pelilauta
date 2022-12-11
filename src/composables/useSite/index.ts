@@ -4,7 +4,8 @@ import { doc, DocumentData, getFirestore, onSnapshot, updateDoc } from 'firebase
 import { computed, ref, Ref } from 'vue'
 import { addStore, useSession } from '../useSession'
 import { patchSite } from '../useSites'
-import { subscribePages } from '../usePages'
+import { subscribePages, usePages } from '../usePages'
+import { logDebug } from '../../utils/logHelpers'
 
 let subscribedSitekey = ''
 let unsubscribeSite:CallableFunction|undefined
@@ -85,6 +86,9 @@ const chapterOptions = computed(() => {
 export function useSite (id?: string) {
   if (id && site.value?.key !== id) {
     subscribeSite(id)
+    // Load page index for this site
+    logDebug('useSite', 'force-loading pages for', id)
+    usePages(id)
   }
   return {
     site: computed(() => site.value),

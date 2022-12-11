@@ -1,24 +1,13 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { usePages } from '../../../composables/usePages'
-import { useSession } from '../../../composables/useSession'
 import { useSite } from '../../../composables/useSite'
+import PageIndex from '../../PageIndex.vue'
 import ShareButton from '../../ShareButton/ShareButton.vue'
 import SiteTrayHeader from './SiteTrayHeader.vue'
 
 const { t } = useI18n()
-const { site, chapters, loading } = useSite()
-const { uid } = useSession()
-const { pages } = usePages()
+const { key, loading, canEdit, site } = useSite()
 
-function inChapter(c: string) {
-  return pages.value.filter(p => p.category === c)
-}
-const unCategorized = computed(() => {
-  return pages.value.filter(p => (!p.category || !chapters.value.find(c => c.slug === p.category)))
-})
-const key = computed(() => site.value?.key || '')
 </script>
 
 <template>
@@ -35,13 +24,13 @@ const key = computed(() => site.value?.key || '')
         <ShareButton icon />
         <router-link :to="`/sites/${key}/keeper`">
           <cyan-button
-            v-if="site.hasOwner(uid)"
+            v-if="canEdit"
             text
             noun="adventurer"
           />
         </router-link>
         <cyan-button
-          v-if="site.hasOwner(uid)"
+          v-if="canEdit"
           text
           noun="tools"
           :disabled="$route.fullPath === `/sites/${key}/edit`"
@@ -70,45 +59,7 @@ const key = computed(() => site.value?.key || '')
         </div>
       </cyan-nav-section>
 
-      <cyan-nav-section
-        v-for="chapter in chapters"
-        :key="chapter.slug"
-        :label="chapter.name"
-        folds
-      >
-        <div class="linkList">
-          <router-link
-            v-for="page in inChapter(chapter.slug)"
-            :key="page.key"
-            :to="`/sites/${site.key}/pages/${page.key}`"
-          >
-            <cyan-nav-button
-              compact
-            >
-              - {{ page.name }}
-            </cyan-nav-button>
-          </router-link>
-        </div>
-      </cyan-nav-section>
-      <cyan-nav-section
-        v-if="unCategorized.length > 0"
-        :label="t('site.tray.unCategorizedPagesSection')"
-        folds
-      >
-        <div class="linkList">
-          <router-link
-            v-for="page in unCategorized"
-            :key="page.key"
-            :to="`/sites/${site.key}/pages/${page.key}`"
-          >
-            <cyan-nav-button
-              compact
-            >
-              - {{ page.name }} 
-            </cyan-nav-button>
-          </router-link>
-        </div>
-      </cyan-nav-section>
+      <PageIndex />
     </template>
   </div>
 </template>
