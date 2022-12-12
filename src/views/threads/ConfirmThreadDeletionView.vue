@@ -3,7 +3,6 @@ import TopBar from '../../components/navigation/TopBar.vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { computed, ref } from 'vue'
-import ForbiddenView from '../../components/ui/ForbiddenView.vue'
 import { useThread } from '../../composables/useThread'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import { logEvent } from '../../utils/logHelpers'
@@ -12,20 +11,22 @@ import { Thread } from '@11thdeg/skaldstore'
 import { useRouter } from 'vue-router'
 import { useSnack } from '../../composables/useSnack'
 import { forgetThread } from '../../composables/useThreads'
+import WithLoader from '../../components/ui/WithLoader.vue'
+import WithPermission from '../../components/ui/WithPermission.vue'
+import DeleteConfirmForm from '../../components/DeleteConfirmForm/DeleteConfirmForm.vue'
 
 const props = defineProps<{
   threadkey: string
 }>()
 
-const { thread, notFound } = useThread(props.threadkey)
+const { thread, notFound, loading } = useThread(props.threadkey)
 const router = useRouter()
 const { pushSnack } = useSnack()
 const { t } = useI18n()
 const { admin, uid } = useSession()
 const canDelete = computed(() => thread.value && thread.value.hasOwner(uid.value || '') || admin.value)
 
-const confirm = ref('')
-const confirmed = computed(() => confirm.value === 'DELETE')
+const confirmed = ref(false)
 
 async function deleteThread () {
   if (!confirmed.value) return
@@ -41,29 +42,33 @@ async function deleteThread () {
 
 <template>
   <div class="ConfirmThreadDeletionView">
-    <ForbiddenView v-if="!canDelete" />
-    <template v-else>
-      <EmptyCollection
-        v-if="notFound"
-        noun="discussion"
-      />
-      <template v-else>
-        <TopBar :title="t('action.delete')" />
-        <main class="singleColumnLayout">
-          <p>{{ t('thread.delete.warning') }}</p>
-          <cyan-textfield
-            :value="confirm"
-            :label="t('action.confirm')"
-            @change="confirm = $event.target.value"
-          />
-          <cyan-button
-            :label="t('action.delete')"
-            noun="delete"
-            :disabled="!confirmed"
-            @click="deleteThread"
-          />
-        </main>
-      </template>
-    </template>
+    <TopBar :title="t('action.delete')" />
+    <main class="bookLayout">
+      <WithLoader :suspended="loading">
+        <EmptyCollection
+          v-if="notFound"
+          noun="discussion"
+        />
+        <WithPermission :forbidden="!canDelete">
+          <article class="Column">
+            <DeleteConfirmForm
+              v-model="confirmed"
+              :title="t('action.confirmDelete')"
+              confirm-text="Poista"
+              :message="t('thread.delete.warning') "
+            />
+            <cyan-toolbar>
+              <cyan-spacer />
+              <cyan-button
+                :label="t('action.delete')"
+                noun="delete"
+                :disabled="!confirmed"
+                @click="deleteThread"
+              />
+            </cyan-toolbar>
+          </article>
+        </WithPermission>
+      </WithLoader>
+    </main>
   </div>
 </template>
