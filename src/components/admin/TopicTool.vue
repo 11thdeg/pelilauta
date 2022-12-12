@@ -44,43 +44,45 @@ function saveTopic(s: StreamData) {
 </script>
 
 <template>
-  <div class="Column card rise-a">
-    <h3>{{ t('admin.topictool.title') }}</h3>
-    <p class="TypeBody2">
-      {{ t('admin.topictool.info') }}
-    </p>
-    <div
-      v-for="stream in streams"
-      :key="stream.slug"
-      class="sortableTable"
-    >
-      <cyan-icon
-        :noun="stream.icon"
-        small
-      />
-      <p>
-        {{ stream.name }} ({{ stream.count }})
+  <article class="Column">
+    <cyan-card elevation="1">
+      <h3>{{ t('admin.topictool.title') }}</h3>
+      <p class="TypeBody2">
+        {{ t('admin.topictool.info') }}
       </p>
-      <cyan-button
-        noun="chevron-up"
-        text
-        :disabled="stream.order === 0"
-        @click="moveUp"
-      />
-      <cyan-button
-        noun="edit"
-        text
-        @click="activeTopic = stream"
-      />
-    </div>
-    <cyan-toolbar>
-      <cyan-spacer />
-      <TopicEditor
-        :topic="activeTopic"
-        @save="saveTopic($event as StreamData)"
-      />
-    </cyan-toolbar>
-  </div>
+      <div
+        v-for="stream, index in streams"
+        :key="stream.slug"
+        class="sortableTable"
+      >
+        <cyan-icon
+          :noun="stream.icon"
+          small
+        />
+        <p>
+          {{ stream.name }} ({{ stream.count }})
+        </p>
+        <cyan-button
+          noun="chevron-up"
+          text
+          :disabled="stream.order === 0"
+          @click="moveUp(index)"
+        />
+        <cyan-button
+          noun="edit"
+          text
+          @click="activeTopic = stream"
+        />
+      </div>
+      <cyan-toolbar>
+        <cyan-spacer />
+        <TopicEditor
+          :topic="activeTopic"
+          @save="saveTopic($event as StreamData)"
+        />
+      </cyan-toolbar>
+    </cyan-card>
+  </article>
 </template>
 
 <style lang="sass">

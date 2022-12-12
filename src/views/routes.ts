@@ -5,6 +5,7 @@ import LoginView from './LoginView.vue'
 export const routes = [
   { path: '/', component: HomeView },
   { path: '/about', component: AboutView }, // -->
+  { path: '/admin/settings', component: () => import('./admin/SiteSettings.vue') },
   { path: '/admin/testing-tools', component: () => import('./admin/TestingTools.vue') },
   { path: '/admin/users', component: () => import('./admin/AdminUsersView.vue') },
   { path: '/inbox', component: () => import('./InboxView.vue') },
@@ -34,6 +35,5 @@ export const routes = [
   { path: '/sites/:sitekey/pages/:pagekey/delete', component: () => import('./sites/DeletePageView.vue'), props: true },
   { path: '/sites/:sitekey/pages/:pagekey/revisions', component: () => import('./pages/PageHistoryView.vue'), props: true },
   { path: '/add/site', component: () => import('./sites/AddSiteView.vue') },
-  { path: '/add/thread', component: () => import('./threads/CreateThreadView.vue') },
-  { path: '/admin/settings', component: () => import('./admin/SiteSettings.vue') },
+  { path: '/add/thread', component: () => import('./threads/CreateThreadView.vue') }
 ]
