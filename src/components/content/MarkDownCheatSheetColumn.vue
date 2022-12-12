@@ -6,7 +6,10 @@ const { t } = useI18n()
 
 <template>
   <article class="Column small">
-    <div class="card chroma-box-a">
+    <cyan-card
+      elevation="1"
+      class="chroma-box-a"
+    >
       <h4>{{ t('app.markdowncheatsheet.title') }}</h4>
       <p class="TypeBody2 lowEmphasis">
         {{ t('app.markdowncheatsheet.description') }}
@@ -25,6 +28,6 @@ const { t } = useI18n()
       <p><cyan-code>```Code Block```</cyan-code></p>
       <p><cyan-code>![Image](https://a/image.png)</cyan-code></p>
       <p><cyan-code>[Link](https://example.com)</cyan-code></p>
-    </div>
+    </cyan-card>
   </article>
 </template>

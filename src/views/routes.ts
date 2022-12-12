@@ -7,14 +7,14 @@ export const routes = [
   { path: '/about', component: AboutView }, 
   { path: '/admin/settings', component: () => import('./admin/SiteSettings.vue') },
   { path: '/admin/testing-tools', component: () => import('./admin/TestingTools.vue') },
-  { path: '/admin/users', component: () => import('./admin/AdminUsersView.vue') }, // -->
+  { path: '/admin/users', component: () => import('./admin/AdminUsersView.vue') }, 
   { path: '/inbox', component: () => import('./InboxView.vue') },
   { path: '/login', component: LoginView },
-  { path: '/login/:backroute', component: LoginView, props: true },
+  { path: '/login/:backroute', component: LoginView, props: true }, 
   { path: '/settings', component: () => import('./SettingsView.vue') },
   { path: '/assets', component: () => import('./AssetsView.vue') },
   { path: '/assets/:assetkey', component: () => import('./AssetView.vue'), props: true },
-  { path: '/profiles/:uid', component: () => import('./ProfileView.vue'), props: true },
+  { path: '/profiles/:uid', component: () => import('./ProfileView.vue'), props: true }, // -->
   { path: '/threads/:threadkey', component: () => import('./threads/ThreadView.vue'), props: true },
   { path: '/threads/:threadkey/edit', component: () => import('./threads/EditThreadView.vue'), props: true },
   { path: '/threads/:threadkey/replies/:replykey', component: () => import('./threads/ThreadView.vue'), props: true },
