@@ -52,6 +52,7 @@ app.mount('#app')
 
 // Add Cyan/Charna Theming to body
 document.body.classList.add('cyan--themed')
+document.body.classList.add('cyan')
 // Force dark mode, as light is still experimental
 document.body.classList.add('cyan--mode--dark')
 
