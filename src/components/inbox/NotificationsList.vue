@@ -9,24 +9,19 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="NotificationsList Column">
+  <article class="NotificationsList Column">
     <EmptyCollection
       v-if="notifications.length === 0"
       noun="discussion"
       :title="t('inbox.empty.title')"
       :message="t('inbox.empty.message')"
     />
-    <NotificationListItem
-      v-for="notification in notifications"
-      :key="notification.key"
-      :notification="notification"
-    />
-  </div>
+    <section class="flex flex-column">
+      <NotificationListItem
+        v-for="notification in notifications"
+        :key="notification.key"
+        :notification="notification"
+      />
+    </section>
+  </article>
 </template>
-
-<style scoped lang="sass">
-.NotificationsList
-  display: flex
-  flex-direction: column
-  gap: 8px
-</style>

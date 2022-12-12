@@ -4,14 +4,13 @@ import LoginView from './LoginView.vue'
 
 export const routes = [
   { path: '/', component: HomeView },
-  { path: '/about', component: AboutView }, // -->
+  { path: '/about', component: AboutView }, 
   { path: '/admin/settings', component: () => import('./admin/SiteSettings.vue') },
   { path: '/admin/testing-tools', component: () => import('./admin/TestingTools.vue') },
-  { path: '/admin/users', component: () => import('./admin/AdminUsersView.vue') },
+  { path: '/admin/users', component: () => import('./admin/AdminUsersView.vue') }, // -->
   { path: '/inbox', component: () => import('./InboxView.vue') },
   { path: '/login', component: LoginView },
   { path: '/login/:backroute', component: LoginView, props: true },
-  { path: '/characters', component: HomeView },
   { path: '/settings', component: () => import('./SettingsView.vue') },
   { path: '/assets', component: () => import('./AssetsView.vue') },
   { path: '/assets/:assetkey', component: () => import('./AssetView.vue'), props: true },
