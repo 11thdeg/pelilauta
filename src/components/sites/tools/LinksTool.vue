@@ -45,11 +45,11 @@ function addLink(l: SiteLink) {
 
 </script>
 <template>
-  <div
+  <article
     v-if="site"
     class="Column"
   >
-    <div class="card rise-a">
+    <cyan-card>
       <h3>{{ t('site.tools.links.title') }}</h3>
       <p class="TypeCaption lowEmphasis">
         {{ t('site.tools.links.info') }}
@@ -87,8 +87,8 @@ function addLink(l: SiteLink) {
         :link="activeLink"
         @save="addLink($event)"
       />
-    </div> 
-  </div>
+    </cyan-card>
+  </article>
 </template>
 
 <style lang="sass" scoped>

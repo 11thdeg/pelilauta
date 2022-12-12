@@ -51,36 +51,38 @@ function addPlayer (e: string) {
 </script>
 
 <template>
-  <div class="card rise-a Column">
-    <h3>{{ t('site.tools.players.title') }}</h3>
+  <article class="Column">
+    <cyan-card elevation="1">
+      <h3>{{ t('site.tools.players.title') }}</h3>
 
-    <p class="TypeBody2 lowEmphasis">
-      {{ t('site.tools.players.info') }}
-    </p>
+      <p class="TypeBody2 lowEmphasis">
+        {{ t('site.tools.players.info') }}
+      </p>
 
-    <section class="currentPlayers">
-      <ProfileListItem
-        v-for="player in players"
-        :key="player"
-        :class="{'me': uid === player}"
-        :uid="player"
-      >
-        <cyan-button
-          :disabled="uid === player"
-          text
-          noun="trashcan"
-          @click="removePlayer(player)"
-        />
-      </ProfileListItem>
-    </section>
+      <section class="currentPlayers">
+        <ProfileListItem
+          v-for="player in players"
+          :key="player"
+          :class="{'me': uid === player}"
+          :uid="player"
+        >
+          <cyan-button
+            :disabled="uid === player"
+            text
+            noun="trashcan"
+            @click="removePlayer(player)"
+          />
+        </ProfileListItem>
+      </section>
 
-    <hr>
+      <hr>
 
-    <AccountSelect
-      :exclude="players"
-      @add-account="addPlayer($event)"
-    />
-  </div>
+      <AccountSelect
+        :exclude="players"
+        @add-account="addPlayer($event)"
+      />
+    </cyan-card>
+  </article>
 </template>
 
 <style lang="sass">

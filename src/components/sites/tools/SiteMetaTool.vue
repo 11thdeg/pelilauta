@@ -27,8 +27,8 @@ async function setHomePage(pageKey: string) {
 </script>
 
 <template>
-  <div class="Column">
-    <div class="card rise-a">
+  <article class="Column">
+    <cyan-card elevation="0">
       <h3>{{ t('site.tools.meta.title') }}</h3>
       <p class="TypeBody2 lowEmphasis">
         {{ t('site.tools.meta.info') }}
@@ -39,8 +39,6 @@ async function setHomePage(pageKey: string) {
         :value="chosen"
         @change="setHomePage($event.target.value)"
       />
-
-      {{ chosen }}
-    </div>
-  </div>
+    </cyan-card>
+  </article>
 </template>

@@ -46,10 +46,8 @@ function drop(index: number) {
 </script>
 
 <template>
-  <div class="Column">
-    <div
-      class="card rise-a"
-    >
+  <article class="Column">
+    <cyan-card>
       <h3>
         {{ t('site.tools.chapters.title') }}
       </h3>
@@ -85,8 +83,8 @@ function drop(index: number) {
         :chapter="activeChapter"
         @save="save($event)"
       />
-    </div>
-  </div>
+    </cyan-card>
+  </article>
 </template>
 
 <style lang="sass" scoped>
