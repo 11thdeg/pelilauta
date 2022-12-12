@@ -9,7 +9,7 @@ const { anonymous } = useSession()
 <template>
   <cyan-card
     elevation="1"
-    class="MekanismiAd chroma-box-a"
+    class="MekanismiAd chroma-box-b"
     cover="/proprietary/images/wootha-public-domain-talk-to-me.jpeg"
   >
     <cyan-icon
