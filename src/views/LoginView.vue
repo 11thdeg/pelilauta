@@ -19,10 +19,15 @@ const to = computed(() => {
 <template>
   <TopBar :title="t('login.title')" />
   <main
+    id="LoginView"
     class="bookLayout"
-    style="margin-top: 24px"
   >
     <EmailLoginForm :to="to" />
     <LoginPanel :to="to" />
   </main>
 </template>
+
+<style lang="sass">
+#LoginView
+  padding-top: var(--cn-page-grid)
+</style>

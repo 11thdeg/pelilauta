@@ -76,40 +76,42 @@ const sendLinkToEmail = async () => {
 </script>
 
 <template>
-  <div
+  <article
     id="emailLoginForm"
-    class="Column card"
-    style="border: solid 1px var(--chroma-secondary-c)"
+    class="Column"
   >
-    <div
-      v-if="verify"
-      class="verifyWarning"
-    >
-      {{ t('login.verifyEmailLoginMessage') }}
-    </div>
-
-    <template
-      v-if="!verify"
-    >
-      <h3>
-        {{ t('login.emailLoginForm.title') }}
-      </h3>
-      <p class="TypeBody2">
-        {{ t('login.emailLoginForm.info') }}
-      </p>
-      <cyan-textfield
-        :value="emailAdress"
-        :label="t('login.emailLoginForm.emailFieldLabel')"
-        @change="emailAdress = $event.target.value"
-      />
-      <cyan-toolbar>
-        <cyan-spacer />
-        <cyan-button
-          :disabled="!emailAdress"
-          :label="t('login.withEmail')"
-          @click="sendLinkToEmail"
-        />
-      </cyan-toolbar>
-    </template>
-  </div>
+    <cyan-card>
+      <div
+        v-if="verify"
+        class="verifyWarning"
+      >
+        {{ t('login.verifyEmailLoginMessage') }}
+      </div>
+      <template
+        v-if="!verify"
+      >
+        <h3>
+          {{ t('login.emailLoginForm.title') }}
+        </h3>
+        <p class="TypeBody2">
+          {{ t('login.emailLoginForm.info') }}
+        </p>
+        <from class="fieldset">
+          <cyan-textfield
+            :value="emailAdress"
+            :label="t('login.emailLoginForm.emailFieldLabel')"
+            @change="emailAdress = $event.target.value"
+          />
+          <cyan-toolbar>
+            <cyan-spacer />
+            <cyan-button
+              :disabled="!emailAdress"
+              :label="t('login.withEmail')"
+              @click="sendLinkToEmail"
+            />
+          </cyan-toolbar>
+        </from>
+      </template>
+    </cyan-card>
+  </article>
 </template>
