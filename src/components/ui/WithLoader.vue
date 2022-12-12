@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
+  small?: boolean
   suspended: boolean
 }>()
 </script>
@@ -7,7 +8,8 @@ const props = defineProps<{
 <template>
   <cyan-loader
     v-if="props.suspended"
-    large
+    :large="!props.small"
+    style="margin: 0 auto"
   />
   <template v-else>
     <slot />

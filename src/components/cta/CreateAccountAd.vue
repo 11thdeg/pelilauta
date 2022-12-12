@@ -6,9 +6,10 @@ const { anonymous } = useSession()
 const { t } = useI18n()
 </script>
 <template>
-  <section
+  <cyan-card
     v-if="anonymous"
-    class="CreateAccountAd chroma-box-b card"
+    elevation="1"
+    class="CreateAccountAd chroma-box-b"
   >
     <cyan-icon
       noun="fox"
@@ -33,14 +34,12 @@ const { t } = useI18n()
       />
       <cyan-spacer />
     </cyan-toolbar>
-  </section>
+  </cyan-card>
 </template>
 
 <style lang="sass" scoped>
 .CreateAccountAd
-  padding: var(--cyan-col-gap)
   position: relative
-  margin-bottom: 12px
 .adicon
   display: block
   margin: 0 auto

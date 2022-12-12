@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { logDebug } from '../../../utils/logHelpers'
 import { htmlDecode } from '../../../utils/htmlDecode'
 import { useI18n } from 'vue-i18n'
+import WithLoader from '../../ui/WithLoader.vue'
 
 interface WordpressArticle {
   ID: number
@@ -13,8 +13,8 @@ interface WordpressArticle {
 }
 
 const { t } = useI18n()
-
 const articles = ref<WordpressArticle[]>([])
+const loading = ref(true)
 
 async function fetchArticles () {
   const after = '?after=' + new Date(Date.now() - (1000 * 3600 * 24) * 60).toISOString().substring(0, 10)
@@ -22,13 +22,15 @@ async function fetchArticles () {
   try {
     const response = await fetch(url)
     const json = await response.json()
-    logDebug('LokiCard', 'fetchArticles', 'json', json)
+    // logDebug('LokiCard', 'fetchArticles', 'json', json)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     articles.value = json.posts.map((article:unknown) => {
       return article as WordpressArticle
     })
+    loading.value = false
   } catch (error) {
     console.error(error)
+    loading.value = false
   }
 }
 
@@ -38,9 +40,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <section
+  <cyan-card
     id="LokiCard"
-    class="chroma-box-a card rise-b"
+    elevation="1"
+    class="chroma-box-a "
   >
     <div class="overlay">
       <cyan-toolbar style="margin-bottom: var(--cyan-col-gap)">
@@ -53,21 +56,27 @@ onMounted(() => {
           dark
         />
       </cyan-toolbar>
-      <div class="articleContainer">
-        <div
-          v-for="article in articles"
-          :key="article.ID"
+      <div class="articleContainer flex flex-column">
+        <WithLoader
+          small
+          :suspended="loading"
         >
-          <a :href="article.URL">
-            <h4
-              style="margin-bottom: 0"
-              class="downscaled"
-            >{{ htmlDecode(article.title) }}</h4>
-            <p class="TypeCaption">
-              {{ article.date.substring(0, 10) }}
-            </p>
-          </a>
-        </div>
+          <div
+            v-for="article in articles"
+            :key="article.ID"
+            class="hoverable clickable"
+          >
+            <a :href="article.URL">
+              <h4
+                style="margin-bottom: 0"
+                class="downscaled"
+              >{{ htmlDecode(article.title) }}</h4>
+              <p class="TypeCaption">
+                {{ article.date.substring(0, 10) }}
+              </p>
+            </a>
+          </div>
+        </WithLoader>
       </div>
       <cyan-toolbar>
         <cyan-spacer />
@@ -85,20 +94,24 @@ onMounted(() => {
         <cyan-spacer />
       </cyan-toolbar>
     </div>
-  </section>
+  </cyan-card>
 </template>
 
 <style lang="sass" scoped>
 #LokiCard
   background-image: url('/proprietary/images/loki.jpeg')
   background-size: cover
+  min-width: 100%
+  min-height: 100px
   .overlay
     background: linear-gradient(177deg,rgba(0,35,55,.4),rgba(0,35,55,.9))
     margin: -12px
     padding: 12px
     border-radius: 12px
   .articleContainer
-    background: var(--cyan-background-overlay-dark)
-    margin: 0 -12px
-    padding: 4px 12px
+    background: linear-gradient(177deg,rgba(0,35,55,.4),rgba(0,35,55,.9))
+    margin: 12px -12px
+    padding: var(--cn-padding)
+    justify-content: left
+    align-items: flex-start
 </style>
