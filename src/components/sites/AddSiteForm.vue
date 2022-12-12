@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Site } from '@11thdeg/skaldstore'
 import { addDoc, collection, getFirestore } from '@firebase/firestore'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useSession } from '../../composables/useSession'
@@ -35,36 +35,50 @@ async function onSave() {
 
 const site = ref(new Site())
 
+onMounted(() => {
+  site.value.system = 'mekanismi'
+})
+
 </script>
 
 <template>
   <div class="AddSiteForm Column">
-    <cyan-textfield
-      :label="t('fields.site.name')"
-      @change="site.name = $event.target.value"
-    />
-    <cyan-textfield
-      :label="t('fields.site.description')"
-      @change="site.description = $event.target.value"
-    />
-    <SiteThemeSelect v-model="site.system" />
-    <cyan-toggle
-      :label="t('fields.site.isPublic')"
-      :checkded="!site.hidden"
-      @change="site.hidden = $event.target.value"
-    />
-    <cyan-toolbar>
-      <cyan-spacer />
-      <cyan-button
-        text
-        :label="t('action.cancel')"
-        @click="onCancel"
+    <h3>{{ t('sites.create.title') }}</h3>
+    <form class="fieldset">
+      <cyan-textfield
+        :label="t('fields.site.name')"
+        @change="site.name = $event.target.value"
       />
-      <cyan-button
-        :label="t('action.add.new')"
-        noun="add"
-        @click="onSave()"
+      <cyan-textfield
+        :label="t('fields.site.description')"
+        @change="site.description = $event.target.value"
       />
-    </cyan-toolbar>
+      <cyan-toolbar>
+        <cyan-icon :noun="site.system" />
+        <SiteThemeSelect
+          v-model="site.system"
+          style="flex-grow:1"
+        />
+      </cyan-toolbar>
+      
+      <cyan-toggle
+        :label="t('fields.site.hidden')"
+        :checkded="site.hidden"
+        @change="site.hidden = $event.target.value"
+      />
+      <cyan-toolbar>
+        <cyan-spacer />
+        <cyan-button
+          text
+          :label="t('action.cancel')"
+          @click="onCancel"
+        />
+        <cyan-button
+          :label="t('action.add.new')"
+          noun="add"
+          @click="onSave()"
+        />
+      </cyan-toolbar>
+    </form>
   </div>
 </template>

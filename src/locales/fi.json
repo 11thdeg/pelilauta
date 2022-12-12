@@ -107,6 +107,9 @@
       "empty": {
         "title": "Ei sivustoja",
         "message": "Haku ei löytänyt yhtään sivustoa."
+      },
+      "create": {
+        "title": "Uusi sivusto"
       }
     },
     "snacks": {
