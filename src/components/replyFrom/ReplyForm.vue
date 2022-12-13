@@ -115,11 +115,11 @@ const replace=ref('')
       style="display: block; margin: 12px auto; opacity: 0.22"
     />
   </section>
-  <section
+  <cyan-card
     v-else
     id="ReplyToThreadSection"
-    class="card rise-a"
-    style="margin-top: 12px"
+    elevation="0"
+    style="margin-top: var(--cn-page-grid); padding-top: 12px;"
   >
     <SelectAssetDialog
       v-model="addImageDialog"
@@ -161,5 +161,5 @@ const replace=ref('')
         @click.prevent="onSubmit"
       />
     </cyan-toolbar>
-  </section>
+  </cyan-card>
 </template>
