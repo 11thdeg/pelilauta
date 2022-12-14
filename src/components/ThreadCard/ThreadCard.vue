@@ -89,7 +89,7 @@ const level = computed(() => {
     <cyan-toolbar small>
       <LoveAThreadButton :thread="thread" />
       <div class="TypeCaption">
-        {{ t('threads.inTopic') }} <TopicTag :slug="thread.topicid || ''" />
+        <span class="hideOnMobile">{{ t('threads.inTopic') }}</span> <TopicTag :slug="thread.topicid || ''" />
       </div>
       <cyan-spacer />
       <RepliesTag :threadkey="thread.key || ''" />

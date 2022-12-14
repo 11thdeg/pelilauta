@@ -59,7 +59,7 @@ const route = useRoute()
 #NavigationBarShadow
   content: ''
   position: fixed
-  bottom: 58px
+  bottom: 48px
   left: 0
   width: 100vw
   height: 48px
