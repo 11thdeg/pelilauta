@@ -4,8 +4,10 @@ import AccountNavButton from '../actions/AccountNavButton.vue'
 import NotificationNavigationButton from '../NotificationNavigationButton/NotificationNavigationButton.vue'
 import AssetsNavigationButton from '../AssetsNavigationButton/AssetsNavigationButton.vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 const { fabTrayVisible, fieldFocused } = useUxState()
+const { t } = useI18n()
 
 const route = useRoute()
 
@@ -31,11 +33,12 @@ const route = useRoute()
     <router-link to="/sites">
       <cyan-navigation-button
         noun="mekanismi"
+        :label="t('sites.title')"
         :active="route.path.startsWith('/sites')"
       />
     </router-link>
-    <AssetsNavigationButton />
-    <NotificationNavigationButton />
+    <AssetsNavigationButton :label="t('assets.title')" />
+    <NotificationNavigationButton :label="t('inbox.title')" />
     <AccountNavButton />
   </nav>
 </template>
@@ -48,7 +51,7 @@ const route = useRoute()
   width: 100vw
   display: flex
   margin: 0
-  padding: 0 8px
+  padding: 4px 16px
   justify-content: space-between
   box-sizing: border-box
   background: linear-gradient(-42deg,var(--chroma-secondary-b),var(--chroma-secondary-d))
@@ -59,7 +62,7 @@ const route = useRoute()
 #NavigationBarShadow
   content: ''
   position: fixed
-  bottom: 48px
+  bottom: 50px
   left: 0
   width: 100vw
   height: 48px

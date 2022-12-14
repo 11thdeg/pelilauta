@@ -4,7 +4,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { useSites } from '../../composables/useSites'
-import FabTray from '../ui/FabTray.vue'
+import FabTray from '../FabTray/FabTray.vue'
 
 const { t } = useI18n()
 

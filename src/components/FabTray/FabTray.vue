@@ -21,7 +21,7 @@ onUnmounted(() => {
 <style lang="sass" scoped>
 nav#FabTray
   position: fixed
-  bottom: 56px
+  bottom: 50px
   right: 0
   padding: 16px
   display: flex
