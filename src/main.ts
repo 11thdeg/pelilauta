@@ -56,6 +56,8 @@ document.body.classList.add('cyan')
 // Force dark mode, as light is still experimental
 document.body.classList.add('cyan--mode--dark')
 
+document.body.lang = 'fi'
+
 // Test firebase storage connection
 // testStorage()
 
