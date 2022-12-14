@@ -83,6 +83,10 @@
           "title": "Linkit",
           "info": "Linkit avataan uuteen välilehteen."
         },
+        "players": {
+          "title": "Pelaajat",
+          "info": "Pelaajat voivat luoda, muokata ja poistaa sivuja"
+        },
         "owners": {
           "title": "Omistajat",
           "info": "Omistajat voivat muokata sivun asetuksia ja sisältöä."
@@ -103,6 +107,9 @@
       "empty": {
         "title": "Ei sivustoja",
         "message": "Haku ei löytänyt yhtään sivustoa."
+      },
+      "create": {
+        "title": "Uusi sivusto"
       }
     },
     "snacks": {

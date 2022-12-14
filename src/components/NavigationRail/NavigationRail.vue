@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useSession } from '../../composables/useSession'
+import AccountNavButton from '../actions/AccountNavButton.vue'
 import AssetsNavigationButton from '../AssetsNavigationButton/AssetsNavigationButton.vue'
 import NotificationNavigationButton from '../NotificationNavigationButton/NotificationNavigationButton.vue'
 
@@ -55,6 +56,7 @@ const { admin } = useSession()
         :active="route.path.startsWith('/about')"
       />
     </router-link>
+    <AccountNavButton />
   </nav>
 </template>
 

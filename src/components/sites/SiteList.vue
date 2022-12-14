@@ -73,12 +73,13 @@ const filter = ref(new Array<string>())
 .siteListing
   display: flex
   flex-direction: column
-  gap: var(--cyan-col-gap)
+  gap: var(--cn-gap-column)
   a
     text-decoration: none
 
 @media screen and (min-width: 800px)
   .siteListing
+    padding-top: 4px
     display: grid
-    grid-template-columns: calc(700px / 2 - 6px) calc(700px / 2 - 6px)
+    grid-template-columns: calc(700px / 2 - 8px) calc(700px / 2 - 8px)
 </style>

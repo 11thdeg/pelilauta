@@ -63,11 +63,16 @@ const level = computed(() => {
         {{ thread.title }}
       </router-link>
     </h3>
-    <YoutubePreview
+    <div
       v-if="thread.youtubeId"
+      class="videoContainer"
       style="margin: 12px -12px"
-      :video-id="thread.youtubeId"
-    />
+    >
+      <YoutubePreview
+        style="margin: 0 auto"
+        :video-id="thread.youtubeId"
+      />
+    </div>
     <p
       v-else
       class="TypeBody2"
@@ -84,7 +89,7 @@ const level = computed(() => {
     <cyan-toolbar small>
       <LoveAThreadButton :thread="thread" />
       <div class="TypeCaption">
-        {{ t('threads.inTopic') }} <TopicTag :slug="thread.topicid || ''" />
+        <span class="hideOnMobile">{{ t('threads.inTopic') }}</span> <TopicTag :slug="thread.topicid || ''" />
       </div>
       <cyan-spacer />
       <RepliesTag :threadkey="thread.key || ''" />
@@ -93,6 +98,11 @@ const level = computed(() => {
 </template>
 
 <style lang="sass" scoped>
+.videoContainer
+  background:  linear-gradient(90deg, hsla(var(--chroma-secondary-a-hsl), 0.5), hsla(var(--chroma-secondary-a-hsl), 1) 50%, hsla(var(--chroma-secondary-a-hsl), 0.5) 100%)
+  text-align: center
+.ThreadCard
+  width: 100%
 .notify:after
   content: ''
   position: absolute

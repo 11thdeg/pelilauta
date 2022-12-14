@@ -4,9 +4,14 @@ import TopBar from '../components/navigation/TopBar.vue'
 import { useSession } from '../composables/useSession'
 import NotificationsList from '../components/inbox/NotificationsList.vue'
 import WithPermission from '../components/ui/WithPermission.vue'
+import { onMounted } from 'vue'
+import { useTitle } from '@vueuse/core'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
+onMounted(() => {
+  useTitle().value = t('app.title') + ' / ' + t('inbox.title')
+})
 </script>
 
 <template>

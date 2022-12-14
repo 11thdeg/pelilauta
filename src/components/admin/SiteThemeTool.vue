@@ -54,53 +54,57 @@ function deleteTheme (index: number) {
 }
 </script>
 <template>
-  <div
+  <article
     v-if="admin"
-    class="GameSystenTool Column card rise-a"
+    class="GameSystenTool Column"
   >
-    <h3>{{ t('admin.gamesystemtool.title') }}</h3>
-    <p class="TypeBody2">
-      {{ t('admin.gamesystemtool.info') }}
-    </p>
-    <div class="systemTable">
-      <template
-        v-for="theme, index in siteThemes"
-        :key="theme.id"
-      >
-        <cyan-icon
-          small
-          :noun="theme.icon"
-        />
-        <p>{{ theme.name }}</p>
-        <cyan-button
-          noun="chevron-up"
-          text
-          :disabled="index === 0"
-          @click="moveUp(index)"
-        />
-        <cyan-button
-          noun="edit"
-          text
-          @click="activeTheme = theme"
-        />
-        <cyan-button
-          noun="delete"
-          text
-          @click="deleteTheme(index)"
-        />
-      </template>
-    </div>
-    <SiteThemeEditor
-      :theme="activeTheme"
-      @save="save($event)"
-    />
-  </div>
+    <cyan-card elevation="1">
+      <h3>{{ t('admin.gamesystemtool.title') }}</h3>
+      <p class="TypeBody2">
+        {{ t('admin.gamesystemtool.info') }}
+      </p>
+      <div class="systemTable">
+        <template
+          v-for="theme, index in siteThemes"
+          :key="theme.id"
+        >
+          <cyan-icon
+            small
+            :noun="theme.icon"
+          />
+          <p class="TypeBody2">
+            {{ theme.name }}
+          </p>
+          <cyan-button
+            noun="chevron-up"
+            text
+            :disabled="index === 0"
+            @click="moveUp(index)"
+          />
+          <cyan-button
+            noun="edit"
+            text
+            @click="activeTheme = theme"
+          />
+          <cyan-button
+            noun="delete"
+            text
+            @click="deleteTheme(index)"
+          />
+        </template>
+      </div>
+      <SiteThemeEditor
+        :theme="activeTheme"
+        @save="save($event)"
+      />
+    </cyan-card>
+  </article>
 </template>
 
 <style lang="sass" scoped>
 .systemTable
   display: grid
-  grid-template-columns: 48px auto 48px 48px 48px
+  grid-template-columns: 32px auto 32px 32px 32px
   row-gap: 4px
   align-items: center
   .cyan-icon

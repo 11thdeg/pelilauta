@@ -51,37 +51,39 @@ function addOwner (e: string) {
 </script>
 
 <template>
-  <div class="card rise-a Column">
-    <h3>{{ t('site.tools.owners.title') }}</h3>
+  <article class="Column">
+    <cyan-card elevation="1">
+      <h3>{{ t('site.tools.owners.title') }}</h3>
 
-    <p class="TypeBody2 lowEmphasis">
-      {{ t('site.tools.owners.info') }}
-    </p>
+      <p class="TypeBody2 lowEmphasis">
+        {{ t('site.tools.owners.info') }}
+      </p>
 
-    <section class="currentOwners">
-      <ProfileListItem
-        v-for="owner in owners"
-        :key="owner"
-        :class="{'me': uid === owner}"
-        :uid="owner"
-      >
-        <cyan-button
-          :disabled="uid === owner"
-          text
-          noun="trashcan"
-          @click="removeOwner(owner)"
-        />
-      </ProfileListItem>
-    </section>
+      <section class="currentOwners">
+        <ProfileListItem
+          v-for="owner in owners"
+          :key="owner"
+          :class="{'me': uid === owner}"
+          :uid="owner"
+        >
+          <cyan-button
+            :disabled="uid === owner"
+            text
+            noun="trashcan"
+            @click="removeOwner(owner)"
+          />
+        </ProfileListItem>
+      </section>
 
-    <hr>
+      <hr>
 
-    <AccountSelect
-      noun="admin"
-      :exclude="owners"
-      @add-account="addOwner($event)"
-    />
-  </div>
+      <AccountSelect
+        noun="admin"
+        :exclude="owners"
+        @add-account="addOwner($event)"
+      />
+    </cyan-card>
+  </article>
 </template>
 
 <style lang="sass">

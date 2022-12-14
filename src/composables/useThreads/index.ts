@@ -8,6 +8,7 @@ import { loveThread, unLoveThread } from './reactions'
 let _init = false
 let unsubscribeThreads:undefined|CallableFunction
 const threadCache = ref(new Map<string, Thread>())
+const loading = ref(true)
 
 async function init () {
   logDebug('init threads', _init)
@@ -27,6 +28,7 @@ async function init () {
     ),
     (snapshot) => {
       snapshot.docChanges().forEach((change) => {
+        if (loading.value) loading.value = false
         if(change.type === 'removed') {
           threadCache.value.delete(change.doc.id)
         } else {
@@ -137,6 +139,7 @@ export async function fetchThread (key:string) {
 export function useThreads () {
   init()
   return {
+    loading: computed(() => loading.value),
     recent: computed(() => {
       const arr = Array.from(threadCache.value.values())
       if (arr.length > 5) arr.length = 5

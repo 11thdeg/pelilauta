@@ -41,8 +41,8 @@ async function loadMore() {
 </script>
 
 <template>
-  <article class="Column double-cut">
-    <section class="cardList">
+  <article class="Column large">
+    <section class="flex flex-column">
       <ThreadCard
         v-for="thread in recent"
         :key="thread.key"
@@ -64,10 +64,3 @@ async function loadMore() {
     </cyan-toolbar>
   </article>
 </template>
-
-<style lang="sass" scoped>
-.cardList
-  display: flex
-  flex-direction: column
-  gap: var(--cyan-column-gap)
-</style>

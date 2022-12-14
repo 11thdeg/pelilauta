@@ -5,18 +5,11 @@ import SiteAvatar from '../SiteAvatar.vue'
 import SelectAssetDialog from '../../assets/SelectAssetDialog.vue'
 import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { Site } from '@11thdeg/skaldstore'
-import { logDebug } from '../../../utils/logHelpers'
 import SiteThemeSelect from '../SiteThemeSelect.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const { site, update } = useSite()
-
-const posterStyle = computed(() => {
-  logDebug('ThemeEditor', 'posterStyle', site.value?.posterURL)
-  if (site.value?.posterURL) return 'background-image: url(' + site.value.posterURL + ')'
-  return 'background: var(--color-background)'
-})
 
 const selectPosterDialog = ref(false)
 const selectAvatarDialog = ref(false)
@@ -89,23 +82,28 @@ function setSiteVisibility(e: boolean) {
 </script>
 
 <template>
-  <div
+  <article
     v-if="site"
     class="Column ThemeEditor"
   >
-    <div class="card rise-a">
-      <div
-        class="cardHeader"
-        :class="{hasPoster: !!site.posterURL}"
-        :style="posterStyle"
+    <cyan-card
+      elevation="2"
+      :cover="site.posterURL"
+    >
+      <h3 slot="title">
+        {{ site.name }}
+      </h3>
+      <SiteAvatar
+        slot="avatar"
+        :site="site"
+        class="siteAvatar"
+        large
+      />
+
+      <section
+        class="toolset fieldset"
+        style="margin-top: var(--cn-page-grid)"
       >
-        <h3>{{ site.name }}</h3>
-        <SiteAvatar
-          :site="site"
-          class="siteAvatar"
-        />
-      </div>
-      <section class="toolset">
         <cyan-textfield
           :value="name"
           :label="t('fields.site.name')"
@@ -183,31 +181,11 @@ function setSiteVisibility(e: boolean) {
         v-model="selectAvatarDialog"
         @select="onSelectAvatar($event)"
       />
-    </div>
-  </div>
+    </cyan-card>
+  </article>
 </template>
 
 <style lang="sass" scoped>
-.cardHeader
-  margin: -12px
-  margin-bottom: 12px
-  border-radius: 12px 12px 0 0
-  position: relative
-  min-height: 88px
-  h3
-    color: white
-    padding: 12px
-    padding-left: 96px
-    padding-top: 72px
-    text-shadow: 0px 0px 8px #002337
-  .siteAvatar
-    position: absolute
-    bottom: -8px
-    left: 12px
-.hasPoster
-  background-size: cover
-  background-position: center
-  background-repeat: no-repeat
 .toolset
   border-bottom: solid 1px var(--cyan-divider-color)
   padding-bottom: 11px

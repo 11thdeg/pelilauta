@@ -2,6 +2,7 @@
 import { Thread } from '@11thdeg/skaldstore'
 import { computed, onMounted, Ref, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useScreenSize } from '../../composables/useScreenSize'
 import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import { fetchThread } from '../../composables/useThreads'
 
@@ -26,6 +27,14 @@ const notification = computed(() => {
   const s = subscriber.value
   return s.shouldNotify(threadkey, thread.value.flowTime) || undefined
 })
+
+const label = computed(() => {
+  if (!thread.value) return ''
+  const { isSmall } = useScreenSize()
+  if (isSmall.value) return thread.value.replyCount + ''
+  return thread.value.replyCount + ' ' + t('threads.replies')
+})
+
 </script>
 
 <template>
@@ -38,7 +47,7 @@ const notification = computed(() => {
     :to="`/threads/${thread.key}`"
   >
     <cyan-tag
-      :label="thread.replyCount + ' ' + t('threads.replies')"
+      :label="label"
       noun="discussion"
       :notification="notification"
     />

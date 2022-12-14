@@ -188,7 +188,7 @@ const hasUpdates = computed(() => {
       <cyan-code>({{ markdownError }})</cyan-code-->
       <section
         v-if="!preview"
-        style="display:flex; flex-direction: column; gap: var(--cyan-column-gap)"
+        class="fieldset"
       >
         <cyan-textfield
           :label="t('fields.page.name')"

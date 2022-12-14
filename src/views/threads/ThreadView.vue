@@ -28,6 +28,7 @@ const title = computed(() => {
 })
 
 watch(() => thread.value, (tr) => {
+  useTitle().value = 'Pelilauta / ' + tr?.title || '...'
   if (anonymous.value) return
   if (tr && tr.key) {
     if(subscriber.value?.shouldNotify(tr.key, tr.flowTime)) {
@@ -40,7 +41,6 @@ watch(() => thread.value, (tr) => {
       logDebug('Opened a new thread', tr.key , 'will start notifying of changes')
       subscribeTo(tr.key)
     }
-    useTitle().value = tr.title
   }
 }, { immediate: true })
 

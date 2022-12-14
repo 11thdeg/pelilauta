@@ -14,7 +14,8 @@ const { t } = useI18n()
 const typeNoun = ref('discussion')
 
 const noun = computed(() => {
-  return props.notification.read ? 'dot' : typeNoun.value
+  return typeNoun.value
+  // return props.notification.read ? 'dot' : typeNoun.value
 })
 
 const targetTitle = ref('')
@@ -70,6 +71,7 @@ function removeNotification() {
     @click="markRed"
   >
     <cyan-icon
+      :class="{red: notification.read}"
       small
       :noun="noun"
     />
@@ -106,5 +108,7 @@ function removeNotification() {
     background: hsla(var(--chroma-secondary-f-hsl), 0.11)
   p
     margin: 0
+  .red
+    opacity: 0.2
 
 </style>

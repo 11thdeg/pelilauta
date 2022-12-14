@@ -186,7 +186,7 @@ const author = computed(() => props.thread.author || uid.value)
 <template>
   <LoginRequiredColumn v-if="mode === 'edit' && !thread.hasOwner(uid) " />
   <template v-else>
-    <div class="Column large form">
+    <div class="Column large form fieldset">
       <template v-if="!preview">
         <cyan-toolbar>
           <cyan-textfield
@@ -305,32 +305,36 @@ const author = computed(() => props.thread.author || uid.value)
       </template>
     </div>
     <MarkDownCheatSheetColumn />
-    <div
+    <article
       v-if="admin"
-      class="debug chroma-box-b Column card"
     >
-      <cyan-icon
-        large
-        noun="admin"
-        style="display:block; margin: 0 auto"
-      />
-      <p>{{ mode }}</p>
-      <p :class="{ dirty: titleChanged }">
-        title: <cyan-code>{{ title }}</cyan-code>
-      </p>
-      <p :class="{ dirty: youtubeIdChanged }">
-        youtubeId: <cyan-code>{{ youtubeId ? youtubeId : 'undefined' }}</cyan-code>
-      </p>
-      <p :class="{ dirty: imagesChanged }">
-        images: <cyan-code> {{ (images as []).length }}</cyan-code>
-      </p>
-      <p :class="{ dirty: contentChanged }">
-        content: <cyan-code>{{ content.toString().substring(0,10) }}</cyan-code>
-      </p>
-      <p :class="{ dirty: topicChanged }">
-        topic: <cyan-code>{{ topic }}</cyan-code>
-      </p>
-    </div>
+      <cyan-card
+        elevation="1"
+        class="debug chroma-box-b"
+      >
+        <cyan-icon
+          large
+          noun="admin"
+          style="display:block; margin: 0 auto"
+        />
+        <p>{{ mode }}</p>
+        <p :class="{ dirty: titleChanged }">
+          title: <cyan-code>{{ title }}</cyan-code>
+        </p>
+        <p :class="{ dirty: youtubeIdChanged }">
+          youtubeId: <cyan-code>{{ youtubeId ? youtubeId : 'undefined' }}</cyan-code>
+        </p>
+        <p :class="{ dirty: imagesChanged }">
+          images: <cyan-code> {{ (images as []).length }}</cyan-code>
+        </p>
+        <p :class="{ dirty: contentChanged }">
+          content: <cyan-code>{{ content.toString().substring(0,10) }}</cyan-code>
+        </p>
+        <p :class="{ dirty: topicChanged }">
+          topic: <cyan-code>{{ topic }}</cyan-code>
+        </p>
+      </cyan-card>
+    </article>
   </template>
 </template>
 
