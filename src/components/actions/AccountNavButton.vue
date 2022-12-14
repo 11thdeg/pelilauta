@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
-import NavButton from '../navigation/NavButton.vue'
 
 const { t } = useI18n()
 const { anonymous, profile } = useSession()
