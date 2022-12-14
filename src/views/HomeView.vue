@@ -15,7 +15,7 @@ const { anonymous } = useSession()
 const title = useTitle()
 
 onMounted(() => {
-  title.value = t('app.title')
+  title.value = t('app.title') + ' / ' + '⚀'
 })
 
 </script>

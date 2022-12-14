@@ -5,15 +5,20 @@ import AppBar from '../components/navigation/AppBar.vue'
 import { fetchProfile } from '../composables/useProfiles'
 import PublicProfileColumn from '../components/profiles/PublicProfileColumn.vue'
 import ProfilePostsColumn from '../components/profiles/ProfilePostsColumn.vue'
+import { useTitle } from '@vueuse/core'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   uid: string
 }>()
 
+const { t } = useI18n()
+
 const profile:Ref<Profile|undefined> = ref(undefined)
 
 onMounted(async () => {
   profile.value = await fetchProfile(props.uid)
+  useTitle().value =  t('app.title') + ' / ' + profile.value?.nick || 'i'
 })
 
 </script>

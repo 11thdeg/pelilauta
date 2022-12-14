@@ -2,10 +2,11 @@
 import { logDebug } from '../../utils/loghelpers'
 import StreamThreadCardList from '../../components/threads/StreamThreadCardList.vue'
 import AppBar from '../../components/navigation/AppBar.vue'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useMeta } from '../../composables/useMeta'
 import StreamTray from '../../components/threads/StreamTray.vue'
 import { useI18n } from 'vue-i18n'
+import { useTitle } from '@vueuse/core'
     
 const props = defineProps<{
     streamkey?: string
@@ -20,6 +21,10 @@ const stream = computed(() => {
   const topic = streams.value.find(s => s.slug === props.streamkey)
   if (topic) return topic
   return { name: t('streams.title'), icon: 'discussion' }
+})
+
+onMounted(() => {
+  useTitle().value = t('app.title') + ' / ' + t('streams.title')
 })
 
 </script>

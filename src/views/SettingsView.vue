@@ -5,8 +5,14 @@ import AccountDataSection from '../components/settings/AccountDataSection.vue'
 import AppSettingsColumn from '../components/settings/AppSettingsColumn.vue'
 import ProfileDataColumn from '../components/settings/ProfileDataColumn.vue'
 import AppBar from '../components/navigation/AppBar.vue'
+import { onMounted } from 'vue'
+import { useTitle } from '@vueuse/core'
 
 const { t } = useI18n()
+
+onMounted(() => {
+  useTitle().value = t('app.title') + ' / ' + t('settings.title')
+})
 </script>
 
 <template>
