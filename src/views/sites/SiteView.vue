@@ -20,6 +20,7 @@ const title = useTitle()
 onMounted(() => {
   loadSite(props.sitekey)
   watch(site, (ns) => {
+    useTitle().value = ns?.name || '404'
     if (ns) {
       const pageKey = ns.homepage || ns.key || ''
       usePage(pageKey, props.sitekey)

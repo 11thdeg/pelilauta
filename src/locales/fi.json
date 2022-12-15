@@ -74,6 +74,9 @@
       "threads": {
         "title": "Keskustelu"
       },
+      "settings": {
+        "title": "Sivuston Asetukset"
+      },
       "tools": {
         "chapters": {
           "title": "Aiheet",
