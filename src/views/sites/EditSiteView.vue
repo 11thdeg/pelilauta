@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { Site } from '@11thdeg/skaldstore'
 import { onMounted, ref } from 'vue'
-import AppBar from '../../components/navigation/AppBar.vue'
 import { useSession } from '../../composables/useSession'
 import { fetchSite } from '../../composables/useSites'
 import LoginRequiredColumn from '../../components/account/LoginRequiredColumn.vue'
@@ -12,25 +11,37 @@ import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import LinksTool from '../../components/sites/tools/LinksTool.vue'
 import SiteMetaTool from '../../components/sites/tools/SiteMetaTool.vue'
+import { useI18n } from 'vue-i18n'
+import { useTitle } from '@vueuse/core'
 const props = defineProps<{
   sitekey: string
 }>()
 
 const { anonymous, uid } = useSession()
 const site = ref(new Site())
+const { t } = useI18n()
 
 onMounted(async () => {
   site.value = await fetchSite(props.sitekey) || new Site()
   useSite(site.value.key)
+  useTitle(t('site.settings.title') + ' - ' + site.value.name)
 })
 </script>
 
 <template>
   <div id="EditSiteView">
-    <AppBar
-      :title="site.name"
-      :noun="site.systemBadge"
-    />
+    <cyan-top-app-bar
+      id="TopBar"
+      modal
+      back
+      @back="$router.back()"
+    >
+      <h3>
+        {{ t('site.settings.title') }} <span class="hideOnMobile">- {{ site.name }}</span>
+      </h3>
+      <cyan-spacer />
+      <cyan-icon noun="kebab" />
+    </cyan-top-app-bar>
     <main class="dashboardLayout">
       <LoginRequiredColumn v-if="anonymous || !site.hasOwner(uid)" />
       <template v-else>
