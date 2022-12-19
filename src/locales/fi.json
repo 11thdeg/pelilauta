@@ -71,6 +71,10 @@
       "dangerousDeleteAccountAction": "Poista tilini (ei poista luomaasi sisältöä)"
     },
     "site":{
+      "deleteConfirm": {
+        "title": "Vahvista sivuston poistaminen",
+        "message": "Haluatko varmasti poistaa sivuston? Tämä poistaa kaiken sivuston sisällön, ja toimintoa ei voi perua."
+      },
       "threads": {
         "title": "Keskustelu"
       },
@@ -96,7 +100,8 @@
         },
         "meta": {
           "title": "Muut",
-          "info": "Erilaisia lisäasetuksia"
+          "info": "Erilaisia lisäasetuksia",
+          "delete": "Poista sivusto"
         }
       },
       "tray": {

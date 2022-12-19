@@ -10,7 +10,7 @@ import ThemeEditor from '../../components/sites/tools/ThemeEditor.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import LinksTool from '../../components/sites/tools/LinksTool.vue'
-import SiteMetaTool from '../../components/sites/tools/SiteMetaTool.vue'
+import SiteMetaTool from '../../components/SiteMetaEditorCard/SiteMetaTool.vue'
 import { useI18n } from 'vue-i18n'
 import { useTitle } from '@vueuse/core'
 const props = defineProps<{
