@@ -61,7 +61,7 @@ async function deleteSite() {
             v-model="verified"
             :title="t('site.deleteConfirm.title')"
             :message="t('site.deleteConfirm.message')"
-            confirmText="Poista sivusto pysyvästi"
+            confirm-text="Poista sivusto pysyvästi"
           />
           <cyan-toolbar>
             <cyan-spacer />
