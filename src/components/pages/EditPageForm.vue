@@ -97,7 +97,6 @@ async function savePage () {
   // Add htmlContent for backwards compatibility
   p.htmlContent = marked(markdown.value)
   p.markdownContent = markdown.value
-  logDebug('markdown', p.markdownContent)
 
   let routekey = sitekey.value
 

@@ -1,8 +1,9 @@
 import { Subscriber } from '@11thdeg/skaldstore'
-import { doc, getFirestore, onSnapshot, setDoc } from 'firebase/firestore'
-import { computed, ref, Ref } from 'vue'
+import { doc, FirestoreError, getFirestore, onSnapshot, setDoc } from 'firebase/firestore'
+import { computed, ref, Ref, watch } from 'vue'
 import { addStore } from '.'
 import { logDebug, logEvent } from '../../utils/logHelpers'
+import { useSession } from '.'
 
 const subscriber: Ref<Subscriber|undefined> = ref(undefined)
 
@@ -15,7 +16,16 @@ async function save () {
   if (subscriber.value) {
     const db = getFirestore()
     const docRef = doc(db, Subscriber.FIRESTORE_COLLECTION_NAME, subscriber.value.key)
-    await setDoc(docRef, subscriber.value.docData)
+    try {
+      await setDoc(docRef, subscriber.value.docData)
+    } catch (error) {
+      const firestoreError = error as FirestoreError
+      logEvent('error', {
+        error: firestoreError.code,
+        message: firestoreError.message,
+        source: 'useSubscriber.save'
+      })
+    }
   }
 }
 
@@ -75,7 +85,6 @@ async function initSubscriber (newSubscriberUid: string) {
       const data = snapshot.data()
       if (data) {
         subscriber.value = new Subscriber(newSubscriberUid, data)
-        logDebug('useSubscriber', 'snapshot', data.watched)
       }
       loading = false
     }
@@ -89,8 +98,19 @@ function watches(key: string|undefined) {
   return subscriber.value.watches(key) > 0
 }
 
-export function useSubscriber (newSubscriberUid?: string) {
-  if (newSubscriberUid) initSubscriber(newSubscriberUid)
+let _init = false 
+function init() {
+  if (_init) return
+  _init = true
+  const { uid } = useSession()
+  watch(uid, (newUid) => {
+    logDebug('useSubscriber', 'init()', newUid)
+    if (newUid) initSubscriber(newUid)
+  }, { immediate: true })
+}
+
+export function useSubscriber () {
+  init()
   return {
     subscriber: computed(() => subscriber.value),
     subscribeTo,
