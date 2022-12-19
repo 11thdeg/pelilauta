@@ -46,19 +46,25 @@ onUnmounted(() => {
 </script>
 <template>
   <article class="Column small">
-    <h2 class="downscaled">
-      {{ t('site.threads.title') }}
-    </h2>
-    <p v-if="threads.length === 0">
-      No threads
-    </p>
-    <ul>
-      <SiteThreadListItem
-        v-for="thread in threads"
-        :key="thread.key"
-        :thread="thread"
+    <cyan-card>
+      <h4 slot="title">
+        {{ t('site.threads.title') }}
+      </h4>
+      <cyan-icon
+        slot="avatar"
+        noun="discussion"
       />
-    </ul>
+      <p v-if="threads.length === 0">
+        No threads
+      </p>
+      <ul>
+        <SiteThreadListItem
+          v-for="thread in threads"
+          :key="thread.key"
+          :thread="thread"
+        />
+      </ul>
+    </cyan-card>
   </article>
 </template>
 

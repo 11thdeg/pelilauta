@@ -9,6 +9,7 @@ import { onMounted, watch } from 'vue'
 import PageArticle from '../../components/pages/PageArticle.vue'
 import { useTitle } from '@vueuse/core'
 import SiteThreadListColumn from '../../components/SiteThreadListColumn/SiteThreadListColumn.vue'
+import SiteChangesListColumn from '../../components/SiteChangesListColumn/SiteChangesListColumn.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -37,6 +38,7 @@ onMounted(() => {
     <SiteAppBar :sitekey="sitekey" />
     <main class="bookLayout">
       <PageArticle />
+      <SiteChangesListColumn />
       <SiteThreadListColumn :sitekey="sitekey" />
     </main>
     <SiteFabs :sitekey="sitekey" />

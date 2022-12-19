@@ -71,6 +71,9 @@
       "dangerousDeleteAccountAction": "Poista tilini (ei poista luomaasi sisältöä)"
     },
     "site":{
+      "changes": {
+        "title": "Muutokset"
+      },
       "deleteConfirm": {
         "title": "Vahvista sivuston poistaminen",
         "message": "Haluatko varmasti poistaa sivuston? Tämä poistaa kaiken sivuston sisällön, ja toimintoa ei voi perua."
