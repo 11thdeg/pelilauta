@@ -141,10 +141,9 @@ export function useThreads () {
   return {
     loading: computed(() => loading.value),
     recent: computed(() => {
-      const arr = Array.from(threadCache.value.values())
-      if (arr.length > 5) arr.length = 5
-      arr.sort((a, b) => a.compareFlowTime(b))
-      return arr
+      return [...threadCache.value.values()]
+        .sort((a, b) => a.compareFlowTime(b))
+        .slice(0, 5)
     }),
     threadCache: computed(() => threadCache.value)
   }

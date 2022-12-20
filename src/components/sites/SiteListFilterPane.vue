@@ -90,9 +90,10 @@ function orderBy(field: string) {
         @click="orderBy('name')"
       />
     </cyan-toolbar>
-    <section
+    <cyan-card
       v-if="showTags"
-      class="card tags"
+      elevation="1"
+      class="tags"
     >
       <FilterChip
         :label="t('sites.ownedByMe')"
@@ -111,13 +112,13 @@ function orderBy(field: string) {
         :value="isActiveFamily(theme.id)"
         @click="onClick(theme.id)"
       />
-    </section>
+    </cyan-card>
   </div>
 </template>
 
 <style lang="sass" scoped>
 .tags
   margin-bottom: 12px
-  border: solid 1px var(--chroma-primary-d)
   padding-bottom: 0
+  padding-top: 12px
 </style>

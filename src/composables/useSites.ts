@@ -1,10 +1,11 @@
 import { Site } from '@11thdeg/skaldstore'
 import { collection, doc, getDoc, getFirestore, onSnapshot, query, where } from 'firebase/firestore'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { logError } from '../utils/logHelpers'
 import { addStore, useSession } from './useSession'
 
 const siteCache = ref(new Map<string, Site>())
+const loading = ref(true)
 
 export async function fetchSite (key:string) {
   if (siteCache.value.has(key)) {
@@ -28,13 +29,27 @@ let unsubscribeOwn:CallableFunction|undefined
 let unsubscribePlays:CallableFunction|undefined
 
 async function subscribe () {
-  const { anonymous, uid } = useSession()
+  const { uid } = useSession()
 
   if (_init) return
   _init = true
 
   addStore('sites', reset)
 
+  subscribePublic()
+
+  watch(uid, async (u) => {
+    if (u) {
+      subscribeAuthorSites()
+      subscribePlayerSites()
+    } else {
+      unsubscribeOwn && unsubscribeOwn()
+      unsubscribePlays && unsubscribePlays()
+    }
+  }, { immediate: true })
+}
+
+async function subscribePublic () {
   unsubscribePublic = onSnapshot(
     query(
       collection(getFirestore(), Site.collectionName),
@@ -44,12 +59,15 @@ async function subscribe () {
       snapshot.docChanges().forEach((change) => {
         const site = new Site(change.doc.data(), change.doc.id)
         siteCache.value.set(change.doc.id, site)
+        loading.value = false
       })
     }
   )
+}
 
+async function subscribeAuthorSites () {
+  const { uid, anonymous } = useSession()
   if (anonymous.value) return
-
   unsubscribeOwn = onSnapshot(
     query(
       collection(getFirestore(), Site.collectionName),
@@ -59,10 +77,15 @@ async function subscribe () {
       snapshot.docChanges().forEach((change) => {
         const site = new Site(change.doc.data(), change.doc.id)
         siteCache.value.set(change.doc.id, site)
+        loading.value = false
       })
     }
   )
+}
 
+async function subscribePlayerSites () {
+  const { uid, anonymous } = useSession()
+  if (anonymous.value) return
   unsubscribePlays = onSnapshot(
     query(
       collection(getFirestore(), Site.collectionName),
@@ -72,6 +95,7 @@ async function subscribe () {
       snapshot.docChanges().forEach((change) => {
         const site = new Site(change.doc.data(), change.doc.id)
         siteCache.value.set(change.doc.id, site)
+        loading.value = false
       })
     }
   )
@@ -79,6 +103,7 @@ async function subscribe () {
 
 async function reset() {
   _init = false
+  loading.value = true
   unsubscribePublic && unsubscribePublic()
   unsubscribeOwn && unsubscribeOwn()
   unsubscribePlays && unsubscribePlays()
@@ -101,6 +126,7 @@ const sitesAsOptions = computed(() => {
 export function useSites () {
   subscribe()
   return {
+    loading,
     fetchSite,
     publicSites: computed(() => {
       return Array.from(siteCache.value.values()).filter(site => !site.hidden)
