@@ -67,7 +67,6 @@ async function upload () {
         />
         <section
           class="fieldset"
-          style="min-width: 400px;"
         >
           <cyan-textfield
             :value="fileName"
@@ -115,4 +114,8 @@ async function upload () {
   gap: 13px
   @media (min-width: 768px)
     flex-direction: row
+
+@media screen and (min-width: 601px)
+  .fieldset
+    width: 400px
 </style>

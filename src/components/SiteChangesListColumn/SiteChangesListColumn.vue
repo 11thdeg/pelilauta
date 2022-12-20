@@ -9,7 +9,7 @@ const { t } = useI18n()
 const { pages } = usePages()
 
 const topPages = computed(() => {
-  return pages.value.slice(0, 5)
+  return [...pages.value].sort((a, b) => a.compareFlowTime(b)).slice(0, 5)
 })
 </script>
 
