@@ -1,7 +1,7 @@
 import { Page, Site } from '@11thdeg/skaldstore'
 import { onSnapshot, doc, getFirestore } from 'firebase/firestore'
 import { computed, ref } from 'vue'
-import { logError } from '../../utils/logHelpers'
+import { logDebug, logError } from '../../utils/logHelpers'
 import { usePages } from '../usePages'
 import { useSession } from '../useSession'
 import { useSite } from '../useSite'
@@ -11,6 +11,7 @@ let _unsubscribe:CallableFunction|undefined
 const pagekey = ref('')
 const sitekey = ref('')
 const loading = ref(false)
+const notFound = ref(false)
 const page = ref<Page|undefined>(undefined)
 
 async function reset () {
@@ -18,6 +19,7 @@ async function reset () {
   sitekey.value = ''
   page.value = undefined
   loading.value = true
+  notFound.value = false
 }
 
 async function init(key?: string, sk?: string) {
@@ -34,11 +36,14 @@ async function init(key?: string, sk?: string) {
     const cache = masterPageCache.value.get(sitekey.value)
     if (cache && cache.has(pagekey.value)) {
       page.value = cache.get(pagekey.value)
+      logDebug('Page found in cache', page.value?.name)
       loading.value = false
     }
     else loading.value = true
   }
   else loading.value = true
+
+  logDebug('Fetching page', pagekey.value, sitekey.value, loading.value)
 
   // subscribe to the site pages, for valid data
   _unsubscribe && _unsubscribe()
@@ -59,6 +64,8 @@ async function init(key?: string, sk?: string) {
         loading.value = false
       } else {
         page.value = undefined
+        loading.value = false
+        notFound.value = true
       }
     }
   )
@@ -85,7 +92,7 @@ export function usePage(key?: string, sk?: string) {
     key: computed(() => pagekey.value),
     page: computed(() => page.value),
     loading: computed(() => loading.value),
-    notFound: computed(() => !loading.value && !page.value),
+    notFound: computed(() => notFound.value),
     canEdit
   }
 }
