@@ -135,11 +135,11 @@ async function createThread () {
   try {
     const threadDoc = await addDoc(
       collection(getFirestore(), Thread.collectionName), thread.docData)
-    pushSnack(t('snack.thread.created'))
+    pushSnack(t('snacks.thread.created'))
     router.push('/threads/' + threadDoc.id)
   } catch (e: unknown){
     logError(e)
-    pushSnack(t('snack.thread.createFailsError'))
+    pushSnack(t('snacks.thread.createFailsError'))
   }
 }
 
@@ -170,11 +170,11 @@ async function updateThread () {
       doc(getFirestore(), Thread.collectionName, thread.key as string),
       thread.docData
     )
-    pushSnack(t('snack.thread.updated'))
+    pushSnack(t('snacks.thread.updated'))
     router.push('/threads/' + thread.key)
   } catch (e: unknown){
     logError(e)
-    pushSnack(t('snack.thread.updateFailsError'))
+    pushSnack('snacks.thread.updateFailsError')
   }
 }
 

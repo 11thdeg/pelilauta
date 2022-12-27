@@ -124,6 +124,9 @@
       }
     },
     "snacks": {
+      "site": {
+        "created": "Sivusto luotu"
+      },
       "page": {
         "updated": "Sivun muutokset tallennettu",
         "deleted": "Sivu poistettu"
@@ -138,7 +141,8 @@
         "created": "Keskustelu luotu",
         "createFailsError": "Keskustelun luominen epäonnistui",
         "updated": "Keskustelun avaus päivitetty",
-        "updateFailsError": "Keskustelun avauksen päivitys epäonnistui"
+        "updateFailsError": "Keskustelun avauksen päivitys epäonnistui",
+        "deleted":"Ketju poistettu vastauksineen onnistuneesti"
       },
       "linkCopiedToClipboard": "Linkki kopioitu leikepöydälle"
     },

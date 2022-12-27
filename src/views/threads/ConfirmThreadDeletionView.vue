@@ -35,7 +35,7 @@ async function deleteThread () {
     doc(getFirestore(), Thread.collectionName, props.threadkey)
   )
   forgetThread(props.threadkey)
-  pushSnack(t('thread.deleted'))
+  pushSnack('snacks.thread.deleted')
   router.push('/')
 }
 </script>
