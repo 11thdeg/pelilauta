@@ -181,6 +181,9 @@
       "move": "Siirrä",
       "preview": "Esikatselu",
       "register": "Rekisteröidy",
+      "scroll": {
+        "toTop": "Ylös"
+      },
       "useInApp": "Ota Käyttöön",
       "toSettings": "Asetukset",
       "toSites": "Mekanismi",

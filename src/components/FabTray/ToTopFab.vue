@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 // *** On Scroll, show to top FAB ***************************************
 const toTopVisibleToggle = ref(false)
@@ -38,6 +41,8 @@ function toTopAction () {
         v-if="toTopVisibleToggle"
         noun="arrow-up"
         secondary
+        small
+        :label="t('action.scroll.toTop')"
         @click="toTopAction"
       />
     </transition>
