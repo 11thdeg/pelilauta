@@ -73,12 +73,6 @@ const description = computed({
   }
 })
 
-function setSiteVisibility(e: boolean) {
-  update({
-    hidden: e
-  })
-}
-
 </script>
 
 <template>
@@ -115,13 +109,6 @@ function setSiteVisibility(e: boolean) {
           @change="description = $event.target.value"
         />
         <SiteThemeSelect v-model="siteTheme" />
-        <cyan-toolbar>
-          <cyan-toggle
-            :label="t('fields.site.hidden')"
-            :checked="site.hidden"
-            @change="setSiteVisibility($event.detail)"
-          />
-        </cyan-toolbar>
       </section>
 
       <!-- Poster Actions -->

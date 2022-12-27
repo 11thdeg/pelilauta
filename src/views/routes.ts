@@ -26,6 +26,7 @@ export const routes = [
   { path: '/sites/:sitekey', component: () => import('./sites/SiteView.vue'), props: true },
   { path: '/sites/:sitekey/edit', component: () => import('./sites/EditSiteView.vue'), props: true },
   { path: '/sites/:sitekey/keeper', component: () => import('./sites/EditSiteUsersView.vue'), props: true },
+  { path: '/sites/:sitekey/remove', component: () => import('./sites/DeleteSiteView.vue'), props: true },
   { path: '/sites/:sitekey/add/page', component: () => import('./pages/CreatePageView.vue'), props: true },
   { path: '/sites/:sitekey/add/page/:pagekey', component: () => import('./pages/CreatePageView.vue'), props: true },
   { path: '/sites/:sitekey/pages/:pagekey/edit', component: () => import('./pages/EditPageView.vue'), props: true },

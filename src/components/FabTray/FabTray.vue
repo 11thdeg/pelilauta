@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted } from 'vue'
 import { useUxState } from '../../composables/useUXState'
+import ToTopFab from './ToTopFab.vue'
 
 const { unmountFabTray, mountFabTray } = useUxState()
 
@@ -15,6 +16,7 @@ onUnmounted(() => {
 <template>
   <nav id="FabTray">
     <slot />
+    <ToTopFab />
   </nav>
 </template>
   

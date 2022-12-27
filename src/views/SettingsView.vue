@@ -4,7 +4,6 @@ import SsoDataSection from '../components/settings/SsoDataSection.vue'
 import AccountDataSection from '../components/settings/AccountDataSection.vue'
 import AppSettingsColumn from '../components/settings/AppSettingsColumn.vue'
 import ProfileDataColumn from '../components/settings/ProfileDataColumn.vue'
-import AppBar from '../components/navigation/AppBar.vue'
 import { onMounted } from 'vue'
 import { useTitle } from '@vueuse/core'
 
@@ -16,7 +15,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <AppBar :title="t('settings.title')" />
+  <cyan-top-app-bar
+    sticky
+    modal
+    @back="$router.back()"
+  >
+    <h3>{{ $t('settings.title') }}</h3>
+  </cyan-top-app-bar>
   <main class="dashboardLayout">
     <AppSettingsColumn />
     <ProfileDataColumn />

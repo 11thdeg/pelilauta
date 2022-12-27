@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import AppBar from '../components/navigation/AppBar.vue'
 import AssetListColumn from '../components/assets/AssetListColumn.vue'
 import WithPermission from '../components/ui/WithPermission.vue'
 import { useSession } from '../composables/useSession'
@@ -16,7 +15,14 @@ onMounted(() => {
     
 </script>
 <template>
-  <AppBar />
+  <cyan-top-app-bar
+    :noun="$t('assets.noun')"
+    sticky
+    modal
+    @back="$router.back()"
+  >
+    <h3>{{ $t('assets.title') }}</h3>
+  </cyan-top-app-bar>
   <main class="bookLayout">
     <WithPermission :forbidden="anonymous">
       <AssetListColumn />

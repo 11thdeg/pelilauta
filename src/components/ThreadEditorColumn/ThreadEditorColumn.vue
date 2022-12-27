@@ -7,6 +7,7 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useFormField, useStringField } from '../../composables/useFormField'
 import { useMeta } from '../../composables/useMeta'
+import { useScreenSize } from '../../composables/useScreenSize'
 import { useSession } from '../../composables/useSession'
 import { useSnack } from '../../composables/useSnack'
 import { fetchThread } from '../../composables/useThreads'
@@ -40,6 +41,7 @@ const { uid, admin } = useSession()
 const { streams } = useMeta()
 const router = useRouter()
 const { pushSnack } = useSnack()
+const { isSmall } = useScreenSize()
 
 const topics = computed(() => streams.value.map(stream => { return { value: stream.slug, label: stream.name } }))
 const mode = computed(() => {
@@ -133,11 +135,11 @@ async function createThread () {
   try {
     const threadDoc = await addDoc(
       collection(getFirestore(), Thread.collectionName), thread.docData)
-    pushSnack(t('snack.thread.created'))
+    pushSnack(t('snacks.thread.created'))
     router.push('/threads/' + threadDoc.id)
   } catch (e: unknown){
     logError(e)
-    pushSnack(t('snack.thread.createFailsError'))
+    pushSnack(t('snacks.thread.createFailsError'))
   }
 }
 
@@ -168,11 +170,11 @@ async function updateThread () {
       doc(getFirestore(), Thread.collectionName, thread.key as string),
       thread.docData
     )
-    pushSnack(t('snack.thread.updated'))
+    pushSnack(t('snacks.thread.updated'))
     router.push('/threads/' + thread.key)
   } catch (e: unknown){
     logError(e)
-    pushSnack(t('snack.thread.updateFailsError'))
+    pushSnack('snacks.thread.updateFailsError')
   }
 }
 
@@ -180,6 +182,11 @@ async function updateThread () {
 const preview = ref(false)
 
 const author = computed(() => props.thread.author || uid.value)
+
+const previewLabel = computed(() => {
+  if (isSmall.value) return undefined
+  return preview.value ? t('action.edit') : t('action.preview')
+})
 
 </script>
 
@@ -258,7 +265,7 @@ const author = computed(() => props.thread.author || uid.value)
           <SiteSelectionDialogButton v-model="site" />
           <cyan-spacer />
           <cyan-button
-            :label="t('action.preview')"
+            :label="previewLabel"
             text
             noun="eye"
             @click="preview = true"

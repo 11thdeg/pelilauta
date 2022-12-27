@@ -71,6 +71,13 @@
       "dangerousDeleteAccountAction": "Poista tilini (ei poista luomaasi sisältöä)"
     },
     "site":{
+      "changes": {
+        "title": "Muutokset"
+      },
+      "deleteConfirm": {
+        "title": "Vahvista sivuston poistaminen",
+        "message": "Haluatko varmasti poistaa sivuston? Tämä poistaa kaiken sivuston sisällön, ja toimintoa ei voi perua."
+      },
       "threads": {
         "title": "Keskustelu"
       },
@@ -96,7 +103,8 @@
         },
         "meta": {
           "title": "Muut",
-          "info": "Erilaisia lisäasetuksia"
+          "info": "Erilaisia lisäasetuksia",
+          "delete": "Poista sivusto"
         }
       },
       "tray": {
@@ -116,6 +124,9 @@
       }
     },
     "snacks": {
+      "site": {
+        "created": "Sivusto luotu"
+      },
       "page": {
         "updated": "Sivun muutokset tallennettu",
         "deleted": "Sivu poistettu"
@@ -130,7 +141,8 @@
         "created": "Keskustelu luotu",
         "createFailsError": "Keskustelun luominen epäonnistui",
         "updated": "Keskustelun avaus päivitetty",
-        "updateFailsError": "Keskustelun avauksen päivitys epäonnistui"
+        "updateFailsError": "Keskustelun avauksen päivitys epäonnistui",
+        "deleted":"Ketju poistettu vastauksineen onnistuneesti"
       },
       "linkCopiedToClipboard": "Linkki kopioitu leikepöydälle"
     },
@@ -169,6 +181,9 @@
       "move": "Siirrä",
       "preview": "Esikatselu",
       "register": "Rekisteröidy",
+      "scroll": {
+        "toTop": "Ylös"
+      },
       "useInApp": "Ota Käyttöön",
       "toSettings": "Asetukset",
       "toSites": "Mekanismi",
@@ -272,6 +287,10 @@
       },
       "revisions": {
         "title": "Muutokset"
+      },
+      "notFound": {
+        "title": "Uusi sivu?",
+        "message": "Sivua ei vielä ole luotu. Jos olet sivuston omistaja, voit luoda sen alla olevasta painikkeesta."
       }
     },
     "pages": {
@@ -283,6 +302,9 @@
       "stream": {
         "title": "Ketjut"
       }
+    },
+    "profiles": {
+      "anonymous": "Anonyymi"
     },
     "reply": {
       "title": "Vastaa ketjuun",

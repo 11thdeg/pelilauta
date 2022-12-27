@@ -96,7 +96,7 @@ export function login(user: User|null) {
     subscribeToAccount()
     subscribeToProfile()
     subscibeToAssets()
-    useSubscriber(uid.value)
+    useSubscriber()
     subscribeNotifications(uid.value)
     
     active.value = true

@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import ProfileButton from '../actions/ProfileButton.vue'
-import InboxButton from '../actions/InboxButton.vue'
 
 import { useUxState } from '../../composables/useUXState'
 import Banner from '../ui/Banner.vue'
 import { logDebug } from '../../utils/logHelpers'
 import TrayMenuButton from './TrayMenuButton.vue'
+import ShareButton from '../ShareButton/ShareButton.vue'
 
 const props = defineProps<{
   title?: string,
@@ -44,8 +43,7 @@ const { navTrayVisible } = useUxState()
       </h2>
       <cyan-spacer />
       <!--cyan-lightmode-toggle class="hideOnMobile" /-->
-      <InboxButton />
-      <ProfileButton />
+      <ShareButton />
     </cyan-top-app-bar>
     <Banner />
   </div>

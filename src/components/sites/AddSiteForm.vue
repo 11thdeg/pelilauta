@@ -29,7 +29,7 @@ async function onSave() {
     ),
     data
   )
-  pushSnack(t('site.added'))
+  pushSnack('snacks.site.created')
   router.push(`/sites/${siteDoc.id}`)
 }
 

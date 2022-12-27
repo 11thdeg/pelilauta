@@ -3,6 +3,7 @@ import { Site } from '@11thdeg/skaldstore'
 import { computed, onMounted, Ref, watch } from 'vue'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useScreenSize } from '../../composables/useScreenSize'
 import { fetchSite, useSites } from '../../composables/useSites'
 
 const props = defineProps<{
@@ -14,6 +15,7 @@ const emits = defineEmits<{
 
 const { t } = useI18n()
 const { sitesAsOptions } = useSites()
+const { isSmall } = useScreenSize()
 
 const siteEntry:Ref<Site|undefined> = ref(undefined)
 
@@ -36,7 +38,13 @@ const selected = computed({
 
 const label = computed(() => {
   if (siteEntry.value) {
+    if (isSmall.value) {
+      return siteEntry.value.systemBadge
+    }
     return siteEntry.value.name
+  }
+  if (isSmall.value) {
+    return undefined
   }
   return t('action.link.site')
 })

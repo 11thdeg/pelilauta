@@ -12,6 +12,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const thread:Ref<Thread|undefined> = ref(undefined)
+const { isSmall } = useScreenSize()
 
 onMounted(async () => {
   if (props.threadkey) thread.value = await fetchThread(props.threadkey)
@@ -30,7 +31,6 @@ const notification = computed(() => {
 
 const label = computed(() => {
   if (!thread.value) return ''
-  const { isSmall } = useScreenSize()
   if (isSmall.value) return thread.value.replyCount + ''
   return thread.value.replyCount + ' ' + t('threads.replies')
 })
