@@ -18,6 +18,7 @@ import ImageListSection from '../content/ImageListSection.vue'
 import MarkDownCheatSheetColumn from '../content/MarkDownCheatSheetColumn.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import YoutubePreview from '../content/YoutubePreview.vue'
+import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import TopicTag from '../threads/TopicTag.vue'
 import SiteSelectionDialogButton from './SiteSelectionDialogButton.vue'
@@ -210,6 +211,7 @@ const previewLabel = computed(() => {
             @click="showVideoLink = true"
           />
           <InsertImageButton @insert="pushImage($event)" />
+          <InsertAssetButton @insert="pushImage($event)" />
         </cyan-toolbar>
 
         <!-- Youtube video! -->
