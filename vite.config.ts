@@ -10,7 +10,9 @@ export default defineConfig({
     template: {
       compilerOptions: {
         isCustomElement: (tag) => {
-          return tag.startsWith('cyan-') // (return true)
+          return tag.startsWith('cyan-') ||
+            tag.startsWith('cn-')
+            // (return true, if it's a custom element)
         }
       }
     }
