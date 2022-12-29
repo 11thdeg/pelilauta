@@ -43,7 +43,10 @@
       }
     },
     "assetView": {
-      "title": "Media"
+      "title": "Media",
+      "meta": {
+        "title": "Metatiedot"
+      }
     },
     "characters": {
       "title": "Hahmot"

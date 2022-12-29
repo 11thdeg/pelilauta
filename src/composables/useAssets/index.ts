@@ -3,7 +3,7 @@ import { addDoc, collection, doc, getDoc, getFirestore, updateDoc } from 'fireba
 import { getDownloadURL, getStorage, ref as storageRef, uploadString } from 'firebase/storage'
 import { computed, ref } from 'vue'
 import { FileData } from '../../utils/fileHelpers'
-import { logEvent } from '../../utils/logHelpers'
+import { logDebug, logEvent } from '../../utils/logHelpers'
 import { useSession } from '../useSession'
 
 const assetCache = ref(new Map<string, Asset>())
@@ -18,6 +18,7 @@ async function fetchAsset(key: string): Promise<Asset|undefined> {
   if(assetCache.value.has(key)) return assetCache.value.get(key)
 
   else {
+    logDebug('useAssets().fetchAsset()', { key })
     const docRef = doc(getFirestore(), Asset.collectionName, key)
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {

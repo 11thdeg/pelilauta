@@ -1,7 +1,7 @@
 type Asset = {
   url?: string
   storagePath?: string
-  name: string
+  name?: string
 }
 
 export function parseAssetName(asset:Asset): string {
