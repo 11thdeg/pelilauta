@@ -3,7 +3,7 @@ import { CyanAssetSelect } from '@11thdeg/cyan'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAssets } from '../../composables/useSession/useAssets'
-import { parseAssetName } from '../../utils/parseAssetName'
+import { parseAssetName } from '../../utils/assetHelpers'
 
 const { t } = useI18n()
 const { assets } = useAssets()

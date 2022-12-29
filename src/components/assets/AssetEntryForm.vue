@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAssets } from '../../composables/useSession/useAssets'
 import { entryOwnersAsArray } from '../../utils/entryOwnersAsArray'
-import { parseAssetName } from '../../utils/parseAssetName'
+import { parseAssetName } from '../../utils/assetHelpers'
 import ProfileLink from '../profileLink/ProfileLink.vue'
+import { useMeta } from '../../composables/useMeta'
 
 type Asset = {
   key?: string
@@ -26,7 +26,7 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const { licenses } = useAssets()
+const { licenses } = useMeta()
 
 const asset = computed({
   get: () => props.modelValue,

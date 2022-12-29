@@ -12,7 +12,7 @@ export const routes = [
   { path: '/login', component: LoginView },
   { path: '/login/:backroute', component: LoginView, props: true }, 
   { path: '/settings', component: () => import('./SettingsView.vue') },
-  { path: '/assets', component: () => import('./AssetsView.vue') },
+  { path: '/assets', component: () => import('./assets/UserAssetsView.vue') },
   { path: '/assets/:assetkey', component: () => import('./assets/AssetView.vue'), props: true },
   { path: '/assets/:assetkey/delete', component: () => import('./assets/DeleteAssetView.vue'), props: true },
   { path: '/profiles/:uid', component: () => import('./ProfileView.vue'), props: true }, 

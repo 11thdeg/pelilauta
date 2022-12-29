@@ -8,7 +8,7 @@ import WithPermission from '../../components/ui/WithPermission.vue'
 import { useAsset } from '../../composables/useAsset'
 import { useAssets } from '../../composables/useAssets'
 import { useSnack } from '../../composables/useSnack'
-import { parseAssetName } from '../../utils/parseAssetName'
+import { parseAssetName } from '../../utils/assetHelpers'
 
 const props = defineProps<{
   assetkey: string

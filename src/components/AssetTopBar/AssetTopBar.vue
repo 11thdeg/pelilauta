@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useAsset } from '../../composables/useAsset'
-import { parseAssetName } from '../../utils/parseAssetName'
+import { parseAssetName } from '../../utils/assetHelpers'
 import CopyAssetMarkdownButton from './CopyAssetMarkdownButton.vue'
 
 const { asset, canEdit } = useAsset()

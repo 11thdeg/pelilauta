@@ -1,5 +1,6 @@
 import { doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useSession } from '../useSession'
 
 export * from './metaPages'
@@ -22,6 +23,16 @@ export interface SiteFamily {
   id: string
 }
 const siteThemes = ref<SiteFamily[]>([])
+
+const licenses = computed(() => {
+  const { t } = useI18n()
+  return [
+    { label: t('fields.asset.licenses.0'), value: '0' },
+    { label: t('fields.asset.licenses.1'), value: '1' },
+    { label: t('fields.asset.licenses.2'), value: '2' },
+    { label: t('fields.asset.licenses.3'), value: '3' },
+  ]
+})
 
 function init () {
   if (_init) return
@@ -79,6 +90,7 @@ export function useMeta () {
     admins: computed(() => admins.value),
     frozen: computed(() => frozen.value),
     siteThemes: computed(() => siteThemes.value),
-    saveStreams
+    saveStreams,
+    licenses
   }
 }

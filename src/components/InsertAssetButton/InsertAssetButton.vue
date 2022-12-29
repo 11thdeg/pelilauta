@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import InsertAssetDialog from './InsertAssetDialog.vue'
 
-const dialog = ref(true)
+const dialog = ref(false)
 
 const emit = defineEmits<{
   (e: 'insert', value: string): void

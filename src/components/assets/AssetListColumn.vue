@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { useAssets, assetDescription, assetLicense } from '../../composables/useSession/useAssets'
+import { parseAssetDescription, parseAssetLicense } from '../../utils/assetHelpers'
+import { useUserAssets } from '../../composables/useSession/useUserAssets'
 import AssetCard from '../AssetCard.vue/AssetCard.vue'
 import AddAssetButton from '../AddAssetButton/AddAssetButton.vue'
-import { parseAssetName } from '../../utils/parseAssetName'
+import { parseAssetName } from '../../utils/assetHelpers'
 
 const { t } = useI18n()
-const { assets } = useAssets()
+const { assets } = useUserAssets()
 
 </script>
 <template>
@@ -25,8 +26,8 @@ const { assets } = useAssets()
         :url="asset.url || ''"
         :to="`/assets/${asset.key}`"
         :name="parseAssetName(asset)"
-        :description="assetDescription(asset)"
-        :license="assetLicense(asset)"
+        :description="parseAssetDescription(asset)"
+        :license="parseAssetLicense(asset)"
       />
     </section>
   </article>

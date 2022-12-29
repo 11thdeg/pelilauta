@@ -2,7 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { useAsset } from '../../composables/useAsset'
 import { useSnack } from '../../composables/useSnack'
-import { parseAssetName } from '../../utils/parseAssetName'
+import { parseAssetName } from '../../utils/assetHelpers'
 
 const { t } = useI18n()
 const { pushSnack } = useSnack()
