@@ -2,23 +2,23 @@
 import { ref } from 'vue'
 import { CyanTabs } from '@11thdeg/cyan'
 import { useI18n } from 'vue-i18n'
+import UploadAssetForm from '../UploadAssetForm/UploadAssetForm.vue'
+import SelectAssetForm from './SelectAssetForm.vue'
+import { logDebug } from '../../utils/logHelpers'
 import { useAssets } from '../../composables/useSession/useAssets'
-import AssetEntryForm from '../assets/AssetEntryForm.vue'
-import { Asset } from '@11thdeg/skaldstore'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<{
   modelValue: boolean
 }>()
+
 const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
+  (e: 'insert', value: string): void
 }>()
 
-const close = () => {
-  emit('update:modelValue', false)
-}
-
 const { t } = useI18n()
-const { assets } = useAssets()
+const { getAsset } = useAssets()
 
 const tabs = [
   ['upload', t('insertAssetDialog.upload')],
@@ -26,7 +26,6 @@ const tabs = [
 ]
 
 const mode = ref('select')
-const asset = ref(new Asset())
 
 function selectTab(e: Event) {
   const tab = (e.target as CyanTabs).active
@@ -34,8 +33,15 @@ function selectTab(e: Event) {
   mode.value = tab
 }
 
-function selectionChange(e: CustomEvent) {
-  console.log(e)
+function close () {
+  emit('update:modelValue', false)
+}
+
+function insertSelectedAsset(key: string) {
+  const asset = getAsset(key)
+  logDebug('insertSelectedAsset', key, asset)
+  emit('insert', key)
+  close()
 }
 
 </script>
@@ -52,22 +58,13 @@ function selectionChange(e: CustomEvent) {
         :active="mode"
         @change="selectTab"
       />
-      <cyan-asset-select
+      <br>
+      <SelectAssetForm
         v-if="mode === 'select'"
-        @change="selectionChange($event)"
-      >
-        <cyan-asset-option
-          v-for="asset in assets"
-          :key="asset.storagePath"
-          round
-          :url="asset.url"
-          :name="asset.name || '...'"
-        />
-      </cyan-asset-select>
-      <AssetEntryForm
-        v-if="mode === 'upload'"
-        v-model="asset"
+        @change="insertSelectedAsset"
+        @cancel="close"
       />
+      <UploadAssetForm v-else />
     </cyan-dialog>
   </teleport>
 </template>

@@ -2,16 +2,25 @@
 import { ref } from 'vue'
 import InsertAssetDialog from './InsertAssetDialog.vue'
 
-const dialog = ref(false)
+const dialog = ref(true)
+
+const emit = defineEmits<{
+  (e: 'insert', value: string): void
+}>()
+
+function insertAsset (key: string) {
+  emit('insert', key)
+}
 </script>
 
 <template>
   <cyan-button
-    label="insert asset"
+    noun="assets"
     text
     @click="dialog = true"
   />
   <InsertAssetDialog
     v-model="dialog"
+    @insert="insertAsset"
   />
 </template>

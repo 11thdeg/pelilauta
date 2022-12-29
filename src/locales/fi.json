@@ -48,6 +48,10 @@
     "characters": {
       "title": "Hahmot"
     },
+    "insertAssetDialog":{
+      "upload": "Lisää uusi",
+      "select": "Valitse kirjastosta"
+    },
     "settings":{
       "title": "Asetukset",
       "accountDataPane": {

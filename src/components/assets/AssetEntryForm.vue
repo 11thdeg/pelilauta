@@ -1,10 +1,21 @@
 <script lang="ts" setup>
-import { Asset } from '@11thdeg/skaldstore'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { assetName, useAssets } from '../../composables/useSession/useAssets'
+import { useAssets } from '../../composables/useSession/useAssets'
 import ProfileTag from '../profiles/ProfileTag.vue'
 import { entryOwnersAsArray } from '../../utils/entryOwnersAsArray'
+import { parseAssetName } from '../../utils/parseAssetName'
+
+type Asset = {
+  key?: string
+  name: string
+  mimetype?: string
+  url?: string
+  storagePath?: string
+  owners: string|string[]
+  description?: string,
+  license?: number
+}
 
 const props = defineProps<{
   modelValue: Asset
@@ -28,7 +39,7 @@ const asset = computed({
     <cyan-textfield
       :value="asset.name"
       :label="t('fields.asset.name')"
-      :placeholder="assetName(asset)"
+      :placeholder="parseAssetName(asset)"
       @change="asset.name = $event.target.value"
     />
     <div>

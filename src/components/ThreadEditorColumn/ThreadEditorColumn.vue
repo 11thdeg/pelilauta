@@ -9,11 +9,11 @@ import { useFormField, useStringField } from '../../composables/useFormField'
 import { useMeta } from '../../composables/useMeta'
 import { useScreenSize } from '../../composables/useScreenSize'
 import { useSession } from '../../composables/useSession'
+import { useAssets } from '../../composables/useSession/useAssets'
 import { useSnack } from '../../composables/useSnack'
 import { fetchThread } from '../../composables/useThreads'
 import { logError } from '../../utils/logHelpers'
 import LoginRequiredColumn from '../account/LoginRequiredColumn.vue'
-import InsertImageButton from '../actions/InsertImageButton.vue'
 import ImageListSection from '../content/ImageListSection.vue'
 import MarkDownCheatSheetColumn from '../content/MarkDownCheatSheetColumn.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
@@ -77,6 +77,14 @@ function pushImage (image: string) {
 }
 function popImage (image: string) {
   images.value = (images.value as string[]).filter(i => i !== image)
+}
+
+const { getAsset } = useAssets()
+function insertAsset(key: string) {
+  const url = getAsset(key)?.url
+  if (url) {
+    pushImage(url)
+  }
 }
 
 const { computed: content, dirty: contentChanged } = useFormField(props.thread.markdownContent || '')
@@ -210,8 +218,7 @@ const previewLabel = computed(() => {
             :disabled="showVideoLink"
             @click="showVideoLink = true"
           />
-          <InsertImageButton @insert="pushImage($event)" />
-          <InsertAssetButton @insert="pushImage($event)" />
+          <InsertAssetButton @insert="insertAsset($event)" />
         </cyan-toolbar>
 
         <!-- Youtube video! -->
