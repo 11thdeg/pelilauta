@@ -64,7 +64,10 @@ function insertSelectedAsset(key: string) {
         @change="insertSelectedAsset"
         @cancel="close"
       />
-      <UploadAssetForm v-else />
+      <UploadAssetForm
+        v-else
+        @upload="insertSelectedAsset"
+      />
     </cyan-dialog>
   </teleport>
 </template>

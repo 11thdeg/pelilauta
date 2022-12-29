@@ -2,9 +2,9 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAssets } from '../../composables/useSession/useAssets'
-import ProfileTag from '../profiles/ProfileTag.vue'
 import { entryOwnersAsArray } from '../../utils/entryOwnersAsArray'
 import { parseAssetName } from '../../utils/parseAssetName'
+import ProfileLink from '../profileLink/ProfileLink.vue'
 
 type Asset = {
   key?: string
@@ -42,20 +42,19 @@ const asset = computed({
       :placeholder="parseAssetName(asset)"
       @change="asset.name = $event.target.value"
     />
-    <div>
-      <strong>{{ t('fields.asset.owners') }}</strong> <cyan-code>
-        <ProfileTag
-          v-for="owner in entryOwnersAsArray(asset)"
-          :key="owner"
-          :uid="owner"
-        />
-      </cyan-code>
-    </div>
-    <div>
-      <strong>{{ t('fields.asset.mimetype') }}</strong> <cyan-code>
-        {{ asset.mimetype }}
-      </cyan-code>
-    </div>
+    <p
+      class="TypeCaption"
+      style="margin: 0"
+    >
+      {{ t('fields.asset.owners') }}:
+      <ProfileLink
+        v-for="owner in entryOwnersAsArray(asset)"
+        :key="owner"
+        :uid="owner"
+      />
+      <br>
+      {{ t('fields.asset.mimetype') }}: {{ asset.mimetype }}
+    </p>
     <cyan-textfield
       :value="asset.description"
       :label="t('fields.asset.description')"

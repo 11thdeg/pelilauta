@@ -69,13 +69,14 @@ input[type="file"]
 
 label.FileInput
     &.onSmallScreen    
-      width: calc(100vw - 48px)
-      height: calc(100vw - 48px)
+      width: calc(100vw - 72px)
+      height: calc(100vw - 72px)
       cyan-icon
-        margin: calc((100vw - 48px) / 2 - 64px)
+        margin: calc((100vw - 72px) / 2 - 64px)
       .FileInputImage
-        width: 314px
-        height: 314px
-        margin: 3px
+        width: calc(100vw - 80px)
+        height: calc(100vw - 80px)
+        margin: 4px
+        object-fit: cover
 
 </style>

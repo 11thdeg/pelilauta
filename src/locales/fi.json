@@ -336,6 +336,7 @@
         "description": "Kuvaus",
         "license": "Lisenssi",
         "mimetype": "Muoto",
+        "owners": "Omistaja",
         "licenses": {
           "0": "-",
           "1": "CC BY 4.0",

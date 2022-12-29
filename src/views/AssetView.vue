@@ -2,12 +2,13 @@
 import { computed } from 'vue'
 import TopBar from '../components/navigation/TopBar.vue'
 import { useSession } from '../composables/useSession'
-import { useAssets, assetName } from '../composables/useSession/useAssets'
+import { useAssets } from '../composables/useSession/useAssets'
 import AssetEntryColumn from '../components/assets/AssetEntryColumn.vue'
 import WithPermission from '../components/ui/WithPermission.vue'
 import WithLoader from '../components/ui/WithLoader.vue'
 import { useI18n } from 'vue-i18n'
 import { useSnack } from '../composables/useSnack'
+import { parseAssetName } from '../utils/parseAssetName'
 
 const props = defineProps<{
   assetkey: string
@@ -25,7 +26,7 @@ const asset = computed(() => {
 const label = computed(() => {
   const a = asset.value
   if (!a) return '...'
-  return assetName(asset.value)
+  return parseAssetName(asset.value)
 })
 
 function copyMarkdown () {
