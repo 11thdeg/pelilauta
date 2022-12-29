@@ -4,8 +4,7 @@ import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
-import { logDebug } from '../../utils/logHelpers'
-import SelectAssetDialog from '../assets/SelectAssetDialog.vue'
+import { logDebug, logError } from '../../utils/logHelpers'
     
 const { t } = useI18n()
 const { profile, active } = useSession()
@@ -56,6 +55,8 @@ async function save () {
     profile.value.docData
   )
 }
+
+logError('ProfileDataColumn', 'Avatar change not implemented yet.')
 
 </script>
     
