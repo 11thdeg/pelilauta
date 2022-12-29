@@ -1,6 +1,6 @@
 import { Asset } from '@11thdeg/skaldstore'
-import { addDoc, collection, doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore'
-import { getDownloadURL, getStorage, ref as storageRef, uploadString } from 'firebase/storage'
+import { addDoc, collection, deleteDoc, doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore'
+import { deleteObject, getDownloadURL, getStorage, ref as storageRef, StorageError, uploadString } from 'firebase/storage'
 import { computed, ref } from 'vue'
 import { FileData } from '../../utils/fileHelpers'
 import { logDebug, logEvent } from '../../utils/logHelpers'
@@ -51,6 +51,25 @@ async function uploadFileToStorage(file: FileData) {
   }
 }
 
+async function removeAsset(key?: string) {
+  if (!key) throw new Error('No key provided, can not delete the asset')
+  const asset = await fetchAsset(key)
+  if (!asset) throw new Error('Asset not found, can not delete')
+  
+  assetCache.value.delete(key)
+
+  const storage = getStorage()
+  const sf = storageRef(storage, asset.storagePath || '')
+  try {
+    await deleteObject(sf)
+  } catch (error) {
+    const e = error as StorageError
+    logEvent('useAssets().removeAsset()', { key, error: e.message })
+  }
+
+  await deleteDoc(doc(getFirestore(), Asset.collectionName, key))
+}
+
 type AssetData = {
   key?: string
   name?: string
@@ -91,6 +110,7 @@ export function useAssets() {
   return {
     fetchAsset,
     uploadAssetFileData,
+    removeAsset,
     assetCache: computed(() => assetCache.value),
   }
 }
