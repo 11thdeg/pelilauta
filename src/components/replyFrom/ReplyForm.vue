@@ -8,9 +8,10 @@ import { useSnack } from '../../composables/useSnack'
 import { useSession } from '../../composables/useSession'
 import { marked } from 'marked'
 import ImageListSection from '../content/ImageListSection.vue'
-import SelectAssetDialog from '../assets/SelectAssetDialog.vue'
 import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
 import { useSubscriber } from '../../composables/useSession/useSubscriber'
+import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
+import { useAssets } from '../../composables/useAssets'
 
 
 const { t } = useI18n()
@@ -77,12 +78,18 @@ async function onSubmit () {
   }
 }
 
-const addImageDialog = ref(false)
-function addImage (url: string) {
+const { fetchAsset } = useAssets()
+
+async function addImage (assetKey: string) {
+  const asset = await fetchAsset(assetKey)
+  if (!asset || !asset.url) {
+    logError('addImage', assetKey, asset)
+    return
+  }
   if (!reply.value.images) {
     reply.value.images = []
   }
-  reply.value.images?.push(url)
+  reply.value.images?.push(asset.url)
 }
 
 const replace=ref('')
@@ -121,10 +128,6 @@ const replace=ref('')
     elevation="0"
     style="margin-top: var(--cn-page-grid); padding-top: 12px;"
   >
-    <SelectAssetDialog
-      v-model="addImageDialog"
-      @select="addImage($event)"
-    />
     <ImageListSection
       v-if="reply.images"
       :images="reply.images"
@@ -143,12 +146,7 @@ const replace=ref('')
       @change="reply.markdownContent = $event.target.value"
     />
     <cyan-toolbar>
-      <cyan-button
-        :label="t('action.addImage')"
-        text
-        noun="add"
-        @click="addImageDialog = true"
-      />
+      <InsertAssetButton @insert="addImage" />
       <cyan-spacer />
       <cyan-button
         text

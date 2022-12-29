@@ -2,11 +2,11 @@
 import { CyanAssetSelect } from '@11thdeg/cyan'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAssets } from '../../composables/useSession/useAssets'
+import { useUserAssets } from '../../composables/useSession/useUserAssets'
 import { parseAssetName } from '../../utils/assetHelpers'
 
 const { t } = useI18n()
-const { assets } = useAssets()
+const { assets } = useUserAssets()
 const selected = ref('')
 
 const emit = defineEmits<{

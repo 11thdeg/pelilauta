@@ -2,11 +2,11 @@
 import { computed, ref } from 'vue'
 import { useSite } from '../../../composables/useSite'
 import SiteAvatar from '../SiteAvatar.vue'
-import SelectAssetDialog from '../../assets/SelectAssetDialog.vue'
 import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { Site } from '@11thdeg/skaldstore'
 import SiteThemeSelect from '../SiteThemeSelect.vue'
 import { useI18n } from 'vue-i18n'
+import { logError } from '../../../utils/logHelpers'
 
 const { t } = useI18n()
 const { site, update } = useSite()
@@ -72,6 +72,8 @@ const description = computed({
     })
   }
 })
+
+logError('ThemeEditor', 'Theme image change not implemented yet.')
 
 </script>
 
