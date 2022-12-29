@@ -48,6 +48,13 @@
     "characters": {
       "title": "Hahmot"
     },
+    "inbox": {
+      "title": "Nostot",
+      "empty": {
+        "title": "Ei viestejä",
+        "message": "Aloita uusi ketju, tai kommentoi ketjussa."
+      }
+    },
     "insertAssetDialog":{
       "upload": "Lisää uusi",
       "select": "Valitse kirjastosta"
@@ -148,7 +155,8 @@
         "updateFailsError": "Keskustelun avauksen päivitys epäonnistui",
         "deleted":"Ketju poistettu vastauksineen onnistuneesti"
       },
-      "linkCopiedToClipboard": "Linkki kopioitu leikepöydälle"
+      "linkCopiedToClipboard": "Linkki kopioitu leikepöydälle",
+      "markdownCopiedToClipboard": "Markdown kopioitu leikepöydälle"
     },
     "streams": {
       "title": "Aiheet"
@@ -236,13 +244,6 @@
     "discourse":{
       "title": "Keskustelu",
       "loginToJoinDiscourse": "Kirjaudu sisään osallistuaksesi keskusteluun"
-    },
-    "inbox": {
-      "title": "Nostot",
-      "empty": {
-        "title": "Ei viestejä",
-        "message": "Aloita uusi ketju, tai kommentoi ketjussa."
-      }
     },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",
