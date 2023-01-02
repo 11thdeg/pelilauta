@@ -350,7 +350,8 @@
       },
       "page": {
         "name": "Sivun nimi",
-        "content": "Sisältö"
+        "content": "Sisältö",
+        "noCategory": "Sivut"
       },
       "profile":{
         "nick": "Nimimerkki",
