@@ -28,7 +28,7 @@ async function setHomePage(pageKey: string) {
 </script>
 
 <template>
-  <article class="Column">
+  <article class="small Column">
     <cyan-card elevation="0">
       <h3>{{ t('site.tools.meta.title') }}</h3>
       <p class="TypeBody2 lowEmphasis">

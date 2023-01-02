@@ -46,7 +46,7 @@ function drop(index: number) {
 </script>
 
 <template>
-  <article class="Column">
+  <article class="small Column">
     <cyan-card>
       <h3>
         {{ t('site.tools.chapters.title') }}
