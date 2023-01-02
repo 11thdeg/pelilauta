@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useSite } from '../../../composables/useSite'
 import SiteAvatar from '../SiteAvatar.vue'
 import { doc, getFirestore, updateDoc } from '@firebase/firestore'
@@ -7,15 +7,13 @@ import { Site } from '@11thdeg/skaldstore'
 import SiteThemeSelect from '../SiteThemeSelect.vue'
 import { useI18n } from 'vue-i18n'
 import { logError } from '../../../utils/logHelpers'
+import { useAssets } from '../../../composables/useAssets'
+import InsertAssetButton from '../../InsertAssetButton/InsertAssetButton.vue'
 
 const { t } = useI18n()
 const { site, update } = useSite()
 
-const selectPosterDialog = ref(false)
-const selectAvatarDialog = ref(false)
-
 function onSelectPoster (e: string) {
-  selectPosterDialog.value = false
   updateDoc(
     doc(
       getFirestore(),
@@ -28,7 +26,6 @@ function onSelectPoster (e: string) {
   )
 }
 function onSelectAvatar (e: string) {
-  selectAvatarDialog.value = false
   updateDoc(
     doc(
       getFirestore(),
@@ -39,6 +36,21 @@ function onSelectAvatar (e: string) {
       avatarURL: e
     }
   )
+}
+
+const { fetchAsset } = useAssets()
+
+async function onInsertPosterAsset (key: string) {
+  const asset = await fetchAsset(key)
+  if (asset && asset.url) {
+    await onSelectPoster(asset.url)
+  }
+}
+async function onInsertAvatarAsset (key: string) {
+  const asset = await fetchAsset(key)
+  if (asset && asset.url) {
+    await onSelectAvatar(asset.url)
+  }
 }
 
 
@@ -122,11 +134,9 @@ logError('ThemeEditor', 'Theme image change not implemented yet.')
           {{ t('fields.site.posterurl') }}
         </p>
         <cyan-toolbar>
-          <cyan-button
-            text
-            noun="assets"
-            :label="t('action.select')"
-            @click="selectPosterDialog = true"
+          <InsertAssetButton
+            :label="t('action.change')"
+            @insert="onInsertPosterAsset"
           />
           <cyan-button
             text
@@ -146,11 +156,9 @@ logError('ThemeEditor', 'Theme image change not implemented yet.')
           {{ t('fields.site.avatarurl') }}
         </p>
         <cyan-toolbar>
-          <cyan-button
-            text
-            noun="assets"
-            :label="t('action.select')"
-            @click="selectAvatarDialog = true"
+          <InsertAssetButton
+            :label="t('action.change')"
+            @insert="onInsertAvatarAsset"
           />
           <cyan-button
             text
@@ -160,16 +168,6 @@ logError('ThemeEditor', 'Theme image change not implemented yet.')
           />
         </cyan-toolbar>
       </section>
-
-      <!-- Dialogs -->
-      <SelectAssetDialog
-        v-model="selectPosterDialog"
-        @select="onSelectPoster($event)"
-      />
-      <SelectAssetDialog
-        v-model="selectAvatarDialog"
-        @select="onSelectAvatar($event)"
-      />
     </cyan-card>
   </article>
 </template>
