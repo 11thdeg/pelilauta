@@ -9,7 +9,7 @@ import { useFormField, useStringField } from '../../composables/useFormField'
 import { useMeta } from '../../composables/useMeta'
 import { useScreenSize } from '../../composables/useScreenSize'
 import { useSession } from '../../composables/useSession'
-import { useAssets } from '../../composables/useSession/useAssets'
+import { useAssets } from '../../composables/useAssets'
 import { useSnack } from '../../composables/useSnack'
 import { fetchThread } from '../../composables/useThreads'
 import { logError } from '../../utils/logHelpers'
@@ -79,11 +79,11 @@ function popImage (image: string) {
   images.value = (images.value as string[]).filter(i => i !== image)
 }
 
-const { getAsset } = useAssets()
-function insertAsset(key: string) {
-  const url = getAsset(key)?.url
-  if (url) {
-    pushImage(url)
+const { fetchAsset } = useAssets()
+async function insertAsset(key: string) {
+  const asset = await fetchAsset(key)
+  if (asset && asset.url) {
+    pushImage(asset.url)
   }
 }
 
