@@ -6,12 +6,15 @@ import { marked } from 'marked'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { useAssets } from '../../composables/useAssets'
 import { fetchPage } from '../../composables/usePages'
 import { useSession } from '../../composables/useSession'
 import { useSite } from '../../composables/useSite'
 import { useSnack } from '../../composables/useSnack'
+import { parseAssetName } from '../../utils/assetHelpers'
 import { logDebug } from '../../utils/logHelpers'
 import MarkdownSection from '../content/MarkdownSection.vue'
+import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
 
 const props = defineProps<{
   homepage?: boolean;
@@ -172,6 +175,16 @@ const hasUpdates = computed(() => {
   return false
 })
 
+const { fetchAsset } = useAssets()
+const inject = ref('')
+
+async function injectImage (key: string) {
+  const asset = await fetchAsset(key)
+  if (asset && asset.url) {
+    inject.value = '!['+ parseAssetName(asset)+ '](' + asset.url + ')'
+  }
+}
+
 </script>
 
 <template>
@@ -189,17 +202,24 @@ const hasUpdates = computed(() => {
         v-if="!preview"
         class="fieldset"
       >
-        <cyan-textfield
-          :label="t('fields.page.name')"
-          :value="name"
-          :error="nameError"
-          @change="name = $event.target.value"
-        />
+        <cyan-toolbar>
+          <cyan-textfield
+            class="flex-grow"
+            :label="t('fields.page.name')"
+            :value="name"
+            :error="nameError"
+            @change="name = $event.target.value"
+          />
+          <InsertAssetButton
+            @insert="injectImage($event)"
+          />
+        </cyan-toolbar>
         <cyan-markdown-area
           :label="t('fields.page.content')"
           :value="markdown"
           :error="markdownError"
           @change="markdown = $event.target.value"
+          :inject="inject"
         />
       </section>
 

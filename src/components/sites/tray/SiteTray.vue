@@ -2,7 +2,6 @@
 import { useI18n } from 'vue-i18n'
 import { useSite } from '../../../composables/useSite'
 import PageIndex from '../../PageIndex.vue'
-import ShareButton from '../../ShareButton/ShareButton.vue'
 import SiteTrayHeader from './SiteTrayHeader.vue'
 
 const { t } = useI18n()
@@ -21,7 +20,6 @@ const { key, loading, canEdit, site } = useSite()
       <SiteTrayHeader />
       <cyan-toolbar style="padding: 0 8px">
         <cyan-spacer />
-        <ShareButton icon />
         <router-link :to="`/sites/${key}/keeper`">
           <cyan-button
             v-if="canEdit"
