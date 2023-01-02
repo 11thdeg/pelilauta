@@ -218,8 +218,8 @@ async function injectImage (key: string) {
           :label="t('fields.page.content')"
           :value="markdown"
           :error="markdownError"
-          @change="markdown = $event.target.value"
           :inject="inject"
+          @change="markdown = $event.target.value"
         />
       </section>
 
