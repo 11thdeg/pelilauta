@@ -3,8 +3,10 @@ import { Profile } from '@11thdeg/skaldstore'
 import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useAssets } from '../../composables/useAssets'
 import { useSession } from '../../composables/useSession'
-import { logDebug, logError } from '../../utils/logHelpers'
+import { logDebug } from '../../utils/logHelpers'
+import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
     
 const { t } = useI18n()
 const { profile, active } = useSession()
@@ -56,7 +58,12 @@ async function save () {
   )
 }
 
-logError('ProfileDataColumn', 'Avatar change not implemented yet.')
+const { fetchAsset } = useAssets()
+
+async function onSelectAvatar (e: string) {
+  const asset = await fetchAsset(e)
+  if (asset?.url) avatarURL.value = asset.url
+}
 
 </script>
     
@@ -71,14 +78,14 @@ logError('ProfileDataColumn', 'Avatar change not implemented yet.')
         </p>
         <div class="avatar">
           <img
-            style="max-width: 200px; display: block; margin: 0 auto;border-radius: 50%;"
+            class="avatarImage"
             :src="avatarURL"
           >
-          <cyan-button
-            noun="edit"
+          <InsertAssetButton
             class="avatarButton"
             :label="t('action.change')"
-            @click="avatarDialog = true"
+            noun="avatar"
+            @insert="onSelectAvatar($event)"
           />
         </div>
         <SelectAssetDialog
@@ -112,9 +119,13 @@ logError('ProfileDataColumn', 'Avatar change not implemented yet.')
 
 <style lang="sass" scoped>
 .avatar
-  position: relative
-  .avatarButton
-    position: absolute
-    bottom: 12px
-    right: 12px
+  display: flex
+  justify-content: center
+  flex-direction: column
+  .avatarImage
+    width: 128px
+    height: 128px
+    object-fit: cover
+    border-radius: 50%
+    margin: 0 auto
 </style>
