@@ -61,6 +61,7 @@ if ('serviceWorker' in navigator) {
   <NavigationRail />
   <div
     id="appContainer"
+    class="AppLayout"
     :class="{ navTrayVisible: navTrayVisible }"
   >
     <router-view />
@@ -77,11 +78,7 @@ div#appContainer
 
 @media screen and (min-width: 600px)
   div#appContainer
-    margin: 0
-    padding: 0
-    margin-left: 72px
     position: relative
-    padding-bottom: 24px
     &.navTrayVisible
       margin-left: calc(72px + 256px)
 </style>
