@@ -67,8 +67,8 @@
       "accountDataPane": {
         "title": "Omat tiedot",
         "ssoTitle": "Kirjautumistiedot",
-        "ssoDescription": "Kirjautumisessa käyttämäsi palvelun (Google, Facebook tai sähköposti) palauttamat yksityiset tiedot, jotka on tallennettu Pelilaudan Firebese-kirjautumistietoihin. Näitä tietoja ei tallenneta sovelluksen tietokantaan, eivätkä ne näy muille kuin teknisille ylläpitäjille."
-        
+        "ssoDescription": "Kirjautumisessa käyttämäsi palvelun (Google, Facebook tai sähköposti) palauttamat yksityiset tiedot, jotka on tallennettu Pelilaudan Firebese-kirjautumistietoihin. Näitä tietoja ei tallenneta sovelluksen tietokantaan, eivätkä ne näy muille kuin teknisille ylläpitäjille.",
+        "setPhotoAsAvatar": "Käytä profiilikuvana"
       },
       "appSettings": {
         "title": "Toiminnot",
@@ -333,7 +333,8 @@
         "uid": "Pseudoanonyymi tunniste",
         "lightMode": "Tumma tila",
         "lastLogin": "Viimeisin kirjautuminen",
-        "locale": "Sovelluksen kieli"
+        "locale": "Sovelluksen kieli",
+        "photoURL": "Profiilikuva"
       },
       "asset":{
         "name": "Nimi",

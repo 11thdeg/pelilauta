@@ -10,7 +10,6 @@ import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
     
 const { t } = useI18n()
 const { profile, active } = useSession()
-const avatarDialog = ref(false)
 
 const _avatarURL = ref('')
 const avatarURL = computed({
@@ -88,10 +87,6 @@ async function onSelectAvatar (e: string) {
             @insert="onSelectAvatar($event)"
           />
         </div>
-        <SelectAssetDialog
-          v-model="avatarDialog"
-          @select="avatarURL = $event"
-        />
         <cyan-textfield
           :label="t('fields.profile.nick')"
           :value="profile.nick"

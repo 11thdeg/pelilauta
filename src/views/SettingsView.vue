@@ -6,8 +6,12 @@ import AppSettingsColumn from '../components/settings/AppSettingsColumn.vue'
 import ProfileDataColumn from '../components/settings/ProfileDataColumn.vue'
 import { onMounted } from 'vue'
 import { useTitle } from '@vueuse/core'
+import { useSession } from '../composables/useSession'
+import WithPermission from '../components/ui/WithPermission.vue'
+import WithLoader from '../components/ui/WithLoader.vue'
 
 const { t } = useI18n()
+const { active, anonymous } = useSession()
 
 onMounted(() => {
   useTitle().value = t('app.title') + ' / ' + t('settings.title')
@@ -23,12 +27,16 @@ onMounted(() => {
     <h3>{{ $t('settings.title') }}</h3>
   </cyan-top-app-bar>
   <main class="dashboardLayout">
-    <AppSettingsColumn />
-    <ProfileDataColumn />
-    <article class="Column">
-      <h2>{{ t('settings.accountDataPane.title') }}</h2>
-      <AccountDataSection />
-      <SsoDataSection />
-    </article>
+    <WithLoader :suspended="!active">
+      <WithPermission :forbidden="anonymous">
+        <AppSettingsColumn />
+        <ProfileDataColumn />
+        <article class="Column">
+          <h2>{{ t('settings.accountDataPane.title') }}</h2>
+          <AccountDataSection />
+          <SsoDataSection />
+        </article>
+      </withpermission>
+    </WithLoader>
   </main>
 </template>
