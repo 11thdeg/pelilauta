@@ -81,7 +81,6 @@ async function onSelectAvatar (e: string) {
             :src="avatarURL"
           >
           <InsertAssetButton
-            class="avatarButton"
             :label="t('action.change')"
             noun="avatar"
             @insert="onSelectAvatar($event)"

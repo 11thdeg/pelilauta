@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { Profile } from '@11thdeg/skaldstore';
-import { doc, getFirestore, updateDoc } from '@firebase/firestore';
+import { Profile } from '@11thdeg/skaldstore'
+import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
-import { useSnack } from '../../composables/useSnack';
+import { useSnack } from '../../composables/useSnack'
 import WithLoader from '../ui/WithLoader.vue'
 
 const { t } = useI18n()
