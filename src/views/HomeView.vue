@@ -9,6 +9,7 @@ import { useSession } from '../composables/useSession'
 import LokiCard from '../components/cta/LokiCard/LokiCard.vue'
 import { useTitle } from '@vueuse/core'
 import { onMounted } from 'vue'
+import ThreadStreamColumn from '../components/ThreadStreamColumn/ThreadStreamColumn.vue'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
@@ -23,6 +24,7 @@ onMounted(() => {
   <AppBar />
   <main class="bookLayout">
     <ThreadCardList />
+    <ThreadStreamColumn />
     <div class="Column medium flex flex-column">
       <CreateAccountAd />
       <MekanismiAd />
