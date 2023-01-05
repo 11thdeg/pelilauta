@@ -34,6 +34,7 @@ watch(props, () => {
   streamThreads.value = []
   paginationRef = undefined
   subscribeTopThreads()
+  atEnd.value = false
 })
 
 function subscribeTopThreads () {
@@ -117,7 +118,7 @@ async function loadMore () {
   )
 
   const newDocs = await getDocs(q)
-  if (newDocs.docs.length === 7) {
+  if (newDocs.docs.length < 7) {
     atEnd.value = true
   }
 
@@ -137,6 +138,10 @@ async function loadMore () {
     class="Column"
     :class="{ large: large }"
   >
+    <cyan-loader
+      v-if="streamThreads.length === 0"
+      large
+    />
     <div class="flex flex-column">
       <ThreadStreamCard
         v-for="thread in streamThreads"
