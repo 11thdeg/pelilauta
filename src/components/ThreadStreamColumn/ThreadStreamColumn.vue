@@ -10,7 +10,7 @@
 
 import { Thread } from '@11thdeg/skaldstore'
 import { collection, getFirestore, limit, onSnapshot, query, where, orderBy, startAfter, getDocs, QueryDocumentSnapshot, DocumentData } from '@firebase/firestore'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { logDebug, logError } from '../../utils/logHelpers'
 import ThreadStreamCard from './ThreadStreamCard.vue'
 
@@ -28,6 +28,13 @@ function pushThreadToStream (thread:Thread) {
   arr.push(thread)
   streamThreads.value = [...arr].sort((a, b) => a.compareFlowTime((b as Thread)))
 }
+
+watch(props, () => {
+  unsubscribe && unsubscribe()
+  streamThreads.value = []
+  paginationRef = undefined
+  subscribeTopThreads()
+})
 
 function subscribeTopThreads () {
 

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { logDebug } from '../../utils/loghelpers'
-import StreamThreadCardList from '../../components/threads/StreamThreadCardList.vue'
 import AppBar from '../../components/navigation/AppBar.vue'
 import { computed, onMounted } from 'vue'
 import { useMeta } from '../../composables/useMeta'
 import StreamTray from '../../components/threads/StreamTray.vue'
 import { useI18n } from 'vue-i18n'
 import { useTitle } from '@vueuse/core'
+import ThreadStreamColumn from '../../components/ThreadStreamColumn/ThreadStreamColumn.vue'
     
 const props = defineProps<{
     streamkey?: string
@@ -36,7 +36,10 @@ onMounted(() => {
       :noun="stream.icon"
     />
     <main class="bookLayout">
-      <StreamThreadCardList :streamkey="streamkey" />
+      <ThreadStreamColumn
+        :topic="streamkey"
+        large
+      />
     </main>
     <StreamTray />
   </div>
