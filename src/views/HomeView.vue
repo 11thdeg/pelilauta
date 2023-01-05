@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import AppBar from '../components/navigation/AppBar.vue'
-import ThreadCardList from '../components/ThreadCardList/ThreadCardList.vue'
 import CreateAccountAd from '../components/cta/CreateAccountAd.vue'
 import MekanismiAd from '../components/cta/MekanismiAd.vue'
 import { useI18n } from 'vue-i18n'
@@ -23,7 +22,6 @@ onMounted(() => {
 <template>
   <AppBar />
   <main class="bookLayout">
-    <ThreadCardList />
     <ThreadStreamColumn />
     <div class="Column medium flex flex-column">
       <CreateAccountAd />

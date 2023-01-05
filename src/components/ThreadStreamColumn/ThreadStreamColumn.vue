@@ -9,8 +9,9 @@
  */
 
 import { Thread } from '@11thdeg/skaldstore'
-import { collection, DocumentReference, getFirestore, limit, onSnapshot, query, where, orderBy } from '@firebase/firestore'
+import { collection, getFirestore, limit, onSnapshot, query, where, orderBy, startAfter, getDocs, QueryDocumentSnapshot, DocumentData } from '@firebase/firestore'
 import { ref, onMounted, onUnmounted } from 'vue'
+import { logDebug, logError } from '../../utils/logHelpers'
 import ThreadStreamCard from './ThreadStreamCard.vue'
 
 const props = defineProps<{
@@ -19,7 +20,7 @@ const props = defineProps<{
 }>()
 
 const streamThreads = ref<Thread[]>([])
-let paginationRef:DocumentReference|undefined = undefined
+let paginationRef:QueryDocumentSnapshot<DocumentData>|undefined = undefined
 let unsubscribe:CallableFunction|undefined = undefined
 
 function pushThreadToStream (thread:Thread) {
@@ -51,7 +52,7 @@ function subscribeTopThreads () {
   
   unsubscribe = onSnapshot(q,
     (snapshot) => {
-      let pgRef:DocumentReference|undefined = undefined
+      let pgRef:QueryDocumentSnapshot<DocumentData>|undefined = undefined
       snapshot.docChanges().forEach((change) => {
         if (change.type === 'removed') {
           streamThreads.value = streamThreads.value.filter(t => t.key !== change.doc.id)
@@ -59,13 +60,13 @@ function subscribeTopThreads () {
         else {
           const t = new Thread(change.doc.data(), change.doc.id)
           pushThreadToStream(t)
-          pgRef = change.doc.ref
+          pgRef = change.doc
         }
       })
       // This is the first time we are fetching the data via subscription, so we need to set the
       // initial pagination reference.
       if (!paginationRef) {
-        paginationRef= pgRef
+        paginationRef = pgRef
       }
     }
   )
@@ -79,16 +80,74 @@ onUnmounted(() => {
   unsubscribe && unsubscribe()
 })
   
+const atEnd = ref(false)
+async function loadMore () {
+  logDebug('ThreadStreamColumn', 'loadMore', 'Loading more threads')
+  if (atEnd.value) {
+    logError('ThreadStreamColumn', 'loadMore', 'Already at the end of the stream')
+    return
+  }
+
+  const q = !props.topic ? query(
+    collection(
+      getFirestore(),
+      'stream'
+    ),
+    limit(7),
+    where('public', '==', true),
+    orderBy('flowTime', 'desc'),
+    startAfter(paginationRef)
+  ) : query(
+    collection(
+      getFirestore(),
+      'stream'
+    ),
+    limit(7),
+    where('public', '==', true),
+    where('topic', '==', props.topic),
+    orderBy('flowTime', 'desc'),
+    startAfter(paginationRef)
+  )
+
+  const newDocs = await getDocs(q)
+  if (newDocs.docs.length === 7) {
+    atEnd.value = true
+  }
+
+  logDebug('ThreadStreamColumn', 'loadMore', `Loaded ${newDocs.docs.length} threads`)
+
+  newDocs.forEach((doc) => {
+    const t = new Thread(doc.data(), doc.id)
+    logDebug('ThreadStreamColumn', 'loadMore', `Pushing thread ${t.key} to stream`)
+    pushThreadToStream(t)
+    paginationRef = doc
+  })
+}
+
 </script>
 <template>
   <article
-    class="Column flex flex-column"
+    class="Column"
     :class="{ large: large }"
   >
-    <ThreadStreamCard
-      v-for="thread in streamThreads"
-      :key="thread.key"
-      :thread="thread"
-    />
+    <div class="flex flex-column">
+      <ThreadStreamCard
+        v-for="thread in streamThreads"
+        :key="thread.key"
+        :thread="thread"
+      />
+    </div>
+    <hr>
+    <cyan-toolbar>
+      <cyan-spacer />
+      <cyan-button
+        secondary
+        :disabled="atEnd"
+        noun="discussion"
+        :label="$t('action.toDiscussion')"
+        @click="loadMore"
+      />
+      <cyan-spacer />
+    </cyan-toolbar>
   </article>
 </template>
