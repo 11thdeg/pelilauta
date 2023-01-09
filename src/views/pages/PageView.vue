@@ -8,9 +8,7 @@ import PageArticle from '../../components/pages/PageArticle.vue'
 import { loadSite, useSite } from '../../composables/useSite'
 import { watch } from 'vue'
 import { useTitle } from '@vueuse/core'
-import { useI18n } from 'vue-i18n'
-import FlowTimeCaption from '../../components/content/FlowTimeCaption.vue'
-import ProfileLink from '../../components/profileLink/ProfileLink.vue'
+import PageMetaColumn from '../../components/PageMetaColumn/PageMetaColumn.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -37,8 +35,6 @@ watch(page, () => {
   }
 })
 
-const { t } = useI18n()
-
 </script>
 
 <template>
@@ -48,18 +44,7 @@ const { t } = useI18n()
   />
   <main class="bookLayout">
     <PageArticle />
-    <article class="small Column">
-      <cyan-card>
-        <cyan-icon noun="page" /> {{ page?.name }}
-        <p><ProfileLink :uid="page?.author || ''" /></p>
-        <p><FlowTimeCaption :flow-time="page?.flowTime || 0" /></p>
-        <p>
-          <router-link :to="`/sites/${sitekey}/pages/${pagekey}/revisions`">
-            {{ t('page.revisions.title') }}
-          </router-link>
-        </p>
-      </cyan-card>
-    </article>
+    <PageMetaColumn />
     <SiteFabs
       :pagekey="pagekey"
       :sitekey="sitekey"
