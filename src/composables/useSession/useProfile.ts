@@ -25,20 +25,33 @@ function initialize () {
       }
       else {
         logDebug('useProfile', 'initialize()', 'Subscribing the doc')
+
+        /*getDoc(doc(getFirestore(), Profile.collectionName, newUid)).then((documentSnapshot) => {
+          logDebug('useProfile', 
+            'initialize()', 
+            'getDoc', 
+            documentSnapshot.id, 
+            documentSnapshot.metadata, 
+            documentSnapshot.data(),
+            documentSnapshot.data()?.nick)
+        })*/
+
         unsubscribeProfile = onSnapshot(
           doc(
             getFirestore(), 
             Profile.collectionName, 
             uid.value),
           (documentSnapshot) => {
-            logDebug('useProfile', 'initialize()', 'onSnapshot', documentSnapshot.id, documentSnapshot.metadata)
-            if (documentSnapshot.exists()) {
-              logDebug('useProfile', 'initialize()', 'onSnapshot', 'exists')
-              _profile.value = new Profile(documentSnapshot.data(), documentSnapshot.id)
-            } else {
-              logDebug('useProfile', 'initialize()', 'onSnapshot', 'not exists')
-              _profile.value = undefined
-            }
+            logDebug('useProfile', 
+              'initialize()', 
+              'onSnapshot', 
+              documentSnapshot.id, 
+              documentSnapshot.metadata, 
+              documentSnapshot.data(),
+              documentSnapshot.data()?.nick)
+
+            documentSnapshot.get
+            _profile.value = new Profile(documentSnapshot.data(), documentSnapshot.id)
           }
         )
       }
