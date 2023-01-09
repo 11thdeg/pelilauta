@@ -14,37 +14,45 @@ function initialize () {
   if (_initialized) return
   _initialized = true
 
-  logDebug('useProfile', 'initialize()')
-
   const { uid } = useSession()
   watch(uid, (newUid) => {
+    logDebug('useProfile', 'initialize()', newUid, _uid)
     if (newUid !== _uid) {
+      logDebug('useProfile', 'initialize()', 'newUid !== _uid')
       unsubscribeProfile && unsubscribeProfile()
       if (!newUid) {
         _profile.value = undefined
       }
       else {
+        logDebug('useProfile', 'initialize()', 'Subscribing the doc')
         unsubscribeProfile = onSnapshot(
           doc(
             getFirestore(), 
             Profile.collectionName, 
             uid.value),
-          (snapshot) => {
-            if (snapshot.exists()) {
-              _profile.value = new Profile(snapshot.data(), snapshot.id)
+          (documentSnapshot) => {
+            logDebug('useProfile', 'initialize()', 'onSnapshot', documentSnapshot.id, documentSnapshot.metadata)
+            if (documentSnapshot.exists()) {
+              logDebug('useProfile', 'initialize()', 'onSnapshot', 'exists')
+              _profile.value = new Profile(documentSnapshot.data(), documentSnapshot.id)
             } else {
+              logDebug('useProfile', 'initialize()', 'onSnapshot', 'not exists')
               _profile.value = undefined
             }
           }
         )
       }
       _uid = newUid
+      logDebug('useProfile', 'initialize()', 'complete')
     }
   }, {immediate: true})
 }
 
 export function useProfile () {
   initialize()
-  return { profile: computed(() => _profile.value)}
+  return {
+    nick: computed(() => _profile.value?.nick || ''),
+    profile: computed(() => _profile.value)
+  }
 }
   

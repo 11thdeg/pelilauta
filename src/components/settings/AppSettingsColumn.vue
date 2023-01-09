@@ -17,12 +17,6 @@ async function doLogout () {
     <cyan-card>
       <h2>{{ t('settings.appSettings.title') }}</h2>
       <cyan-toolbar>
-        <h4 class="downscaled">
-          {{ t('settings.appSettings.darkMode') }}
-        </h4>
-        <!--cyan-lightmode-toggle /-->
-      </cyan-toolbar>
-      <cyan-toolbar>
         <cyan-spacer />
         <cyan-button
           noun="logout"

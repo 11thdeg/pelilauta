@@ -6,6 +6,7 @@ import { logDebug, logError } from '../../utils/logHelpers'
 import { useMeta } from '../useMeta'
 import { useSubscriber } from './useSubscriber'
 import { subscribeNotifications } from './useNotifications'
+import { useProfile } from './useProfile'
 
 export * from './register'
 
@@ -96,6 +97,7 @@ export function login(user: User|null) {
     subscribeToProfile()
     useSubscriber()
     subscribeNotifications(uid.value)
+    useProfile()
     
     active.value = true
     updateDoc(doc(getFirestore(), Account.collectionName, uid.value), { lastLogin: serverTimestamp() })

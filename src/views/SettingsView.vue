@@ -29,8 +29,8 @@ onMounted(() => {
   <main class="dashboardLayout">
     <WithLoader :suspended="!active">
       <WithPermission :forbidden="anonymous">
-        <AppSettingsColumn />
         <ProfileDataColumn />
+        <AppSettingsColumn />
         <article class="Column">
           <h2>{{ t('settings.accountDataPane.title') }}</h2>
           <AccountDataSection />
