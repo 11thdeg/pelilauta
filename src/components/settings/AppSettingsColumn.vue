@@ -2,7 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { logout } from '../../composables/useSession'
-import MarkAllSeenButton from '../MarkAllSeenButton/MarkAllSeenButton.vue';
+import MarkAllSeenButton from '../MarkAllSeenButton/MarkAllSeenButton.vue'
 
 const router = useRouter()
 const { t } = useI18n()
