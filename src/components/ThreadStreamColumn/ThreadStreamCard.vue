@@ -38,6 +38,13 @@ const topicid = computed(() => {
 })
 
 const { subscriber } = useSubscriber()
+
+const newEntry = computed(() => {
+  if (!props.thread.key) return false
+  if (!subscriber.value) return false
+  return subscriber.value.isNew(props.thread.key,props.thread.flowTime)
+})
+
 const notify = computed(() => {
   if (!props.thread.key) return false
   if (!subscriber.value) return false
@@ -45,7 +52,7 @@ const notify = computed(() => {
 })
 
 const level = computed(() => {
-  return notify.value === true ? 2 : 1
+  return notify.value || newEntry.value === true ? 2 : 1
 })
 
 </script>
@@ -56,7 +63,7 @@ const level = computed(() => {
     class="ThreadStreamCard"
     :elevation="level"
     :class="{
-      'notify': notify
+      'notify': notify || newEntry,
     }"
   >
     <TopicIcon

@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { logout } from '../../composables/useSession'
+import MarkAllSeenButton from '../MarkAllSeenButton/MarkAllSeenButton.vue';
 
 const router = useRouter()
 const { t } = useI18n()
@@ -16,6 +17,10 @@ async function doLogout () {
   <article class="appSettingsColumn Column">
     <cyan-card>
       <h2>{{ t('settings.appSettings.title') }}</h2>
+      <cyan-toolbar>
+        <cyan-spacer />
+        <MarkAllSeenButton />
+      </cyan-toolbar>
       <cyan-toolbar>
         <cyan-spacer />
         <cyan-button

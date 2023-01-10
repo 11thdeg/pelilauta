@@ -109,12 +109,25 @@ function init() {
   }, { immediate: true })
 }
 
+async function setSeen (threadKey: string) {
+  subscriber.value?.markSeen(threadKey, Date.now() * 1000)
+  save()
+}
+
+async function markAllSeen () {
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
+  subscriber.value.allSeenAt = Date.now()
+  save()
+}
+
 export function useSubscriber () {
   init()
   return {
     subscriber: computed(() => subscriber.value),
     subscribeTo,
     mute,
-    watches
+    watches,
+    setSeen,
+    markAllSeen
   }
 }

@@ -20,7 +20,7 @@ const props = defineProps<{
 const { t } = useI18n()
 const { thread, loading, notFound } = useThread(props.threadkey)
 const { anonymous } = useSession()
-const { subscribeTo, subscriber } = useSubscriber()
+const { subscribeTo, subscriber, setSeen } = useSubscriber()
 
 const title = computed(() => {
   if (!thread.value) return '...'
@@ -41,6 +41,7 @@ watch(() => thread.value, (tr) => {
       logDebug('Opened a new thread', tr.key , 'will start notifying of changes')
       subscribeTo(tr.key)
     }
+    if (subscriber.value) setSeen(tr.key)
   }
 }, { immediate: true })
 
