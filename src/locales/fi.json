@@ -12,6 +12,10 @@
         "title": "Pelit",
         "info": "Mekanismin sivustoille valittavissa olevat pelit ja teemat"
       },
+      "licensetool": {
+        "title": "Lisenssit",
+        "info": "Lisenssit, joita käyttäjät voivat valita sivustojensa ja median lisenssiksi"
+      },
       "users": {
         "title": "Käyttäjät",
         "info": "Käyttäjät, jotka ovat rekisteröityneet sivustolle"
@@ -392,6 +396,12 @@
         },
         "topic": {
           "title": "Aiheet"
+        },
+        "sitelicense": {
+          "name": "Lisenssi",
+          "id": "tekninen tunniste (uniikki)",
+          "icon": "Lisenssin ikoni",
+          "ref": "Lisenssin URL -osoite"
         }
       }
     },

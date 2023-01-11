@@ -1,6 +1,5 @@
 import { doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
 import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useSession } from '../useSession'
 
 export * from './metaPages'
@@ -22,9 +21,18 @@ export interface SiteFamily {
   icon: string
   id: string
 }
-const siteThemes = ref<SiteFamily[]>([])
 
-const licenses = computed(() => {
+export type License = {
+  id: string
+  name: string
+  ref?: string
+  icon?: string
+}
+
+const siteThemes = ref<SiteFamily[]>([])
+const siteLicenses = ref<License[]>([])
+
+/* const licenses = computed(() => {
   const { t } = useI18n()
   return [
     { label: t('fields.asset.licenses.0'), value: '0' },
@@ -32,7 +40,7 @@ const licenses = computed(() => {
     { label: t('fields.asset.licenses.2'), value: '2' },
     { label: t('fields.asset.licenses.3'), value: '3' },
   ]
-})
+}) */
 
 function init () {
   if (_init) return
@@ -45,6 +53,7 @@ function init () {
         if (data.admins) admins.value = data.admins
         if (data.frozen) frozen.value = data.frozen
         siteThemes.value = data.sitethemes || []
+        siteLicenses.value = data.siteLicenses || []
       }
       for (const key in snapshot.data()?.streams) {
         if(key === '-') continue // skip the '-' key as it's reserved for unassigned streams
@@ -91,6 +100,6 @@ export function useMeta () {
     frozen: computed(() => frozen.value),
     siteThemes: computed(() => siteThemes.value),
     saveStreams,
-    licenses
+    siteLicenses: computed(() => siteLicenses.value)
   }
 }

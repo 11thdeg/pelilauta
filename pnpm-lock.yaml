@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@11thdeg/cyan': ^0.30.10
-  '@11thdeg/skaldstore': 0.3.8-alpha.2
+  '@11thdeg/skaldstore': 0.3.8
   '@firebase/analytics': ^0.9.0
   '@firebase/app': ^0.9.0
   '@firebase/auth': ^0.21.0
@@ -40,7 +40,7 @@ specifiers:
 
 dependencies:
   '@11thdeg/cyan': 0.30.10
-  '@11thdeg/skaldstore': 0.3.8-alpha.2
+  '@11thdeg/skaldstore': 0.3.8
   '@firebase/analytics': 0.9.0_@firebase+app@0.9.0
   '@firebase/app': 0.9.0
   '@firebase/auth': 0.21.0_@firebase+app@0.9.0
@@ -88,8 +88,8 @@ packages:
       marked: 4.2.5
     dev: false
 
-  /@11thdeg/skaldstore/0.3.8-alpha.2:
-    resolution: {integrity: sha512-YXj/QnFSyQcnG/Jaxpza+xwoW7ZCGu1zUZtSI1iyEHCsFKCpIjucOd2liILkjhW+gr3KHZA6ldYYDIOABm7ysQ==}
+  /@11thdeg/skaldstore/0.3.8:
+    resolution: {integrity: sha512-Ry4P931ZCU9ptAQwJXoCPcSaZGFcLBRVO1KhWBWOSRbtX0ZgbKZz4pP9579YzXfYezHuDDtFCq1dGJiOZQ41FA==}
     dependencies:
       firebase: 9.15.0
     transitivePeerDependencies:
