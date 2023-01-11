@@ -100,7 +100,10 @@
         "title": "Keskustelu"
       },
       "settings": {
-        "title": "Sivuston Asetukset"
+        "title": "Sivuston Asetukset",
+        "license": {
+          "info": "Voit jakaa sivustosi sisällön avoimella lisenssillä. Lisenssitiedot näkyvät sivuston alatunnisteessa."
+        }
       },
       "tools": {
         "chapters": {
@@ -127,6 +130,9 @@
       },
       "tray": {
         "unCategorizedPagesSection": "Sivut"
+      },
+      "license": {
+        "info": "Sivuston tekstisisältö on lisensoitu avoimella lisenssillä. Muu sivustolla oleva media voi olla erillisen lisenssin alaista."
       }
     },
     "sites": {
@@ -347,6 +353,7 @@
         "license": "Lisenssi",
         "mimetype": "Muoto",
         "owners": "Omistaja",
+        "noLicense": "-",
         "licenses": {
           "0": "-",
           "1": "CC BY 4.0",
@@ -372,6 +379,7 @@
         "avatarurl": "Kuvake",
         "posterurl": "Taustakuva",
         "description": "Kuvaus",
+        "license": "Lisenssi",
         "homepage": "Kotisivu",
         "link": {
           "title": "Linkit",

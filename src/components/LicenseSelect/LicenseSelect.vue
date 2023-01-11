@@ -17,7 +17,7 @@ const options = computed(() => {
   const def = [
     {
       value: '-',
-      label: t('fields.asset.license.none')
+      label: t('fields.asset.noLicense')
     }
   ]
   return [...def, ...siteLicenses.value?.map((l) => ({

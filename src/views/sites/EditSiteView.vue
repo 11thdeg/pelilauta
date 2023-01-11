@@ -13,6 +13,7 @@ import LinksTool from '../../components/sites/tools/LinksTool.vue'
 import SiteMetaTool from '../../components/SiteMetaEditorCard/SiteMetaTool.vue'
 import { useI18n } from 'vue-i18n'
 import { useTitle } from '@vueuse/core'
+import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 const props = defineProps<{
   sitekey: string
 }>()
@@ -51,6 +52,7 @@ onMounted(async () => {
         <LinksTool />
       </template>
     </main>
+    <SiteFooter />
     <NavigationTray>
       <SiteTray />
     </NavigationTray>

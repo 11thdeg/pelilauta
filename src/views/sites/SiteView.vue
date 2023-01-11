@@ -10,6 +10,7 @@ import PageArticle from '../../components/pages/PageArticle.vue'
 import { useTitle } from '@vueuse/core'
 import SiteThreadListColumn from '../../components/SiteThreadListColumn/SiteThreadListColumn.vue'
 import SiteChangesListColumn from '../../components/SiteChangesListColumn/SiteChangesListColumn.vue'
+import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -41,6 +42,7 @@ onMounted(() => {
       <SiteChangesListColumn />
       <SiteThreadListColumn :sitekey="sitekey" />
     </main>
+    <SiteFooter />
     <SiteFabs :sitekey="sitekey" />
     <NavigationTray>
       <SiteTray />

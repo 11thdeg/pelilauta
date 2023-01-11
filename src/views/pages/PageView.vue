@@ -9,6 +9,7 @@ import { loadSite, useSite } from '../../composables/useSite'
 import { watch } from 'vue'
 import { useTitle } from '@vueuse/core'
 import PageMetaColumn from '../../components/PageMetaColumn/PageMetaColumn.vue'
+import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -53,4 +54,5 @@ watch(page, () => {
       <SiteTray />
     </NavigationTray>
   </main>
+  <SiteFooter />
 </template>
