@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useMeta } from '../../composables/useMeta'
 
 const props = defineProps<{
   modelValue: string
@@ -10,14 +11,20 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+const { siteLicenses } = useMeta()
 
-const licenses = ref([
-  { label: t('fields.asset.licenses.0'), value: '0' },
-  { label: t('fields.asset.licenses.1'), value: '1' },
-  { label: t('fields.asset.licenses.2'), value: '2' },
-  { label: t('fields.asset.licenses.3'), value: '3' },
-])
-
+const options = computed(() => {
+  const def = [
+    {
+      value: '-',
+      label: t('fields.asset.license.none')
+    }
+  ]
+  return [...def, ...siteLicenses.value?.map((l) => ({
+    value: l.id,
+    label: l.name
+  }))]
+})
 const license = computed({
   get: () => props.modelValue,
   set: (value) => {
@@ -29,9 +36,10 @@ const license = computed({
 
 <template>
   <cyan-select
+    v-if="siteLicenses"
     :value="license"
     :label="t('fields.asset.license')"
-    :options="licenses"
+    :options="options"
     @change="(license = $event.target.value)"
   />
 </template>

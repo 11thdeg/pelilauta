@@ -5,6 +5,7 @@ import { entryOwnersAsArray } from '../../utils/entryOwnersAsArray'
 import { parseAssetName } from '../../utils/assetHelpers'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import { useMeta } from '../../composables/useMeta'
+import LicenseSelect from '../LicenseSelect/LicenseSelect.vue'
 
 type Asset = {
   key?: string
@@ -26,7 +27,6 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const { licenses } = useMeta()
 
 const asset = computed({
   get: () => props.modelValue,
@@ -60,11 +60,8 @@ const asset = computed({
       :label="t('fields.asset.description')"
       @blur="asset.description = $event.target.value"
     />
-    <cyan-select
-      :value="asset.license"
-      :label="t('fields.asset.license')"
-      :options="licenses"
-      @change="asset.license = $event.target.value"
+    <LicenseSelect
+      v-model="asset.license"
     />
   </section>
 </template>

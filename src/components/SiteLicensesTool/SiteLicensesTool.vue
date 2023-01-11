@@ -66,7 +66,7 @@ function moveUp(index: number) {
           :key="license.id"
         >
           <cyan-icon
-            :icon="license.icon"
+            :noun="license.icon"
             small
           />
           <p class="TypeBody2">
