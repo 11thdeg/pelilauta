@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import SocialGoogleLoginButton from './SocialGoogleLoginButton.vue'
-import SocialFacebookLoginButton from './SocialFacebookLoginButton.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -23,7 +22,6 @@ const props = defineProps<{
     
       <div class="buttons">
         <SocialGoogleLoginButton :to="props.to" />
-        <SocialFacebookLoginButton :to="props.to" />
       </div>
 
       <p
