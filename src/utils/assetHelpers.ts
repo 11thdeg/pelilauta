@@ -2,7 +2,7 @@ type Asset = {
   url?: string
   storagePath?: string
   name?: string,
-  license?: number,
+  license?: string,
   description?: string
 }
 
@@ -13,9 +13,9 @@ export function parseAssetName(asset:Asset): string {
   return '*'
 }
 
-export function parseAssetLicense(asset:Asset): number {
+export function parseAssetLicense(asset:Asset): string {
   if (asset.license) return asset.license
-  return 0
+  return ''
 }
 
 export function parseAssetDescription(asset:Asset): string {

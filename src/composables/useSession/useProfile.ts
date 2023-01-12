@@ -2,7 +2,7 @@ import { Profile } from '@11thdeg/skaldstore'
 import { doc, getFirestore, onSnapshot } from 'firebase/firestore'
 import { computed, ref, watch } from 'vue'
 import { useSession } from '.'
-import { logDebug } from '../../utils/logHelpers'
+// import { logDebug } from '../../utils/logHelpers'
 
 const _profile = ref<Profile | undefined>(undefined)
 
@@ -16,15 +16,15 @@ function initialize () {
 
   const { uid } = useSession()
   watch(uid, (newUid) => {
-    logDebug('useProfile', 'initialize()', newUid, _uid)
+    // logDebug('useProfile', 'initialize()', newUid, _uid)
     if (newUid !== _uid) {
-      logDebug('useProfile', 'initialize()', 'newUid !== _uid')
+      // logDebug('useProfile', 'initialize()', 'newUid !== _uid')
       unsubscribeProfile && unsubscribeProfile()
       if (!newUid) {
         _profile.value = undefined
       }
       else {
-        logDebug('useProfile', 'initialize()', 'Subscribing the doc')
+        // logDebug('useProfile', 'initialize()', 'Subscribing the doc')
 
         /*getDoc(doc(getFirestore(), Profile.collectionName, newUid)).then((documentSnapshot) => {
           logDebug('useProfile', 
@@ -42,13 +42,13 @@ function initialize () {
             Profile.collectionName, 
             uid.value),
           (documentSnapshot) => {
-            logDebug('useProfile', 
+            /* logDebug('useProfile', 
               'initialize()', 
               'onSnapshot', 
               documentSnapshot.id, 
               documentSnapshot.metadata, 
               documentSnapshot.data(),
-              documentSnapshot.data()?.nick)
+              documentSnapshot.data()?.nick) */
 
             documentSnapshot.get
             _profile.value = new Profile(documentSnapshot.data(), documentSnapshot.id)
@@ -56,7 +56,7 @@ function initialize () {
         )
       }
       _uid = newUid
-      logDebug('useProfile', 'initialize()', 'complete')
+      // logDebug('useProfile', 'initialize()', 'complete')
     }
   }, {immediate: true})
 }

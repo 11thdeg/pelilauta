@@ -15,6 +15,7 @@ import { parseAssetName } from '../../utils/assetHelpers'
 import { logDebug } from '../../utils/logHelpers'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
+import WithLoader from '../ui/WithLoader.vue'
 
 const props = defineProps<{
   homepage?: boolean;
@@ -140,7 +141,7 @@ const nameError = computed(() => {
 // Chapter
 const _chapter = ref('')
 const chapter = computed({
-  get: () => _chapter.value || page.value.category,
+  get: () => _chapter.value || page.value.category,
   set: (v) => {
     _chapter.value = v
     page.value.category = v
@@ -150,7 +151,7 @@ const chapter = computed({
 // Markdown
 const _markdown = ref('')
 const markdown = computed({
-  get: () => _markdown.value || page.value.markdownContent,
+  get: () => _markdown.value || page.value.markdownContent,
   set: (v) => {
     _markdown.value = v
     page.value.markdownContent = v
@@ -162,9 +163,6 @@ const markdownError = computed(() => {
   }
   return false
 })
-/* const htmlConversionAvailable = computed(() => {
-  return page.value.htmlContent && !page.value.markdownContent
-}) */
 
 const hasUpdates = computed(() => {
   if (
@@ -188,16 +186,8 @@ async function injectImage (key: string) {
 </script>
 
 <template>
-  <div class="Column large">
-    <template v-if="loading">
-      <cyan-loader large />
-    </template>
-    <template v-else>
-      <!-- <cyan-code>{{ props.homepage }}</cyan-code>
-      <cyan-code>({{ htmlConversionAvailable }})</cyan-code>&nbsp;
-      <cyan-code>({{ hasUpdates }})</cyan-code>&nbsp;
-      <cyan-code>({{ _chapter }})</cyan-code>&nbsp;
-      <cyan-code>({{ markdownError }})</cyan-code-->
+  <form class="Column large">
+    <WithLoader :suspended="loading">
       <section
         v-if="!preview"
         class="fieldset"
@@ -259,6 +249,6 @@ async function injectImage (key: string) {
           @click="savePage"
         />
       </cyan-toolbar>
-    </template>
-  </div>
+    </WithLoader>
+  </form>
 </template>

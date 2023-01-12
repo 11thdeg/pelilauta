@@ -32,16 +32,6 @@ export type License = {
 const siteThemes = ref<SiteFamily[]>([])
 const siteLicenses = ref<License[]>([])
 
-/* const licenses = computed(() => {
-  const { t } = useI18n()
-  return [
-    { label: t('fields.asset.licenses.0'), value: '0' },
-    { label: t('fields.asset.licenses.1'), value: '1' },
-    { label: t('fields.asset.licenses.2'), value: '2' },
-    { label: t('fields.asset.licenses.3'), value: '3' },
-  ]
-}) */
-
 function init () {
   if (_init) return
   _init = true
