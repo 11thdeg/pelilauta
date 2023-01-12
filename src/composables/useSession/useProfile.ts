@@ -24,17 +24,6 @@ function initialize () {
         _profile.value = undefined
       }
       else {
-        // logDebug('useProfile', 'initialize()', 'Subscribing the doc')
-
-        /*getDoc(doc(getFirestore(), Profile.collectionName, newUid)).then((documentSnapshot) => {
-          logDebug('useProfile', 
-            'initialize()', 
-            'getDoc', 
-            documentSnapshot.id, 
-            documentSnapshot.metadata, 
-            documentSnapshot.data(),
-            documentSnapshot.data()?.nick)
-        })*/
 
         unsubscribeProfile = onSnapshot(
           doc(
