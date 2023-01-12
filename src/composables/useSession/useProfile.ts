@@ -24,7 +24,6 @@ function initialize () {
         _profile.value = undefined
       }
       else {
-
         unsubscribeProfile = onSnapshot(
           doc(
             getFirestore(), 
