@@ -9,6 +9,7 @@ const { loading } = useSite()
 <template>
   <footer class="SiteFooter">
     <WithLoader :suspended="loading">
+      <hr>
       <SiteLicenseSection />
     </WithLoader>
   </footer>
@@ -17,4 +18,5 @@ const { loading } = useSite()
 <style lang="sass" scoped>
 .SiteFooter
   margin-top: 48px
+  padding: 24px
 </style>
