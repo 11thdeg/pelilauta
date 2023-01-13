@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@11thdeg/cyan': 0.30.12
+  '@11thdeg/cyan': 0.31.0
   '@11thdeg/skaldstore': 0.3.10
   '@firebase/analytics': ^0.9.0
   '@firebase/app': ^0.9.0
@@ -39,7 +39,7 @@ specifiers:
   workbox-window: ^6.5.4
 
 dependencies:
-  '@11thdeg/cyan': 0.30.12
+  '@11thdeg/cyan': 0.31.0
   '@11thdeg/skaldstore': 0.3.10
   '@firebase/analytics': 0.9.0_@firebase+app@0.9.0
   '@firebase/app': 0.9.0
@@ -80,8 +80,8 @@ devDependencies:
 
 packages:
 
-  /@11thdeg/cyan/0.30.12:
-    resolution: {integrity: sha512-Tbh0o+D/OrVz6TeFeQzmMHmpbQkvMAPjGvgPGuazXMK0EzPVf00xFbJ54eoipIItxxzya/yBKNcHZqmJW8yc8w==}
+  /@11thdeg/cyan/0.31.0:
+    resolution: {integrity: sha512-UX9EwUbJhrvmPYeIh/CaFkqBqAD1v1uvUNf6eQM+X4P32o1P9d/2oJ1ykKHij51mvEh2t38JccZlkgmftP0F+w==}
     dependencies:
       europa: 6.0.0
       lit: 2.5.0
