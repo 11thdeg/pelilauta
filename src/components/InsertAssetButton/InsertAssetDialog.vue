@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { CyanTabs } from '@11thdeg/cyan'
+import { ref, watch } from 'vue'
+import { CyanDialog, CyanTabs } from '@11thdeg/cyan'
 import { useI18n } from 'vue-i18n'
 import UploadAssetForm from '../UploadAssetForm/UploadAssetForm.vue'
 import SelectAssetForm from './SelectAssetForm.vue'
@@ -26,6 +26,13 @@ const tabs = [
 ]
 
 const mode = ref('select')
+const dialog = ref<CyanDialog>()
+
+watch(() => props.modelValue, (value) => {
+  if (value) {
+    dialog.value?.showModal()
+  }
+})
 
 function selectTab(e: Event) {
   const tab = (e.target as CyanTabs).active
@@ -48,7 +55,8 @@ function insertSelectedAsset(key: string) {
 
 <template>
   <teleport to="body">
-    <cyan-dialog
+    <cn-dialog
+      ref="dialog"
       title="select or upload asset"
       :open="modelValue"
       @close="close"
@@ -68,6 +76,6 @@ function insertSelectedAsset(key: string) {
         v-else
         @upload="insertSelectedAsset"
       />
-    </cyan-dialog>
+    </cn-dialog>
   </teleport>
 </template>

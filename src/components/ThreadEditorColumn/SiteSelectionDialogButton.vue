@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { CyanDialog } from '@11thdeg/cyan'
 import { Site } from '@11thdeg/skaldstore'
 import { computed, onMounted, Ref, watch } from 'vue'
 import { ref } from 'vue'
@@ -55,6 +56,8 @@ const noun = computed(() => {
   }
   return 'mekanismi'
 })
+
+const dialog = ref<CyanDialog>()
 </script>
 
 <template>
@@ -62,10 +65,11 @@ const noun = computed(() => {
     text
     :label="label"
     :noun="noun"
-    @click.prevent="(dialogOpen = true)"
+    @click.prevent="dialog?.showModal()"
   />
   <teleport to="body">
-    <cyan-dialog
+    <cn-dialog
+      ref="dialog"
       :title="t('action.link.site')"
       :open="dialogOpen"
       @close="dialogOpen = false"
@@ -79,9 +83,9 @@ const noun = computed(() => {
         <cyan-spacer />
         <cyan-button
           :label="t('action.continue')"
-          @click.prevent="dialogOpen = false"
+          @click.prevent="dialog?.close()"
         />
       </cyan-toolbar>
-    </cyan-dialog>
+    </cn-dialog>
   </teleport>
 </template>

@@ -3,6 +3,8 @@ import { useI18n } from 'vue-i18n'
 import { logDebug } from '../../utils/logHelpers'
 import { useAssets } from '../../composables/useAssets'
 import UploadAssetForm from '../UploadAssetForm/UploadAssetForm.vue'
+import { watch, ref } from 'vue'
+import { CyanDialog } from '@11thdeg/cyan'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<{
@@ -16,6 +18,14 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const { fetchAsset } = useAssets()
+const dialog = ref<CyanDialog>()
+
+watch(() => props.modelValue, (value) => {
+  if (value) {
+    logDebug('AddAssetDialog opened')
+    dialog.value?.showModal()
+  }
+})
 
 function close () {
   emit('update:modelValue', false)
@@ -32,14 +42,14 @@ function insertSelectedAsset(key: string) {
 
 <template>
   <teleport to="body">
-    <cyan-dialog
+    <cn-dialog
+      ref="dialog"
       :title="t('assets.add.title')"
-      :open="modelValue"
       @close="close"
     >
       <UploadAssetForm
         @upload="insertSelectedAsset"
       />
-    </cyan-dialog>
+    </cn-dialog>
   </teleport>
 </template>
