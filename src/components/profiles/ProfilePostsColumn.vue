@@ -3,7 +3,7 @@ import { Thread } from '@11thdeg/skaldstore'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fetchAuthorThreads } from '../../composables/useThreads'
-import ThreadCard from '../ThreadCard/ThreadCard.vue'
+import ThreadStreamCard from '../ThreadStreamColumn/ThreadStreamCard.vue'
 import WithLoader from '../ui/WithLoader.vue'
 
 const props = defineProps<{
@@ -26,10 +26,10 @@ onMounted(async () => {
     <h3>{{ t('profile.stream.title') }}</h3>
     <WithLoader :suspended="loading">
       <section class="verticalList">
-        <ThreadCard
+        <ThreadStreamCard
           v-for="thread in authorThreads"
           :key="thread.key"
-          :threadkey="thread.key"
+          :thread="thread"
         />
       </section>
     </WithLoader>

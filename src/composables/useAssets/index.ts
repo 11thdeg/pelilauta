@@ -74,7 +74,7 @@ type AssetData = {
   key?: string
   name?: string
   description?: string
-  license?: number
+  license: string
   owners?: string|string[]
 }
 

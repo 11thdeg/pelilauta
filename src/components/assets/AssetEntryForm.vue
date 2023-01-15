@@ -4,7 +4,6 @@ import { useI18n } from 'vue-i18n'
 import { entryOwnersAsArray } from '../../utils/entryOwnersAsArray'
 import { parseAssetName } from '../../utils/assetHelpers'
 import ProfileLink from '../profileLink/ProfileLink.vue'
-import { useMeta } from '../../composables/useMeta'
 import LicenseSelect from '../LicenseSelect/LicenseSelect.vue'
 
 type Asset = {
@@ -15,7 +14,7 @@ type Asset = {
   storagePath?: string
   owners: string|string[]
   description?: string,
-  license?: number
+  license: string
 }
 
 const props = defineProps<{
