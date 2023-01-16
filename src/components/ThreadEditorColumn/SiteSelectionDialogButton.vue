@@ -22,7 +22,10 @@ const siteEntry:Ref<Site|undefined> = ref(undefined)
 
 onMounted(async () => {
   watch(props, async (newProps) => {
-    siteEntry.value = await fetchSite(newProps.modelValue)
+    if (newProps.modelValue) {
+      // Note: the thread might not have a site – in that case, no need to fetch
+      siteEntry.value = await fetchSite(newProps.modelValue)
+    }
   }, { immediate: true })
 })
 
