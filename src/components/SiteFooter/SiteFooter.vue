@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useSite } from '../../composables/useSite'
 import WithLoader from '../ui/WithLoader.vue'
+import SiteAdminsSection from './SiteAdminsSection.vue'
 import SiteLicenseSection from './SiteLicenseSection.vue'
 
 const { loading } = useSite()
@@ -10,7 +11,10 @@ const { loading } = useSite()
   <footer class="SiteFooter">
     <WithLoader :suspended="loading">
       <hr>
-      <SiteLicenseSection />
+      <div class="footerBlocks">
+        <SiteLicenseSection />
+        <SiteAdminsSection />
+      </div>
       <hr>
       <div class="flex">
         <cyan-spacer />
@@ -26,6 +30,15 @@ const { loading } = useSite()
 </template>
 
 <style lang="sass" scoped>
+.footerBlocks
+  display: grid
+  grid-template-columns: 1fr 1fr 1fr
+  gap: var(--cyan-gap-column)
+
+@media screen and (max-width: 768px)
+  .footerBlocks
+    display: flex
+    flex-direction: column
 .SiteFooter
   margin-top: 48px
   padding: 24px
