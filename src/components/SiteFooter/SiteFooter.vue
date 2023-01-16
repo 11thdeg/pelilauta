@@ -11,6 +11,16 @@ const { loading } = useSite()
     <WithLoader :suspended="loading">
       <hr>
       <SiteLicenseSection />
+      <hr>
+      <div class="flex">
+        <cyan-spacer />
+        <cyan-icon
+          noun="mekanismi"
+          xlarge
+          style="opacity: 0.11;"
+        />
+        <cyan-spacer />
+      </div>
     </WithLoader>
   </footer>
 </template>

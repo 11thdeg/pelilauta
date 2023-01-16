@@ -60,6 +60,15 @@ const noun = computed(() => {
   return 'mekanismi'
 })
 
+const options = computed(() => {
+  return [
+    {
+      value: '',
+      label: '-'
+    },
+    ...sitesAsOptions.value]
+})
+
 const dialog = ref<CyanDialog>()
 </script>
 
@@ -79,7 +88,7 @@ const dialog = ref<CyanDialog>()
     >
       <cyan-select
         :value="selected"
-        :options="sitesAsOptions"
+        :options="options"
         @change="selected = $event.target.value"
       />
       <cyan-toolbar>
