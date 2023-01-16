@@ -2,6 +2,52 @@
     "about": {
       "title": "Tietoja"
     },
+    "action": {
+      "accept": "Hyväksy ehdot",
+      "add": {
+        "new": "Lisää uusi",
+        "thread": "Luo keskustelu",
+        "page": "Luo sivu"
+      },
+      "cancel": "Peruuta",
+      "chooseAvatar": "Vaihda kuvake",
+      "continue": "Jatka",
+      "copy": {
+        "markdown": "Markdown"
+      },
+      "create": "Luo uusi",
+      "delete": "Poista",
+      "loadMore": "Lataa lisää",
+      "toDiscussion": "Lue lisää",
+      "toLogin": "Kirjaudu sisään",
+      "toLoki": "Lokiin",
+      "toProfile": "Profiili",
+      "link": {
+        "site": "Lisää sivusto"
+      },
+      "login": "Kirjaudu",
+      "loginOrRegister": "Kirjaudu / rekisteröidy",
+      "move": "Siirrä",
+      "preview": "Esikatselu",
+      "register": "Rekisteröidy",
+      "scroll": {
+        "toTop": "Ylös"
+      },
+      "useInApp": "Ota Käyttöön",
+      "toSettings": "Asetukset",
+      "toSites": "Mekanismi",
+      "logout": "Kirjaudu ulos",
+      "change": "Vaihda",
+      "remove": "Poista",
+      "select": "Valitse",
+      "selectImage": "Valitse kuva",
+      "save": "Tallenna",
+      "addImage": "Kuva",
+      "upload": "Lähetä",
+      "edit": "Muokkaa",
+      "send": "Lähetä",
+      "share": "Jaa"
+    },
     "admin": {
       "title": "Hallinto",
       "description": "Sovelluksen hallintatyökalut. Sivu näkyy vain ylläpidolle, jote älä jaa tietoja täältä.",
@@ -178,52 +224,6 @@
       "create": {
         "title": "Luo uusi ketju"
       }
-    },
-    "action": {
-      "accept": "Hyväksy ehdot",
-      "add": {
-        "new": "Lisää uusi",
-        "thread": "Luo keskustelu",
-        "page": "Luo sivu"
-      },
-      "cancel": "Peruuta",
-      "chooseAvatar": "Vaihda kuvake",
-      "continue": "Jatka",
-      "copy": {
-        "markdown": "Markdown"
-      },
-      "create": "Luo uusi",
-      "delete": "Poista",
-      "loadMore": "Lataa lisää",
-      "toDiscussion": "Lue lisää",
-      "toLogin": "Kirjaudu sisään",
-      "toLoki": "Lokiin",
-      "toProfile": "Profiili",
-      "link": {
-        "site": "Lisää sivusto"
-      },
-      "login": "Kirjaudu",
-      "loginOrRegister": "Kirjaudu / rekisteröidy",
-      "move": "Siirrä",
-      "preview": "Esikatselu",
-      "register": "Rekisteröidy",
-      "scroll": {
-        "toTop": "Ylös"
-      },
-      "useInApp": "Ota Käyttöön",
-      "toSettings": "Asetukset",
-      "toSites": "Mekanismi",
-      "logout": "Kirjaudu ulos",
-      "change": "Vaihda",
-      "remove": "Poista",
-      "select": "Valitse",
-      "selectImage": "Valitse kuva",
-      "save": "Tallenna",
-      "addImage": "Kuva",
-      "upload": "Lähetä",
-      "edit": "Muokkaa",
-      "send": "Lähetä",
-      "share": "Jaa"
     },
     "assets": {
       "title": "Media",

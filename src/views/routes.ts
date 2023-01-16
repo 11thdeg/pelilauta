@@ -22,6 +22,7 @@ export const routes = [
   { path: '/threads/:threadkey/delete', component: () => import('./threads/ConfirmThreadDeletionView.vue'), props: true },
   { path: '/streams/', component: () => import('./threads/StreamView.vue') },
   { path: '/streams/:streamkey', component: () => import('./threads/StreamView.vue'), props: true },
+  { path: '/streams/:streamkey/add/thread', component: () => import('./threads/CreateThreadView.vue'), props: true },
   { path: '/editorSandbox', component: () => import('./admin/EditorSandbox.vue') }, // -->
   { path: '/sites', component: () => import('./sites/SitesHomeView.vue') },
   { path: '/sites/:sitekey', component: () => import('./sites/SiteView.vue'), props: true },

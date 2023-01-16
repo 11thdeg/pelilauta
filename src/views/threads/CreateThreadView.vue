@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Thread } from '@11thdeg/skaldstore'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import TopBar from '../../components/navigation/TopBar.vue'
 import ThreadEditorColumn from '../../components/ThreadEditorColumn/ThreadEditorColumn.vue'
@@ -10,7 +10,19 @@ import { useSession } from '../../composables/useSession'
 
 const { t } = useI18n()
 const { active, anonymous, frozen } = useSession()
+
+const props = defineProps<{
+  streamkey?: string
+}>()
+
 const thread = ref(new Thread())
+
+onMounted(() => {
+  if (props.streamkey) {
+    thread.value = new Thread()
+    thread.value.topicid = props.streamkey
+  }
+})
 
 const forbidden = computed(() => anonymous.value || frozen.value)
 </script>
