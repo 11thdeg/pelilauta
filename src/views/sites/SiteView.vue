@@ -30,8 +30,6 @@ onMounted(() => {
     }
   }, { immediate: true })
 })
-
-
 </script>
 
 <template>
