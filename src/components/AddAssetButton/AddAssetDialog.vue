@@ -28,7 +28,12 @@ watch(() => props.modelValue, (value) => {
 })
 
 function close () {
-  emit('update:modelValue', false)
+  if (props.modelValue) {
+    emit('update:modelValue', false)
+    if (dialog.value && dialog.value.open) {
+      dialog.value.close()
+    }
+  }
 }
 
 function insertSelectedAsset(key: string) {
