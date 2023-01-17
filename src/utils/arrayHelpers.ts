@@ -6,4 +6,5 @@ export function moveUp (arr: unknown[], index: number) {
   const temp = arr[index - 1]
   arr[index - 1] = arr[index]
   arr[index] = temp
+  return arr
 }

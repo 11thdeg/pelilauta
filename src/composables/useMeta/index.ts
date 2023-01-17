@@ -81,6 +81,18 @@ async function saveStreams (arr:StreamData[]) {
     { streams: map }
   )
 }
+async function update(field: string, value: SiteFamily[] ) {
+  const { admin } = useSession()
+  if (!admin.value) throw new Error('Requires admin access to DB, aborting at client side')
+  return updateDoc(
+    doc(
+      getFirestore(),
+      'meta',
+      'pelilauta'
+    ),
+    { [field]: value }
+  )
+}
 
 export function useMeta () {
   init()
@@ -90,6 +102,7 @@ export function useMeta () {
     frozen: computed(() => frozen.value),
     siteThemes: computed(() => siteThemes.value),
     saveStreams,
-    siteLicenses: computed(() => siteLicenses.value)
+    siteLicenses: computed(() => siteLicenses.value),
+    update
   }
 }

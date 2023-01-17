@@ -1,53 +1,27 @@
 <script lang="ts" setup>
-import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { Ref, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { SiteFamily, useMeta } from '../../../composables/useMeta'
 import { useSession } from '../../../composables/useSession'
-import { logDebug } from '../../../utils/logHelpers'
 import SiteThemeEditor from './SiteThemeEditor.vue'
-import { moveUp as arrayMoveUp } from '../../../utils/arrayHelpers'
 
 const { t } = useI18n()
 const { admin } = useSession()
-const { siteThemes } = useMeta()
-
+const { siteThemes, update } = useMeta()
 const activeTheme:Ref<SiteFamily|undefined> = ref(undefined)
 
-function update(themes: SiteFamily[]) {
-  if (!admin.value) throw new Error('The user does not have Admin rights - the DB would block the update.')
-  logDebug('updating', themes)
-  updateDoc(doc(getFirestore(), 'meta', 'pelilauta'), {
-    sitethemes: themes
-  })
-}
-
-function moveUp(index: number) {
+function moveUp(index: number) { 
   const arr = [...siteThemes.value]
-  arrayMoveUp(arr, index)
-  update(arr)
-}
-
-function save(theme:SiteFamily) {
-  logDebug('save', theme)
-  if (admin.value) {
-    const arr = Array.from(siteThemes.value)
-    if(!arr.find(a => a.id === theme.id)) {
-      const th:SiteFamily = {
-        name: theme.name || '-',
-        id: theme.id || '-',
-        icon: theme.icon || 'fox'
-      }
-      arr.push(th)
-    }
-    update(arr)
-  }
+  const item = arr[index]
+  arr[index] = arr[index - 1]
+  arr[index - 1] = item
+  update('sitethemes', arr)
 }
 
 function deleteTheme (index: number) {
   const arr = Array.from(siteThemes.value)
   arr.splice(index, 1)
-  update(arr)
+  update('sitethemes', arr)
 }
 </script>
 <template>
@@ -92,7 +66,6 @@ function deleteTheme (index: number) {
       </div>
       <SiteThemeEditor
         :theme="activeTheme"
-        @save="save($event)"
       />
     </cyan-card>
   </article>
