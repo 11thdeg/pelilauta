@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { useSite } from '../../composables/useSite'
+import SiteThreadListColumn from '../SiteThreadListColumn/SiteThreadListColumn.vue'
 import WithLoader from '../ui/WithLoader.vue'
 import SiteAdminsSection from './SiteAdminsSection.vue'
 import SiteLicenseSection from './SiteLicenseSection.vue'
 
-const { loading } = useSite()
+const { loading, key } = useSite()
 </script>
 
 <template>
@@ -14,6 +15,7 @@ const { loading } = useSite()
       <div class="footerBlocks">
         <SiteLicenseSection />
         <SiteAdminsSection />
+        <SiteThreadListColumn :sitekey="key" />
       </div>
       <hr>
       <div class="flex">

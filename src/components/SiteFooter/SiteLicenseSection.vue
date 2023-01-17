@@ -16,7 +16,7 @@ const license = computed(() => siteLicenses.value?.find(l => l.id === site.value
   <section
     v-if="site && license"
     class="flex"
-    style="max-width: 400px; flex-wrap: nowrap;"
+    style="align-self: flex-start; flex-wrap: nowrap;"
   >
     <cyan-icon
       :noun="license.icon"
