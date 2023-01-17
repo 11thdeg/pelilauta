@@ -6,15 +6,16 @@ import { SiteFamily, useMeta } from '../../../composables/useMeta'
 import { useSession } from '../../../composables/useSession'
 import { logDebug } from '../../../utils/logHelpers'
 import SiteThemeEditor from './SiteThemeEditor.vue'
+import { moveUp as arrayMoveUp } from '../../../utils/arrayHelpers'
 
 const { t } = useI18n()
 const { admin } = useSession()
-
 const { siteThemes } = useMeta()
 
 const activeTheme:Ref<SiteFamily|undefined> = ref(undefined)
 
 function update(themes: SiteFamily[]) {
+  if (!admin.value) throw new Error('The user does not have Admin rights - the DB would block the update.')
   logDebug('updating', themes)
   updateDoc(doc(getFirestore(), 'meta', 'pelilauta'), {
     sitethemes: themes
@@ -22,13 +23,9 @@ function update(themes: SiteFamily[]) {
 }
 
 function moveUp(index: number) {
-  if(index > 0) {
-    const arr = Array.from(siteThemes.value)
-    const temp = arr[index]
-    arr[index] = arr[index - 1]
-    arr[index - 1] = temp
-    update(arr)
-  }
+  const arr = [...siteThemes.value]
+  arrayMoveUp(arr, index)
+  update(arr)
 }
 
 function save(theme:SiteFamily) {
@@ -107,8 +104,4 @@ function deleteTheme (index: number) {
   grid-template-columns: 32px auto 32px 32px 32px
   row-gap: 4px
   align-items: center
-  .cyan-icon
-    width: 48px
-    height: 48px
-    display: block
 </style>
