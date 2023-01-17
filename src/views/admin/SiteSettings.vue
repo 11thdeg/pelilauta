@@ -3,7 +3,7 @@ import { useSession } from '../../composables/useSession'
 import AppBar from '../../components/navigation/AppBar.vue'
 import TopBar from '../../components/navigation/TopBar.vue'
 import TopicTool from '../../components/admin/TopicTool.vue'
-import SiteThemeTool from '../../components/admin/SiteThemeTool.vue'
+import SiteThemeTool from '../../components/admin/SiteThemeTool/SiteThemeTool.vue'
 import AdminTray from '../../components/admin/AdminTray.vue'
 import SiteLicensesTool from '../../components/SiteLicensesTool/SiteLicensesTool.vue'
 

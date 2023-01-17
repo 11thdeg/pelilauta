@@ -2,9 +2,9 @@
 import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { Ref, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { SiteFamily, useMeta } from '../../composables/useMeta'
-import { useSession } from '../../composables/useSession'
-import { logDebug } from '../../utils/logHelpers'
+import { SiteFamily, useMeta } from '../../../composables/useMeta'
+import { useSession } from '../../../composables/useSession'
+import { logDebug } from '../../../utils/logHelpers'
 import SiteThemeEditor from './SiteThemeEditor.vue'
 
 const { t } = useI18n()

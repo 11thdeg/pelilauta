@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { Ref, ref, computed, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { SiteFamily } from '../../composables/useMeta'
-import { logDebug } from '../../utils/logHelpers'
-import Dialog from '../ui/Dialog.vue'
-import NounSelect from '../ui/NounSelect.vue'
+import { SiteFamily } from '../../../composables/useMeta'
+import { logDebug } from '../../../utils/logHelpers'
+import Dialog from '../../ui/Dialog.vue'
+import NounSelect from '../../ui/NounSelect.vue'
 
 const props = defineProps<{
   theme?: SiteFamily
