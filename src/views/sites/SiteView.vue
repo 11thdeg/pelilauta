@@ -35,7 +35,7 @@ onMounted(() => {
   <div id="SiteView">
     <SiteAppBar :sitekey="sitekey" />
     <main class="bookLayout">
-      <PageArticle />
+      <PageArticle homepage />
       <SiteChangesListColumn />
     </main>
     <SiteFooter />

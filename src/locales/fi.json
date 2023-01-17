@@ -179,6 +179,10 @@
       },
       "license": {
         "info": "Sivuston tekstisisältö on lisensoitu avoimella lisenssillä. Muu sivustolla oleva media voi olla erillisen lisenssin alaista."
+      },
+      "welcome": {
+        "title": "Tervetuloa",
+        "message": "Tämä on uusi sivusto. Voit korvata tämän viestin luomalla uuden sivun, ja asettamalla sen asetuksista kotisivuksi."
       }
     },
     "sites": {
