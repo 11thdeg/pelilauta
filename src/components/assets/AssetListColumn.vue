@@ -1,13 +1,25 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { parseAssetDescription, parseAssetLicense } from '../../utils/assetHelpers'
 import { useUserAssets } from '../../composables/useSession/useUserAssets'
-import AssetCard from '../AssetCard.vue/AssetCard.vue'
 import AddAssetButton from '../AddAssetButton/AddAssetButton.vue'
-import { parseAssetName } from '../../utils/assetHelpers'
+import { parseAssetName, hasPreview } from '../../utils/assetHelpers'
+import { computed, ref } from 'vue'
+import AssetFilterPanel from './AssetFilterPanel.vue'
+import { Entry } from '@11thdeg/skaldstore'
 
 const { t } = useI18n()
-const { assets } = useUserAssets()
+const { assets: originalAssets } = useUserAssets()
+
+const assets = computed(() => {
+  const arr = [...originalAssets.value]
+  if (orderBy.value === 'name') arr.sort((a, b) => a.name.localeCompare(b.name))
+  if (orderBy.value === '-name') arr.sort((a, b) => b.name.localeCompare(a.name))
+  if (orderBy.value === 'flowtime') arr.sort((a, b) => (a as Entry).compareFlowTime(b as Entry))
+  if (orderBy.value === '-flowtime') arr.sort((a, b) => (b as Entry).compareFlowTime(a as Entry))
+  return arr
+})
+
+const orderBy = ref('name')
 
 </script>
 <template>
@@ -19,7 +31,25 @@ const { assets } = useUserAssets()
       <cyan-spacer />
       <AddAssetButton />
     </cyan-toolbar>
-    <section class="cardGrid">
+
+    <AssetFilterPanel v-model:orderBy="orderBy" />
+
+    <section class="flex flex-wrap">
+      <router-link 
+        v-for="asset in assets"
+        :key="asset.key"
+        :to="`/assets/${asset.key}`"
+      >
+        <cn-asset-token
+          style="display: block; height: 104px; width: 104px;"
+          :type="asset.mimetype || 'unknown'"
+          :label="parseAssetName(asset)"
+          :preview="hasPreview(asset) ? asset.url : undefined"
+        />
+      </router-link>
+    </section>
+
+    <!--section class="cardGrid">
       <AssetCard
         v-for="asset in assets"
         :key="asset.key"
@@ -29,15 +59,18 @@ const { assets } = useUserAssets()
         :description="parseAssetDescription(asset)"
         :license="parseAssetLicense(asset)"
       />
-    </section>
+    </section-->
   </article>
 </template>
 
 <style lang="sass" scoped>
-.cardGrid
+.flex-wrap
+  padding-top: 12px
   display: flex
   flex-wrap: wrap
-  gap: 8px
-  cyan-card
-    width: calc(100% / 2 - 8px)
+  gap: 15px
+@media screen and (max-width: 768px)
+  .flex-wrap
+    gap: 24px
+  
 </style>

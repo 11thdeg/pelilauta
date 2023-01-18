@@ -3,7 +3,8 @@ type Asset = {
   storagePath?: string
   name?: string,
   license?: string,
-  description?: string
+  description?: string,
+  mimetype?: string
 }
 
 export function parseAssetName(asset:Asset): string {
@@ -21,4 +22,8 @@ export function parseAssetLicense(asset:Asset): string {
 export function parseAssetDescription(asset:Asset): string {
   if (asset.description) return asset.description
   return parseAssetName(asset)
+}
+
+export function hasPreview (asset: Asset) {
+  return asset.mimetype?.startsWith('image/') || asset.mimetype?.startsWith('video/')
 }
