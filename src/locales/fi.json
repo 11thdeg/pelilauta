@@ -198,6 +198,11 @@
       }
     },
     "snacks": {
+      "asset": {
+        "delete": {
+          "success": "Tiedosto poistettu onnistuneesti"
+        }
+      },
       "site": {
         "created": "Sivusto luotu"
       },
