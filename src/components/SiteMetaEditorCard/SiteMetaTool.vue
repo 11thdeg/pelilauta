@@ -5,6 +5,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { usePages } from '../../composables/usePages'
 import { useSite } from '../../composables/useSite'
+import SiteLicenseSelect from './SiteLicenseSelect.vue'
 import SiteVisibilityToggle from './SiteVisibilityToggle.vue'
 
 const { t } = useI18n()
@@ -28,7 +29,7 @@ async function setHomePage(pageKey: string) {
 </script>
 
 <template>
-  <article class="Column">
+  <article class="small Column">
     <cyan-card elevation="0">
       <h3>{{ t('site.tools.meta.title') }}</h3>
       <p class="TypeBody2 lowEmphasis">
@@ -44,6 +45,7 @@ async function setHomePage(pageKey: string) {
           @change="setHomePage($event.target.value)"
         />
         <p><SiteVisibilityToggle /></p>
+        <SiteLicenseSelect />
         <p v-if="site">
           <cyan-button
             text

@@ -1,5 +1,5 @@
 import { computed, Ref, ref } from 'vue'
-import { logDebug } from '../utils/logHelpers'
+// import { logDebug } from '../utils/logHelpers'
 
 export function useStringField(v: string|Ref<string>){
   const originalValue = ref(v)
@@ -37,7 +37,7 @@ export function useFormField(v: string|number|string[]|Ref<string|number|string[
     computed: computed({
       get: () => dirty.value === undefined ? original.value : dirty.value,
       set: (val:number|string|string[]) => {
-        logDebug('useFormField', 'set', val)
+        // logDebug('useFormField', 'set', val)
         dirty.value = val
       }
     }),

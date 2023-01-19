@@ -26,7 +26,7 @@ const buttonLabel = computed(() => props.label || undefined)
     >
       <cyan-navigation-button
         :label="buttonLabel"
-        noun="assets"
+        noun="books"
         :active="route.path.startsWith('/assets')"
       />
     </router-link>

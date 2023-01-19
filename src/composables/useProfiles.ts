@@ -18,16 +18,21 @@ function storeProfile (profile: Profile) {
 
 const profileCache = new Map<string, Profile>()
 
-export async function fetchProfile (uid: string): Promise<Profile|undefined> {
-  const cached = profileCache.get(uid)
-  if (cached) return cached
+export async function fetchProfile (uid: string, options?: { reload: boolean }): Promise<Profile|undefined> {
 
-  const stored = getStoredProfile(uid)
-  if (stored) {
-    profileCache.set(uid, stored)
-    return stored
+  const useCache = options?.reload !== true
+
+  if (useCache) {
+    const cached = profileCache.get(uid)
+    if (cached) return cached
+
+    const stored = getStoredProfile(uid)
+    if (stored) {
+      profileCache.set(uid, stored)
+      return stored
+    }
   }
-
+  
   const authorDoc = await getDoc(
     doc(
       getFirestore(),

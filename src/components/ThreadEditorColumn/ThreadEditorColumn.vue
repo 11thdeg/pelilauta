@@ -2,22 +2,22 @@
 import { Thread } from '@11thdeg/skaldstore'
 import { addDoc, collection, doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { marked } from 'marked'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useFormField, useStringField } from '../../composables/useFormField'
 import { useMeta } from '../../composables/useMeta'
 import { useScreenSize } from '../../composables/useScreenSize'
 import { useSession } from '../../composables/useSession'
+import { useAssets } from '../../composables/useAssets'
 import { useSnack } from '../../composables/useSnack'
 import { fetchThread } from '../../composables/useThreads'
 import { logError } from '../../utils/logHelpers'
-import LoginRequiredColumn from '../account/LoginRequiredColumn.vue'
-import InsertImageButton from '../actions/InsertImageButton.vue'
 import ImageListSection from '../content/ImageListSection.vue'
 import MarkDownCheatSheetColumn from '../content/MarkDownCheatSheetColumn.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import YoutubePreview from '../content/YoutubePreview.vue'
+import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import TopicTag from '../threads/TopicTag.vue'
 import SiteSelectionDialogButton from './SiteSelectionDialogButton.vue'
@@ -52,6 +52,12 @@ const mode = computed(() => {
   }
 })
 
+watch(props, (p) => {
+  if(p.thread && p.thread.topicid) {
+    topic.value = p.thread.topicid
+  }
+})
+
 const { computed: title, dirty: titleChanged } = useFormField(props.thread.title)
 const titleValid = computed(() => titleChanged.value ? title.value.toString().length > -1 && title.value.toString().length < 72 : true)
 
@@ -76,6 +82,14 @@ function pushImage (image: string) {
 }
 function popImage (image: string) {
   images.value = (images.value as string[]).filter(i => i !== image)
+}
+
+const { fetchAsset } = useAssets()
+async function insertAsset(key: string) {
+  const asset = await fetchAsset(key)
+  if (asset && asset.url) {
+    pushImage(asset.url)
+  }
 }
 
 const { computed: content, dirty: contentChanged } = useFormField(props.thread.markdownContent || '')
@@ -191,158 +205,155 @@ const previewLabel = computed(() => {
 </script>
 
 <template>
-  <LoginRequiredColumn v-if="mode === 'edit' && !thread.hasOwner(uid) " />
-  <template v-else>
-    <div class="Column large form fieldset">
-      <template v-if="!preview">
-        <cyan-toolbar>
+  <div class="Column large form fieldset">
+    <template v-if="!preview">
+      <cyan-toolbar>
+        <cyan-textfield
+          style="flex-grow: 1"
+          :value="title"
+          :label="t('fields.thread.name')"
+          :error="!titleValid"
+          @change="title = $event.target.value"
+        />
+        <cyan-button
+          text
+          noun="youtube"
+          :disabled="showVideoLink"
+          @click="showVideoLink = true"
+        />
+        <InsertAssetButton @insert="insertAsset($event)" />
+      </cyan-toolbar>
+
+      <!-- Youtube video! -->
+      <transition
+        mode="out-in"
+        enter-active-class="animate__animated animate__fadeIn"
+        leave-active-class="animate__animated animate__fadeOutLeft"
+        :duration="330"
+      >
+        <cyan-toolbar v-if="showVideoLink || youtubeId">
+          <cyan-icon noun="youtube" />
           <cyan-textfield
             style="flex-grow: 1"
-            :value="title"
-            :label="t('fields.thread.name')"
-            :error="!titleValid"
-            @change="title = $event.target.value"
+            :value="youtubeId"
+            :label="t('fields.thread.youtubeId')"
+            @change="youtubeId = parseYoutubeId($event.target.value)"
           />
           <cyan-button
             text
-            noun="youtube"
-            :disabled="showVideoLink"
-            @click="showVideoLink = true"
-          />
-          <InsertImageButton @insert="pushImage($event)" />
-        </cyan-toolbar>
-
-        <!-- Youtube video! -->
-        <transition
-          mode="out-in"
-          enter-active-class="animate__animated animate__fadeIn"
-          leave-active-class="animate__animated animate__fadeOutLeft"
-          :duration="330"
-        >
-          <cyan-toolbar v-if="showVideoLink || youtubeId">
-            <cyan-icon noun="youtube" />
-            <cyan-textfield
-              style="flex-grow: 1"
-              :value="youtubeId"
-              :label="t('fields.thread.youtubeId')"
-              @change="youtubeId = parseYoutubeId($event.target.value)"
-            />
-            <cyan-button
-              text
-              :label="t('action.remove')"
-              @click="showVideoLink = false; youtubeId = ''"
-            />
-          </cyan-toolbar>
-        </transition>
-
-        <!-- Images! -->
-        <transition
-          mode="out-in"
-          enter-active-class="animate__animated animate__fadeIn"
-          leave-active-class="animate__animated animate__fadeOutLeft"
-          :duration="330"
-        >
-          <ImageListSection
-            v-if="(images as string[]).length > 0"
-            edit
-            :images="(images as string[])"
-            @remove-image="popImage($event)"
-          />
-        </transition>
-        <cyan-markdown-area
-          :value="content"
-          :label="t('fields.thread.content')"
-          :error="!contentValid"
-          @change="content = $event.target.value"
-        />
-        <cyan-toolbar>
-          <cyan-select
-            :options="topics"
-            :value="topic"
-            :label="t('fields.thread.topic')"
-            @change="topic = $event.target.value"
-          />
-          <SiteSelectionDialogButton v-model="site" />
-          <cyan-spacer />
-          <cyan-button
-            :label="previewLabel"
-            text
-            noun="eye"
-            @click="preview = true"
-          />
-          <cyan-button
-            :label="t('action.send')"
-            noun="send"
-            :disabled="!enableSave"
-            @click="persistChanges"
+            :label="t('action.remove')"
+            @click="showVideoLink = false; youtubeId = ''"
           />
         </cyan-toolbar>
-      </template>
-      <template v-else>
-        <h1>{{ title }}</h1>
-        <p class="typeCaption">
-          <ProfileLink :uid="author" />
-          <TopicTag :slug="topic.toString()" />
-        </p>
-        <YoutubePreview
-          v-if="youtubeId"
-          :video-id="youtubeId.toString()"
-        />
+      </transition>
+
+      <!-- Images! -->
+      <transition
+        mode="out-in"
+        enter-active-class="animate__animated animate__fadeIn"
+        leave-active-class="animate__animated animate__fadeOutLeft"
+        :duration="330"
+      >
         <ImageListSection
           v-if="(images as string[]).length > 0"
+          edit
           :images="(images as string[])"
           @remove-image="popImage($event)"
         />
-        <MarkdownSection :content="content.toString()" />
-        <cyan-toolbar>
-          <cyan-spacer />
-          <cyan-button
-            noun="edit"
-            :label="t('action.edit')"
-            text
-            @click="preview = false"
-          />
-          <cyan-button
-            :label="t('action.send')"
-            noun="send"
-            :disabled="!enableSave"
-            @click="persistChanges"
-          />
-        </cyan-toolbar>
-      </template>
-    </div>
-    <MarkDownCheatSheetColumn />
-    <article
-      v-if="admin"
-    >
-      <cyan-card
-        elevation="1"
-        class="debug chroma-box-b"
-      >
-        <cyan-icon
-          large
-          noun="admin"
-          style="display:block; margin: 0 auto"
+      </transition>
+      <cyan-markdown-area
+        :value="content"
+        :label="t('fields.thread.content')"
+        :error="!contentValid"
+        @change="content = $event.target.value"
+      />
+      <cyan-toolbar>
+        <cyan-select
+          :options="topics"
+          :value="topic"
+          :label="t('fields.thread.topic')"
+          @change="topic = $event.target.value"
         />
-        <p>{{ mode }}</p>
-        <p :class="{ dirty: titleChanged }">
-          title: <cyan-code>{{ title }}</cyan-code>
-        </p>
-        <p :class="{ dirty: youtubeIdChanged }">
-          youtubeId: <cyan-code>{{ youtubeId ? youtubeId : 'undefined' }}</cyan-code>
-        </p>
-        <p :class="{ dirty: imagesChanged }">
-          images: <cyan-code> {{ (images as []).length }}</cyan-code>
-        </p>
-        <p :class="{ dirty: contentChanged }">
-          content: <cyan-code>{{ content.toString().substring(0,10) }}</cyan-code>
-        </p>
-        <p :class="{ dirty: topicChanged }">
-          topic: <cyan-code>{{ topic }}</cyan-code>
-        </p>
-      </cyan-card>
-    </article>
-  </template>
+        <SiteSelectionDialogButton v-model="site" />
+        <cyan-spacer />
+        <cyan-button
+          :label="previewLabel"
+          text
+          noun="eye"
+          @click="preview = true"
+        />
+        <cyan-button
+          :label="t('action.send')"
+          noun="send"
+          :disabled="!enableSave"
+          @click="persistChanges"
+        />
+      </cyan-toolbar>
+    </template>
+    <template v-else>
+      <h1>{{ title }}</h1>
+      <p class="typeCaption">
+        <ProfileLink :uid="author" />
+        <TopicTag :slug="topic.toString()" />
+      </p>
+      <YoutubePreview
+        v-if="youtubeId"
+        :video-id="youtubeId.toString()"
+      />
+      <ImageListSection
+        v-if="(images as string[]).length > 0"
+        :images="(images as string[])"
+        @remove-image="popImage($event)"
+      />
+      <MarkdownSection :content="content.toString()" />
+      <cyan-toolbar>
+        <cyan-spacer />
+        <cyan-button
+          noun="edit"
+          :label="t('action.edit')"
+          text
+          @click="preview = false"
+        />
+        <cyan-button
+          :label="t('action.send')"
+          noun="send"
+          :disabled="!enableSave"
+          @click="persistChanges"
+        />
+      </cyan-toolbar>
+    </template>
+  </div>
+  <MarkDownCheatSheetColumn />
+  <article
+    v-if="admin"
+  >
+    <cyan-card
+      elevation="1"
+      class="debug chroma-box-b"
+    >
+      <cyan-icon
+        large
+        noun="admin"
+        style="display:block; margin: 0 auto"
+      />
+      <p>{{ mode }}</p>
+      <p :class="{ dirty: titleChanged }">
+        title: <cyan-code>{{ title }}</cyan-code>
+      </p>
+      <p :class="{ dirty: youtubeIdChanged }">
+        youtubeId: <cyan-code>{{ youtubeId ? youtubeId : 'undefined' }}</cyan-code>
+      </p>
+      <p :class="{ dirty: imagesChanged }">
+        images: <cyan-code> {{ (images as []).length }}</cyan-code>
+      </p>
+      <p :class="{ dirty: contentChanged }">
+        content: <cyan-code>{{ content.toString().substring(0,10) }}</cyan-code>
+      </p>
+      <p :class="{ dirty: topicChanged }">
+        topic: <cyan-code>{{ topic }}</cyan-code>
+      </p>
+    </cyan-card>
+  </article>
 </template>
 
 <style lang="sass">

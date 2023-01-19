@@ -1,13 +1,14 @@
 import { Site } from '@11thdeg/skaldstore'
 import { collection, doc, getDoc, getFirestore, onSnapshot, query, where } from 'firebase/firestore'
 import { computed, ref, watch } from 'vue'
-import { logError } from '../utils/logHelpers'
+import { logDebug, logError } from '../utils/logHelpers'
 import { addStore, useSession } from './useSession'
 
 const siteCache = ref(new Map<string, Site>())
 const loading = ref(true)
 
 export async function fetchSite (key:string) {
+  if(!key) throw new Error('Fetching a site requres a key')
   if (siteCache.value.has(key)) {
     return siteCache.value.get(key)
   }
@@ -50,6 +51,7 @@ async function subscribe () {
 }
 
 async function subscribePublic () {
+  logDebug('Subscribing to public sites')
   unsubscribePublic = onSnapshot(
     query(
       collection(getFirestore(), Site.collectionName),
@@ -68,6 +70,7 @@ async function subscribePublic () {
 async function subscribeAuthorSites () {
   const { uid, anonymous } = useSession()
   if (anonymous.value) return
+  logDebug('Subscribing to Authors sites', uid.value)
   unsubscribeOwn = onSnapshot(
     query(
       collection(getFirestore(), Site.collectionName),
@@ -86,6 +89,7 @@ async function subscribeAuthorSites () {
 async function subscribePlayerSites () {
   const { uid, anonymous } = useSession()
   if (anonymous.value) return
+  logDebug('Subscribing to Players sites', uid.value)
   unsubscribePlays = onSnapshot(
     query(
       collection(getFirestore(), Site.collectionName),

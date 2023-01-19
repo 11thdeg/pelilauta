@@ -1,10 +1,27 @@
 <script lang="ts" setup>
+import { Profile } from '@11thdeg/skaldstore'
+import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
+import { useSnack } from '../../composables/useSnack'
 import WithLoader from '../ui/WithLoader.vue'
 
 const { t } = useI18n()
 const { account, active} = useSession()
+const { pushSnack } = useSnack()
+
+async function setPhotoAsAvatar () {
+  const profileDoc = doc(
+    getFirestore(),
+    Profile.collectionName,
+    account.value.uid
+  )
+  await updateDoc(profileDoc, {
+    avatarURL: account.value.photoURL
+  })
+  pushSnack('snacks.accountPhotoSetAsAvatar')
+}
+
 </script>
 
 <template>
@@ -35,6 +52,20 @@ const { account, active} = useSession()
           </p>
           <p>
             {{ account.displayName }}
+          </p>
+
+          <!-- Photo URL -->
+          <p class="tableHead">
+            {{ t('fields.account.photoURL') }}
+          </p>
+          <p>
+            {{ account.photoURL }} <br>
+            <cyan-button
+              :label="t('settings.accountDataPane.setPhotoAsAvatar')"
+              noun="avatar" 
+              secondary
+              @click="setPhotoAsAvatar"
+            />
           </p>
         </div>
         <p class="TypeBody2 lowEmphasis">

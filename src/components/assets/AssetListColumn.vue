@@ -1,11 +1,25 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { useAssets, assetName, assetDescription, assetLicense } from '../../composables/useSession/useAssets'
-import AssetCard from '../AssetCard.vue/AssetCard.vue'
+import { useUserAssets } from '../../composables/useSession/useUserAssets'
 import AddAssetButton from '../AddAssetButton/AddAssetButton.vue'
+import { parseAssetName, hasPreview } from '../../utils/assetHelpers'
+import { computed, ref } from 'vue'
+import AssetFilterPanel from './AssetFilterPanel.vue'
+import { Entry } from '@11thdeg/skaldstore'
 
 const { t } = useI18n()
-const { assets } = useAssets()
+const { assets: originalAssets } = useUserAssets()
+
+const assets = computed(() => {
+  const arr = [...originalAssets.value]
+  if (orderBy.value === 'name') arr.sort((a, b) => a.name.localeCompare(b.name))
+  if (orderBy.value === '-name') arr.sort((a, b) => b.name.localeCompare(a.name))
+  if (orderBy.value === 'flowtime') arr.sort((a, b) => (a as Entry).compareFlowTime(b as Entry))
+  if (orderBy.value === '-flowtime') arr.sort((a, b) => (b as Entry).compareFlowTime(a as Entry))
+  return arr
+})
+
+const orderBy = ref('name')
 
 </script>
 <template>
@@ -17,53 +31,46 @@ const { assets } = useAssets()
       <cyan-spacer />
       <AddAssetButton />
     </cyan-toolbar>
-    <section class="cardGrid">
+
+    <AssetFilterPanel v-model:orderBy="orderBy" />
+
+    <section class="flex flex-wrap">
+      <router-link 
+        v-for="asset in assets"
+        :key="asset.key"
+        :to="`/assets/${asset.key}`"
+      >
+        <cn-asset-token
+          style="display: block; height: 104px; width: 104px;"
+          :type="asset.mimetype || 'unknown'"
+          :label="parseAssetName(asset)"
+          :preview="hasPreview(asset) ? asset.url : undefined"
+        />
+      </router-link>
+    </section>
+
+    <!--section class="cardGrid">
       <AssetCard
         v-for="asset in assets"
         :key="asset.key"
         :url="asset.url || ''"
         :to="`/assets/${asset.key}`"
-        :name="assetName(asset)"
-        :description="assetDescription(asset)"
-        :license="assetLicense(asset)"
+        :name="parseAssetName(asset)"
+        :description="parseAssetDescription(asset)"
+        :license="parseAssetLicense(asset)"
       />
-    </section>
+    </section-->
   </article>
-  <!--article class="Column AssetListColumn double">
-    <section class="AssetList dataTable threeCols">
-      <template
-        v-for="asset in assets"
-        :key="asset.id"
-      >
-        <p>
-          <router-link :to="`/assets/${asset.key}`">
-            <img
-              style="max-width: 72px;max-height: 72px;"
-              :src="asset.url"
-              :alt="asset.name"
-            >
-          </router-link>
-        </p>
-        <div>
-          <p><strong>{{ assetName(asset) }}</strong></p>
-          <p class="TypeCaption">
-            {{ assetDescription(asset) }}
-          </p>
-        </div>
-        <p>{{ assetLicense(asset) }}</p>
-        <div><hr></div>
-        <div><hr></div>
-        <div><hr></div>
-      </template>
-    </section>
-  </article-->
 </template>
 
 <style lang="sass" scoped>
-.cardGrid
+.flex-wrap
+  padding-top: 12px
   display: flex
   flex-wrap: wrap
-  gap: 8px
-  cyan-card
-    width: calc(100% / 2 - 8px)
+  gap: 15px
+@media screen and (max-width: 768px)
+  .flex-wrap
+    gap: 24px
+  
 </style>

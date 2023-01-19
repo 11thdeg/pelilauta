@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useScreenSize } from '../../composables/useScreenSize'
 import { processAsset, FileData } from '../../utils/fileHelpers'
 import { logError } from '../../utils/loghelpers'
     
@@ -9,6 +10,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'update:file', file: FileData): void
 }>()
+
+const { isSmall } = useScreenSize()
     
 async function onFileChange (e: Event) {
   try {
@@ -21,7 +24,10 @@ async function onFileChange (e: Event) {
 </script>
     
 <template>
-  <label class="FileInput">
+  <label
+    class="FileInput"
+    :class="{ onSmallScreen: isSmall }"
+  >
     <template v-if="!props.file">
       <input
         type="file"
@@ -60,4 +66,17 @@ input[type="file"]
   margin: 3px
   object-fit: cover
   border-radius: 7px
+
+label.FileInput
+    &.onSmallScreen    
+      width: calc(100vw - 72px)
+      height: calc(100vw - 72px)
+      cyan-icon
+        margin: calc((100vw - 72px) / 2 - 64px)
+      .FileInputImage
+        width: calc(100vw - 80px)
+        height: calc(100vw - 80px)
+        margin: 4px
+        object-fit: cover
+
 </style>

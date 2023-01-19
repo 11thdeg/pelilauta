@@ -3,10 +3,10 @@ import { getAuth, User } from 'firebase/auth'
 import { doc, getFirestore, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { ref, computed } from 'vue'
 import { logDebug, logError } from '../../utils/logHelpers'
-import { subscibeToAssets } from './useAssets'
 import { useMeta } from '../useMeta'
 import { useSubscriber } from './useSubscriber'
 import { subscribeNotifications } from './useNotifications'
+import { useProfile } from './useProfile'
 
 export * from './register'
 
@@ -95,9 +95,9 @@ export function login(user: User|null) {
   
     subscribeToAccount()
     subscribeToProfile()
-    subscibeToAssets()
     useSubscriber()
     subscribeNotifications(uid.value)
+    useProfile()
     
     active.value = true
     updateDoc(doc(getFirestore(), Account.collectionName, uid.value), { lastLogin: serverTimestamp() })

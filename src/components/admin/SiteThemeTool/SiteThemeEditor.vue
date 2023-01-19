@@ -1,45 +1,62 @@
 <script lang="ts" setup>
-import { Ref, ref, computed, onMounted, watch } from 'vue'
+import { CyanDialog } from '@11thdeg/cyan'
+import { Ref, ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { SiteFamily } from '../../composables/useMeta'
-import { logDebug } from '../../utils/logHelpers'
-import Dialog from '../ui/Dialog.vue'
-import NounSelect from '../ui/NounSelect.vue'
+import { SiteFamily, useMeta } from '../../../composables/useMeta'
+import { logDebug } from '../../../utils/logHelpers'
+import NounSelect from '../../ui/NounSelect.vue'
 
 const props = defineProps<{
   theme?: SiteFamily
 }>()
-const emit = defineEmits<{
-  (e: 'save', theme: SiteFamily): void
-}>()
 
 const { t } = useI18n()
+const { siteThemes, update } = useMeta()
+
+const dialog = ref<CyanDialog>()
 
 const item:Ref<SiteFamily|undefined> = ref(undefined)
-const open = computed({
-  get: () => !!item.value,
-  set: (value) => {
-    if (!value) item.value = undefined
-  }
-})
 
 onMounted(() => {
   watch(props, () => {
     logDebug('watch', props.theme)
     item.value = props.theme
+    if (item.value) dialog.value?.showModal()
   })
 })
+
+function openDialog() {
+  item.value = { name: '', id: '', icon: ''}
+  dialog.value?.showModal()
+}
+function closeDialog() {
+  dialog.value?.close()
+}
 
 function setField(field: string, value: string|number) {
   if (!item.value) return
   (item.value as unknown as Record<string,string|number>)[field] = value
 }
-function save() {
-  if (item.value) {
-    emit('save', item.value)
+
+async function save() {
+  const theme = item.value
+  if (!theme) return
+  logDebug('Saving', theme)
+  const arr = Array.from(siteThemes.value)
+  if(!arr.find(a => a.id === theme.id)) {
+    const th:SiteFamily = {
+      name: theme.name || '-',
+      id: theme.id || '-',
+      icon: theme.icon || 'fox'
+    }
+    arr.push(th)
   }
+  await update('sitethemes', arr)
   item.value = undefined
+  closeDialog()
 }
+
+
 </script>
 <template>
   <cyan-toolbar>
@@ -48,14 +65,17 @@ function save() {
       noun="add"
       :label="t('action.add.new')"
       text
-      @click="item = { name: '', id: '', icon: ''}"
+      @click.prevent="openDialog"
     />
   </cyan-toolbar>
-  <Dialog
-    v-model="open"
-    :label="t('fields.meta.sitetheme.title')"
+  <cn-dialog
+    ref="dialog"
+    :title="t('fields.meta.sitetheme.name')"
   >
-    <template v-if="item">
+    <section
+      v-if="item"
+      class="fieldset"
+    >
       <cyan-textfield
         :label="t('fields.meta.sitetheme.name')"
         :value="item.name || ''"
@@ -75,13 +95,13 @@ function save() {
         <cyan-button
           :label="t('action.cancel')"
           text
-          @click="open = false"
+          @click="closeDialog"
         />
         <cyan-button
           :label="t('action.save')"
           @click="save"
         />
       </cyan-toolbar>
-    </template>
-  </Dialog>
+    </section>
+  </cn-dialog>
 </template>

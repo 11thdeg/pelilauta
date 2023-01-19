@@ -29,7 +29,8 @@ function renderWikiLinks (siteid:string, htmlContent:string): string {
   return content
 }
 
-export function useContentEntry (entry?: { htmlContent?: string, markdownContent?: string }, options?: { snippetLength: number }) {
+export function useContentEntry (
+  entry?: { htmlContent?: string, markdownContent?: string }, options?: { snippetLength: number }) {
   const { key } = useSite()
   const content = computed(() => {
     if (!entry) return ''

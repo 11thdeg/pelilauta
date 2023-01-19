@@ -4,6 +4,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { useSites } from '../../composables/useSites'
+import EditPageFab from '../EditPageFab/EditPageFab.vue'
 import FabTray from '../FabTray/FabTray.vue'
 
 const { t } = useI18n()
@@ -20,9 +21,6 @@ const site = computed(() => {
 const owns = computed(() => {
   return site.value.hasOwner(uid.value)
 })
-const pageslug = computed(() => {
-  return props.pagekey || props.sitekey
-})
 </script>
 
 <template>
@@ -33,12 +31,7 @@ const pageslug = computed(() => {
       noun="discussion"
       @click="$router.push('/sites/' + sitekey + '/add/thread')"
     /-->
-    <cyan-fab
-      v-if="owns"
-      :label="t('action.edit')"
-      noun="edit"
-      @click="$router.push('/sites/' + sitekey + '/pages/' + pageslug + '/edit')"
-    />
+    <EditPageFab />
     <cyan-fab
       v-if="owns"
       small

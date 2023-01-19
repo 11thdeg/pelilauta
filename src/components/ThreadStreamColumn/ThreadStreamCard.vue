@@ -1,83 +1,84 @@
 <script lang="ts" setup>
-import { Thread } from '@11thdeg/skaldstore'
 import { computed } from 'vue'
-import { onMounted, Ref, ref } from 'vue'
-import { fetchThread } from '../../composables/useThreads'
-import TopicTag from '../threads/TopicTag.vue'
-import RepliesTag from '../threads/RepliesTag.vue'
-import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import { useI18n } from 'vue-i18n'
-import LoveAThreadButton from '../threads/LoveAThreadButton.vue'
 import { useSubscriber } from '../../composables/useSession/useSubscriber'
+import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
-import { useContentEntry } from '../../composables/useContentEntry'
+import LoveAThreadButton from '../threads/LoveAThreadButton.vue'
+import RepliesTag from '../threads/RepliesTag.vue'
 import TopicIcon from '../threads/TopicIcon.vue'
-import YoutubePreview from '../content/YoutubePreview.vue'
+import TopicTag from '../threads/TopicTag.vue'
+import ContentPreviewSection from './ContentPreviewSection.vue'
 
 const props = defineProps<{
-  threadkey?: string
+  thread: {
+    key: string | undefined
+    topicid: string | undefined,
+    title: string,
+    images: string[] | undefined
+    youtubeId: string | undefined
+    markdownContent: string | undefined
+    htmlContent: string | undefined,
+    flowTime: number,
+    author: string,
+    lovedCount: number
+    hasOwner: (uid:string) => boolean,
+    replyCount: number
+  }
 }>()
-
-const thread:Ref<Thread|undefined> = ref(undefined)
 
 const { t } = useI18n()
 
-onMounted(async () => {
-  if (props.threadkey) thread.value = await fetchThread(props.threadkey)
-  const { snippet:s } = useContentEntry(thread.value)
-  snippet.value = s.value
+const key = computed(() => {
+  return props.thread.key || ''
 })
 
-const snippet = ref('')
+const topicid = computed(() => {
+  return props.thread.topicid || 'yleinen'
+})
 
 const { subscriber } = useSubscriber()
-const notify = computed(() => {
-  if (!thread.value || !thread.value.key) return false
+
+const newEntry = computed(() => {
+  if (!props.thread.key) return false
   if (!subscriber.value) return false
-  return subscriber.value.shouldNotify(thread.value.key, thread.value.flowTime)
+  return subscriber.value.isNew(props.thread.key,props.thread.flowTime)
+})
+
+const notify = computed(() => {
+  if (!props.thread.key) return false
+  if (!subscriber.value) return false
+  return subscriber.value.shouldNotify(props.thread.key,props.thread.flowTime)
 })
 
 const level = computed(() => {
-  return notify.value === true ? 2 : 1
+  return notify.value || newEntry.value === true ? 2 : 1
 })
+
 </script>
 
 <template>
   <cyan-card
     v-if="thread"
-    class="ThreadCard"
+    class="ThreadStreamCard"
     :elevation="level"
     :class="{
-      'notify': notify
+      'notify': notify || newEntry,
     }"
   >
     <TopicIcon
       slot="avatar"
-      :slug="thread.topicid || 'pelilauta' "
+      :slug="topicid"
     />
     <h3
       slot="title"
       class="downscaled"
     >
-      <router-link :to="`/threads/${thread.key}`">
+      <router-link :to="`/threads/${key}`">
         {{ thread.title }}
       </router-link>
     </h3>
-    <div
-      v-if="thread.youtubeId"
-      class="videoContainer"
-      style="margin: 12px -12px"
-    >
-      <YoutubePreview
-        style="margin: 0 auto"
-        :video-id="thread.youtubeId"
-      />
-    </div>
-    <p
-      v-else
-      class="TypeBody2"
-      :innerHTML="snippet"
-    />
+    <ContentPreviewSection :thread="thread" />
     <cyan-toolbar
       small
       style="margin-bottom: 4px"
@@ -92,7 +93,7 @@ const level = computed(() => {
         <span class="hideOnMobile">{{ t('threads.inTopic') }}</span> <TopicTag :slug="thread.topicid || ''" />
       </div>
       <cyan-spacer />
-      <RepliesTag :threadkey="thread.key || ''" />
+      <RepliesTag :thread="thread" />
     </cyan-toolbar>
   </cyan-card>
 </template>
@@ -101,7 +102,7 @@ const level = computed(() => {
 .videoContainer
   background:  linear-gradient(90deg, hsla(var(--chroma-secondary-a-hsl), 0.5), hsla(var(--chroma-secondary-a-hsl), 1) 50%, hsla(var(--chroma-secondary-a-hsl), 0.5) 100%)
   text-align: center
-.ThreadCard
+.ThreadStreamCard
   width: 100%
 .notify:after
   content: ''

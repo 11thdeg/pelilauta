@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { usePages } from '../composables/usePages'
 import { useSite } from '../composables/useSite'
 
@@ -9,6 +10,7 @@ type PageIndexEntry = {
   category: boolean
 }
 
+const { t } = useI18n()
 const { site, chapters, loading: siteLoading } = useSite()
 const { pages, loading: pagesLoading } = usePages()
 
@@ -20,7 +22,6 @@ const index = computed(() => {
     i.push({
       name: c.name,
       category: true
-
     })
     pages.value.filter(p => p.category === c.slug).
       sort((a, b) => a.name > b.name ? 1 : -1).forEach(p => {
@@ -31,6 +32,20 @@ const index = computed(() => {
         })
       })
   })
+  const unsorted = pages.value.filter(p => p.category === '-' || !p.category)
+  if (unsorted.length) {
+    i.push({
+      name: t('fields.page.noCategory'),
+      category: true
+    })
+    unsorted.sort((a, b) => a.name > b.name ? 1 : -1).forEach(p => {
+      i.push({
+        name: p.name,
+        to: `/sites/${site.value?.key || ''}/pages/${p.key || ''}`,
+        category: false
+      })
+    })
+  }
   return i
 })
 </script>

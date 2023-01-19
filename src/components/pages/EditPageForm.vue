@@ -6,12 +6,16 @@ import { marked } from 'marked'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { useAssets } from '../../composables/useAssets'
 import { fetchPage } from '../../composables/usePages'
 import { useSession } from '../../composables/useSession'
 import { useSite } from '../../composables/useSite'
 import { useSnack } from '../../composables/useSnack'
+import { parseAssetName } from '../../utils/assetHelpers'
 import { logDebug } from '../../utils/logHelpers'
 import MarkdownSection from '../content/MarkdownSection.vue'
+import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
+import WithLoader from '../ui/WithLoader.vue'
 
 const props = defineProps<{
   homepage?: boolean;
@@ -137,7 +141,7 @@ const nameError = computed(() => {
 // Chapter
 const _chapter = ref('')
 const chapter = computed({
-  get: () => _chapter.value || page.value.category,
+  get: () => _chapter.value || page.value.category,
   set: (v) => {
     _chapter.value = v
     page.value.category = v
@@ -147,7 +151,7 @@ const chapter = computed({
 // Markdown
 const _markdown = ref('')
 const markdown = computed({
-  get: () => _markdown.value || page.value.markdownContent,
+  get: () => _markdown.value || page.value.markdownContent,
   set: (v) => {
     _markdown.value = v
     page.value.markdownContent = v
@@ -159,9 +163,6 @@ const markdownError = computed(() => {
   }
   return false
 })
-/* const htmlConversionAvailable = computed(() => {
-  return page.value.htmlContent && !page.value.markdownContent
-}) */
 
 const hasUpdates = computed(() => {
   if (
@@ -172,33 +173,42 @@ const hasUpdates = computed(() => {
   return false
 })
 
+const { fetchAsset } = useAssets()
+const inject = ref('')
+
+async function injectImage (key: string) {
+  const asset = await fetchAsset(key)
+  if (asset && asset.url) {
+    inject.value = '!['+ parseAssetName(asset)+ '](' + asset.url + ')'
+  }
+}
+
 </script>
 
 <template>
-  <div class="Column large">
-    <template v-if="loading">
-      <cyan-loader large />
-    </template>
-    <template v-else>
-      <!-- <cyan-code>{{ props.homepage }}</cyan-code>
-      <cyan-code>({{ htmlConversionAvailable }})</cyan-code>&nbsp;
-      <cyan-code>({{ hasUpdates }})</cyan-code>&nbsp;
-      <cyan-code>({{ _chapter }})</cyan-code>&nbsp;
-      <cyan-code>({{ markdownError }})</cyan-code-->
+  <form class="Column large">
+    <WithLoader :suspended="loading">
       <section
         v-if="!preview"
         class="fieldset"
       >
-        <cyan-textfield
-          :label="t('fields.page.name')"
-          :value="name"
-          :error="nameError"
-          @change="name = $event.target.value"
-        />
+        <cyan-toolbar>
+          <cyan-textfield
+            class="flex-grow"
+            :label="t('fields.page.name')"
+            :value="name"
+            :error="nameError"
+            @change="name = $event.target.value"
+          />
+          <InsertAssetButton
+            @insert="injectImage($event)"
+          />
+        </cyan-toolbar>
         <cyan-markdown-area
           :label="t('fields.page.content')"
           :value="markdown"
           :error="markdownError"
+          :inject="inject"
           @change="markdown = $event.target.value"
         />
       </section>
@@ -239,6 +249,6 @@ const hasUpdates = computed(() => {
           @click="savePage"
         />
       </cyan-toolbar>
-    </template>
-  </div>
+    </WithLoader>
+  </form>
 </template>

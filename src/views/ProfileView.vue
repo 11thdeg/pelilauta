@@ -17,7 +17,7 @@ const { t } = useI18n()
 const profile:Ref<Profile|undefined> = ref(undefined)
 
 onMounted(async () => {
-  profile.value = await fetchProfile(props.uid)
+  profile.value = await fetchProfile(props.uid, { reload: true })
   useTitle().value =  t('app.title') + ' / ' + profile.value?.nick || 'i'
 })
 

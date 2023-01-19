@@ -46,7 +46,7 @@ onUnmounted(() => {
 </script>
 <template>
   <article class="Column small">
-    <cyan-card>
+    <cyan-card v-if="threads.length > 0">
       <h4 slot="title">
         {{ t('site.threads.title') }}
       </h4>
@@ -54,9 +54,6 @@ onUnmounted(() => {
         slot="avatar"
         noun="discussion"
       />
-      <p v-if="threads.length === 0">
-        No threads
-      </p>
       <ul>
         <SiteThreadListItem
           v-for="thread in threads"

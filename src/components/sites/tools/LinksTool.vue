@@ -47,7 +47,7 @@ function addLink(l: SiteLink) {
 <template>
   <article
     v-if="site"
-    class="Column"
+    class="small Column"
   >
     <cyan-card>
       <h3>{{ t('site.tools.links.title') }}</h3>

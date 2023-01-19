@@ -8,7 +8,9 @@ export interface FileData {
 
 const DOWNSCALED_MIMETYPES = [
   'image/jpeg',
-  'image/png'
+  'image/png',
+  'image/gif',
+  'image/webp'
 ]
 
 async function getHeightAndWidthFromDataUrl (dataURL:string): Promise<number[]> {
@@ -42,6 +44,8 @@ export async function processAsset (e:Event): Promise<{ name: string, mimetype: 
 
   const file = element.files[0]
 
+  let fileType = file.type
+
   let dataURL = ''
 
   if (DOWNSCALED_MIMETYPES.includes(file.type)) {
@@ -59,17 +63,20 @@ export async function processAsset (e:Event): Promise<{ name: string, mimetype: 
       height = height / width * 720
       width = 720
     }
-    dataURL = await downscale(element.files[0], width, height)
+    dataURL = await downscale(
+      element.files[0], 
+      width, 
+      height,
+      {
+        imageType: 'webp'
+      })
+    fileType = 'image/webp'
   } else {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      dataURL = reader.result as string
-    }
+    dataURL = await getDataUrl(file)
   }
   return {
     name: file.name,
-    mimetype: file.type,
+    mimetype: fileType,
     dataURL: dataURL
   }
 }

@@ -1,10 +1,21 @@
 <script lang="ts" setup>
-import { Asset } from '@11thdeg/skaldstore'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { assetName, useAssets } from '../../composables/useSession/useAssets'
-import ProfileTag from '../profiles/ProfileTag.vue'
 import { entryOwnersAsArray } from '../../utils/entryOwnersAsArray'
+import { parseAssetName } from '../../utils/assetHelpers'
+import ProfileLink from '../profileLink/ProfileLink.vue'
+import LicenseSelect from '../LicenseSelect/LicenseSelect.vue'
+
+type Asset = {
+  key?: string
+  name: string
+  mimetype?: string
+  url?: string
+  storagePath?: string
+  owners: string|string[]
+  description?: string,
+  license: string
+}
 
 const props = defineProps<{
   modelValue: Asset
@@ -15,7 +26,6 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const { licenses } = useAssets()
 
 const asset = computed({
   get: () => props.modelValue,
@@ -28,33 +38,29 @@ const asset = computed({
     <cyan-textfield
       :value="asset.name"
       :label="t('fields.asset.name')"
-      :placeholder="assetName(asset)"
+      :placeholder="parseAssetName(asset)"
       @change="asset.name = $event.target.value"
     />
-    <div>
-      <strong>{{ t('fields.asset.owners') }}</strong> <cyan-code>
-        <ProfileTag
-          v-for="owner in entryOwnersAsArray(asset)"
-          :key="owner"
-          :uid="owner"
-        />
-      </cyan-code>
-    </div>
-    <div>
-      <strong>{{ t('fields.asset.mimetype') }}</strong> <cyan-code>
-        {{ asset.mimetype }}
-      </cyan-code>
-    </div>
+    <p
+      class="TypeCaption"
+      style="margin: 0"
+    >
+      {{ t('fields.asset.owners') }}:
+      <ProfileLink
+        v-for="owner in entryOwnersAsArray(asset)"
+        :key="owner"
+        :uid="owner"
+      />
+      <br>
+      {{ t('fields.asset.mimetype') }}: {{ asset.mimetype }}
+    </p>
     <cyan-textfield
       :value="asset.description"
       :label="t('fields.asset.description')"
       @blur="asset.description = $event.target.value"
     />
-    <cyan-select
-      :value="asset.license"
-      :label="t('fields.asset.license')"
-      :options="licenses"
-      @change="asset.license = $event.target.value"
+    <LicenseSelect
+      v-model="asset.license"
     />
   </section>
 </template>

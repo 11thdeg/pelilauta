@@ -2,158 +2,6 @@
     "about": {
       "title": "Tietoja"
     },
-    "admin": {
-      "title": "Hallinto",
-      "description": "Sovelluksen hallintatyökalut. Sivu näkyy vain ylläpidolle, jote älä jaa tietoja täältä.",
-      "settings": {
-        "title": "Asetukset"
-      },
-      "gamesystemtool": {
-        "title": "Pelit",
-        "info": "Mekanismin sivustoille valittavissa olevat pelit ja teemat"
-      },
-      "users": {
-        "title": "Käyttäjät",
-        "info": "Käyttäjät, jotka ovat rekisteröityneet sivustolle"
-      },
-      "topictool": {
-        "title": "Aiheet",
-        "info": "Aiheiden hallinta"
-      },
-      "testingTools": {
-        "title": "Testityökalut",
-        "info": "Testityökalut"
-      }
-    },
-    "app": {
-      "title": "Pelilauta",
-      "loginrequired": {
-        "title": "500",
-        "message": "Kirjaudu sisään jatkaaksesi"
-      },
-      "markdowncheatsheet": {
-        "title": "Markdown",
-        "description": "Tekstiä voi muotoilla käyttäen alla esiteltyjä Markdown merkintöjä. Voit tarkistaa tuloksen esikatselunäkymästä.",
-        "headings": "Otsikot",
-        "text": "Tekstin muotoilu"
-      },
-      "meta": {
-        "release": "Versio",
-        "source": "Koodi"
-      }
-    },
-    "assetView": {
-      "title": "Media"
-    },
-    "characters": {
-      "title": "Hahmot"
-    },
-    "settings":{
-      "title": "Asetukset",
-      "accountDataPane": {
-        "title": "Omat tiedot",
-        "ssoTitle": "Kirjautumistiedot",
-        "ssoDescription": "Kirjautumisessa käyttämäsi palvelun (Google, Facebook tai sähköposti) palauttamat yksityiset tiedot, jotka on tallennettu Pelilaudan Firebese-kirjautumistietoihin. Näitä tietoja ei tallenneta sovelluksen tietokantaan, eivätkä ne näy muille kuin teknisille ylläpitäjille."
-        
-      },
-      "appSettings": {
-        "title": "Toiminnot",
-        "darkMode": "Tumma/Kirkas teema"
-      },
-      "profileData": {
-        "title": "Profiili",
-        "description": "Julkinen profiilisi, joka näkyy muille käyttäjille. Voit muokata tietojasi milloin tahansa."
-      },
-      "accountDataSection": {
-        "title": "Profiili",
-        "description": "Pelilauta tallentaa seuraavat tiedot tietokantaansa. Tiedot näkyvät sovelluksen valvojille, ja ne voivat näkyä sovelluksen käyttäjlle."
-      },
-      "dangerousDeleteAccountAction": "Poista tilini (ei poista luomaasi sisältöä)"
-    },
-    "site":{
-      "changes": {
-        "title": "Muutokset"
-      },
-      "deleteConfirm": {
-        "title": "Vahvista sivuston poistaminen",
-        "message": "Haluatko varmasti poistaa sivuston? Tämä poistaa kaiken sivuston sisällön, ja toimintoa ei voi perua."
-      },
-      "threads": {
-        "title": "Keskustelu"
-      },
-      "settings": {
-        "title": "Sivuston Asetukset"
-      },
-      "tools": {
-        "chapters": {
-          "title": "Aiheet",
-          "info": "Sivut ryhmitellään aiheiden alle sisällysluettelossa"
-        },
-        "links": {
-          "title": "Linkit",
-          "info": "Linkit avataan uuteen välilehteen."
-        },
-        "players": {
-          "title": "Pelaajat",
-          "info": "Pelaajat voivat luoda, muokata ja poistaa sivuja"
-        },
-        "owners": {
-          "title": "Omistajat",
-          "info": "Omistajat voivat muokata sivun asetuksia ja sisältöä."
-        },
-        "meta": {
-          "title": "Muut",
-          "info": "Erilaisia lisäasetuksia",
-          "delete": "Poista sivusto"
-        }
-      },
-      "tray": {
-        "unCategorizedPagesSection": "Sivut"
-      }
-    },
-    "sites": {
-      "title": "Pelit",
-      "ownedByMe": "Omistan",
-      "playsIn": "Pelaan",
-      "empty": {
-        "title": "Ei sivustoja",
-        "message": "Haku ei löytänyt yhtään sivustoa."
-      },
-      "create": {
-        "title": "Uusi sivusto"
-      }
-    },
-    "snacks": {
-      "site": {
-        "created": "Sivusto luotu"
-      },
-      "page": {
-        "updated": "Sivun muutokset tallennettu",
-        "deleted": "Sivu poistettu"
-      },
-      "reply": {
-        "created":"Vastaus lähetetty",
-        "error": "Vastauksen lähettäminen epäonnistui",
-        "deleted": "Vastaus poistettu",
-        "updated": "Vastaus päivitetty"
-      },
-      "thread": {
-        "created": "Keskustelu luotu",
-        "createFailsError": "Keskustelun luominen epäonnistui",
-        "updated": "Keskustelun avaus päivitetty",
-        "updateFailsError": "Keskustelun avauksen päivitys epäonnistui",
-        "deleted":"Ketju poistettu vastauksineen onnistuneesti"
-      },
-      "linkCopiedToClipboard": "Linkki kopioitu leikepöydälle"
-    },
-    "streams": {
-      "title": "Aiheet"
-    },
-    "thread": {
-      "create": {
-        "title": "Luo uusi ketju"
-      }
-    },
     "action": {
       "accept": "Hyväksy ehdot",
       "add": {
@@ -162,6 +10,7 @@
         "page": "Luo sivu"
       },
       "cancel": "Peruuta",
+      "chooseAvatar": "Vaihda kuvake",
       "continue": "Jatka",
       "copy": {
         "markdown": "Markdown"
@@ -199,6 +48,192 @@
       "send": "Lähetä",
       "share": "Jaa"
     },
+    "admin": {
+      "title": "Hallinto",
+      "description": "Sovelluksen hallintatyökalut. Sivu näkyy vain ylläpidolle, jote älä jaa tietoja täältä.",
+      "settings": {
+        "title": "Asetukset"
+      },
+      "gamesystemtool": {
+        "title": "Pelit",
+        "info": "Mekanismin sivustoille valittavissa olevat pelit ja teemat"
+      },
+      "licensetool": {
+        "title": "Lisenssit",
+        "info": "Lisenssit, joita käyttäjät voivat valita sivustojensa ja median lisenssiksi"
+      },
+      "users": {
+        "title": "Käyttäjät",
+        "info": "Käyttäjät, jotka ovat rekisteröityneet sivustolle"
+      },
+      "topictool": {
+        "title": "Aiheet",
+        "info": "Aiheiden hallinta"
+      },
+      "testingTools": {
+        "title": "Testityökalut",
+        "info": "Testityökalut"
+      }
+    },
+    "app": {
+      "title": "Pelilauta",
+      "loginrequired": {
+        "title": "500",
+        "message": "Kirjaudu sisään jatkaaksesi"
+      },
+      "markdowncheatsheet": {
+        "title": "Markdown",
+        "description": "Tekstiä voi muotoilla käyttäen alla esiteltyjä Markdown merkintöjä. Voit tarkistaa tuloksen esikatselunäkymästä.",
+        "headings": "Otsikot",
+        "text": "Tekstin muotoilu"
+      },
+      "meta": {
+        "release": "Versio",
+        "source": "Koodi"
+      }
+    },
+    "assetView": {
+      "title": "Media",
+      "meta": {
+        "title": "Metatiedot"
+      }
+    },
+    "characters": {
+      "title": "Hahmot"
+    },
+    "inbox": {
+      "title": "Nostot",
+      "empty": {
+        "title": "Ei viestejä",
+        "message": "Aloita uusi ketju, tai kommentoi ketjussa."
+      }
+    },
+    "insertAssetDialog":{
+      "upload": "Lisää uusi",
+      "select": "Valitse kirjastosta"
+    },
+    "settings":{
+      "title": "Asetukset",
+      "accountDataPane": {
+        "title": "Omat tiedot",
+        "ssoTitle": "Kirjautumistiedot",
+        "ssoDescription": "Kirjautumisessa käyttämäsi palvelun (Google, Facebook tai sähköposti) palauttamat yksityiset tiedot, jotka on tallennettu Pelilaudan Firebese-kirjautumistietoihin. Näitä tietoja ei tallenneta sovelluksen tietokantaan, eivätkä ne näy muille kuin teknisille ylläpitäjille.",
+        "setPhotoAsAvatar": "Käytä profiilikuvana"
+      },
+      "appSettings": {
+        "title": "Toiminnot",
+        "darkMode": "Tumma/Kirkas teema"
+      },
+      "profileData": {
+        "title": "Profiili",
+        "description": "Julkinen profiilisi, joka näkyy muille käyttäjille. Voit muokata tietojasi milloin tahansa."
+      },
+      "accountDataSection": {
+        "title": "Profiili",
+        "description": "Pelilauta tallentaa seuraavat tiedot tietokantaansa. Tiedot näkyvät sovelluksen valvojille, ja ne voivat näkyä sovelluksen käyttäjlle."
+      },
+      "dangerousDeleteAccountAction": "Poista tilini (ei poista luomaasi sisältöä)"
+    },
+    "site":{
+      "changes": {
+        "title": "Muutokset"
+      },
+      "deleteConfirm": {
+        "title": "Vahvista sivuston poistaminen",
+        "message": "Haluatko varmasti poistaa sivuston? Tämä poistaa kaiken sivuston sisällön, ja toimintoa ei voi perua."
+      },
+      "threads": {
+        "title": "Keskustelu"
+      },
+      "settings": {
+        "title": "Sivuston Asetukset",
+        "license": {
+          "info": "Voit jakaa sivustosi sisällön avoimella lisenssillä. Lisenssitiedot näkyvät sivuston alatunnisteessa."
+        }
+      },
+      "tools": {
+        "chapters": {
+          "title": "Aiheet",
+          "info": "Sivut ryhmitellään aiheiden alle sisällysluettelossa"
+        },
+        "links": {
+          "title": "Linkit",
+          "info": "Linkit avataan uuteen välilehteen."
+        },
+        "players": {
+          "title": "Pelaajat",
+          "info": "Pelaajat voivat luoda, muokata ja poistaa sivuja"
+        },
+        "owners": {
+          "title": "Omistajat",
+          "info": "Omistajat voivat muokata sivun asetuksia ja sisältöä."
+        },
+        "meta": {
+          "title": "Muut",
+          "info": "Erilaisia lisäasetuksia",
+          "delete": "Poista sivusto"
+        }
+      },
+      "tray": {
+        "unCategorizedPagesSection": "Sivut"
+      },
+      "license": {
+        "info": "Sivuston tekstisisältö on lisensoitu avoimella lisenssillä. Muu sivustolla oleva media voi olla erillisen lisenssin alaista."
+      },
+      "welcome": {
+        "title": "Tervetuloa",
+        "message": "Tämä on uusi sivusto. Voit korvata tämän viestin luomalla uuden sivun, ja asettamalla sen asetuksista kotisivuksi."
+      }
+    },
+    "sites": {
+      "title": "Pelit",
+      "ownedByMe": "Omistan",
+      "playsIn": "Pelaan",
+      "empty": {
+        "title": "Ei sivustoja",
+        "message": "Haku ei löytänyt yhtään sivustoa."
+      },
+      "create": {
+        "title": "Uusi sivusto"
+      }
+    },
+    "snacks": {
+      "asset": {
+        "delete": {
+          "success": "Tiedosto poistettu onnistuneesti"
+        }
+      },
+      "site": {
+        "created": "Sivusto luotu"
+      },
+      "page": {
+        "updated": "Sivun muutokset tallennettu",
+        "deleted": "Sivu poistettu"
+      },
+      "reply": {
+        "created":"Vastaus lähetetty",
+        "error": "Vastauksen lähettäminen epäonnistui",
+        "deleted": "Vastaus poistettu",
+        "updated": "Vastaus päivitetty"
+      },
+      "thread": {
+        "created": "Keskustelu luotu",
+        "createFailsError": "Keskustelun luominen epäonnistui",
+        "updated": "Keskustelun avaus päivitetty",
+        "updateFailsError": "Keskustelun avauksen päivitys epäonnistui",
+        "deleted":"Ketju poistettu vastauksineen onnistuneesti"
+      },
+      "linkCopiedToClipboard": "Linkki kopioitu leikepöydälle",
+      "markdownCopiedToClipboard": "Markdown kopioitu leikepöydälle"
+    },
+    "streams": {
+      "title": "Aiheet"
+    },
+    "thread": {
+      "create": {
+        "title": "Luo uusi ketju"
+      }
+    },
     "assets": {
       "title": "Media",
       "list": {
@@ -232,13 +267,6 @@
     "discourse":{
       "title": "Keskustelu",
       "loginToJoinDiscourse": "Kirjaudu sisään osallistuaksesi keskusteluun"
-    },
-    "inbox": {
-      "title": "Nostot",
-      "empty": {
-        "title": "Ei viestejä",
-        "message": "Aloita uusi ketju, tai kommentoi ketjussa."
-      }
     },
     "login": {
       "title": "Kirjaudu / Rekisteröidy",
@@ -325,13 +353,16 @@
         "uid": "Pseudoanonyymi tunniste",
         "lightMode": "Tumma tila",
         "lastLogin": "Viimeisin kirjautuminen",
-        "locale": "Sovelluksen kieli"
+        "locale": "Sovelluksen kieli",
+        "photoURL": "Profiilikuva"
       },
       "asset":{
         "name": "Nimi",
         "description": "Kuvaus",
         "license": "Lisenssi",
         "mimetype": "Muoto",
+        "owners": "Omistaja",
+        "noLicense": "-",
         "licenses": {
           "0": "-",
           "1": "CC BY 4.0",
@@ -341,7 +372,8 @@
       },
       "page": {
         "name": "Sivun nimi",
-        "content": "Sisältö"
+        "content": "Sisältö",
+        "noCategory": "Sivut"
       },
       "profile":{
         "nick": "Nimimerkki",
@@ -356,6 +388,7 @@
         "avatarurl": "Kuvake",
         "posterurl": "Taustakuva",
         "description": "Kuvaus",
+        "license": "Lisenssi",
         "homepage": "Kotisivu",
         "link": {
           "title": "Linkit",
@@ -380,6 +413,12 @@
         },
         "topic": {
           "title": "Aiheet"
+        },
+        "sitelicense": {
+          "name": "Lisenssi",
+          "id": "tekninen tunniste (uniikki)",
+          "icon": "Lisenssin ikoni",
+          "ref": "Lisenssin URL -osoite"
         }
       }
     },

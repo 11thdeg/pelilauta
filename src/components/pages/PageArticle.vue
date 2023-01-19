@@ -11,8 +11,12 @@ import WithLoader from '../ui/WithLoader.vue'
 
 const { t } = useI18n()
 const { key: pageKey, page, loading, notFound } = usePage()
-const { key, canEdit } = useSite()
+const { key, canEdit, site } = useSite()
 const router = useRouter()
+
+const props = defineProps<{
+  homepage?: boolean
+}>()
 
 const content = ref('')
 onMounted(() => {
@@ -23,6 +27,7 @@ onMounted(() => {
 })
 
 function toCreatePage() {
+  if (props.homepage) return
   if (!canEdit.value) return
   router.push(`/sites/${key.value}/add/page${pageKey.value === key.value ? '/' + pageKey.value : ''}`)
 }
@@ -35,7 +40,7 @@ function toCreatePage() {
       :suspended="loading"
     >
       <EmptyCollection
-        v-if="notFound"
+        v-if="notFound && !homepage"
         noun="page"
         :title="t('page.notFound.title')"
         :message="t('page.notFound.message')"
@@ -48,6 +53,12 @@ function toCreatePage() {
           @click="toCreatePage"
         />
       </EmptyCollection>
+      <EmptyCollection
+        v-else-if="notFound && homepage"
+        :noun="site?.systemBadge || 'mekanismi'"
+        :title="t('site.welcome.title')"
+        :message="t('site.welcome.message')"
+      />
       <div
         v-else
         :innerHTML="content"

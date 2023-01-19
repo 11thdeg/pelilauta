@@ -1,39 +1,16 @@
 <script lang="ts" setup>
 import { Asset } from '@11thdeg/skaldstore'
-import { computed, onMounted, ref, Ref } from 'vue'
 import { useSession } from '../../composables/useSession'
 import AssetEntryForm from './AssetEntryForm.vue'
-import isEqual from 'lodash/isEqual'
-import clone from 'lodash/clone'
-import { DocumentData, getFirestore, updateDoc, doc } from '@firebase/firestore'
+import { getFirestore, updateDoc, doc } from '@firebase/firestore'
 import { useI18n } from 'vue-i18n'
 import { logDebug } from '../../utils/logHelpers'
 import ProfileTag from '../profiles/ProfileTag.vue'
-
-const props = defineProps<{
-  modelValue: Asset;
-}>()
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: Asset): void;
-}>()
+import { useAsset } from '../../composables/useAsset'
 
 const { t } = useI18n()
 const { uid } = useSession()
-
-let carbonCopy:Ref<DocumentData> = ref({})
-
-const asset = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value),
-})
-
-onMounted(() => {
-  carbonCopy.value = clone(props.modelValue.docData)
-})
-
-const hasChanged = computed(() => {
-  return !isEqual(carbonCopy.value, asset.value.docData)
-})
+const { asset } = useAsset()
 
 function save () {
   logDebug('AssetEntryColumn', 'save', asset.value.docData)
@@ -50,8 +27,11 @@ function save () {
 
 <template>
   <div class="Column">
-    <template v-if="asset.hasOwner(uid)">
-      <h4>{{ t('asset.title') }}</h4>
+    <cyan-card v-if="asset.hasOwner(uid)">
+      <h3 slot="title">
+        {{ t('assetView.meta.title') }}
+      </h3>
+      <br>
       <AssetEntryForm
         v-model="asset"
       />
@@ -59,12 +39,11 @@ function save () {
         <cyan-spacer />
         <cyan-button
           noun="save"
-          :disabled="!hasChanged"
           :label="t('action.save')"
           @click="save"
         />
       </cyan-toolbar>
-    </template>
+    </cyan-card>
     <template v-else>
       <h4>{{ asset.name }}</h4>
       <ProfileTag :uid="asset.owners[0]" />

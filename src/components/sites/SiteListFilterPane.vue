@@ -4,8 +4,6 @@ import { useMeta } from '../../composables/useMeta'
 import { logDebug } from '../../utils/logHelpers'
 import { useI18n } from 'vue-i18n'
 import { computed, ref } from 'vue'
-import { orderBy } from 'lodash'
-
 
 const { siteThemes } = useMeta()
 const { t } = useI18n()
