@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import SiteAppBar from '../../components/sites/SiteAppBar.vue'
 import { usePage } from '../../composables/usePage'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
@@ -10,6 +9,8 @@ import { watch } from 'vue'
 import { useTitle } from '@vueuse/core'
 import PageMetaColumn from '../../components/PageMetaColumn/PageMetaColumn.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
+import AppBar from '../../components/navigation/AppBar.vue'
+import CopyPageMarkdownLinkButton from '../../components/CopyPageMarkdownLinkButton/CopyPageMarkdownLinkButton.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -39,10 +40,11 @@ watch(page, () => {
 </script>
 
 <template>
-  <SiteAppBar
-    :sitekey="sitekey"
-    :pagekey="pagekey"
-  />
+  <AppBar
+    :title="page?.name || '...'"
+  >
+    <CopyPageMarkdownLinkButton />
+  </AppBar>
   <main class="bookLayout">
     <PageArticle />
     <PageMetaColumn />
