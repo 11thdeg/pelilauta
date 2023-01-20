@@ -5,7 +5,7 @@ import { useSession } from '../../composables/useSession'
 import { store } from '../../utils/firestoreHelpers'
 
 const { t } = useI18n()
-const { account } = useSession()
+const { account, admin } = useSession()
 
 async function toggle(e: Event) {
   const target = e.target as CyanToggle
@@ -19,6 +19,7 @@ async function toggle(e: Event) {
 
 <template>
   <cyan-toggle
+    v-if="admin"
     :label="t('settings.appSettings.darkMode')"
     @change="toggle"
   />
