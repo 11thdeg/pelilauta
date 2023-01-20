@@ -55,6 +55,7 @@ async function subscribeToAccount () {
   unsubscribeAccount = onSnapshot(
     doc(getFirestore(), 'account', uid.value),
     (snapshot) => {
+      logDebug('useSession', 'subscribeToAccount', snapshot.data())
       if (snapshot.exists()) {
         account.value.docData = snapshot.data()
         if (account.value.lightMode === 'light') {
@@ -158,7 +159,7 @@ export function useSession () {
     eulaMissing: computed(() => 
       accountLoaded.value &&
       !anonymous.value && 
-      !account.value.updatedAt
+      !account.value.eulaAccepted
     ) // eula has to be agreed, before updating account for the first time
   }
 }
