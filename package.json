@@ -1,7 +1,7 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "14.5.0",
+  "version": "14.5.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "lint": "eslint --ext .ts,.js,.vue src"
   },
   "dependencies": {
-    "@11thdeg/cyan": "0.32.1",
+    "@11thdeg/cyan": "0.33.4",
     "@11thdeg/skaldstore": "0.3.14",
     "@firebase/analytics": "^0.9.0",
     "@firebase/app": "^0.9.0",
