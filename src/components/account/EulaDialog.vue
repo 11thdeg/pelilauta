@@ -1,29 +1,29 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useSession, logout, register } from '../../composables/useSession'
 import { useMetaPages } from '../../composables/useMeta'
-import Dialog from '../ui/Dialog.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import { useI18n } from 'vue-i18n'
 import { useSnack } from '../../composables/useSnack'
 import { getAuth } from '@firebase/auth'
+import { CyanDialog } from '@11thdeg/cyan'
+
 
 const { t } = useI18n()
 const { eulaMissing } = useSession()
 const { pushSnack } = useSnack()
 const dismissed = ref(false)
 
+const dialog = ref<CyanDialog>()
+
 const { pages } = useMetaPages()
 const eula = computed(() => pages.value.get('eula'))
 
-const showDialog = computed({
-  get() {
-    return eulaMissing.value && !dismissed.value
-  },
-  set(value) {
-    dismissed.value = !value
+watch(eulaMissing, (value) => {
+  if (value && !dismissed.value) {
+    dialog.value?.showModal()
   }
-})
+}, { immediate: true })
 
 const user = computed(() => {
   return getAuth().currentUser
@@ -31,11 +31,13 @@ const user = computed(() => {
 
 async function accept() {
   dismissed.value = true
+  dialog.value?.close()
   await register()
   pushSnack(t('account.registrationComplete'))
 }
 
 function decline() {
+  dialog.value?.close()
   logout()
   dismissed.value = true
 }
@@ -43,13 +45,12 @@ function decline() {
 </script>
 
 <template>
-  <Dialog
-    v-model="showDialog"
-    label="EULA!!"
+  <cn-dialog
+    v-if="eula"
+    ref="dialog"
+    :title="eula.name"
   >
-    <template v-if="eula">
-      <MarkdownSection :content="eula.markdownContent" />
-    </template>
+    <MarkdownSection :content="eula.markdownContent" />
 
     <template v-if="user">
       <img
@@ -74,5 +75,5 @@ function decline() {
         @click="accept"
       />
     </cyan-toolbar>
-  </Dialog>
+  </cn-dialog>
 </template>

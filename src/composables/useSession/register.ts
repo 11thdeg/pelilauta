@@ -10,11 +10,13 @@ export async function register() {
   const db = getFirestore()
 
   const accountDoc = await getDoc(doc(db, Account.collectionName, user.uid))
-  if (accountDoc.exists()) throw new Error('Account already exists')
+  if (accountDoc.exists() && accountDoc.data().eulaAccepted) throw new Error('Account already exists')
 
   const account = new Account(user)
-  if (document.body.classList.contains('cyan--mode--dark')) account.lightMode = 'dark'
-  else account.lightMode = 'light'
+  //  if (document.body.classList.contains('cyan--mode--dark')) account.lightMode = 'dark'
+  // else account.lightMode = 'light'
+  account.lightMode = 'dark'
+  account.eulaAccepted = true
   await setDoc(doc(db, Account.collectionName, user.uid), account.docData)
 
   const profileDoc = await getDoc(doc(db, Profile.collectionName, user.uid))
