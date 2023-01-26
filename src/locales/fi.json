@@ -203,6 +203,7 @@
           "success": "Tiedosto poistettu onnistuneesti"
         }
       },
+      "registrationComplete": "Käyttäjätili luotu onnistuneesti",
       "deleteAccount":{
         "success": "Käyttäjätilisi ja henkilökohtaiset tietosi poistettu onnistuneesti. Kiitos, että käytit Pelilautaa!"
       },

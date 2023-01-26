@@ -5,7 +5,6 @@ import { useMetaPages } from '../../composables/useMeta'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import { useI18n } from 'vue-i18n'
 import { useSnack } from '../../composables/useSnack'
-import { getAuth } from '@firebase/auth'
 import { CyanDialog } from '@11thdeg/cyan'
 
 
@@ -18,6 +17,7 @@ const dialog = ref<CyanDialog>()
 
 const { pages } = useMetaPages()
 const eula = computed(() => pages.value.get('eula'))
+const { account } = useSession()
 
 watch(eulaMissing, (value) => {
   if (value && !dismissed.value) {
@@ -25,15 +25,11 @@ watch(eulaMissing, (value) => {
   }
 }, { immediate: true })
 
-const user = computed(() => {
-  return getAuth().currentUser
-})
-
 async function accept() {
   dismissed.value = true
   dialog.value?.close()
   await register()
-  pushSnack(t('account.registrationComplete'))
+  pushSnack(t('snacks.registrationComplete'))
 }
 
 function decline() {
@@ -52,15 +48,20 @@ function decline() {
   >
     <MarkdownSection :content="eula.markdownContent" />
 
-    <template v-if="user">
-      <img
-        v-if="user.photoURL"
-        class="avatarPreview"
-        :src="user.photoURL"
-        :alt="user.photoURL"
-      >
-      <p>{{ user.displayName }}</p>
-    </template>
+    <cyan-card v-if="account">
+      <h4 class="downscaled">
+        {{ $t('settings.profileData.title') }}
+      </h4>
+      <section class="flex">
+        <img
+          v-if="account.photoURL"
+          class="avatarPreview"
+          :src="account.photoURL"
+          :alt="account.photoURL"
+        >
+        <p><strong>{{ $t('fields.profile.nick') }}</strong><br>{{ account.displayName }}</p>
+      </section>
+    </cyan-card>
 
     <cyan-toolbar>
       <cyan-spacer />
@@ -77,3 +78,11 @@ function decline() {
     </cyan-toolbar>
   </cn-dialog>
 </template>
+
+<style lang="sass" scoped>
+.avatarPreview
+  width: 72px
+  height: 72px
+  border-radius: 50%
+  margin-right: 1rem
+</style>
