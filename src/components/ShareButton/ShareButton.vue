@@ -16,7 +16,10 @@ function copyUrl ():void {
     class="text"
     @click.prevent="copyUrl"
   >
-    <cyan-icon noun="share" />
+    <cyan-icon
+      noun="share"
+      small
+    />
     {{ t('action.share') }}
   </button>
 </template>
