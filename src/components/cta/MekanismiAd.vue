@@ -26,7 +26,10 @@ const { anonymous } = useSession()
     </p>
     <cyan-toolbar>
       <cyan-spacer />
-      <router-link to="/sites">
+      <router-link
+        v-if="anonymous"
+        to="/sites"
+      >
         <cyan-button
           noun="mekanismi"
           :label="t('action.toSites')"

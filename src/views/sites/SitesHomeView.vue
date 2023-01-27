@@ -26,7 +26,7 @@ onMounted(() => {
       <WithLoader :suspended="loading">
         <SiteList />
       </WithLoader>
-      <article class="Column">
+      <article class="Column small">
         <MekanismiAd />
       </article>
     </main>
