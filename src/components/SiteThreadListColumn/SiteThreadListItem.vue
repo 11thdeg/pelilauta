@@ -19,13 +19,19 @@ const threadkey = computed(() => props.thread.key || '')
 
 <template>
   <li>
-    <router-link :to="`/threads/${threadkey}`">
-      <TopicIcon :slug="thread.topicid || 'fox'" />
+    <router-link
+      :to="`/threads/${threadkey}`"
+      class="hoverable clickable"
+    >
+      <TopicIcon
+        :slug="thread.topicid || 'fox'"
+        small
+      />
       <div>
-        <h4 class="downscaled">
+        <p class="no-margin">
           {{ thread.title }}
-        </h4>
-        <div style="display: flex">
+        </p>
+        <div class="flex">
           <ProfileLink :uid="thread.author" />
           <cyan-spacer />
           <FlowTimeCaption :flow-time="thread.flowTime" />
@@ -40,13 +46,13 @@ li
   list-style: none
   margin: 0
   padding: 0
+  width: 100%
+  display: block
   a
+    width: 100%
+    padding: 4px
     display: flex
     gap: 8px
-    h4
+    p.no-margin
       margin: 0
-li + li
-  margin-top: 16px
-  // border-top: 1px solid var(--chroma-primary-a)
-  //padding-top: 3px
 </style>
