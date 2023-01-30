@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useSession } from '../../composables/useSession'
 import { logDebug } from '../../utils/loghelpers'
 import { loveThread, unLoveThread } from '../../composables/useThreads'
-import { CyanReactionButton } from '@11thdeg/cyan';
+import { CyanReactionButton } from '@11thdeg/cyan'
 
 const props = defineProps<{
   thread: {

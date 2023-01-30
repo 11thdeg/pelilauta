@@ -85,12 +85,15 @@ const level = computed(() => {
       
       <div>
         <ProfileLink :uid="thread.author" /><br>
-        <span class="hideOnMobile TypeCaption">{{ t('threads.inTopic') }}</span> <TopicTag :slug="thread.topicid || ''" />
+        <span class="hideOnMobile TypeBody2">{{ t('threads.inTopic') }}</span> <TopicTag :slug="thread.topicid || ''" />
       </div>
 
       <cyan-spacer />
 
-      <div class="TypeCaption">
+      <div
+        class="TypeBody2"
+        style="text-align: right;"
+      >
         <FlowTimeCaption :flow-time="thread.flowTime" /><br>
         <RepliesTag :thread="thread" />
       </div>
