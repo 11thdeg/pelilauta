@@ -7,6 +7,7 @@ import { useMeta } from '../useMeta'
 import { useSubscriber } from './useSubscriber'
 import { subscribeNotifications } from './useNotifications'
 import { useProfile } from './useProfile'
+import { setConsent } from '@firebase/analytics'
 
 export * from './register'
 
@@ -102,9 +103,22 @@ export function login(user: User|null) {
     
     active.value = true
     updateDoc(doc(getFirestore(), Account.collectionName, uid.value), { lastLogin: serverTimestamp() })
+
+    grantAnalytics()
   }
 }
 
+export function grantAnalytics() {
+  setConsent(
+    {
+      ad_storage: 'denied',
+      analytics_storage: 'granted',
+      functionality_storage: 'granted',
+      personalization_storage: 'granted',
+      security_storage: 'granted'
+    }
+  )
+}
 
 const resetters:Map<string, CallableFunction> = new Map()
 
