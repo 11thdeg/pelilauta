@@ -79,22 +79,22 @@ const level = computed(() => {
       </router-link>
     </h3>
     <ContentPreviewSection :thread="thread" />
-    <cyan-toolbar
-      small
-      style="margin-bottom: 4px"
-    >
-      <ProfileLink :uid="thread.author" />
-      <cyan-spacer />
-      <FlowTimeCaption :flow-time="thread.flowTime" />
-    </cyan-toolbar>
-    <cyan-toolbar small>
+    
+    <section class="flex">
       <LoveAThreadButton :thread="thread" />
-      <div class="TypeCaption">
-        <span class="hideOnMobile">{{ t('threads.inTopic') }}</span> <TopicTag :slug="thread.topicid || ''" />
+      
+      <div>
+        <ProfileLink :uid="thread.author" /><br>
+        <span class="hideOnMobile TypeCaption">{{ t('threads.inTopic') }}</span> <TopicTag :slug="thread.topicid || ''" />
       </div>
+
       <cyan-spacer />
-      <RepliesTag :thread="thread" />
-    </cyan-toolbar>
+
+      <div class="TypeCaption">
+        <FlowTimeCaption :flow-time="thread.flowTime" /><br>
+        <RepliesTag :thread="thread" />
+      </div>
+    </section>
   </cyan-card>
 </template>
 
