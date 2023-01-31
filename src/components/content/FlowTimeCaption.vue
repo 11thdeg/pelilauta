@@ -15,7 +15,7 @@ const s = computed(() => {
 </script>
 
 <template>
-  <span class="TypeBody2">
+  <span class="TypeCaption">
     {{ s }}
   </span>
 </template>

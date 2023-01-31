@@ -9,6 +9,7 @@ import RepliesTag from '../threads/RepliesTag.vue'
 import TopicIcon from '../threads/TopicIcon.vue'
 import TopicTag from '../threads/TopicTag.vue'
 import ContentPreviewSection from './ContentPreviewSection.vue'
+import RepliesButton from './RepliesButton.vue'
 
 const props = defineProps<{
   thread: {
@@ -81,22 +82,18 @@ const level = computed(() => {
     <ContentPreviewSection :thread="thread" />
     
     <section class="flex">
+      <ProfileLink :uid="thread.author" />
+      <cyan-spacer />
+      <FlowTimeCaption :flow-time="thread.flowTime" />
+    </section>
+
+    
+    <section class="flex">
       <LoveAThreadButton :thread="thread" />
-      
-      <div>
-        <ProfileLink :uid="thread.author" /><br>
-        <span class="hideOnMobile TypeBody2">{{ t('threads.inTopic') }}</span> <TopicTag :slug="thread.topicid || ''" />
-      </div>
 
       <cyan-spacer />
 
-      <div
-        class="TypeBody2"
-        style="text-align: right;"
-      >
-        <FlowTimeCaption :flow-time="thread.flowTime" /><br>
-        <RepliesTag :thread="thread" />
-      </div>
+      <RepliesButton :thread="thread" />
     </section>
   </cyan-card>
 </template>
