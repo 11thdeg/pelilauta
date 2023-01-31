@@ -17,6 +17,7 @@
       },
       "create": "Luo uusi",
       "delete": "Poista",
+      "downloadAsMarkdown": "Lataa",
       "loadMore": "Lataa lisää",
       "toDiscussion": "Lue lisää",
       "toLogin": "Kirjaudu sisään",

@@ -11,6 +11,7 @@ import PageMetaColumn from '../../components/PageMetaColumn/PageMetaColumn.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 import AppBar from '../../components/navigation/AppBar.vue'
 import CopyPageMarkdownLinkButton from '../../components/CopyPageMarkdownLinkButton/CopyPageMarkdownLinkButton.vue'
+import DownloadAsMarkdownButton from '../../components/DownloadAsMarkdownButton/DownloadAsMarkdownButton.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -44,6 +45,7 @@ watch(page, () => {
     :title="page?.name || '...'"
   >
     <CopyPageMarkdownLinkButton />
+    <DownloadAsMarkdownButton :content-entry="page" />
   </AppBar>
   <main class="bookLayout">
     <PageArticle />
