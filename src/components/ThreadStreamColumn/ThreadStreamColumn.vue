@@ -25,7 +25,7 @@ let unsubscribe:CallableFunction|undefined = undefined
 
 function pushThreadToStream (thread:Thread) {
   const arr = [...streamThreads.value.filter(t => t.key !== thread.key)]
-  arr.push(thread)
+  if (!thread.sticky) arr.push(thread)
   streamThreads.value = [...arr].sort((a, b) => a.compareFlowTime((b as Thread)))
 }
 
