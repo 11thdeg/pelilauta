@@ -4,6 +4,8 @@ import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { collection, getFirestore, limit, onSnapshot, query, where, orderBy } from '@firebase/firestore'
 import { logDebug } from '../../utils/logHelpers'
+import ProfileLink from '../profileLink/ProfileLink.vue'
+import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 
 
 
@@ -80,18 +82,25 @@ async function subscibe (topic: string) {
       </h4>
       <cyan-icon
         slot="avatar"
-        name="pin"
+        noun="discussion"
       />
       <section
         v-for="t in streamThreads"
         :key="t.key"
-        style="margin: 12px 0"
+        style="margin: 0 -6px; margin-bottom: 12px; padding: 6px; border-radius: 4px;"
+        class="hoverable clickable"
       >
-        <h4 class="downscaled">
-          {{ t.title }}
-        </h4>
+        <router-link :to="'/threads/'+t.key">
+          <h4 class="downscaled">
+            {{ t.title }}
+          </h4>
+          <div class="flex">
+            <ProfileLink :uid="t.author" />
+            <cyan-spacer />
+            <FlowTimeCaption :flow-time="t.flowTime" />
+          </div>
+        </router-link>
       </section>
-      <p>...</p>
     </cyan-card>
   </article>
 </template>

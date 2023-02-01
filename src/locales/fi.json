@@ -43,6 +43,7 @@
       "select": "Valitse",
       "selectImage": "Valitse kuva",
       "save": "Tallenna",
+      "sticky": "Kiinnitä",
       "addImage": "Kuva",
       "upload": "Lähetä",
       "edit": "Muokkaa",
@@ -239,6 +240,13 @@
         "title": "Luo uusi ketju"
       }
     },
+    "threads": {
+      "replies": "vastausta",
+      "inTopic": "Aiheessa",
+      "sticky": {
+        "title": "Nostot"
+      }
+    },
     "assets": {
       "title": "Media",
       "list": {
@@ -346,10 +354,6 @@
     "restrictedContent":{
       "title": "500",
       "description": "Uh, oh. Näyttää siltä että yrität tehdä jotain, jonka ei pitäisi onnistua (tai sitten jotain meni pieleen)."
-    },
-    "threads": {
-      "replies": "vastausta",
-      "inTopic": "Aiheessa"
     },
     "fields": {
       "account": {

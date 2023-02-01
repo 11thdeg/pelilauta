@@ -45,7 +45,10 @@ watch(page, () => {
     :title="page?.name || '...'"
   >
     <CopyPageMarkdownLinkButton />
-    <DownloadAsMarkdownButton :content-entry="page" />
+    <DownloadAsMarkdownButton
+      v-if="page"
+      :content-entry="page"
+    />
   </AppBar>
   <main class="bookLayout">
     <PageArticle />
