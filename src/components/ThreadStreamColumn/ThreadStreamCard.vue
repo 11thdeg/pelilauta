@@ -1,13 +1,10 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import LoveAThreadButton from '../threads/LoveAThreadButton.vue'
-import RepliesTag from '../threads/RepliesTag.vue'
 import TopicIcon from '../threads/TopicIcon.vue'
-import TopicTag from '../threads/TopicTag.vue'
 import ContentPreviewSection from './ContentPreviewSection.vue'
 import RepliesButton from './RepliesButton.vue'
 
@@ -27,8 +24,6 @@ const props = defineProps<{
     replyCount: number
   }
 }>()
-
-const { t } = useI18n()
 
 const key = computed(() => {
   return props.thread.key || ''
