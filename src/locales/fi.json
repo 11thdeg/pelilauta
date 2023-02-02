@@ -421,7 +421,11 @@
           "title": "Aihealueet"
         },
         "topic": {
-          "title": "Aiheet"
+          "title": "Aiheet",
+          "name": "Aiheen nimi",
+          "description": "Aihealueen kuvaus",
+          "slug": "Aihealueen tunniste (uniikki)",
+          "icon": "Aiheen ikoni"
         },
         "sitelicense": {
           "name": "Lisenssi",

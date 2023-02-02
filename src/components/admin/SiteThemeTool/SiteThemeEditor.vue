@@ -19,7 +19,6 @@ const item:Ref<SiteFamily|undefined> = ref(undefined)
 
 onMounted(() => {
   watch(props, () => {
-    logDebug('watch', props.theme)
     item.value = props.theme
     if (item.value) dialog.value?.showModal()
   })
