@@ -114,6 +114,18 @@
       "upload": "Lisää uusi",
       "select": "Valitse kirjastosta"
     },
+    "library": {
+      "title": "Kirjasto",
+      "games": {
+        "title": "Pelit"
+      },
+      "media": {
+        "title": "Kuvat ja lataukset"
+      },
+      "discussion": {
+        "title": "Ketjut"
+      }
+    },
     "settings":{
       "title": "Asetukset",
       "accountDataPane": {
