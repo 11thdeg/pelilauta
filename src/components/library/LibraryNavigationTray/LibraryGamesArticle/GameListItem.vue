@@ -14,11 +14,11 @@ const noun = computed(() => props.game.systemBadge || props.game.system || 'meka
 </script>
 
 <template>
-  <li class="flex m0 p0">
+  <li class="flex mx-0 px-0 hoverable clickable">
     <cyan-icon
       :noun="noun"
     />
-    <h4 class="downscaled">
+    <h4 class="downscaled my-0">
       {{ game.name }}
     </h4>
   </li>
