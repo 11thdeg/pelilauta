@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useSites } from '../../../../composables/useSites'
+import GameListItem from './GameListItem.vue'
 
 const { ownSites } = useSites()
 </script>
@@ -7,11 +8,12 @@ const { ownSites } = useSites()
 <template>
   <article>
     <h4>{{ $t('library.games.title') }}</h4>
-    <p
-      v-for="site in ownSites"
-      :key="site.key"
-    >
-      {{ site.name }}
-    </p>
+    <ul class="no-margin no-padding">
+      <GameListItem
+        v-for="game in ownSites"
+        :key="game.key"
+        :game="game"
+      />
+    </ul>
   </article>
 </template>
