@@ -1,16 +1,22 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
+
 const props = defineProps<{
   game: {
     name: string
     system: string
+    systemBadge: string
   }
 }>()
+
+const noun = computed(() => props.game.systemBadge || props.game.system || 'mekanismi')
+
 </script>
 
 <template>
-  <li class="flex no-margin no-padding">
+  <li class="flex m0 p0">
     <cyan-icon
-      :noun="game.system"
+      :noun="noun"
     />
     <h4 class="downscaled">
       {{ game.name }}

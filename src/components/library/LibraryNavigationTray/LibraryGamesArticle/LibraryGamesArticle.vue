@@ -7,8 +7,8 @@ const { ownSites } = useSites()
 
 <template>
   <article>
-    <h4>{{ $t('library.games.title') }}</h4>
-    <ul class="no-margin no-padding">
+    <h4>{{ $t('library.games.owns') }}</h4>
+    <ul class="m-0">
       <GameListItem
         v-for="game in ownSites"
         :key="game.key"
