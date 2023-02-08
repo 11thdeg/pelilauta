@@ -39,7 +39,7 @@ const { admin } = useSession()
         :active="route.path.startsWith('/sites')"
       />
     </router-link>
-    <AssetsNavigationButton :label="t('assets.title')" />
+    <AssetsNavigationButton :label="t('library.title')" />
     <cyan-spacer />
     <router-link to="/admin/settings">
       <cyan-navigation-button

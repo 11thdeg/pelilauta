@@ -38,5 +38,7 @@ export const routes = [
   { path: '/sites/:sitekey/pages/:pagekey/revisions', component: () => import('./pages/PageHistoryView.vue'), props: true },
   { path: '/add/site', component: () => import('./sites/AddSiteView.vue') },
   { path: '/add/thread', component: () => import('./threads/CreateThreadView.vue') },
-  { path: '/library/', component: () => import('./library/IndexView.vue'), props: true }
+  { path: '/library/', component: () => import('./assets/UserAssetsView.vue'), props: true },
+  { path: '/library/games', component: () => import('./library/UserGamesView.vue'), props: true }
+
 ]

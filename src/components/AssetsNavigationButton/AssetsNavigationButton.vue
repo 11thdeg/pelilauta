@@ -22,12 +22,12 @@ const buttonLabel = computed(() => props.label || undefined)
   >
     <router-link
       v-if="!anonymous"
-      to="/assets"
+      to="/library"
     >
       <cyan-navigation-button
         :label="buttonLabel"
         noun="books"
-        :active="route.path.startsWith('/assets')"
+        :active="route.path.startsWith('/library')"
       />
     </router-link>
   </transition>

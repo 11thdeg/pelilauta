@@ -7,7 +7,8 @@
       "add": {
         "new": "Lisää uusi",
         "thread": "Luo keskustelu",
-        "page": "Luo sivu"
+        "page": "Luo sivu",
+        "site": "Luo uusi"
       },
       "cancel": "Peruuta",
       "chooseAvatar": "Vaihda kuvake",
@@ -117,7 +118,8 @@
     "library": {
       "title": "Kirjasto",
       "games": {
-        "title": "Pelit"
+        "title": "Pelit",
+        "owns": "Omat pelini ja sivustoni"
       },
       "media": {
         "title": "Kuvat ja lataukset"

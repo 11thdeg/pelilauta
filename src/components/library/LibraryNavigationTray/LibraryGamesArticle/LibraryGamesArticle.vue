@@ -16,7 +16,7 @@ const { ownSites } = useSites()
           noun="add"
           dark
         />
-        {{ $t('actions.add.site') }}
+        {{ $t('action.add.site') }}
       </button>
     </router-link>
     <ul class="mx-0 px-0">

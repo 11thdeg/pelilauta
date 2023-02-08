@@ -14,27 +14,26 @@ import NavigationTray from '../../NavigationTray/NavigationTray.vue'
       </cyan-toolbar>
     </section>
     <section>
-      <router-link to="/library">
+      <router-link to="/library/games">
         <cyan-nav-button
           noun="mekanismi"
         >
           {{ $t('library.games.title') }}
         </cyan-nav-button>
       </router-link>
-      <router-link to="/library/media">
+      <router-link to="/library">
         <cyan-nav-button
           noun="assets"
         >
           {{ $t('library.media.title') }}
         </cyan-nav-button>
       </router-link>
-      <router-link to="/library/threads">
-        <cyan-nav-button
-          noun="discussion"
-        >
-          {{ $t('library.discussion.title') }}
-        </cyan-nav-button>
-      </router-link>
+      <cyan-nav-button
+        disabled
+        noun="discussion"
+      >
+        {{ $t('library.discussion.title') }}
+      </cyan-nav-button>
     </section>
   </NavigationTray>
 </template>
