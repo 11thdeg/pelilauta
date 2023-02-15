@@ -13,7 +13,7 @@ const props = defineProps<{
     hasOwner: (uid: string) => boolean
   }
 }>()
-const { profile, uid } = useSession()
+const { profile, uid, admin } = useSession()
 
 const loves = computed(
   {
@@ -74,6 +74,7 @@ async function unLoveSite () {
 
 <template>
   <cn-reaction-button
+    v-if="admin"
     :on="loves"
     :aria-pressed="loves + ''"
     :disabled="owns"
