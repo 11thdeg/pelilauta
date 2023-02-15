@@ -17,6 +17,7 @@ const props = defineProps<{
     hasOwner: (u: string) => boolean;
     players?: string[];
     hidden: boolean;
+    lovedCount?: number;
   }
 }>()
 
@@ -56,15 +57,16 @@ const cover = computed(() => {
       <FlowTimeCaption :flow-time="site.flowTime" />
     </p>
     <cyan-toolbar>
-      <LoveASiteButton
-        :site="site"
-      />
-      <cyan-spacer />
       <cyan-icon
         v-if="site.hidden"
         noun="lock"
         style="opacity:0.55"
       />
+      <LoveASiteButton
+        v-else
+        :site="site"
+      />
+      <cyan-spacer />
       <cyan-icon
         v-if="site.hasOwner(uid)"
         noun="avatar"

@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { usePage } from '../../composables/usePage'
 import { useSite } from '../../composables/useSite'
 import AppBar from '../navigation/AppBar.vue'
+import LoveASiteButton from '../SiteCard/LoveASiteButton.vue';
 
 const props =  defineProps<{
   sitekey: string
@@ -28,5 +29,7 @@ const noun = computed(() => {
   <AppBar
     :title="title"
     :noun="noun"
-  />
+  >
+    <LoveASiteButton v-if="site" :site="site" />
+  </AppBar>
 </template>

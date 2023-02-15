@@ -12,6 +12,25 @@ function getCollectionName(e: Storable) {
   return Storable.collectionName
 }
 
+/**
+ * Add a new Storable to the Firestore database.
+ */ 
+export async function addStorable(e: Storable) {
+  const path = e.getFirestorePath()
+  const collectionName = path.shift()
+  if (!collectionName) throw new Error('No root collection name found in path')
+  logDebug('addStorable', e, path, collectionName)
+  const r = await addDoc(
+    collection(
+      getFirestore(),
+      collectionName,
+      ...path
+    ),
+    e.docData
+  )
+  return r.id
+}
+
 export async function store(e: Storable) {
   if (e.key) {
     // update!
