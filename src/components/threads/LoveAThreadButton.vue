@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useSession } from '../../composables/useSession'
 import { logDebug } from '../../utils/loghelpers'
 import { loveThread, unLoveThread } from '../../composables/useThreads'
+import { CyanReactionButton } from '@11thdeg/cyan'
 
 const props = defineProps<{
   thread: {
@@ -24,13 +25,20 @@ const loves = computed(
   }
 )
 const owns = computed(() => props.thread.hasOwner(account.value?.uid|| ''))
+
+function handleChange (e: Event) {
+  const button = (e.target as CyanReactionButton)
+  logDebug('handleChange', button.on, button.ariaPressed)
+  loves.value = button.on
+}
 </script>
 
 <template>
-  <cyan-love-button
+  <cn-reaction-button
     :on="loves"
+    :aria-pressed="loves + ''"
     :disabled="owns"
     :count="props.thread.lovedCount"
-    @loves="loves = $event.detail.active"
+    @change="handleChange"
   />
 </template>

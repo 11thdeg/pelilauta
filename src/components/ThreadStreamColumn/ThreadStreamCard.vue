@@ -1,14 +1,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import LoveAThreadButton from '../threads/LoveAThreadButton.vue'
-import RepliesTag from '../threads/RepliesTag.vue'
 import TopicIcon from '../threads/TopicIcon.vue'
-import TopicTag from '../threads/TopicTag.vue'
 import ContentPreviewSection from './ContentPreviewSection.vue'
+import RepliesButton from './RepliesButton.vue'
 
 const props = defineProps<{
   thread: {
@@ -26,8 +24,6 @@ const props = defineProps<{
     replyCount: number
   }
 }>()
-
-const { t } = useI18n()
 
 const key = computed(() => {
   return props.thread.key || ''
@@ -79,22 +75,21 @@ const level = computed(() => {
       </router-link>
     </h3>
     <ContentPreviewSection :thread="thread" />
-    <cyan-toolbar
-      small
-      style="margin-bottom: 4px"
-    >
+    
+    <section class="flex">
       <ProfileLink :uid="thread.author" />
       <cyan-spacer />
       <FlowTimeCaption :flow-time="thread.flowTime" />
-    </cyan-toolbar>
-    <cyan-toolbar small>
+    </section>
+
+    
+    <section class="flex">
       <LoveAThreadButton :thread="thread" />
-      <div class="TypeCaption">
-        <span class="hideOnMobile">{{ t('threads.inTopic') }}</span> <TopicTag :slug="thread.topicid || ''" />
-      </div>
+
       <cyan-spacer />
-      <RepliesTag :thread="thread" />
-    </cyan-toolbar>
+
+      <RepliesButton :thread="thread" />
+    </section>
   </cyan-card>
 </template>
 

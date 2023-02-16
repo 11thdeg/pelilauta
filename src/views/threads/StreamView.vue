@@ -10,6 +10,7 @@ import ThreadStreamColumn from '../../components/ThreadStreamColumn/ThreadStream
 import FabTray from '../../components/FabTray/FabTray.vue'
 import CreateThreadFab from '../../components/CreateThreadFab/CreateThreadFab.vue'
 import { useSession } from '../../composables/useSession'
+import StickyThreadsColumn from '../../components/StickyThreadsColumn/StickyThreadsColumn.vue'
     
 const props = defineProps<{
     streamkey?: string
@@ -45,6 +46,7 @@ const { anonymous } = useSession()
         :topic="streamkey"
         large
       />
+      <StickyThreadsColumn />
     </main>
     <StreamTray />
     <FabTray v-if="!anonymous">

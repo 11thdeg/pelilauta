@@ -37,7 +37,7 @@ const route = useRoute()
         :active="route.path.startsWith('/sites')"
       />
     </router-link>
-    <AssetsNavigationButton :label="t('assets.title')" />
+    <AssetsNavigationButton :label="t('library.title')" />
     <NotificationNavigationButton :label="t('inbox.title')" />
     <AccountNavButton />
   </nav>

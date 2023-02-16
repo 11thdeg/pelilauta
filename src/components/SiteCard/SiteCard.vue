@@ -4,6 +4,7 @@ import { useSession } from '../../composables/useSession'
 import SiteAvatar from '../sites/SiteAvatar.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import SystemTag from '../actions/SystemTag.vue'
+import LoveASiteButton from './LoveASiteButton.vue'
 
 const props = defineProps<{
   site: {
@@ -16,6 +17,7 @@ const props = defineProps<{
     hasOwner: (u: string) => boolean;
     players?: string[];
     hidden: boolean;
+    lovedCount?: number;
   }
 }>()
 
@@ -51,19 +53,30 @@ const cover = computed(() => {
     <p class="TypeBody2">
       {{ site.description }}
     </p>
-    <cyan-toolbar small>
-      <cyan-tag
-        v-if="site.hasOwner(uid)"
-        noun="avatar"
-        label="GM"
+    <p style="text-align: right;">
+      <FlowTimeCaption :flow-time="site.flowTime" />
+    </p>
+    <cyan-toolbar>
+      <cyan-icon
+        v-if="site.hidden"
+        noun="lock"
+        style="opacity:0.55"
       />
-      <cyan-tag
-        v-if="hasPlayer(uid)"
-        noun="adventurer"
-        label="PC"
+      <LoveASiteButton
+        v-else
+        :site="site"
       />
       <cyan-spacer />
-      <FlowTimeCaption :flow-time="site.flowTime" />
+      <cyan-icon
+        v-if="site.hasOwner(uid)"
+        noun="avatar"
+        style="opacity:0.55"
+      />
+      <cyan-icon
+        v-if="hasPlayer(uid)"
+        noun="adventurer"
+        style="opacity:0.55"
+      />
       <SystemTag :system-family="site.systemBadge" />
     </cyan-toolbar>
   </cyan-card>

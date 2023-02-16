@@ -13,7 +13,7 @@ import { firebaseConfig } from './firebaseConfig'
 import { initializeApp } from 'firebase/app'
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 // import { enableIndexedDbPersistence, getFirestore } from 'firebase/firestore'
-import { getAnalytics } from 'firebase/analytics'
+import { getAnalytics, setConsent } from 'firebase/analytics'
 import { login } from './composables/useSession'
 // import { testFirestore } from './testFirestore'
 // import { testStorage } from './testStorage'
@@ -55,6 +55,14 @@ const auth = getAuth(fb)
 
 // Initialize Analytics
 getAnalytics(fb)
+// Set Analytics consent to match GDPR requirements
+setConsent({
+  ad_storage: 'denied',
+  analytics_storage: 'denied',
+  functionality_storage: 'denied',
+  personalization_storage: 'denied',
+  security_storage: 'granted'
+})
 
 onAuthStateChanged(auth, (user: User|null) => {
   login(user)

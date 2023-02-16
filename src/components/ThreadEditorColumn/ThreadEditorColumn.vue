@@ -167,7 +167,7 @@ async function updateThread () {
     logError('Tried to update thread that does not exist')
     return
   }
-  if (!thread.hasOwner(uid.value)) {
+  if (!(admin || thread.hasOwner(uid.value))) {
     logError('Tried to update thread that does not belong to user, this would fail at the server')
     return
   }

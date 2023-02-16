@@ -12,10 +12,14 @@ function copyUrl ():void {
 </script>
     
 <template>
-  <cyan-button
-    text
-    noun="share"
-    :label="t('action.share')"
+  <button
+    class="text"
     @click.prevent="copyUrl"
-  />
+  >
+    <cyan-icon
+      noun="share"
+      small
+    />
+    {{ t('action.share') }}
+  </button>
 </template>

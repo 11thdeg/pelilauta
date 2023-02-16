@@ -57,7 +57,7 @@ async function deleteAccountPermanently() {
     await logout()
 
     open.value = false
-    pushSnack(t('settings.deleteAccount.success'))
+    pushSnack(t('snacks.deleteAccount.success'))
     router.push('/')
   }
 }

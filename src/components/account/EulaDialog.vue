@@ -1,41 +1,39 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useSession, logout, register } from '../../composables/useSession'
 import { useMetaPages } from '../../composables/useMeta'
-import Dialog from '../ui/Dialog.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import { useI18n } from 'vue-i18n'
 import { useSnack } from '../../composables/useSnack'
-import { getAuth } from '@firebase/auth'
+import { CyanDialog } from '@11thdeg/cyan'
+
 
 const { t } = useI18n()
 const { eulaMissing } = useSession()
 const { pushSnack } = useSnack()
 const dismissed = ref(false)
 
+const dialog = ref<CyanDialog>()
+
 const { pages } = useMetaPages()
 const eula = computed(() => pages.value.get('eula'))
+const { account } = useSession()
 
-const showDialog = computed({
-  get() {
-    return eulaMissing.value && !dismissed.value
-  },
-  set(value) {
-    dismissed.value = !value
+watch(eulaMissing, (value) => {
+  if (value && !dismissed.value) {
+    dialog.value?.showModal()
   }
-})
-
-const user = computed(() => {
-  return getAuth().currentUser
-})
+}, { immediate: true })
 
 async function accept() {
   dismissed.value = true
+  dialog.value?.close()
   await register()
-  pushSnack(t('account.registrationComplete'))
+  pushSnack(t('snacks.registrationComplete'))
 }
 
 function decline() {
+  dialog.value?.close()
   logout()
   dismissed.value = true
 }
@@ -43,23 +41,27 @@ function decline() {
 </script>
 
 <template>
-  <Dialog
-    v-model="showDialog"
-    label="EULA!!"
+  <cn-dialog
+    v-if="eula"
+    ref="dialog"
+    :title="eula.name"
   >
-    <template v-if="eula">
-      <MarkdownSection :content="eula.markdownContent" />
-    </template>
+    <MarkdownSection :content="eula.markdownContent" />
 
-    <template v-if="user">
-      <img
-        v-if="user.photoURL"
-        class="avatarPreview"
-        :src="user.photoURL"
-        :alt="user.photoURL"
-      >
-      <p>{{ user.displayName }}</p>
-    </template>
+    <cyan-card v-if="account">
+      <h4 class="downscaled">
+        {{ $t('settings.profileData.title') }}
+      </h4>
+      <section class="flex">
+        <img
+          v-if="account.photoURL"
+          class="avatarPreview"
+          :src="account.photoURL"
+          :alt="account.photoURL"
+        >
+        <p><strong>{{ $t('fields.profile.nick') }}</strong><br>{{ account.displayName }}</p>
+      </section>
+    </cyan-card>
 
     <cyan-toolbar>
       <cyan-spacer />
@@ -74,5 +76,13 @@ function decline() {
         @click="accept"
       />
     </cyan-toolbar>
-  </Dialog>
+  </cn-dialog>
 </template>
+
+<style lang="sass" scoped>
+.avatarPreview
+  width: 72px
+  height: 72px
+  border-radius: 50%
+  margin-right: 1rem
+</style>

@@ -56,12 +56,12 @@ const posterStyle = computed(() => {
     align-items: bottom
     margin-bottom: 12px
     .avatar
-      margin-bottom: -24px
+      margin-bottom: -22px
       margin-top: 24px
     &.withPoster
       height: 124px
       .avatar
-        margin-top:77px
+        margin-top:48px
         filter: drop-shadow(0px 0px 8px var(--chroma-secondary-b))
   .title
     margin: 0

@@ -7,6 +7,7 @@ import ThreadEditorColumn from '../../components/ThreadEditorColumn/ThreadEditor
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import { fetchThread } from '../../composables/useThreads'
+import StickyToggle from './StickyToggle.vue'
 
 const props = defineProps<{
   threadkey: string
@@ -27,7 +28,9 @@ onMounted(async () => {
 
 </script>
 <template>
-  <TopBar :title="thread ? thread.title : ''" />
+  <TopBar :title="thread ? thread.title : ''">
+    <StickyToggle />
+  </TopBar>
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <ThreadEditorColumn

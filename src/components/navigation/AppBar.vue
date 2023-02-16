@@ -43,6 +43,7 @@ const { navTrayVisible } = useUxState()
       </h2>
       <cyan-spacer />
       <!--cyan-lightmode-toggle class="hideOnMobile" /-->
+      <slot />
       <ShareButton />
     </cyan-top-app-bar>
     <Banner />

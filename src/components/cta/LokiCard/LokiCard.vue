@@ -17,8 +17,7 @@ const articles = ref<WordpressArticle[]>([])
 const loading = ref(true)
 
 async function fetchArticles () {
-  const after = '?after=' + new Date(Date.now() - (1000 * 3600 * 24) * 60).toISOString().substring(0, 10)
-  const url = 'https://public-api.wordpress.com/rest/v1.1/sites/roolipeliloki.wordpress.com/posts' + after
+  const url = 'https://public-api.wordpress.com/rest/v1.1/sites/roolipeliloki.wordpress.com/posts?number=3'
   try {
     const response = await fetch(url)
     const json = await response.json()

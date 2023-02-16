@@ -13,15 +13,13 @@ const noun = computed(() => {
   return siteThemes.value.find(t => t.id === props.systemFamily)?.icon || 'pelilauta'
 })
 
-const label = computed(() => {
+/* const label = computed(() => {
   return siteThemes.value.find(t => t.id === props.systemFamily)?.id || '-'
-})
-
+}) */
 </script>
 
 <template>
-  <cyan-tag
+  <cyan-icon
     :noun="noun"
-    :label="label"
   />
 </template>
