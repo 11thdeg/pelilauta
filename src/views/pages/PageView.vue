@@ -3,7 +3,7 @@ import { usePage } from '../../composables/usePage'
 import SiteFabs from '../../components/sites/SiteFabs.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
-import PageArticle from '../../components/pages/PageArticle.vue'
+import PageArticle from '../../components/PageArticle/PageArticle.vue'
 import { loadSite, useSite } from '../../composables/useSite'
 import { watch } from 'vue'
 import { useTitle } from '@vueuse/core'
@@ -53,7 +53,10 @@ watch(page, () => {
   </AppBar>
   <main class="bookLayout">
     <WithLoader :suspended="loading">
-      <PageArticle />
+      <PageArticle
+        v-if="page"
+        :page="page"
+      />
       <PageMetaColumn />
     </WithLoader>
   </main>

@@ -1,5 +1,6 @@
 import { marked } from 'marked'
 import { computed } from 'vue'
+import { logDebug } from '../utils/logHelpers'
 import { toMekanismiURI } from '../utils/toMekanismiURI'
 import { useSite } from './useSite'
 
@@ -30,10 +31,14 @@ function renderWikiLinks (siteid:string, htmlContent:string): string {
 }
 
 export function useContentEntry (
-  entry?: { htmlContent?: string, markdownContent?: string }, options?: { snippetLength: number }) {
+  entry: { htmlContent?: string, markdownContent?: string }, options?: { snippetLength?: number, default?: string }) {
   const { key } = useSite()
   const content = computed(() => {
-    if (!entry) return ''
+    
+    if (!entry.htmlContent && !entry.markdownContent) {
+      logDebug('useContentEntry', 'No content found for entry', entry, options)
+      return options?.default || ''
+    }
 
     let c = ''
     // Newer entries have markdownContent, older ones have htmlContent
