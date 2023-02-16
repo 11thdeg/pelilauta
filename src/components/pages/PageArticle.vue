@@ -22,7 +22,10 @@ const content = ref('')
 onMounted(() => {
   watch(page, (p) => {
     content.value = useContentEntry(p).content.value
-    if (!content.value) logError('PageArticle', 'No content found for page, likely a legacy issue', p)
+    if (!content.value) {
+      logError('PageArticle', 'No content found for page, likely a legacy issue', p)
+      content.value = '...'
+    }
   }, { immediate: true })
 })
 

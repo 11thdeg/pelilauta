@@ -12,6 +12,7 @@ import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 import AppBar from '../../components/navigation/AppBar.vue'
 import CopyPageMarkdownLinkButton from '../../components/CopyPageMarkdownLinkButton/CopyPageMarkdownLinkButton.vue'
 import DownloadAsMarkdownButton from '../../components/DownloadAsMarkdownButton/DownloadAsMarkdownButton.vue'
+import WithLoader from '../../components/ui/WithLoader.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -19,17 +20,17 @@ const props = defineProps<{
 }>()
 
 // We need to load state from the server when the route changes
-watch(props, () => {
+watch(props, (p) => {
   // init composable
-  loadSite(props.sitekey)
+  loadSite(p.sitekey)
   // init composable with sitekey and pagekey
-  usePage(props.pagekey || '', props.sitekey)
+  usePage(p.pagekey || '', p.sitekey)
 }, { 
   immediate: true 
 })
 
 const { site } = useSite()
-const { page } = usePage()
+const { page, loading } = usePage()
 const title = useTitle()
 
 watch(page, () => {
@@ -51,15 +52,17 @@ watch(page, () => {
     />
   </AppBar>
   <main class="bookLayout">
-    <PageArticle />
-    <PageMetaColumn />
-    <SiteFabs
-      :pagekey="pagekey"
-      :sitekey="sitekey"
-    />
-    <NavigationTray>
-      <SiteTray />
-    </NavigationTray>
+    <WithLoader :suspended="loading">
+      <PageArticle />
+      <PageMetaColumn />
+    </WithLoader>
   </main>
+  <SiteFabs
+    :pagekey="pagekey"
+    :sitekey="sitekey"
+  />
+  <NavigationTray>
+    <SiteTray />
+  </NavigationTray>
   <SiteFooter />
 </template>
