@@ -74,7 +74,7 @@ async function unLoveSite () {
 
 <template>
   <cn-reaction-button
-    v-if="admin"
+    v-if="admin || true"
     :on="loves"
     :aria-pressed="loves + ''"
     :disabled="owns"

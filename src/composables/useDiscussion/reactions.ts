@@ -1,3 +1,4 @@
+import { Reaction, Reply } from '@11thdeg/skaldstore'
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { doc, getDoc, getFirestore, runTransaction, Transaction } from '@firebase/firestore'
 
@@ -39,7 +40,14 @@ export async function loveReply (uid: string, threadid: string, replyid: string)
 
       const reactionsRef = doc(db, 'profiles', uid, 'reactions', replyid)
 
-      transaction.set(reactionsRef, { uid: uid, thread: threadid, reply: replyid, type: 'love', target: 'thread' })
+      const reaction  = new Reaction()
+      reaction.actor = uid
+      reaction.targetEntry = Reply.collectionName
+      reaction.targetKey = threadid + '/' + replyid
+      reaction.targetActor = reply.data()?.author
+      reaction.type = 'love'
+
+      transaction.set(reactionsRef, reaction.docData)
     })
   })
 }
