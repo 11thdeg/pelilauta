@@ -9,7 +9,7 @@ import { logDebug, logEvent } from '../../utils/logHelpers'
 const props = defineProps<{
   site: {
     key?: string
-    lovedCount?: number
+    lovesCount?: number
     hasOwner: (uid: string) => boolean
   }
 }>()
@@ -45,6 +45,7 @@ function handleChange (e: Event) {
  *   And   The site is added to my loved-sites collection
  */
 async function loveSite () {
+  if (loves.value) return
   logEvent('Love a Site', { uid: uid.value, sitekey: props.site.key,})
   // const site = await getSite(props.site.key || '')
   const reaction = new Reaction()
@@ -67,6 +68,7 @@ async function loveSite () {
  *   And   The site is removed from my loved-sites collection
  */
 async function unLoveSite () {
+  if (!loves.value) return
   logEvent('unLoveReply', { uid: uid.value, sitekey: props.site.key,})
   // const site = await getSite(props.site.key || '')
 }
@@ -78,7 +80,7 @@ async function unLoveSite () {
     :on="loves"
     :aria-pressed="loves + ''"
     :disabled="owns"
-    :count="0"
+    :count="props.site.lovesCount || 0"
     @change="handleChange"
   />  
 </template>
