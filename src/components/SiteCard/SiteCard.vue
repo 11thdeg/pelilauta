@@ -35,6 +35,7 @@ const cover = computed(() => {
 
 <template>
   <cyan-card
+    class="SiteCard"
     elevation="1"
     :cover="cover"
   >
@@ -92,6 +93,7 @@ const cover = computed(() => {
   display: block
   flex-grow: 0
   flex-shrink: 0
+  align-self: flex-start
 .hasPoster
   .cardPoster
     position: relative

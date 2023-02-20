@@ -20,7 +20,6 @@ const sectionTitle = computed(() => props.title || t('app.emptycollection.title'
         :noun="noun"
         xlarge
         dark
-        opca
       />
     </div>
     <p v-if="message">
@@ -41,7 +40,6 @@ const sectionTitle = computed(() => props.title || t('app.emptycollection.title'
   height: 128px
   width: 128px
   border-radius: 50%
-  opacity: 0.5
-  padding: 16px
+  opacity: 0.7
   margin: 0 auto
 </style>
