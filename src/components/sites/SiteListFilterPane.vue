@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import FilterChip from '../ui/FilterChip.vue'
 import { useMeta } from '../../composables/useMeta'
 import { logDebug } from '../../utils/logHelpers'
 import { useI18n } from 'vue-i18n'
@@ -54,10 +53,6 @@ function togglePlayer () {
   emit('update:modelValue', arr)
 }
 
-function isActiveFamily (id:string) {
-  return props.modelValue?.includes('family:'+id) ?? false
-}
-
 function orderBy(field: string) {
   logDebug('order by', field, props.orderBy)
   if (props.orderBy === field) emit('update:orderBy', '-'+field)
@@ -88,35 +83,44 @@ function orderBy(field: string) {
         @click="orderBy('name')"
       />
     </cyan-toolbar>
-    <cyan-card
-      v-if="showTags"
-      elevation="1"
-      class="tags"
+    <transition
+      mode="out-in"
+      enter-active-class="animate__animated animate__flipInX"
+      leave-active-class="animate__animated animate__fadeOut"
+      :duration="220"
     >
-      <FilterChip
-        :label="t('sites.ownedByMe')"
-        :value="props.modelValue && props.modelValue.includes('visibility:own')"
-        @click="toggleOwn()"
-      />
-      <FilterChip
-        :label="t('sites.playsIn')"
-        :value="props.modelValue && props.modelValue.includes('visibility:player')"
-        @click="togglePlayer()"
-      />
-      <FilterChip
-        v-for="theme in siteThemes"
-        :key="theme.id"
-        :label="theme.name"
-        :value="isActiveFamily(theme.id)"
-        @click="onClick(theme.id)"
-      />
-    </cyan-card>
+      <cyan-card
+        v-if="showTags"
+        elevation="1"
+        class="tags"
+        style="margin-bottom: var(--cn-gap-column)"
+      >
+        <section
+          class="flex"
+          style="gap: 8px"
+        >
+          <cn-chip
+            filter
+            @change="toggleOwn()"
+          >
+            {{ t('sites.ownedByMe') }}
+          </cn-chip>
+          <cn-chip
+            filter
+            @change="togglePlayer()"
+          >
+            {{ t('sites.playsIn') }}
+          </cn-chip>
+          <cn-chip
+            v-for="theme in siteThemes"
+            :key="theme.id"
+            filter
+            @change="onClick(theme.id)"
+          >
+            {{ theme.name }}
+          </cn-chip>
+        </section>
+      </cyan-card>
+    </transition>
   </div>
 </template>
-
-<style lang="sass" scoped>
-.tags
-  margin-bottom: 12px
-  padding-bottom: 0
-  padding-top: 12px
-</style>
