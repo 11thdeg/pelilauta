@@ -6,16 +6,19 @@ import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import { loadSite, useSite } from '../../composables/useSite'
 import { usePage } from '../../composables/usePage'
 import { onMounted, watch } from 'vue'
-import PageArticle from '../../components/pages/PageArticle.vue'
+import PageArticle from '../../components/PageArticle/PageArticle.vue'
 import { useTitle } from '@vueuse/core'
 import SiteChangesListColumn from '../../components/SiteChangesListColumn/SiteChangesListColumn.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
+import WithLoader from '../../components/ui/WithLoader.vue'
+import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 
 const props = defineProps<{
   sitekey: string
 }>()
 
 const { site } = useSite()
+const { loading, notFound, page } = usePage()
 const title = useTitle()
 
 onMounted(() => {
@@ -24,7 +27,7 @@ onMounted(() => {
     useTitle().value = ns?.name || '404'
     if (ns) {
       const pageKey = ns.homepage || ns.key || ''
-      usePage(pageKey, props.sitekey)
+      usePage(pageKey, ns.key)
       title.value = ns.name
     }
   }, { immediate: true })
@@ -35,7 +38,22 @@ onMounted(() => {
   <div id="SiteView">
     <SiteAppBar :sitekey="sitekey" />
     <main class="bookLayout">
-      <PageArticle homepage />
+      <WithLoader :suspended="loading">
+        <article
+          v-if="notFound"
+          class="Column large"
+        >
+          <EmptyCollection
+            :noun="site?.systemBadge || 'mekanismi'"
+            :title="$t('site.welcome.title')"
+            :message="$t('site.welcome.message')"
+          />
+        </article>
+        <PageArticle
+          v-else-if="page"
+          :page="page"
+        />
+      </WithLoader>
       <SiteChangesListColumn />
     </main>
     <SiteFooter />

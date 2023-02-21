@@ -50,15 +50,11 @@ const filter = ref(new Array<string>())
       v-if="filteredSites.length"
       class="siteListing"
     >
-      <router-link
+      <SiteCard
         v-for="site in filteredSites"
         :key="site.key"
-        :to="'/sites/' + site.key"
-      >
-        <SiteCard
-          :site="site"
-        />
-      </router-link>
+        :site="site"
+      />
     </div>
     <EmptyCollection
       v-else

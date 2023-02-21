@@ -3,6 +3,7 @@ import { Notification } from '@11thdeg/skaldstore'
 import { deleteDoc, doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { fetchSite } from '../../composables/useSites'
 import { fetchThread } from '../../composables/useThreads'
 import ProfileTag from '../profiles/ProfileTag.vue'
 
@@ -26,6 +27,11 @@ onMounted(async () => {
     const thread = await fetchThread(props.notification.targetKey)
     targetTitle.value = thread? thread.title : t('thread.deleted')
     targerRoute.value = `/threads/${props.notification.targetKey}`
+  }
+  if (props.notification.targetType.startsWith('site')) {
+    const site = await fetchSite(props.notification.targetKey)
+    targetTitle.value = site? site.name : t('site.deleted')
+    targerRoute.value = `/sites/${props.notification.targetKey}`
   }
   if (props.notification.targetType.endsWith('loved')) {
     typeNoun.value = 'love'

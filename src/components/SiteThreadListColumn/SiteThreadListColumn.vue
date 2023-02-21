@@ -45,7 +45,10 @@ onUnmounted(() => {
 
 </script>
 <template>
-  <article class="Column">
+  <article
+    v-if="threads.length > 0"
+    class="Column"
+  >
     <cyan-toolbar>
       <cyan-icon
         noun="discussion"

@@ -39,7 +39,7 @@ const { t } = useI18n()
           {{ t('app.meta.source') }}
         </p>
         <p class="TypeBody2">
-          <a href="https://github.com/villetakanen/pelilauta">Pelilauta (MIT)</a><br>
+          <a href="https://github.com/11thdeg/pelilauta">Pelilauta (MIT)</a><br>
           <a href="https://github.com/11thdeg/cyan-elements">Cyan (MIT)</a><br>
           <a href="https://github.com/11thdeg/skaldstore">Skaldstore (MIT)</a>
         </p>

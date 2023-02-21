@@ -8,6 +8,7 @@ import LoveASiteButton from './LoveASiteButton.vue'
 
 const props = defineProps<{
   site: {
+    key: string;
     name: string;
     flowTime: number;
     systemBadge: string;
@@ -17,7 +18,7 @@ const props = defineProps<{
     hasOwner: (u: string) => boolean;
     players?: string[];
     hidden: boolean;
-    lovedCount?: number;
+    lovesCount?: number;
   }
 }>()
 
@@ -34,6 +35,7 @@ const cover = computed(() => {
 
 <template>
   <cyan-card
+    class="SiteCard"
     elevation="1"
     :cover="cover"
   >
@@ -41,14 +43,18 @@ const cover = computed(() => {
       slot="title"
       class="downscaled"
     >
-      {{ site.name }}
+      <router-link :to="`/sites/${site.key}`">
+        {{ site.name }}
+      </router-link>
     </h3>
     <div slot="avatar">
-      <SiteAvatar
-        :large="!!cover"
-        :site="site"
-        class="siteAvatar"
-      />
+      <router-link :to="`/sites/${site.key}`">
+        <SiteAvatar
+          :large="!!cover"
+          :site="site"
+          class="siteAvatar"
+        />
+      </router-link>
     </div>
     <p class="TypeBody2">
       {{ site.description }}
@@ -87,6 +93,7 @@ const cover = computed(() => {
   display: block
   flex-grow: 0
   flex-shrink: 0
+  align-self: flex-start
 .hasPoster
   .cardPoster
     position: relative
