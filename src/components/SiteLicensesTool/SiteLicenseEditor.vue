@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { Ref, ref, computed, onMounted, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { CyanDialog } from '@11thdeg/cyan'
+import { Ref, ref, onMounted, watch } from 'vue'
 import { License } from '../../composables/useMeta'
 import { logDebug } from '../../utils/logHelpers'
-import Dialog from '../ui/Dialog.vue'
 import NounSelect from '../ui/NounSelect.vue'
 
 const props = defineProps<{
@@ -13,20 +12,14 @@ const emit = defineEmits<{
   (e: 'save', license: License): void
 }>()
 
-const { t } = useI18n()
-
+const dialog = ref<CyanDialog>()
 const item:Ref<License|undefined> = ref(undefined)
-const open = computed({
-  get: () => !!item.value,
-  set: (value) => {
-    if (!value) item.value = undefined
-  }
-})
 
 onMounted(() => {
   watch(props, () => {
     logDebug('watch', props.license)
     item.value = props.license
+    if (item.value) dialog.value?.showModal()
   })
 })
 
@@ -39,6 +32,15 @@ function save() {
     emit('save', item.value)
   }
   item.value = undefined
+  dialog.value?.close()
+}
+
+function openDialog() {
+  item.value = { name: '', id: '', icon: ''}
+  dialog.value?.showModal()
+}
+function closeDialog() {
+  dialog.value?.close()
 }
 </script>
 <template>
@@ -46,50 +48,50 @@ function save() {
     <cyan-spacer />
     <cyan-button
       noun="add"
-      :label="t('action.add.new')"
+      :label="$t('action.add.new')"
       text
-      @click="item = { name: '', id: '', icon: ''}"
+      @click="openDialog()"
     />
   </cyan-toolbar>
-  <Dialog
-    v-model="open"
-    :label="t('fields.meta.sitelicense.name')"
+  <cn-dialog
+    ref="dialog"
+    :title="$t('fields.meta.sitelicense.name')"
   >
     <section
       v-if="item"
       class="fieldset"
     >
       <cyan-textfield
-        :label="t('fields.meta.sitelicense.name')"
+        :label="$t('fields.meta.sitelicense.name')"
         :value="item.name || ''"
         @change="setField('name', $event.target.value)"
       />
       <cyan-textfield
-        :label="t('fields.meta.sitelicense.id')"
+        :label="$t('fields.meta.sitelicense.id')"
         :value="item.id || ''"
         @change="setField('id', $event.target.value)"
       />
       <cyan-textfield
-        :label="t('fields.meta.sitelicense.ref')"
+        :label="$t('fields.meta.sitelicense.ref')"
         :value="item.ref || ''"
         @change="setField('ref', $event.target.value)"
       />
       <NounSelect
         v-model="item.icon"
-        :label="t('fields.meta.sitelicense.icon')"
+        :label="$t('fields.meta.sitelicense.icon')"
       />
       <cyan-toolbar>
         <cyan-spacer />
         <cyan-button
-          :label="t('action.cancel')"
+          :label="$t('action.cancel')"
           text
-          @click="open = false"
+          @click="closeDialog()"
         />
         <cyan-button
-          :label="t('action.save')"
+          :label="$t('action.save')"
           @click="save"
         />
       </cyan-toolbar>
     </section>
-  </Dialog>
+  </cn-dialog>
 </template>
