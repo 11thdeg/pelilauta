@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { PageCategory } from '@11thdeg/skaldstore/dist/entries/Site'
-import { Ref, ref, computed, onMounted, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { Ref, ref, onMounted, watch } from 'vue'
 import { logDebug } from '../../../utils/logHelpers'
 import { toMekanismiURI } from '../../../utils/toMekanismiURI'
-import Dialog from '../../ui/Dialog.vue'
-    
+import { CyanDialog } from '@11thdeg/cyan'
+
 const props = defineProps<{
   chapter?: PageCategory
 }>()
@@ -13,20 +12,14 @@ const emit = defineEmits<{
   (e: 'save', chapter: PageCategory): void
 }>()
     
-const { t } = useI18n()    
+const dialog = ref<CyanDialog>()
 const item:Ref<PageCategory|undefined> = ref(undefined)
-
-const open = computed({
-  get: () => !!item.value,
-  set: (value) => {
-    if (!value) item.value = undefined
-  }
-})
     
 onMounted(() => {
   watch(props, () => {
     logDebug('watch', props.chapter)
     item.value = props.chapter
+    if (item.value) dialog.value?.showModal()
   })
 })
     
@@ -43,6 +36,14 @@ function save() {
     emit('save', item.value)
   }
   item.value = undefined
+  dialog.value?.close()
+}
+function openDialog() {
+  item.value = { name: '', slug: '' }
+  dialog.value?.showModal()
+}
+function closeDialog() {
+  dialog.value?.close()
 }
 </script>
 <template>
@@ -50,33 +51,33 @@ function save() {
     <cyan-spacer />
     <cyan-button
       noun="add"
-      :label="t('action.add.new')"
+      :label="$t('action.add.new')"
       text
-      @click="item = { name: '', slug: '' }"
+      @click="openDialog()"
     />
   </cyan-toolbar>
-  <Dialog
-    v-model="open"
-    :label="t('action.add.new')"
+  <cn-dialog
+    ref="dialog"
+    :label="$t('action.add.new')"
   >
     <template v-if="item">
       <cyan-textfield
-        :label="t('fields.site.chapter')"
+        :label="$t('fields.site.chapter')"
         :value="item.name || ''"
         @change="setField('name', $event.target.value)"
       />
       <cyan-toolbar>
         <cyan-spacer />
         <cyan-button
-          :label="t('action.cancel')"
+          :label="$t('action.cancel')"
           text
-          @click="open = false"
+          @click="closeDialog()"
         />
         <cyan-button
-          :label="t('action.save')"
+          :label="$t('action.save')"
           @click="save"
         />
       </cyan-toolbar>
     </template>
-  </Dialog>
+  </cn-dialog>
 </template>
