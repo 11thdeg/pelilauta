@@ -6,6 +6,7 @@ import ThreadRepliesSection from './ThreadRepliesSection.vue'
     
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<{
+  flowtime?: number
       threadkey: string
     }>()
     
@@ -17,6 +18,7 @@ const pushQuote = ref(new Array<string>())
   <article>
     <h2>{{ t('discourse.title') }}</h2>
     <ThreadRepliesSection
+      :flowtime="flowtime"
       :threadkey="threadkey"
       @update:quote="pushQuote = $event"
     />

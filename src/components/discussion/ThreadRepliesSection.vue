@@ -6,6 +6,7 @@ import { stashReply } from '../../composables/useDiscussion'
 import ReplyBubble from '../replyBubble/ReplyBubble.vue'
 
 const props = defineProps<{
+  flowtime?: number
   threadkey: string
 }>()
 const emit = defineEmits<{
@@ -51,6 +52,16 @@ onMounted(async () => {
         const bsec = b.createdAt?.seconds || 0
         return asec - bsec
       })
+      if(props.flowtime) {
+        let forwardtoKey = replies.value[replies.value.length - 1].key 
+        for (let i = replies.value.length - 1; i >= 0; i--) {
+          if (replies.value[i].flowTime < props.flowtime) {
+            forwardtoKey = replies.value[i].key
+            break
+          }
+        }
+        location.hash = '#reply_' + forwardtoKey
+      }
     })
 })
 onUnmounted(() => {

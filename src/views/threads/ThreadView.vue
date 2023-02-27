@@ -15,6 +15,7 @@ import WithLoader from '../../components/ui/WithLoader.vue'
 import { useTitle } from '@vueuse/core'
 
 const props = defineProps<{
+  flowtime?: number
   threadkey: string
 }>()
 const { t } = useI18n()
@@ -76,6 +77,7 @@ watch(() => thread.value, (tr) => {
               :thread="thread"
             />
             <ThreadDiscussion
+              :flowtime="flowtime"
               :threadkey="threadkey"
             />
           </div>
