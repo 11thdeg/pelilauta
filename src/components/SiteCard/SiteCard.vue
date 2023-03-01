@@ -50,6 +50,7 @@ const cover = computed(() => {
     <div slot="avatar">
       <router-link :to="`/sites/${site.key}`">
         <SiteAvatar
+          :large="!!cover"
           :site="site"
           class="siteAvatar"
         />

@@ -63,4 +63,4 @@ const filter = ref(new Array<string>())
       :message="t('sites.empty.message')"
     />
   </article>
-</template>
+</template>'

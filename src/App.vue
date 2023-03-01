@@ -63,6 +63,7 @@ if ('serviceWorker' in navigator) {
     id="appContainer"
     class="AppLayout"
     :class="{ navTrayVisible: navTrayVisible }"
+    style="container: none"
   >
     <router-view />
   </div>
