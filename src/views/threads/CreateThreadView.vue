@@ -2,6 +2,7 @@
 import { Thread } from '@11thdeg/skaldstore'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 import TopBar from '../../components/navigation/TopBar.vue'
 import ThreadEditorColumn from '../../components/ThreadEditorColumn/ThreadEditorColumn.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
@@ -39,4 +40,7 @@ const forbidden = computed(() => anonymous.value || frozen.value)
       </WithPermission>
     </WithLoader>
   </main>
+  <div class="bookLayout">
+    <MarkDownCheatSheetColumn />
+  </div>
 </template>

@@ -2,6 +2,7 @@
 import { Thread } from '@11thdeg/skaldstore'
 import { onMounted, Ref, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 import TopBar from '../../components/navigation/TopBar.vue'
 import ThreadEditorColumn from '../../components/ThreadEditorColumn/ThreadEditorColumn.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
@@ -44,4 +45,7 @@ onMounted(async () => {
       />
     </WithLoader>
   </main>
+  <div class="bookLayout">
+    <MarkDownCheatSheetColumn />
+  </div>
 </template>

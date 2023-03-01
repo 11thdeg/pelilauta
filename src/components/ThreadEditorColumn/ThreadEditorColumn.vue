@@ -14,7 +14,6 @@ import { useSnack } from '../../composables/useSnack'
 import { fetchThread } from '../../composables/useThreads'
 import { logError } from '../../utils/logHelpers'
 import ImageListSection from '../content/ImageListSection.vue'
-import MarkDownCheatSheetColumn from '../content/MarkDownCheatSheetColumn.vue'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import YoutubePreview from '../content/YoutubePreview.vue'
 import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
@@ -323,7 +322,6 @@ const previewLabel = computed(() => {
       </cyan-toolbar>
     </template>
   </div>
-  <MarkDownCheatSheetColumn />
   <article
     v-if="admin"
   >
@@ -354,6 +352,11 @@ const previewLabel = computed(() => {
       </p>
     </cyan-card>
   </article>
+  <!--Teleport to=".AppLayout">
+    <cn-side-sheet>
+      <h4>...</h4>
+    </cn-side-sheet>
+  </Teleport-->
 </template>
 
 <style lang="sass">
