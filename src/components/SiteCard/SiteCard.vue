@@ -87,33 +87,3 @@ const cover = computed(() => {
     </cyan-toolbar>
   </cyan-card>
 </template>
-
-<style lang="sass" scoped>
-.SiteCard
-  display: block
-  flex-grow: 0
-  flex-shrink: 0
-  align-self: flex-start
-.hasPoster
-  .cardPoster
-    position: relative
-    margin: -12px
-    margin-bottom: 12px
-    padding: 12px
-    background-position: center
-    background-size: cover
-    border-radius: 12px 12px 0 0
-    height: 72px
-    .siteName
-      position: absolute
-      right: 12px
-      bottom: 0
-      width: calc(100% - 108px)
-      text-align: right
-      color: var(--chroma-secondary-i)
-      text-shadow: 0px 0px 8px var(--chroma-secondary-c)
-    .siteAvatar
-      position: absolute
-      bottom: -8px
-      left: 12px
-</style>
