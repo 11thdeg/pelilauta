@@ -48,7 +48,7 @@ const filter = ref(new Array<string>())
     />
     <div
       v-if="filteredSites.length"
-      class="siteListing"
+      class="ItemGrid"
     >
       <SiteCard
         v-for="site in filteredSites"
@@ -64,18 +64,3 @@ const filter = ref(new Array<string>())
     />
   </article>
 </template>
-
-<style lang="sass" scoped>
-.siteListing
-  display: flex
-  flex-direction: column
-  gap: var(--cn-gap-column)
-  a
-    text-decoration: none
-
-@media screen and (min-width: 800px)
-  .siteListing
-    padding-top: 4px
-    display: grid
-    grid-template-columns: calc(700px / 2 - 8px) calc(700px / 2 - 8px)
-</style>
