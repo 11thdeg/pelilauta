@@ -28,12 +28,12 @@ import NavigationTray from '../../NavigationTray/NavigationTray.vue'
           {{ $t('library.media.title') }}
         </cyan-nav-button>
       </router-link>
-      <cyan-nav-button
+      <!--cyan-nav-button
         disabled
         noun="discussion"
       >
         {{ $t('library.discussion.title') }}
-      </cyan-nav-button>
+      </cyan-nav-button-->
     </section>
   </NavigationTray>
 </template>
