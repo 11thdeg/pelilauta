@@ -51,6 +51,12 @@ const level = computed(() => {
   return notify.value || newEntry.value === true ? 2 : 1
 })
 
+const cover = computed(() => {
+  if (props.thread.youtubeId) return `https://img.youtube.com/vi/${props.thread.youtubeId}/0.jpg`
+  if (props.thread.images && props.thread.images.length > 0) return props.thread.images[0]
+  return undefined
+})
+
 </script>
 
 <template>
@@ -61,10 +67,12 @@ const level = computed(() => {
     :class="{
       'notify': notify || newEntry,
     }"
+    :cover="cover"
   >
     <TopicIcon
       slot="avatar"
       :slug="topicid"
+      :large="!!cover"
     />
     <h3
       slot="title"
@@ -74,6 +82,7 @@ const level = computed(() => {
         {{ thread.title }}
       </router-link>
     </h3>
+    <br v-if="cover">
     <ContentPreviewSection :thread="thread" />
     
     <section class="flex">

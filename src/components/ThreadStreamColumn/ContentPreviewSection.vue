@@ -16,7 +16,7 @@ const props = defineProps<{
 
 const mode = computed(() => {
   if (props.thread.youtubeId) return 'youtube'
-  if (props.thread.images && props.thread.images.length > 0) return 'image'
+  if (props.thread.images && props.thread.images.length > 1) return 'image'
   return 'text'
 })
 
@@ -24,7 +24,7 @@ const { snippet } = useContentEntry(props.thread)
 
 </script>
 <template>
-  <div
+  <!--div
     v-if="mode === 'youtube'"
     class="videoContainer"
     style="margin: 12px -12px"
@@ -34,15 +34,15 @@ const { snippet } = useContentEntry(props.thread)
       :video-id="thread.youtubeId || ''"
     />
   </div>
-  <template v-else>
-    <div
-      v-if="mode === 'image'"
-      style="margin: 12px -12px"
-    >
-      <ImageListSection
-        :images="thread.images"
-      />
-    </div>
-    <div :innerHTML="snippet" />
-  </template>
+  <template v-else -->
+  <div
+    v-if="mode === 'image'"
+    style="margin: 12px -12px"
+  >
+    <ImageListSection
+      :images="thread.images?.slice(1)"
+    />
+  </div>
+  <div :innerHTML="snippet" />
+  <!-- /template -->
 </template>
