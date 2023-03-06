@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useContentEntry } from '../../composables/useContentEntry'
 import ImageListSection from '../content/ImageListSection.vue'
-import YoutubePreview from '../content/YoutubePreview.vue'
+// import YoutubePreview from '../content/YoutubePreview.vue'
 
 const props = defineProps<{
   thread: {
