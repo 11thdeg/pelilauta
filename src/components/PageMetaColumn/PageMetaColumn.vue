@@ -1,19 +1,25 @@
 <script lang="ts" setup>
-import { useI18n } from 'vue-i18n'
-import { usePage } from '../../composables/usePage'
-import { useSite } from '../../composables/useSite'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 
-const { t } = useI18n()
-const { page } = usePage()
-const { site } = useSite()
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const props = defineProps<{
+  page: {
+    key: string
+    name: string
+    author: string
+    flowTime: number
+  }
+  site: {
+    key: string
+  }
+}>()
 
 </script>
 
 <template>
   <article
-    v-if="page && site"
     class="small Column"
   >
     <cyan-card>
@@ -25,7 +31,7 @@ const { site } = useSite()
         slot="title"
         class="downscaled"
       >
-        {{ page?.name }}
+        {{ page.name }}
       </h4>
       <cyan-toolbar>
         <ProfileLink :uid="page.author || ''" />
@@ -37,7 +43,7 @@ const { site } = useSite()
         <router-link :to="`/sites/${site.key}/pages/${page.key}/revisions`">
           <cyan-button
             text
-            :label="t('page.revisions.title')"
+            :label="$t('page.revisions.title')"
           />
         </router-link>
       </cyan-toolbar>

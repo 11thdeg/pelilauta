@@ -61,7 +61,11 @@ watch(page, () => {
         v-if="page"
         :page="page"
       />
-      <PageMetaColumn />
+      <PageMetaColumn
+        v-if="page && site"
+        :page="page"
+        :site="site"
+      />
     </WithLoader>
   </main>
   <SiteFabs
