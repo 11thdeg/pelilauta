@@ -19,6 +19,10 @@ const props = defineProps<{
   pagekey: string
 }>()
 
+const { site } = useSite()
+const { page, loading } = usePage()
+const title = useTitle()
+
 // We need to load state from the server when the route changes
 watch(props, (p) => {
   // init composable
@@ -29,10 +33,7 @@ watch(props, (p) => {
   immediate: true 
 })
 
-const { site } = useSite()
-const { page, loading } = usePage()
-const title = useTitle()
-
+// Update the title when the page is loaded
 watch(page, () => {
   if (page.value) {
     title.value = site.value?.name + '/' + page.value.name
@@ -45,7 +46,10 @@ watch(page, () => {
   <AppBar
     :title="page?.name || '...'"
   >
-    <CopyPageMarkdownLinkButton />
+    <CopyPageMarkdownLinkButton
+      v-if="page"
+      :page="page"
+    />
     <DownloadAsMarkdownButton
       v-if="page"
       :content-entry="page"
