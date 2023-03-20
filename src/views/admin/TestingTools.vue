@@ -4,6 +4,7 @@ import AppBar from '../../components/navigation/AppBar.vue'
 import AdminTray from '../../components/admin/AdminTray.vue'
 import SnackbarTester from '../../components/admin/SnackbarTester.vue'
 import BannerTester from '../../components/admin/BannerTester.vue'
+import ModeTester from '../../components/admin/ModeTester.vue'
 
 const { admin } = useSession()
 </script>
@@ -17,6 +18,7 @@ const { admin } = useSession()
     <main class="SiteSettings dashboardLayout">
       <SnackbarTester />
       <BannerTester />
+      <ModeTester />
     </main>
     <AdminTray />
   </div>
