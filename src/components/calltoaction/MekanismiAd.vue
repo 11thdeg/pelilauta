@@ -7,24 +7,14 @@ const { anonymous } = useSession()
 </script>
 
 <template>
-  <cyan-card
-    elevation="1"
+  <cn-card
+    :title="$t('cta.mekanismiAd.title')"
+    :snippet="$t('cta.mekanismiAd.description')"
     class="MekanismiAd chroma-box-b"
     cover="/proprietary/images/wootha-public-domain-talk-to-me.jpeg"
+    noun="mekanismi"
   >
-    <cyan-icon
-      slot="avatar"
-      noun="mekanismi"
-      large
-      dark
-    />
-    <h3 slot="title">
-      {{ t('cta.mekanismiAd.title') }}
-    </h3> 
-    <p class="TypeBody2">
-      {{ $t('cta.mekanismiAd.description') }}
-    </p>
-    <cyan-toolbar>
+    <cyan-toolbar slot="actions">
       <cyan-spacer />
       <router-link
         v-if="anonymous"
@@ -50,5 +40,5 @@ const { anonymous } = useSession()
       </router-link>
       <cyan-spacer />
     </cyan-toolbar>
-  </cyan-card>
+  </cn-card>
 </template>
