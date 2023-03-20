@@ -81,6 +81,7 @@ const noun = computed(() => {
     :cover="cover"
     :snippet="snippet"
     :noun="noun"
+    :link="`/threads/${key}`"
   >
     <div slot="actions">
       <section class="flex">
