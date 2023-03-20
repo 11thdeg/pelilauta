@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useContentEntry } from '../../composables/useContentEntry'
+import { useMeta } from '../../composables/useMeta'
 import { useSubscriber } from '../../composables/useSession/useSubscriber'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import LoveAThreadButton from '../threads/LoveAThreadButton.vue'
-import TopicIcon from '../threads/TopicIcon.vue'
-import ContentPreviewSection from './ContentPreviewSection.vue'
 import RepliesButton from './RepliesButton.vue'
 
 const props = defineProps<{
@@ -57,49 +57,48 @@ const cover = computed(() => {
   return undefined
 })
 
+const { snippet } = useContentEntry(props.thread)
+
+const { streams } = useMeta()
+
+const noun = computed(() => {
+  const t = streams.value.find(s => s.slug === topicid.value)
+  if (!t) return 'discussion'
+  return t.icon
+})
+
 </script>
 
 <template>
-  <cyan-card
+  <cn-card
     v-if="thread"
     class="ThreadStreamCard"
     :elevation="level"
     :class="{
       'notify': notify || newEntry,
     }"
+    :title="thread.title"
     :cover="cover"
+    :snippet="snippet"
+    :noun="noun"
   >
-    <TopicIcon
-      slot="avatar"
-      :slug="topicid"
-      :large="!!cover"
-    />
-    <h3
-      slot="title"
-      class="downscaled"
-    >
-      <router-link :to="`/threads/${key}`">
-        {{ thread.title }}
-      </router-link>
-    </h3>
-    <br v-if="cover">
-    <ContentPreviewSection :thread="thread" />
-    
-    <section class="flex">
-      <ProfileLink :uid="thread.author" />
-      <cyan-spacer />
-      <FlowTimeCaption :flow-time="thread.flowTime" />
-    </section>
+    <div slot="actions">
+      <section class="flex">
+        <ProfileLink :uid="thread.author" />
+        <cyan-spacer />
+        <FlowTimeCaption :flow-time="thread.flowTime" />
+      </section>
 
     
-    <section class="flex">
-      <LoveAThreadButton :thread="thread" />
+      <section class="flex">
+        <LoveAThreadButton :thread="thread" />
 
-      <cyan-spacer />
+        <cyan-spacer />
 
-      <RepliesButton :thread="thread" />
-    </section>
-  </cyan-card>
+        <RepliesButton :thread="thread" />
+      </section>
+    </div>
+  </cn-card>
 </template>
 
 <style lang="sass" scoped>
