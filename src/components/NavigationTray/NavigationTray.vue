@@ -43,7 +43,7 @@ const showTrayOnMobile = computed(() => uxState.showNavTrayOnMobile.value)
   width: 240px
   height: 100vh
   margin: 0
-  padding: 0
+  padding: 8px 0
   box-sizing: border-box
   overflow-y: scroll
   scroll-bar-width: none
