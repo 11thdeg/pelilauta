@@ -75,6 +75,7 @@ document.body.classList.add('cyan--themed')
 document.body.classList.add('cyan')
 // Force dark mode, as light is still experimental
 document.body.classList.add('cyan--mode--dark')
+document.body.classList.add('dark')
 
 document.body.lang = 'fi'
 

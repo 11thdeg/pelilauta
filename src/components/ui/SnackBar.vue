@@ -41,7 +41,6 @@ onMounted(() => {
       <div
         v-if="messageCode"
         id="SnackMessage"
-        class="rise-d"
       >
         {{ t(messageCode) }}
       </div>
@@ -51,10 +50,13 @@ onMounted(() => {
     
 <style lang="sass" scoped>
 #SnackMessage
-    position: fixed
-    bottom: 16px
-    left: 16px
-    z-index: var(--z-index-snacks)
-    padding: 16px
-    border-radius: 4px
+  position: fixed
+  bottom: 16px
+  left: 16px
+  z-index: var(--z-index-snacks)
+  height: 48px
+  border-radius: 12px 12px 12px 0
+  background: var(--chroma-surface-complement)
+  color: var(--chroma-surface)
+  padding: 14px 16px
 </style>

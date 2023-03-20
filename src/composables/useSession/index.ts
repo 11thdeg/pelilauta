@@ -63,10 +63,14 @@ async function subscribeToAccount () {
           // logDebug('useSession', 'login', 'Setting light mode')
           document.body.classList.remove('cyan--mode--dark')
           document.body.classList.add('cyan--mode--light')
+          document.body.classList.remove('dark')
+          document.body.classList.add('light')
         } else if (account.value.lightMode === 'dark') {
           // logDebug('useSession', 'login', 'Setting dark mode')
           document.body.classList.remove('cyan--mode--light')
           document.body.classList.add('cyan--mode--dark')
+          document.body.classList.add('dark')
+          document.body.classList.remove('light')
         }
       }
       accountLoaded.value = true
