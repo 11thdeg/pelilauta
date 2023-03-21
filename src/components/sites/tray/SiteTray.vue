@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { useSite } from '../../../composables/useSite'
-import PageIndex from '../../PageIndex.vue'
+import PageIndex from '../../SiteTray/PageIndex.vue'
 import SiteTrayHeader from './SiteTrayHeader.vue'
 
 const { t } = useI18n()

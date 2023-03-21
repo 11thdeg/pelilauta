@@ -1,5 +1,5 @@
-import { Storable, Account, Thread } from '@11thdeg/skaldstore'
-import { addDoc, collection, doc, getFirestore, updateDoc } from '@firebase/firestore'
+import { Storable, Account, Thread, Page } from '@11thdeg/skaldstore'
+import { addDoc, collection, doc, DocumentData, getFirestore, updateDoc } from '@firebase/firestore'
 import { logDebug } from './logHelpers'
 
 function getCollectionName(e: Storable) {
@@ -8,6 +8,7 @@ function getCollectionName(e: Storable) {
   switch (storableClass) {
   case 'Account': return Account.collectionName
   case 'Thread': return Thread.collectionName
+  case 'Page': return Page.collectionName
   }
   return Storable.collectionName
 }
@@ -31,7 +32,29 @@ export async function addStorable(e: Storable) {
   return r.id
 }
 
-export async function store(e: Storable) {
+async function updateStorable(path: string[], data: DocumentData) {
+  logDebug('updateStorable', path, data)
+  return updateDoc(
+    doc(
+      getFirestore(),
+      path.join('/')
+    ),
+    data
+  )
+}
+
+export async function store(e: Storable, opts: { silent?: boolean } = {} ) {
+
+  const data = e.docData
+  if (opts.silent) {
+    delete data['updatedAt']
+    delete data['createdAt']
+  }
+
+  if (e.getFirestorePath().length > 0 && e.key) return updateStorable(e.getFirestorePath(), data)
+
+  logDebug('Legacy store mechanism for', getCollectionName(e), e.key)
+
   if (e.key) {
     // update!
     await updateDoc(
