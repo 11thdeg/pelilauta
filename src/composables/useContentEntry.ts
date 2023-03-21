@@ -65,7 +65,7 @@ export function useContentEntry (
           if (snippet.length + text.length > len) {
             text = text.substring(0, len - snippet.length) + '...'
           }
-          snippet += '<p>' + text + '</p>'
+          snippet += text + '\n\n'
         }
         if (snippet.length > len) {
           break
