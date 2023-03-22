@@ -189,7 +189,10 @@
           "info": "Erilaisia lisäasetuksia",
           "delete": "Poista sivusto"
         },
-        "index": "Sisällys"
+        "index": "Sisällys",
+        "orderMode": {
+          "info": "Sivupalkin sisällysluettelon järjestys. Jos haluat järjestää sivut itse, valitse \"Manuaalinen\"."
+        }
       },
       "tray": {
         "unCategorizedPagesSection": "Sivut"

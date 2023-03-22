@@ -71,52 +71,58 @@ async function updateSortOrder(event: Event) {
   <article class="small Column">
     <h3>{{ $t('site.tools.index') }}</h3>
 
-    <cyan-select
-      :label="$t('fields.site.orderMode.title')"
-      :value="site?.sortOrder || Site.SORT_BY_NAME"
-      :options="orderModes" 
-      @change="updateSortOrder($event)"
-    />
-
-    <p>DEBUG: {{ site?.sortOrder }}</p>
-
-    <cyan-card>
-      <h3>
-        {{ t('site.tools.chapters.title') }}
-      </h3>
+    <section class="fieldset">
+      <h4>{{ $t('fields.site.orderMode.title') }}</h4>
       <p class="TypeCaption">
-        {{ t('site.tools.chapters.info') }}
+        {{ $t('site.tools.orderMode.info') }}
       </p>
-      <div
-        v-for="chapter, index in chapters"
-        :key="chapter.name"
-        class="sortableTable"
-      >
-        <p>
-          {{ chapter.name }}
-        </p>
-        <cyan-button
-          noun="chevron-up"
-          text
-          :disabled="index === 0"
-          @click="moveUp(index)"
-        />
-        <cyan-button
-          noun="edit"
-          text
-          @click="activeChapter = chapter"
-        />
-        <cyan-button
-          noun="delete"
-          text
-          @click="drop(index)"
-        />
-      </div>
-      <ChapterEditor
-        :chapter="activeChapter"
-        @save="save($event)"
+   
+
+      <!-- Order mode for the items inside chapters -->
+      <cyan-select
+        :label="$t('fields.site.orderMode.title')"
+        :value="site?.sortOrder || Site.SORT_BY_NAME"
+        :options="orderModes" 
+        @change="updateSortOrder($event)"
       />
-    </cyan-card>
+    </section>
+
+    <!-- ChapterTool itself-->
+    <h4>
+      {{ t('site.tools.chapters.title') }}
+    </h4>
+    <p class="TypeCaption">
+      {{ t('site.tools.chapters.info') }}
+    </p>
+    <div
+      v-for="chapter, index in chapters"
+      :key="chapter.name"
+      class="sortableTable"
+    >
+      <p>
+        {{ chapter.name }}
+      </p>
+      <cyan-button
+        noun="chevron-up"
+        text
+        :disabled="index === 0"
+        @click="moveUp(index)"
+      />
+      <cyan-button
+        noun="edit"
+        text
+        @click="activeChapter = chapter"
+      />
+      <cyan-button
+        noun="delete"
+        text
+        @click="drop(index)"
+      />
+    </div>
+    <ChapterEditor
+      :chapter="activeChapter"
+      @save="save($event)"
+    />
   </article>
 </template>
 
