@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { PageCategory } from '@11thdeg/skaldstore/dist/entries/Site'
+import { CyanSelect } from '@11thdeg/cyan'
+import { PageCategory, Site } from '@11thdeg/skaldstore/dist/entries/Site'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../../composables/useSession'
 import { useSite } from '../../../composables/useSite'
+import { useSnack } from '../../../composables/useSnack'
+import { store } from '../../../utils/firestoreHelpers'
 import { logDebug } from '../../../utils/logHelpers'
 import ChapterEditor from './ChapterEditor.vue'
 
@@ -43,10 +46,40 @@ function drop(index: number) {
   updateChapters(arr)
 }
 
+const orderModes = [
+  { label: t('fields.site.orderMode.name'), value: Site.SORT_BY_NAME },
+  { label: t('fields.site.orderMode.createdAt'), value: Site.SORT_BY_CREATED_AT },
+  { label: t('fields.site.orderMode.flowtime'), value: Site.SORT_BY_FLOWTIME },
+  { label: t('fields.site.orderMode.manual'), value: Site.SORT_BY_FLOWTIME },
+]
+
+const { pushSnack } = useSnack()
+
+async function updateSortOrder(event: Event) {
+  const target = event.target as CyanSelect
+  const value = target.value
+  const s = site.value
+  if (!s) throw new Error('Site not found')
+  s.sortOrder = value
+  await store(s)
+  pushSnack('site.tools.orderMode.updated')
+}
+
 </script>
 
 <template>
   <article class="small Column">
+    <h3>{{ $t('site.tools.index') }}</h3>
+
+    <cyan-select
+      :label="$t('fields.site.orderMode.title')"
+      :value="site?.sortOrder || Site.SORT_BY_NAME"
+      :options="orderModes" 
+      @change="updateSortOrder($event)"
+    />
+
+    <p>DEBUG: {{ site?.sortOrder }}</p>
+
     <cyan-card>
       <h3>
         {{ t('site.tools.chapters.title') }}

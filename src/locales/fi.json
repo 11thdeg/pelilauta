@@ -188,7 +188,8 @@
           "title": "Muut",
           "info": "Erilaisia lisäasetuksia",
           "delete": "Poista sivusto"
-        }
+        },
+        "index": "Sisällys"
       },
       "tray": {
         "unCategorizedPagesSection": "Sivut"
@@ -416,6 +417,13 @@
         "description": "Kuvaus",
         "license": "Lisenssi",
         "homepage": "Kotisivu",
+        "orderMode": {
+          "title": "Järjestys",
+          "name": "Aakkosjärjestys",
+          "flowtime": "Muutosajan mukaan",
+          "createdAt": "Luomisajan mukaan",
+          "manual": "Manuaalinen"
+        },
         "link": {
           "title": "Linkit",
           "url": "Linkin URL -osoite",

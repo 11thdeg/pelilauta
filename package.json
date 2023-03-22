@@ -1,7 +1,7 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "14.8.7",
+  "version": "14.9.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@11thdeg/cyan": "0.36.7",
-    "@11thdeg/skaldstore": "0.4.4",
+    "@11thdeg/skaldstore": "0.4.5",
     "@firebase/analytics": "^0.9.3",
     "@firebase/app": "^0.9.3",
     "@firebase/auth": "^0.21.3",
