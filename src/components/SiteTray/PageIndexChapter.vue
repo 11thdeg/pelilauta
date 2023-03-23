@@ -93,7 +93,7 @@ async function moveDown(key: string) {
         </router-link>
         <button
           v-if="props.editor && canEdit && site.sortOrder === Site.SORT_BY_MANUAL"
-          class="text compact"
+          class="text"
           style="margin-right: -12px"
           :disabled="index === 0"
         >
@@ -105,7 +105,7 @@ async function moveDown(key: string) {
         </button>
         <button
           v-if="props.editor && canEdit && site.sortOrder === Site.SORT_BY_MANUAL"
-          class="text compact"
+          class="text"
           :disabled="index === pageIndex.length - 1"
         >
           <cyan-icon
