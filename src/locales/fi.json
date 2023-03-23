@@ -18,6 +18,7 @@
       },
       "create": "Luo uusi",
       "delete": "Poista",
+      "done": "Valmis",
       "downloadAsMarkdown": "Lataa",
       "loadMore": "Lataa lisää",
       "toDiscussion": "Lue lisää",
@@ -188,6 +189,10 @@
           "title": "Muut",
           "info": "Erilaisia lisäasetuksia",
           "delete": "Poista sivusto"
+        },
+        "index": "Sisällys",
+        "orderMode": {
+          "info": "Sivupalkin sisällysluettelon järjestys. Jos haluat järjestää sivut itse, valitse \"Manuaalinen\". Jos vaihdat myöhemmin takaisin automaattiseen järjestykseen, tekemäsi manuaalinen järjestys poistetaan."
         }
       },
       "tray": {
@@ -224,7 +229,8 @@
         "success": "Käyttäjätilisi ja henkilökohtaiset tietosi poistettu onnistuneesti. Kiitos, että käytit Pelilautaa!"
       },
       "site": {
-        "created": "Sivusto luotu"
+        "created": "Sivusto luotu",
+        "orderModeUpdated": "Sivupalkin sisällysluettelon järjestys päivitetty"
       },
       "page": {
         "updated": "Sivun muutokset tallennettu",
@@ -416,6 +422,13 @@
         "description": "Kuvaus",
         "license": "Lisenssi",
         "homepage": "Kotisivu",
+        "orderMode": {
+          "title": "Järjestys",
+          "name": "Aakkosjärjestys",
+          "flowtime": "Muutosajan mukaan",
+          "createdAt": "Luomisajan mukaan",
+          "manual": "Manuaalinen"
+        },
         "link": {
           "title": "Linkit",
           "url": "Linkin URL -osoite",

@@ -1,9 +1,13 @@
 <script lang="ts" setup>
-import { PageCategory } from '@11thdeg/skaldstore/dist/entries/Site'
+import { CyanSelect } from '@11thdeg/cyan'
+import { PageCategory, Site } from '@11thdeg/skaldstore/dist/entries/Site'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { usePages } from '../../../composables/usePages'
 import { useSession } from '../../../composables/useSession'
 import { useSite } from '../../../composables/useSite'
+import { useSnack } from '../../../composables/useSnack'
+import { store } from '../../../utils/firestoreHelpers'
 import { logDebug } from '../../../utils/logHelpers'
 import ChapterEditor from './ChapterEditor.vue'
 
@@ -43,47 +47,105 @@ function drop(index: number) {
   updateChapters(arr)
 }
 
+const orderModes = [
+  { label: t('fields.site.orderMode.name'), value: Site.SORT_BY_NAME },
+  { label: t('fields.site.orderMode.createdAt'), value: Site.SORT_BY_CREATED_AT },
+  { label: t('fields.site.orderMode.flowtime'), value: Site.SORT_BY_FLOWTIME },
+  { label: t('fields.site.orderMode.manual'), value: Site.SORT_BY_MANUAL },
+]
+
+const { pushSnack } = useSnack()
+
+const sortOrderUpdateInProgress = ref(false)
+
+async function updateSortOrder(event: Event) {
+  sortOrderUpdateInProgress.value = true
+  const target = event.target as CyanSelect
+  const value = target.value
+  const s = site.value
+  if (!s) throw new Error('Site not found')
+  s.sortOrder = value
+
+  // If the user has selected manual sorting, we need to reset the sortWeight of all pages
+  if (value === Site.SORT_BY_MANUAL) {
+    await resetManualSortOrder()
+  }
+
+  await store(s)
+  pushSnack('snacks.site.orderModeUpdated')
+  sortOrderUpdateInProgress.value = false
+}
+
+async function resetManualSortOrder() {
+  const { pages } = usePages()
+  const p = pages.value
+  p.sort((a, b) => a.name.localeCompare(b.name))
+  for (let i = 0; i < p.length; i++) {
+    p[i].sortWeight = i + 1
+    await store(p[i], { silent: true })
+  }
+}
+
 </script>
 
 <template>
   <article class="small Column">
-    <cyan-card>
-      <h3>
-        {{ t('site.tools.chapters.title') }}
-      </h3>
+    <h3>{{ $t('site.tools.index') }}</h3>
+
+    <section class="fieldset">
+      <h4>{{ $t('fields.site.orderMode.title') }}</h4>
       <p class="TypeCaption">
-        {{ t('site.tools.chapters.info') }}
+        {{ $t('site.tools.orderMode.info') }}
       </p>
-      <div
-        v-for="chapter, index in chapters"
-        :key="chapter.name"
-        class="sortableTable"
-      >
-        <p>
-          {{ chapter.name }}
-        </p>
-        <cyan-button
-          noun="chevron-up"
-          text
-          :disabled="index === 0"
-          @click="moveUp(index)"
-        />
-        <cyan-button
-          noun="edit"
-          text
-          @click="activeChapter = chapter"
-        />
-        <cyan-button
-          noun="delete"
-          text
-          @click="drop(index)"
-        />
-      </div>
-      <ChapterEditor
-        :chapter="activeChapter"
-        @save="save($event)"
+   
+
+      <!-- Order mode for the items inside chapters -->
+      <cyan-select
+        :aria-disabled="sortOrderUpdateInProgress"
+        :disabled="sortOrderUpdateInProgress"
+        :label="$t('fields.site.orderMode.title')"
+        :value="site?.sortOrder || Site.SORT_BY_NAME"
+        :options="orderModes" 
+        @change="updateSortOrder($event)"
       />
-    </cyan-card>
+    </section>
+
+    <!-- ChapterTool itself-->
+    <h4>
+      {{ t('site.tools.chapters.title') }}
+    </h4>
+    <p class="TypeCaption">
+      {{ t('site.tools.chapters.info') }}
+    </p>
+    <div
+      v-for="chapter, index in chapters"
+      :key="chapter.name"
+      class="sortableTable"
+    >
+      <p>
+        {{ chapter.name }}
+      </p>
+      <cyan-button
+        noun="chevron-up"
+        text
+        :disabled="index === 0"
+        @click="moveUp(index)"
+      />
+      <cyan-button
+        noun="edit"
+        text
+        @click="activeChapter = chapter"
+      />
+      <cyan-button
+        noun="delete"
+        text
+        @click="drop(index)"
+      />
+    </div>
+    <ChapterEditor
+      :chapter="activeChapter"
+      @save="save($event)"
+    />
   </article>
 </template>
 

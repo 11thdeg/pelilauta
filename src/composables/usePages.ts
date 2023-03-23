@@ -46,6 +46,7 @@ async function init (key?: string) {
         }
         else {
           const page = new Page(change.doc.data(), change.doc.id)
+          page.parentKey = sitekey
           pageCache.value.set(change.doc.id, page)
           // logDebug('usePages', 'caching', 'page', page.key)
         }
@@ -87,7 +88,7 @@ export async function fetchPage (sk: string, pagekey: string) {
     )
   )
   if (pageDoc.exists()) {
-    const page = new Page(pageDoc.data(), pageDoc.id)
+    const page = new Page(pageDoc.data(), pageDoc.id, sk)
     if (sitekey === sk) pageCache.value.set(pagekey, page)
     masterPageCache.value.get(sk)?.set(pagekey, page)
     return page
