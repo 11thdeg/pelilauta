@@ -33,7 +33,7 @@ export async function addStorable(e: Storable) {
 }
 
 async function updateStorable(path: string[], data: DocumentData) {
-  logDebug('updateStorable', path, data)
+  // logDebug('updateStorable', path, data)
   return updateDoc(
     doc(
       getFirestore(),
@@ -47,8 +47,9 @@ export async function store(e: Storable, opts: { silent?: boolean } = {} ) {
 
   const data = e.docData
   if (opts.silent) {
-    delete data['updatedAt']
-    delete data['createdAt']
+    delete data.updatedAt
+    delete data.createdAt
+    delete data.flowTime
   }
 
   if (e.getFirestorePath().length > 0 && e.key) return updateStorable(e.getFirestorePath(), data)
