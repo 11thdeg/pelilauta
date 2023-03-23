@@ -3,6 +3,7 @@ import { CyanSelect } from '@11thdeg/cyan'
 import { PageCategory, Site } from '@11thdeg/skaldstore/dist/entries/Site'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { usePages } from '../../../composables/usePages'
 import { useSession } from '../../../composables/useSession'
 import { useSite } from '../../../composables/useSite'
 import { useSnack } from '../../../composables/useSnack'
@@ -55,14 +56,34 @@ const orderModes = [
 
 const { pushSnack } = useSnack()
 
+const sortOrderUpdateInProgress = ref(false)
+
 async function updateSortOrder(event: Event) {
+  sortOrderUpdateInProgress.value = true
   const target = event.target as CyanSelect
   const value = target.value
   const s = site.value
   if (!s) throw new Error('Site not found')
   s.sortOrder = value
+
+  // If the user has selected manual sorting, we need to reset the sortWeight of all pages
+  if (value === Site.SORT_BY_MANUAL) {
+    await resetManualSortOrder()
+  }
+
   await store(s)
   pushSnack('site.tools.orderMode.updated')
+  sortOrderUpdateInProgress.value = false
+}
+
+async function resetManualSortOrder() {
+  const { pages } = usePages()
+  const p = pages.value
+  p.sort((a, b) => a.name.localeCompare(b.name))
+  for (let i = 0; i < p.length; i++) {
+    p[i].sortWeight = i + 1
+    await store(p[i], { silent: true })
+  }
 }
 
 </script>
@@ -80,6 +101,8 @@ async function updateSortOrder(event: Event) {
 
       <!-- Order mode for the items inside chapters -->
       <cyan-select
+        :aria-disabled="sortOrderUpdateInProgress"
+        :disabled="sortOrderUpdateInProgress"
         :label="$t('fields.site.orderMode.title')"
         :value="site?.sortOrder || Site.SORT_BY_NAME"
         :options="orderModes" 
