@@ -10,7 +10,7 @@
     "lint": "eslint --ext .ts,.js,.vue src"
   },
   "dependencies": {
-    "@11thdeg/cyan": "0.36.8",
+    "@11thdeg/cyan": "0.36.9",
     "@11thdeg/skaldstore": "0.4.5",
     "@firebase/analytics": "^0.9.3",
     "@firebase/app": "^0.9.3",
