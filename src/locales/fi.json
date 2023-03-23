@@ -18,6 +18,7 @@
       },
       "create": "Luo uusi",
       "delete": "Poista",
+      "done": "Valmis",
       "downloadAsMarkdown": "Lataa",
       "loadMore": "Lataa lisää",
       "toDiscussion": "Lue lisää",
@@ -228,7 +229,8 @@
         "success": "Käyttäjätilisi ja henkilökohtaiset tietosi poistettu onnistuneesti. Kiitos, että käytit Pelilautaa!"
       },
       "site": {
-        "created": "Sivusto luotu"
+        "created": "Sivusto luotu",
+        "orderModeUpdated": "Sivupalkin sisällysluettelon järjestys päivitetty"
       },
       "page": {
         "updated": "Sivun muutokset tallennettu",

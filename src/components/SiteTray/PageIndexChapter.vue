@@ -88,7 +88,6 @@ async function moveDown(key: string) {
           :class="{'no-clicks': editor}"
         >
           <cyan-nav-button compact>
-            {{ page.sortWeight }}
             {{ page.name }}
           </cyan-nav-button>
         </router-link>

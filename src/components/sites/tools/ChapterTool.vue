@@ -72,7 +72,7 @@ async function updateSortOrder(event: Event) {
   }
 
   await store(s)
-  pushSnack('site.tools.orderMode.updated')
+  pushSnack('snacks.site.orderModeUpdated')
   sortOrderUpdateInProgress.value = false
 }
 

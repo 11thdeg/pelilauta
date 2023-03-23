@@ -39,6 +39,7 @@ const showEditButton = computed(() => {
     <cyan-toolbar v-if="showEditButton">
       <cyan-spacer />
       <button
+        v-if="!editMode"
         class="text editButton"
         @click="editMode = !editMode"
       >
@@ -47,6 +48,17 @@ const showEditButton = computed(() => {
           small
         />
         {{ $t('action.edit') }}
+      </button>
+      <button
+        v-else
+        class="text editButton"
+        @click="editMode = !editMode"
+      >
+        <cyan-icon
+          noun="close"
+          small
+        />
+        {{ $t('action.done') }}
       </button>
     </cyan-toolbar>
   </section>
