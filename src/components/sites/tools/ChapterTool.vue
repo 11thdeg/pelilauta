@@ -50,7 +50,7 @@ const orderModes = [
   { label: t('fields.site.orderMode.name'), value: Site.SORT_BY_NAME },
   { label: t('fields.site.orderMode.createdAt'), value: Site.SORT_BY_CREATED_AT },
   { label: t('fields.site.orderMode.flowtime'), value: Site.SORT_BY_FLOWTIME },
-  { label: t('fields.site.orderMode.manual'), value: Site.SORT_BY_FLOWTIME },
+  { label: t('fields.site.orderMode.manual'), value: Site.SORT_BY_MANUAL },
 ]
 
 const { pushSnack } = useSnack()

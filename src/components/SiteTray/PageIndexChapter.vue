@@ -18,7 +18,7 @@ const { t } = useI18n()
 const title = computed(() => {
   return props.chapter
     ? props.chapter.name
-    : t('siteTray.pageIndex.uncategorized')
+    : t('site.tray.unCategorizedPagesSection')
 })
 
 const pageIndex = computed(() => {
@@ -48,21 +48,43 @@ async function moveUp(key: string) {
     <h4 class="downscaled underline">
       {{ title }}
     </h4>
-    <ul>
+    <ul class="list-unstyled">
       <li
         v-for="page in pageIndex"
         :key="page.key"
         class="flex flex-no-wrap justify-between"
       >
         <router-link :to="`/sites/${site.key}/pages/${page.key}`">
-          {{ page.name }}
+          <cyan-nav-button compact>
+            {{ page.name }}
+          </cyan-nav-button>
         </router-link>
-        <cyan-icon
+        <button
           v-if="props.editor && canEdit && site.sortOrder === Site.SORT_BY_MANUAL"
-          noun="arrow-up"
-          @click="moveUp(page.key)"
-        />
+          class="text compact"
+        >
+          <cyan-icon
+            noun="arrow-up"
+            small
+            @click="moveUp(page.key)"
+          />
+        </button>
       </li>
     </ul>
   </section>
 </template>
+
+<style lang="sass">
+.list-unstyled
+  margin: 0
+  padding: 0
+  list-style: none
+  flex-wrap: nowrap
+  li
+    list-style-type: none
+    margin: 0
+    padding: 0
+    display: flex
+    a
+      flex-grow: 1
+</style>

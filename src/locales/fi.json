@@ -191,7 +191,7 @@
         },
         "index": "Sisällys",
         "orderMode": {
-          "info": "Sivupalkin sisällysluettelon järjestys. Jos haluat järjestää sivut itse, valitse \"Manuaalinen\"."
+          "info": "Sivupalkin sisällysluettelon järjestys. Jos haluat järjestää sivut itse, valitse \"Manuaalinen\". Jos vaihdat myöhemmin takaisin automaattiseen järjestykseen, tekemäsi manuaalinen järjestys poistetaan."
         }
       },
       "tray": {
