@@ -3,20 +3,20 @@ import MyrrysBlogExcerptSection from './MyrrysBlogExcerptSection.vue'
 </script>
 
 <template>
-  <cyan-card
-    elevation="1"
-    class="MyrrysCard"
-  >
-    <h4
-      slot="title"
-      class="myrrys"
+  <section>
+    <img
+      class="hero"
+      src="/proprietary/images/letl_cover.jpg"
+      alt="L&L cover"
     >
-      Myrrys
-    </h4>
-    <cyan-icon
-      slot="avatar"
-      noun="myrrys"
-    />
+    <div class="flex flex-no-wrap">
+      <cyan-icon
+        noun="myrrys"
+      />
+      <h4 class="downscaled">
+        Myrrys
+      </h4>
+    </div>
     <MyrrysBlogExcerptSection />
 
     <cyan-toolbar>
@@ -33,13 +33,13 @@ import MyrrysBlogExcerptSection from './MyrrysBlogExcerptSection.vue'
       </button></a>
       <cyan-spacer />
     </cyan-toolbar>
-  </cyan-card>
+  </section>
 </template>
 
 <style lang="sass">
-.MyrrysCard
+/* .MyrrysCard
   background-image:  linear-gradient(hsla(var(--chroma-primary-a-hsl), 0.55), hsla(var(--chroma-secondary-a-hsl), 0.55)),url('/proprietary/images/letl_cover.jpg')
   background-size: cover
   background-position-y: center
-  background-position-x: right
+  background-position-x: right */
 </style>

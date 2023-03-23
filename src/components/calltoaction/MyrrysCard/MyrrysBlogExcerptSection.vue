@@ -78,10 +78,10 @@ function excerptFrom(article:WordpressArticle) {
   margin: 12px -12px;
   margin-bottom: 8px;
   padding: 6px 16px;
-  background: 
+  /*background: 
     linear-gradient(
       hsla(var(--chroma-secondary-a-hsl), 0.44), 
       hsla(var(--chroma-primary-c-hsl), 0.17)
-    );
+    );*/
 }
 </style>
