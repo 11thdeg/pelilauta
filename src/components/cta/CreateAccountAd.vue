@@ -6,7 +6,7 @@ const { anonymous } = useSession()
 const { t } = useI18n()
 </script>
 <template>
-  <cyan-card
+  <cn-card
     v-if="anonymous"
     elevation="1"
     class="CreateAccountAd chroma-box-b"
@@ -18,12 +18,17 @@ const { t } = useI18n()
       class="adicon"
       style="margin-bottom: 12px"
     />
-    <h3>{{ t('cta.createAccount.title') }}</h3>
+    <h3
+      class="downscaled"
+      style="color:white"
+    >
+      {{ t('cta.createAccount.title') }}
+    </h3>
        
-    <p class="ad TypeBody2">
+    <p class="TypeBody2">
       {{ t('cta.createAccount.copy') }}
     </p>
-    <cyan-toolbar>
+    <cyan-toolbar slot="actions">
       <cyan-spacer />
       <cyan-button
         text
@@ -34,7 +39,7 @@ const { t } = useI18n()
       />
       <cyan-spacer />
     </cyan-toolbar>
-  </cyan-card>
+  </cn-card>
 </template>
 
 <style lang="sass" scoped>
@@ -43,7 +48,7 @@ const { t } = useI18n()
 .adicon
   display: block
   margin: 0 auto
-h3, p
+h3
   text-align: center
 
 </style>

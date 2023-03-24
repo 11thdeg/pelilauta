@@ -282,7 +282,7 @@
     "cta": {
       "createAccount": {
         "title": "Tervetuloa Pelilaudalle!",
-        "copy": "Pelilauta.fi ja Mekanismi.sange.fi sivustojen inspiroima yhteisösovellus. Kirjautumalla Facebookilla, Googlella tai sähköpostilla – saat käyttöösi enemmän toimintoja."
+        "copy": "Pelilauta.fi ja Mekanismi.sange.fi sivustojen inspiroima yhteisösovellus. Voit kirjautua sähköpostilinkin tai Googlen avulla saadaksesi sovelluksen kaikki toiminnot käyttöön."
       },
       "mekanismiAd": {
         "title": "Pelit ja sivustot",
