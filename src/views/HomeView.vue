@@ -5,7 +5,7 @@ import MekanismiAd from '../components/calltoaction/MekanismiAd.vue'
 import { useI18n } from 'vue-i18n'
 import FabTray from '../components/FabTray/FabTray.vue'
 import { useSession } from '../composables/useSession'
-import LokiCard from '../components/cta/LokiCard/LokiCard.vue'
+import LokiCard from '../components/calltoaction/LokiCard/LokiCard.vue'
 import { useTitle } from '@vueuse/core'
 import { onMounted } from 'vue'
 import ThreadStreamColumn from '../components/ThreadStreamColumn/ThreadStreamColumn.vue'
@@ -26,6 +26,7 @@ onMounted(() => {
     <ThreadStreamColumn />
     <div class="Column small flex flex-column">
       <MyrrysCard />
+      <hr class="separator">
       <LokiCard />
     </div>
     <div class="Column small flex flex-column">
@@ -70,3 +71,8 @@ onMounted(() => {
     </router-link>
   </FabTray>
 </template>
+
+<style lang="sass" scoped>
+.separator
+  width: 100%
+</style>

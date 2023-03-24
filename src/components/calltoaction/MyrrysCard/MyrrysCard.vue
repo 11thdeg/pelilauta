@@ -28,6 +28,7 @@ import MyrrysBlogExcerptSection from './MyrrysBlogExcerptSection.vue'
         <cyan-icon
           noun="outlink"
           small
+          dark
         />
         Myrrys.com
       </button></a>
