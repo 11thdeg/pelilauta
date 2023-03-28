@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useSession } from '../../composables/useSession'
-import SiteAvatar from '../sites/SiteAvatar.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
-import SystemTag from '../actions/SystemTag.vue'
 import LoveASiteButton from './LoveASiteButton.vue'
 
 const props = defineProps<{
@@ -31,38 +29,24 @@ function hasPlayer(key: string) {
 const cover = computed(() => {
   return props.site.posterURL || undefined
 })
+const noun = computed(() => {
+  if (props.site.systemBadge) return props.site.systemBadge
+  return 'homebrew'
+})
+
 </script>
 
 <template>
-  <cyan-card
+  <cn-card
     class="SiteCard"
     elevation="1"
+    :title="site.name"
     :cover="cover"
+    :noun="noun"
+    :link="`/sites/${site.key}`"
+    :snippet="site.description"
   >
-    <h3
-      slot="title"
-      class="downscaled"
-    >
-      <router-link :to="`/sites/${site.key}`">
-        {{ site.name }}
-      </router-link>
-    </h3>
-    <div slot="avatar">
-      <router-link :to="`/sites/${site.key}`">
-        <SiteAvatar
-          :large="!!cover"
-          :site="site"
-          class="siteAvatar"
-        />
-      </router-link>
-    </div>
-    <p class="TypeBody2">
-      {{ site.description }}
-    </p>
-    <p style="text-align: right;">
-      <FlowTimeCaption :flow-time="site.flowTime" />
-    </p>
-    <cyan-toolbar>
+    <cyan-toolbar slot="actions">
       <cyan-icon
         v-if="site.hidden"
         noun="lock"
@@ -71,19 +55,19 @@ const cover = computed(() => {
       <LoveASiteButton
         v-else
         :site="site"
-      />
-      <cyan-spacer />
-      <cyan-icon
-        v-if="site.hasOwner(uid)"
-        noun="avatar"
-        style="opacity:0.55"
-      />
+      />    
       <cyan-icon
         v-if="hasPlayer(uid)"
         noun="adventurer"
         style="opacity:0.55"
       />
-      <SystemTag :system-family="site.systemBadge" />
+      <cyan-icon
+        v-if="site.hasOwner(uid)"
+        noun="avatar"
+        style="opacity:0.55"
+      />
+      <cyan-spacer /> 
+      <FlowTimeCaption :flow-time="site.flowTime" />
     </cyan-toolbar>
-  </cyan-card>
+  </cn-card>
 </template>
