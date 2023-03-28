@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import AppBar from '../components/navigation/AppBar.vue'
-import CreateAccountAd from '../components/cta/CreateAccountAd.vue'
+import CreateAccountAd from '../components/calltoaction/CreateAccountAd.vue'
 import MekanismiAd from '../components/calltoaction/MekanismiAd.vue'
 import { useI18n } from 'vue-i18n'
 import FabTray from '../components/FabTray/FabTray.vue'
