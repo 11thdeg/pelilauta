@@ -61,6 +61,7 @@ const newCount = computed(() => {
 export function useNotifications () {
   return {
     notifications,
-    newCount
+    newCount,
+    hasNew: computed(() => newCount.value !== '0'),
   }
 }
