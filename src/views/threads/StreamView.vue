@@ -11,6 +11,7 @@ import FabTray from '../../components/FabTray/FabTray.vue'
 import CreateThreadFab from '../../components/CreateThreadFab/CreateThreadFab.vue'
 import { useSession } from '../../composables/useSession'
 import StickyThreadsColumn from '../../components/StickyThreadsColumn/StickyThreadsColumn.vue'
+import MarkAllSeenButton from '../../components/MarkAllSeenButton/MarkAllSeenButton.vue'
     
 const props = defineProps<{
     streamkey?: string
@@ -40,7 +41,9 @@ const { anonymous } = useSession()
     <AppBar
       :title="stream.name"
       :noun="stream.icon"
-    />
+    >
+      <MarkAllSeenButton />
+    </AppBar>
     <main class="bookLayout">
       <ThreadStreamColumn
         :topic="streamkey"
