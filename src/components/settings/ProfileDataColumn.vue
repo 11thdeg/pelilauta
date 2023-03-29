@@ -46,52 +46,65 @@ async function onBioChange (e: string) {
 </script>
     
 <template>
-  <article class="ProfileDataColumn Column">
-    <cyan-card
-      v-if="profile"
-      :cover="profile.avatarURL"
-      elevation="1"
-    >
+  <article
+    v-if="profile"
+    class="ProfileDataColumn Column"
+  >
+    <h2 slot="title">
+      {{ t('settings.profileData.title') }}
+    </h2>
+    <section class="flex flex-row">
       <img
-        slot="avatar"
         :src="profile.avatarURL"
-        alt="avatar"
-        style="width: 72px; height: 72px; object-fit: cover; border-radius: 50%; margin: 0 auto;"
+        alt="avatar image"
+        style="width: 96px; height: 96px; object-fit: cover; border-radius: 50%;"
       >
-      <h2 slot="title">
-        {{ t('settings.profileData.title') }}
-      </h2>
-      <section
-        class="fieldset"
-        style="margin-top: 12px"
+      <div
+        class="fieldset flex-grow"
+        style="flex-grow: 1"
       >
         <cyan-textfield
           :label="t('fields.profile.nick')"
           :value="profile.nick"
-          style="margin-bottom: 8px; margin-top: 8px;"
+          style="margin-bottom: 8px; margin-top: 8px; width: 100%;"
           @blur="onNickChange($event.target.value)"
         />
-        <cyan-textarea
-          collapse
-          :label="t('fields.profile.bio')"
-          :value="profile.bio"
-          @blur="onBioChange($event.target.value)"
-        />
-        <cyan-toolbar>
-          <cyan-button
-            noun="arrow-right"
-            :label="t('action.toProfile')"
-            @click="$router.push('/profiles/'+uid)"
-          />
-          <cyan-spacer />
+        <div>
           <InsertAssetButton
             :label="t('action.chooseAvatar')"
             noun="avatar"
             @insert="onSelectAvatar($event)"
           />
-        </cyan-toolbar>
-      </section>
-    </cyan-card>
+        </div>
+      </div>
+    </section>
+    
+    
+    <section
+      class="fieldset"
+      style="margin-top: 12px"
+    >
+      <cyan-textarea
+        collapse
+        :label="t('fields.profile.bio')"
+        :value="profile.bio"
+        @blur="onBioChange($event.target.value)"
+      />
+      <hr>
+      <cyan-toolbar>
+        <cyan-spacer />
+        <button
+          class="secondary"
+          @click="$router.push('/profiles/'+uid)"
+        >
+          <cyan-icon
+            noun="outlink"
+            small
+          />
+          {{ $t('action.toProfile') }}
+        </button>
+      </cyan-toolbar>
+    </section>
   </article>
 </template>
 
