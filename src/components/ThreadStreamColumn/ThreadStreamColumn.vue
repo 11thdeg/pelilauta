@@ -27,6 +27,35 @@ function pushThreadToStream (thread:Thread) {
   const arr = [...streamThreads.value.filter(t => t.key !== thread.key)]
   if (!thread.sticky) arr.push(thread)
   streamThreads.value = [...arr].sort((a, b) => a.compareFlowTime((b as Thread)))
+  for (let i = 0; i < 3 && i < arr.length; i++) {
+    const t = streamThreads.value[i]
+    if (t) storeThreadLocally(t as Thread)
+  }
+}
+
+function loadStoredThreads () {
+  const frontPageThreads = localStorage.getItem('frontPageThreads')
+  if (frontPageThreads) {
+    const threads = JSON.parse(frontPageThreads)
+    threads.forEach((t:Thread) => {
+      const thread = new Thread(t, t.key)
+      pushThreadToStream(thread)
+    })
+  }
+}
+
+function storeThreadLocally (thread:Thread) {
+  const frontPageThreads = localStorage.getItem('frontPageThreads')
+  if (frontPageThreads) {
+    const threads = JSON.parse(frontPageThreads)
+    if (threads.length > 5) {
+      threads.shift()
+    }
+    localStorage.setItem('frontPageThreads', JSON.stringify(threads))
+  }
+  else {
+    localStorage.setItem('frontPageThreads', JSON.stringify([thread]))
+  }
 }
 
 watch(props, () => {
@@ -81,6 +110,7 @@ function subscribeTopThreads () {
 }
 
 onMounted(() => {
+  loadStoredThreads()
   subscribeTopThreads()
 })
 
