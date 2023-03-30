@@ -16,24 +16,22 @@ async function doLogout () {
 
 <template>
   <article class="appSettingsColumn Column">
-    <cyan-card>
-      <h2>{{ t('settings.appSettings.title') }}</h2>
-      <section class="fieldset">
-        <DarkModeToggle />
-        <cyan-toolbar>
-          <cyan-spacer />
-          <MarkAllSeenButton />
-        </cyan-toolbar>
-        <cyan-toolbar>
-          <cyan-spacer />
-          <cyan-button
-            noun="logout"
-            text
-            :label="t('action.logout')"
-            @click="doLogout"
-          />
-        </cyan-toolbar>
-      </section>
-    </cyan-card>
+    <h2>{{ t('settings.appSettings.title') }}</h2>
+    <section class="fieldset">
+      <DarkModeToggle />
+      <cyan-toolbar>
+        <cyan-spacer />
+        <MarkAllSeenButton />
+      </cyan-toolbar>
+      <cyan-toolbar>
+        <cyan-spacer />
+        <cyan-button
+          noun="logout"
+          text
+          :label="t('action.logout')"
+          @click="doLogout"
+        />
+      </cyan-toolbar>
+    </section>
   </article>
 </template>

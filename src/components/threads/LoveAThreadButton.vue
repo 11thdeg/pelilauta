@@ -12,7 +12,7 @@ const props = defineProps<{
     hasOwner: (uid: string) => boolean
   }
 }>()
-const { profile, account } = useSession()
+const { profile, account, anonymous } = useSession()
 
 const loves = computed(
   {
@@ -37,7 +37,7 @@ function handleChange (e: Event) {
   <cn-reaction-button
     :on="loves"
     :aria-pressed="loves + ''"
-    :disabled="owns"
+    :disabled="owns || anonymous"
     :count="props.thread.lovedCount"
     @change="handleChange"
   />

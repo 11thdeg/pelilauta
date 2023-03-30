@@ -23,12 +23,17 @@ const noun = computed(() => props.noun || 'assets')
 </script>
 
 <template>
-  <cyan-button
-    :noun="noun"
+  <button
     :label="label"
-    text
+    class="text"
     @click="dialog = true"
-  />
+  >
+    <cyan-icon
+      :noun="noun"
+      small
+    />
+    {{ label }}
+  </button>
   <InsertAssetDialog
     v-model="dialog"
     @insert="insertAsset"

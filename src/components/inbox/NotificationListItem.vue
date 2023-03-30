@@ -5,7 +5,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fetchSite } from '../../composables/useSites'
 import { fetchThread } from '../../composables/useThreads'
-import ProfileTag from '../profiles/ProfileTag.vue'
+import ProfileLink from '../profileLink/ProfileLink.vue'
 
 const props = defineProps<{
   notification: Notification
@@ -68,7 +68,7 @@ function removeNotification() {
 
 <template>
   <div
-    class="NotificationListItem"
+    class="NotificationListItem flex flex-no-wrap"
     :class="{
       unread: !notification.read,
       hoverable: !notification.read,
@@ -77,20 +77,23 @@ function removeNotification() {
     @click="markRed"
   >
     <cyan-icon
+      class="NotificationIcon"
       :class="{red: notification.read}"
       small
       :noun="noun"
     />
     <div>
-      <h2 class="TypeCaption">
+      <h4 class="TypeCaption">
         <router-link :to="targerRoute">
           {{ targetTitle }}
         </router-link>
-      </h2>
+      </h4>
       <p class="TypeBody2 oneLiner">
-        <ProfileTag
+        <ProfileLink
+          class="elevated"
           :uid="notification.from"
-        /> {{ t(notification.message) }}
+        />
+        {{ t(notification.message) }}
       </p>
     </div>
     <cyan-spacer />
@@ -102,19 +105,26 @@ function removeNotification() {
   </div>
 </template>
 
-<style scoped lang="sass">
+<style lang="sass">
 .NotificationListItem
-  display: flex
-  align-items: center
-  gap: 8px
-  padding-left: 8px
+  border-radius: 6px
+  padding: 0 12px
   &.unread
     border-left: 4px solid var(--cyan-divider-color)
-    padding-left: 4px
+    padding-left: 8px
     background: hsla(var(--chroma-secondary-f-hsl), 0.11)
   p
     margin: 0
   .red
     opacity: 0.2
-
+  span.elevated
+    font-weight: 600
+    background-color: hsla(var(--chroma-secondary-f-hsl), 0.22)
+    padding: 0 6px
+    border-radius: 8px
+    a
+      color: var(--chroma-surface-complement) !important
+      text-decoration: none
+    &:hover
+      background-color: hsla(var(--chroma-secondary-f-hsl), 0.44)
 </style>

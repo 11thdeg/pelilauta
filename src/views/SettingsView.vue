@@ -26,7 +26,13 @@ onMounted(() => {
   >
     <h3>{{ $t('settings.title') }}</h3>
   </cyan-top-app-bar>
-  <main class="dashboardLayout">
+  <main
+    :class="
+      { 
+        dashboardLayout: !anonymous,
+        singleColumnLayout: anonymous
+      }"
+  >
     <WithLoader :suspended="!active">
       <WithPermission :forbidden="anonymous">
         <ProfileDataColumn />

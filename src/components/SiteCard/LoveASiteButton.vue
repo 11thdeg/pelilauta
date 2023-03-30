@@ -80,7 +80,6 @@ async function unLoveSite () {
     :on="loves"
     :aria-pressed="loves + ''"
     :disabled="owns"
-    :count="props.site.lovesCount || 0"
     @change="handleChange"
   />  
 </template>
