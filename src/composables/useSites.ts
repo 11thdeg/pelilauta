@@ -52,6 +52,15 @@ async function subscribe () {
 
 async function subscribePublic () {
   logDebug('Subscribing to public sites')
+  const storedSites = localStorage.getItem('sites')
+  if (storedSites) {
+    const sites = JSON.parse(storedSites)
+    sites.forEach((s:Site) => {
+      const site = new Site(s, s.key)
+      siteCache.value.set(site.key, site)
+    })
+    loading.value = false
+  }
   unsubscribePublic = onSnapshot(
     query(
       collection(getFirestore(), Site.collectionName),
@@ -62,9 +71,18 @@ async function subscribePublic () {
         const site = new Site(change.doc.data(), change.doc.id)
         siteCache.value.set(change.doc.id, site)
         loading.value = false
+        locallyStoreSite(site)
       })
     }
   )
+}
+
+function locallyStoreSite(site: Site) {
+  let storedSites = localStorage.getItem('sites')
+  if (!storedSites) storedSites = '[]'
+  const sites = JSON.parse(storedSites)
+  sites.push(site)
+  localStorage.setItem('sites', JSON.stringify(sites))
 }
 
 async function subscribeAuthorSites () {
@@ -142,7 +160,7 @@ export function useSites () {
       return Array.from(siteCache.value.values()).filter(site => site.players.includes(useSession().uid.value))
     }),
     allSites: computed(() => {
-      return Array.from(siteCache.value.values())
+      return Array.from(siteCache.value.values()).sort((a, b) => a.name.localeCompare(b.name))
     }),
     sitesAsOptions
   }
