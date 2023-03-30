@@ -34,6 +34,7 @@ function pushThreadToStream (thread:Thread) {
 }
 
 function loadStoredThreads () {
+  if (props.topic) return // Don't load stored threads if we're on a topic page
   const frontPageThreads = localStorage.getItem('frontPageThreads')
   if (frontPageThreads) {
     const threads = JSON.parse(frontPageThreads)
@@ -45,6 +46,7 @@ function loadStoredThreads () {
 }
 
 function storeThreadLocally (thread:Thread) {
+  if (props.topic) return // Don't store threads if we're on a topic page
   const frontPageThreads = localStorage.getItem('frontPageThreads')
   if (frontPageThreads) {
     const threads = JSON.parse(frontPageThreads)
