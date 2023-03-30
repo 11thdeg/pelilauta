@@ -34,13 +34,15 @@ function pushThreadToStream (thread:Thread) {
 }
 
 function loadStoredThreads () {
-  if (props.topic) return // Don't load stored threads if we're on a topic page
   const frontPageThreads = localStorage.getItem('frontPageThreads')
   if (frontPageThreads) {
     const threads = JSON.parse(frontPageThreads)
     threads.forEach((t:Thread) => {
       const thread = new Thread(t, t.key)
-      pushThreadToStream(thread)
+      // Only push threads from the current topic to the stream
+      if (t.topicid === props.topic || !props.topic) {
+        pushThreadToStream(thread) 
+      }
     })
   }
 }
