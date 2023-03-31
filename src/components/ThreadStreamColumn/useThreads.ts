@@ -6,6 +6,7 @@
 import { Thread } from '@11thdeg/skaldstore'
 import { collection, DocumentData, getDocs, getFirestore, limit, onSnapshot, orderBy, query, QueryDocumentSnapshot, startAfter, where } from '@firebase/firestore'
 import { computed, ref } from 'vue'
+import { stashThread } from '../../utils/localStorage'
 import { logDebug, logError } from '../../utils/logHelpers'
 
 export type ThreadStreamOptions = {
@@ -84,6 +85,8 @@ async function loadRemoteThreads() {
           const t = new Thread(change.doc.data(), change.doc.id)
           threads.value.set(t.key, t)
           pgRef = change.doc
+          // Start caching the thread in local storage for the whole app
+          stashThread(t)
         }
       })
       // This is the first time we are fetching the data via subscription, so we need to set the
