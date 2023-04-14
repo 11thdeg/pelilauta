@@ -31,11 +31,23 @@ function getStoragePath() {
 }
 
 function loadLocalThreads() {
+  const localThreadData = localStorage.getItem(getStoragePath())
+  logDebug('Loading local threads', localThreadData)
+  if (localThreadData) {
+    const threadObjects = JSON.parse(localThreadData)
+    threadObjects.forEach((threadObject:DocumentData) => {
+      logDebug('Loaded thread from local storage', threadObject)
+      const thread = Thread.fromJSON(threadObject)
+      logDebug('Loaded thread from local storage', thread)
+      threads.value.set(thread.key, thread)
+    })
+    loading.value = false
+  }
   // Load from local storage
-  const localThreads = localStorage.getItem(getStoragePath())
+  /*const localThreads = localStorage.getItem(getStoragePath())
   if (localThreads) {
     const threadObjects = JSON.parse(localThreads)
-    threadObjects.forEach((threadObject:Thread) => {
+    threadObjects.forEach((threadObject:DocumentData) => {
       // Create a new thread class from the thread object
       const thread = new Thread(threadObject, threadObject.key)
       threads.value.set(thread.key, thread)
@@ -43,13 +55,17 @@ function loadLocalThreads() {
     // If we have local threads, we will assume they are recent enough, 
     // and load newer threads in the background
     loading.value = false
-  }
+  }*/
 }
 
 function saveLocalThreads() {
   const threadObjects = sortedThreads()
   if (threadObjects.length > pageSize.value) threadObjects.length = pageSize.value
-  localStorage.setItem(getStoragePath(), JSON.stringify(threadObjects))
+  const dried:DocumentData[] = []
+  threadObjects.forEach((thread) => {
+    dried.push(thread.toJSON())
+  })
+  localStorage.setItem(getStoragePath(), JSON.stringify(dried))
 }
 
 async function loadRemoteThreads() {
