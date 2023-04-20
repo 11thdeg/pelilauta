@@ -3,6 +3,7 @@ import { collection, doc, getDoc, getFirestore, onSnapshot, query, where } from 
 import { computed, ref, watch } from 'vue'
 import { logDebug, logError } from '../utils/logHelpers'
 import { addStore, useSession } from './useSession'
+import { cacheSite, getCachedSites, purgeSiteCache } from '../utils/localStorage'
 
 const siteCache = ref(new Map<string, Site>())
 const loading = ref(true)
@@ -52,12 +53,11 @@ async function subscribe () {
 
 async function subscribePublic () {
   logDebug('Subscribing to public sites')
-  const storedSites = localStorage.getItem('sites')
+  const storedSites = getCachedSites()
   if (storedSites) {
-    const sites = JSON.parse(storedSites)
-    sites.forEach((s:Site) => {
-      const site = new Site(s, s.key)
-      siteCache.value.set(site.key, site)
+    storedSites.forEach((s:Site) => {
+      logDebug('loaded from storage', s.key)
+      siteCache.value.set(s.key, s)
     })
     loading.value = false
   }
@@ -69,20 +69,13 @@ async function subscribePublic () {
     (snapshot) => {
       snapshot.docChanges().forEach((change) => {
         const site = new Site(change.doc.data(), change.doc.id)
+        logDebug('loaded from firestore', site.key)
         siteCache.value.set(change.doc.id, site)
         loading.value = false
-        locallyStoreSite(site)
+        cacheSite(site)
       })
     }
   )
-}
-
-function locallyStoreSite(site: Site) {
-  let storedSites = localStorage.getItem('sites')
-  if (!storedSites) storedSites = '[]'
-  const sites = JSON.parse(storedSites)
-  sites.push(site)
-  localStorage.setItem('sites', JSON.stringify(sites))
 }
 
 async function subscribeAuthorSites () {
@@ -98,6 +91,7 @@ async function subscribeAuthorSites () {
       snapshot.docChanges().forEach((change) => {
         const site = new Site(change.doc.data(), change.doc.id)
         siteCache.value.set(change.doc.id, site)
+        cacheSite(site)
         loading.value = false
       })
     }
@@ -117,6 +111,7 @@ async function subscribePlayerSites () {
       snapshot.docChanges().forEach((change) => {
         const site = new Site(change.doc.data(), change.doc.id)
         siteCache.value.set(change.doc.id, site)
+        cacheSite(site)
         loading.value = false
       })
     }
@@ -129,6 +124,7 @@ async function reset() {
   unsubscribePublic && unsubscribePublic()
   unsubscribeOwn && unsubscribeOwn()
   unsubscribePlays && unsubscribePlays()
+  purgeSiteCache()
 }
 
 export function patchSite (site: Site) {
@@ -160,6 +156,8 @@ export function useSites () {
       return Array.from(siteCache.value.values()).filter(site => site.players.includes(useSession().uid.value))
     }),
     allSites: computed(() => {
+      const { anonymous } = useSession()
+      if (anonymous.value) return Array.from(siteCache.value.values()).filter(site => !site.hidden)
       return Array.from(siteCache.value.values()).sort((a, b) => a.name.localeCompare(b.name))
     }),
     sitesAsOptions
