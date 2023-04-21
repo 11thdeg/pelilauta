@@ -6,17 +6,17 @@ import { useI18n } from 'vue-i18n'
 import FabTray from '../components/FabTray/FabTray.vue'
 import { useSession } from '../composables/useSession'
 import LokiCard from '../components/calltoaction/LokiCard/LokiCard.vue'
-import { useTitle } from '@vueuse/core'
+import { useTitle } from '../composables/useTitle'
 import { onMounted } from 'vue'
 import ThreadStreamColumn from '../components/ThreadStreamColumn/ThreadStreamColumn.vue'
 import MyrrysCard from '../components/calltoaction/MyrrysCard/MyrrysCard.vue'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
-const title = useTitle()
+const { title } = useTitle()
 
 onMounted(() => {
-  title.value = t('app.title') + ' / ' + '⚀'
+  title.value = '⚀'
 })
 
 </script>

@@ -4,7 +4,7 @@ import { useSession } from '../composables/useSession'
 import NotificationsList from '../components/inbox/NotificationsList.vue'
 import WithPermission from '../components/ui/WithPermission.vue'
 import { onMounted } from 'vue'
-import { useTitle } from '@vueuse/core'
+import { useTitle } from '../composables/useTitle'
 import { useNotifications } from '../composables/useSession/useNotifications'
 
 const { t } = useI18n()
@@ -12,7 +12,7 @@ const { anonymous } = useSession()
 const { newCount, hasNew } = useNotifications()
 
 onMounted(() => {
-  useTitle().value = t('app.title') + ' / ' + t('inbox.title')
+  useTitle().title.value = t('inbox.title')
 })
 </script>
 

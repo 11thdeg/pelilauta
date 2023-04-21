@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Page } from '@11thdeg/skaldstore'
-import { useTitle } from '@vueuse/core'
+import { useTitle } from '../composables/useTitle'
 import { onMounted, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppBar from '../components/navigation/AppBar.vue'
@@ -10,12 +10,12 @@ import { useContentEntry } from '../composables/useContentEntry'
 import { fetchPage } from '../composables/usePages'
 
 const { t } = useI18n()
-const title = useTitle()
+const { title } = useTitle()
 const page = ref(new Page())
 const loading = ref(true)
 
 onMounted(async () => {
-  title.value = t('app.title') + ' / ' + t('about.title')
+  title.value = t('about.title')
   page.value = await fetchPage('mekanismi', 'pelilauta-about') || new Page()
   loading.value = false
 })

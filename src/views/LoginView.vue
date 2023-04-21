@@ -3,7 +3,8 @@ import { useI18n } from 'vue-i18n'
 import LoginPanel from '../components/account/SocialLoginForm.vue'
 import TopBar from '../components/navigation/TopBar.vue'
 import EmailLoginForm from '../components/account/EmailLoginForm.vue'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
+import { useTitle } from '../composables/useTitle'
 
 const { t } = useI18n()
 const props = defineProps<{
@@ -13,6 +14,10 @@ const props = defineProps<{
 const to = computed(() => {
   if (props.backroute) return props.backroute
   return '/'
+})
+
+onMounted(() => {
+  useTitle().title.value = t('login.title')
 })
 </script>
 
