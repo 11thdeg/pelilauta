@@ -3,7 +3,7 @@ import { collection, doc, getDoc, getFirestore, onSnapshot, query, where } from 
 import { computed, ref, watch } from 'vue'
 import { logDebug, logError } from '../utils/logHelpers'
 import { addStore, useSession } from './useSession'
-import { cacheSite, getCachedSites, purgeSiteCache } from '../utils/localStorage'
+import { cacheSite, purgeSiteCache } from '../utils/localStorage'
 
 const siteCache = ref(new Map<string, Site>())
 const loading = ref(true)
@@ -53,14 +53,14 @@ async function subscribe () {
 
 async function subscribePublic () {
   logDebug('Subscribing to public sites')
-  const storedSites = getCachedSites()
+  /*const storedSites = []// getCachedSites()
   if (storedSites) {
     storedSites.forEach((s:Site) => {
       logDebug('loaded from storage', s.key)
       siteCache.value.set(s.key, s)
     })
     loading.value = false
-  }
+  }*/
   unsubscribePublic = onSnapshot(
     query(
       collection(getFirestore(), Site.collectionName),
