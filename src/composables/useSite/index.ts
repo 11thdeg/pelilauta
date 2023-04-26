@@ -68,7 +68,9 @@ const canEdit = computed(() => {
   if (admin.value) return true
   const u = uid.value
   if (site.value.members?.includes(u)) return true
+  if (site.value.players?.includes(u)) return true
   if (site.value.hasOwner(u)) return true
+  logDebug('canEdit', 'nope')
   return false
 })
 

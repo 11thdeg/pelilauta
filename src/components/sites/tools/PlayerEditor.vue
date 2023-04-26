@@ -56,6 +56,10 @@ function addPlayer (e: string) {
   )
 }
 
+const showEditor = computed(() => {
+  return site.value?.hasOwner(uid.value)
+})
+
 </script>
 
 <template>
@@ -74,6 +78,7 @@ function addPlayer (e: string) {
         :uid="player"
       >
         <cyan-button
+          v-if="showEditor"
           text
           noun="trashcan"
           @click="removePlayer(player)"
@@ -84,6 +89,7 @@ function addPlayer (e: string) {
     <hr>
 
     <AccountSelect
+      v-if="showEditor"
       :exclude="excluded"
       @add-account="addPlayer($event)"
     />

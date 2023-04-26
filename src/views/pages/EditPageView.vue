@@ -4,7 +4,7 @@ import TopBar from '../../components/navigation/TopBar.vue'
 import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 import EditPageForm from '../../components/pages/EditPageForm.vue'
 import { usePage } from '../../composables/usePage'
-import { loadSite } from '../../composables/useSite'
+import { loadSite, useSite } from '../../composables/useSite'
 import { watch } from 'vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import WithPermission from '../../components/ui/WithPermission.vue'
@@ -26,7 +26,8 @@ watch(props, () => {
   immediate: true 
 })
 
-const { loading, canEdit } = usePage()
+const { loading } = usePage()
+const { canEdit } = useSite()
 
 </script>
 

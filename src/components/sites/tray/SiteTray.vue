@@ -3,10 +3,16 @@ import { useI18n } from 'vue-i18n'
 import { useSite } from '../../../composables/useSite'
 import PageIndex from '../../SiteTray/PageIndex.vue'
 import SiteTrayHeader from './SiteTrayHeader.vue'
+import { computed } from 'vue'
+import { useSession } from '../../../composables/useSession'
 
 const { t } = useI18n()
 const { key, loading, canEdit, site } = useSite()
+const { uid } = useSession()
 
+const showEditor = computed(() => {
+  return site.value?.hasOwner(uid.value)
+})
 </script>
 
 <template>
@@ -28,7 +34,7 @@ const { key, loading, canEdit, site } = useSite()
           />
         </router-link>
         <cyan-button
-          v-if="canEdit"
+          v-if="showEditor"
           text
           noun="tools"
           :disabled="$route.fullPath === `/sites/${key}/edit`"

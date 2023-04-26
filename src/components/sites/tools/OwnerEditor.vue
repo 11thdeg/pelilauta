@@ -48,10 +48,17 @@ function addOwner (e: string) {
   )
 }
 
+const showEditor = computed(() => {
+  return site.value?.hasOwner(uid.value)
+})
+
 </script>
 
 <template>
-  <article class="Column">
+  <article
+    v-if="showEditor"
+    class="Column"
+  >
     <cyan-card elevation="1">
       <h3>{{ t('site.tools.owners.title') }}</h3>
 
