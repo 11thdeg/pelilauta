@@ -12,10 +12,18 @@ const { t } = useI18n()
 const { uid } = useSession()
 
 const { site } = useSite()
+
 const players = computed(() => {
   const o = site.value?.players || []
   if (typeof o === 'string') return [o]
   return o
+})
+
+const excluded = computed(() => {
+  const p = players.value
+  let o = site.value?.owners || []
+  if (typeof o === 'string') o = [o]
+  return [...o, ...p]
 })
 
 function removePlayer (e: string) {
@@ -52,36 +60,33 @@ function addPlayer (e: string) {
 
 <template>
   <article class="Column">
-    <cyan-card elevation="1">
-      <h3>{{ t('site.tools.players.title') }}</h3>
+    <h3>{{ t('site.tools.players.title') }}</h3>
 
-      <p class="TypeBody2 lowEmphasis">
-        {{ t('site.tools.players.info') }}
-      </p>
+    <p class="TypeBody2 lowEmphasis">
+      {{ t('site.tools.players.info') }}
+    </p>
 
-      <section class="currentPlayers">
-        <ProfileListItem
-          v-for="player in players"
-          :key="player"
-          :class="{'me': uid === player}"
-          :uid="player"
-        >
-          <cyan-button
-            :disabled="uid === player"
-            text
-            noun="trashcan"
-            @click="removePlayer(player)"
-          />
-        </ProfileListItem>
-      </section>
+    <section class="currentPlayers">
+      <ProfileListItem
+        v-for="player in players"
+        :key="player"
+        :class="{'me': uid === player}"
+        :uid="player"
+      >
+        <cyan-button
+          text
+          noun="trashcan"
+          @click="removePlayer(player)"
+        />
+      </ProfileListItem>
+    </section>
 
-      <hr>
+    <hr>
 
-      <AccountSelect
-        :exclude="players"
-        @add-account="addPlayer($event)"
-      />
-    </cyan-card>
+    <AccountSelect
+      :exclude="excluded"
+      @add-account="addPlayer($event)"
+    />
   </article>
 </template>
 

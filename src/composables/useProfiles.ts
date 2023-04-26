@@ -1,6 +1,7 @@
 import { Profile } from '@11thdeg/skaldstore'
 import { doc, getFirestore, getDoc, collection, getDocs, DocumentData } from '@firebase/firestore'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { logDebug } from '../utils/logHelpers'
 
 function getStoredProfile (key: string) {
   const stored = localStorage.getItem('profiles-'+key)
@@ -16,19 +17,19 @@ function storeProfile (profile: Profile) {
   localStorage.setItem(key, data)
 }
 
-const profileCache = new Map<string, Profile>()
+const profileCache = ref(new Map<string, Profile>())
 
 export async function fetchProfile (uid: string, options?: { reload: boolean }): Promise<Profile|undefined> {
 
   const useCache = options?.reload !== true
 
   if (useCache) {
-    const cached = profileCache.get(uid)
+    const cached = profileCache.value.get(uid)
     if (cached) return cached
 
     const stored = getStoredProfile(uid)
     if (stored) {
-      profileCache.set(uid, stored)
+      profileCache.value.set(uid, stored)
       return stored
     }
   }
@@ -43,7 +44,7 @@ export async function fetchProfile (uid: string, options?: { reload: boolean }):
 
   if (authorDoc.exists()) {
     const ac = new Profile(authorDoc.data(), uid)
-    profileCache.set(uid, ac)
+    profileCache.value.set(uid, ac)
     storeProfile(ac)
     return ac
   }
@@ -65,14 +66,28 @@ async function fetchAll () {
 
   profiles.forEach((profileDoc) => {
     const ac = new Profile(profileDoc.data(), profileDoc.id)
-    profileCache.set(profileDoc.id, ac)
+    profileCache.value.set(profileDoc.id, ac)
   })
+  logDebug('fetchAll found', profileCache.value.size)
 }
+
+const cachedAsOptions = computed(() => {
+  const options = new Array<{ value: string, label: string }>()
+  profileCache.value.forEach((profile) => {
+    options.push({
+      value: profile.key,
+      label: profile.nick
+    })
+  })
+  logDebug('cachedAsOptions', options.length)
+  return options
+})
 
 export function useProfiles () {
   return {
     fetchAll,
     fetchProfile,
-    cached: computed(() => profileCache)
+    cached: computed(() => profileCache),
+    cachedAsOptions
   }
 }

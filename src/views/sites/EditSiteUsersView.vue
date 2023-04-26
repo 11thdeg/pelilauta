@@ -26,6 +26,8 @@ const site = ref(new Site())
 onMounted(async () => {
   site.value = await fetchSite(props.sitekey) || new Site()
   useSite(site.value.key)
+})
+onMounted(() => {
   title.value = t('site.tools.users')
 })
 </script>
@@ -34,7 +36,7 @@ onMounted(async () => {
   <div id="EditSiteUsersView">
     <cyan-top-app-bar modal>
       <cyan-icon noun="adventurer" />
-      <h3>{{ $t('site.tools.users') }}</h3>
+      <h3>{{ t('site.tools.users') }}</h3>
     </cyan-top-app-bar>
     <main class="dashboardLayout">
       <LoginRequiredColumn v-if="anonymous || !site.hasOwner(uid)" />

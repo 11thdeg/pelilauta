@@ -69,7 +69,7 @@ async function subscribePublic () {
     (snapshot) => {
       snapshot.docChanges().forEach((change) => {
         const site = new Site(change.doc.data(), change.doc.id)
-        logDebug('loaded from firestore', site.key)
+        // logDebug('loaded from firestore', site.key)
         siteCache.value.set(change.doc.id, site)
         loading.value = false
         cacheSite(site)
