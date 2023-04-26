@@ -225,6 +225,10 @@
           "success": "Tiedosto poistettu onnistuneesti"
         }
       },
+      "login": {
+        "emailSent": "Kirjautumislinkki lähetetty sähköpostiisi",
+        "error": "Kirjautuminen epäonnistui teknisen vian vuoksi. Yritä myöhemmin uudelleen."
+      },
       "registrationComplete": "Käyttäjätili luotu onnistuneesti",
       "deleteAccount":{
         "success": "Käyttäjätilisi ja henkilökohtaiset tietosi poistettu onnistuneesti. Kiitos, että käytit Pelilautaa!"

@@ -63,12 +63,12 @@ const sendLinkToEmail = async () => {
       // Save the email locally so you don't need to ask the user for it again
       // if they open the link on the same device.
       window.localStorage.setItem('emailForSignIn', adress)
-      pushSnack(t('login.snacks.emailSent'))
+      pushSnack(t('snacks.login.emailSent'))
     })
     .catch((error: Error) => {
       // TODO: show error in snackbar
       logError('snackbar not implemented', 'pushSnack(\'snacks.error\', { params: { topic: error.message }})')
-      pushSnack(t('login.snacks.error'))
+      pushSnack(t('snacks.login.error'))
       logError(error)
     })
 }
