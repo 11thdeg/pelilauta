@@ -18,9 +18,12 @@ async function toggle(e: Event) {
 </script>
 
 <template>
-  <cyan-toggle
-    v-if="admin"
-    :label="t('settings.appSettings.darkMode')"
-    @change="toggle"
-  />
+  <cyan-toolbar>
+    <cyan-spacer />
+    <cyan-toggle
+      v-if="admin"
+      :label="t('settings.appSettings.darkMode')"
+      @change="toggle"
+    />
+  </cyan-toolbar>
 </template>
