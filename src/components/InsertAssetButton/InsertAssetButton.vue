@@ -26,7 +26,7 @@ const noun = computed(() => props.noun || 'assets')
   <button
     :label="label"
     class="text"
-    @click="dialog = true"
+    @click.prevent="dialog = true"
   >
     <cyan-icon
       :noun="noun"
