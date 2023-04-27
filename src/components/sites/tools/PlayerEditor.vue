@@ -86,7 +86,7 @@ const showEditor = computed(() => {
       </ProfileListItem>
     </section>
 
-    <hr>
+    <hr v-if="showEditor">
 
     <AccountSelect
       v-if="showEditor"
