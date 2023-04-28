@@ -29,32 +29,30 @@ async function setHomePage(pageKey: string) {
 </script>
 
 <template>
-  <article class="small Column">
-    <cyan-card elevation="0">
-      <h3>{{ t('site.tools.meta.title') }}</h3>
-      <p class="TypeBody2 lowEmphasis">
-        {{ t('site.tools.meta.info') }}
-      </p>
-      <form class="fieldSet">
-        <h4>
-          {{ t('fields.site.homepage') }}
-        </h4>
-        <cyan-select
-          :options="pageOptions"
-          :value="chosen"
-          @change="setHomePage($event.target.value)"
+  <article class="Column">
+    <h3>{{ t('site.tools.meta.title') }}</h3>
+    <p class="TypeBody2 lowEmphasis">
+      {{ t('site.tools.meta.info') }}
+    </p>
+    <form class="fieldSet">
+      <h4>
+        {{ t('fields.site.homepage') }}
+      </h4>
+      <cyan-select
+        :options="pageOptions"
+        :value="chosen"
+        @change="setHomePage($event.target.value)"
+      />
+      <p><SiteVisibilityToggle /></p>
+      <SiteLicenseSelect />
+      <p v-if="site">
+        <cyan-button
+          text
+          noun="delete"
+          :label="t('site.tools.meta.delete')"
+          @click="$router.push(`/sites/${site?.key}/remove`)"
         />
-        <p><SiteVisibilityToggle /></p>
-        <SiteLicenseSelect />
-        <p v-if="site">
-          <cyan-button
-            text
-            noun="delete"
-            :label="t('site.tools.meta.delete')"
-            @click="$router.push(`/sites/${site?.key}/remove`)"
-          />
-        </p>
-      </form>
-    </cyan-card>
+      </p>
+    </form>
   </article>
 </template>

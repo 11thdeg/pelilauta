@@ -43,7 +43,7 @@ onMounted(async () => {
       <cyan-spacer />
       <cyan-icon noun="kebab" />
     </cyan-top-app-bar>
-    <main class="bookLayout">
+    <main class="dashboardLayout">
       <LoginRequiredColumn v-if="anonymous || !site.hasOwner(uid)" />
       <template v-else>
         <ThemeEditor />
