@@ -23,6 +23,7 @@ const { admin } = useSession()
     noun="kebab"
     small
     open-left
+    style="z-index: 1000;"
   >
     <cyan-menu-item
       :secondary="!fromMe && admin"
