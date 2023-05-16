@@ -2,6 +2,12 @@
 import { onMounted, onUnmounted } from 'vue'
 import { useUxState } from '../../composables/useUXState'
 import ToTopFab from './ToTopFab.vue'
+import ToBottomFab from './ToBottomFab.vue'
+import { computed } from 'vue'
+
+const props = defineProps<{
+ fastForward: boolean
+}>()
 
 const { unmountFabTray, mountFabTray } = useUxState()
 
@@ -11,11 +17,14 @@ onMounted(() => {
 onUnmounted(() => {
   unmountFabTray()
 })
+
+const ffd = computed(() => props.fastForward)
 </script>
 
 <template>
   <nav id="FabTray">
     <slot />
+    <ToBottomFab v-if="ffd" />
     <ToTopFab />
   </nav>
 </template>

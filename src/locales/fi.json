@@ -35,7 +35,8 @@
       "preview": "Esikatselu",
       "register": "Rekisteröidy",
       "scroll": {
-        "toTop": "Ylös"
+        "toTop": "Ylös",
+        "toBottom": "Alas"
       },
       "useInApp": "Ota Käyttöön",
       "toSettings": "Asetukset",

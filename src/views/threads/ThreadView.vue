@@ -13,6 +13,7 @@ import { logDebug } from '../../utils/logHelpers'
 import { useSession } from '../../composables/useSession'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import { useTitle } from '@vueuse/core'
+import FabTray from '../../components/FabTray/FabTray.vue'
 
 const props = defineProps<{
   flowtime?: number
@@ -84,5 +85,6 @@ watch(() => thread.value, (tr) => {
         </template>
       </WithLoader>
     </main>
+    <FabTray fast-forward />
   </div>
 </template>
