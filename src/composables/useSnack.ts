@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { logDebug } from '../utils/loghelpers'
+import { logDebug } from '../utils/logHelpers'
 
 const snackStack = ref(new Array<{ message: string, params?: Record<string, string>, action?: CallableFunction }>())
 

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useScreenSize } from '../../composables/useScreenSize'
 import { processAsset, FileData } from '../../utils/fileHelpers'
-import { logError } from '../../utils/loghelpers'
+import { logError } from '../../utils/logHelpers'
     
 const props = defineProps<{
   file?: FileData

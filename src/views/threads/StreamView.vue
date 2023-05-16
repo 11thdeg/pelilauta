@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { logDebug } from '../../utils/loghelpers'
 import AppBar from '../../components/navigation/AppBar.vue'
 import { computed, onMounted } from 'vue'
 import { useMeta } from '../../composables/useMeta'
@@ -16,8 +15,6 @@ import MarkAllSeenButton from '../../components/MarkAllSeenButton/MarkAllSeenBut
 const props = defineProps<{
     streamkey?: string
 }>()
-
-logDebug('Streamview', props.streamkey)
 
 const { t } = useI18n()
 const { streams } = useMeta()

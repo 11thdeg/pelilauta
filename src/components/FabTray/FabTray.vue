@@ -6,7 +6,7 @@ import ToBottomFab from './ToBottomFab.vue'
 import { computed } from 'vue'
 
 const props = defineProps<{
- fastForward: boolean
+ fastForward?: boolean
 }>()
 
 const { unmountFabTray, mountFabTray } = useUxState()

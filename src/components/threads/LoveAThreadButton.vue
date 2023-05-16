@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useSession } from '../../composables/useSession'
-import { logDebug } from '../../utils/loghelpers'
+import { logDebug } from '../../utils/logHelpers'
 import { loveThread, unLoveThread } from '../../composables/useThreads'
 import { CyanReactionButton } from '@11thdeg/cyan'
 

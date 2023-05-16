@@ -2,7 +2,7 @@
 import { onMounted, Ref, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSnack } from '../../composables/useSnack'
-import { logDebug } from '../../utils/loghelpers'
+import { logDebug } from '../../utils/logHelpers'
 
 const { snackStack } = useSnack()
 const messageCode = ref('')
