@@ -15,7 +15,7 @@ const { admin } = useSession()
 <template>
   <nav
     id="NavigationRail"
-    class="hideOnMobile"
+    class="rail"
   >
     <router-link to="/">
       <cyan-navigation-button
@@ -59,21 +59,3 @@ const { admin } = useSession()
     <AccountNavButton />
   </nav>
 </template>
-
-<style lang="sass" scoped>
-#NavigationRail
-  display: flex
-  flex-direction: column
-  align-items: center
-  position: fixed
-  top: 0px
-  left: 0px
-  width: 72px
-  height: 100vh
-  z-index: var(--z-index-navigation)
-  // background: linear-gradient(-42deg,var(--chroma-secondary-c),var(--chroma-secondary-d))
-  padding-top: 4px
-  gap: 12px
-  padding-bottom: 12px
-  box-sizing: border-box
-</style>

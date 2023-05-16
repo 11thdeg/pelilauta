@@ -81,6 +81,6 @@ div#appContainer
   div#appContainer
     position: relative
     &.navTrayVisible
-      margin-left: calc(72px + 256px)
+      margin-left: calc(80px + 256px)
 </style>
 

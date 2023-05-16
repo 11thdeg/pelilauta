@@ -39,7 +39,7 @@ const showTrayOnMobile = computed(() => uxState.showNavTrayOnMobile.value)
 #NavigationTray
   position: fixed
   top: 0
-  left: 72px
+  left: 80px
   width: 240px
   height: 100vh
   margin: 0
