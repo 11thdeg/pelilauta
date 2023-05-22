@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   thread: {
@@ -10,6 +11,7 @@ const props = defineProps<{
   }
 }>()
 
+const router = useRouter()
 const { t } = useI18n()
 const { uid, admin } = useSession()
 const fromMe = computed(() => props.thread.hasOwner(uid.value || ''))
@@ -25,7 +27,7 @@ const showForAdmin = computed(() => !fromMe.value && admin.value)
       v-if="fromMe || admin"
       :secondary="showForAdmin"
       :noun="showForAdmin ? 'admin' : 'edit'"
-      @click="$router.push('/threads/' + thread.key + '/edit')"
+      @click="router.push('/threads/' + thread.key + '/edit')"
     >
       {{ t('action.edit') }}
     </cyan-menu-item>
@@ -34,7 +36,7 @@ const showForAdmin = computed(() => !fromMe.value && admin.value)
       :secondary="showForAdmin"
       :noun="showForAdmin ? 'admin' : 'edit'"
       :title="t('action.delete')"
-      @click="$router.push('/threads/' + thread.key + '/delete')"
+      @click="router.push('/threads/' + thread.key + '/delete')"
     >
       {{ t('action.delete') }}
     </cyan-menu-item>

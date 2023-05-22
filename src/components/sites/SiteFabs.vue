@@ -6,6 +6,7 @@ import { useSession } from '../../composables/useSession'
 import { useSites } from '../../composables/useSites'
 import EditPageFab from '../EditPageFab/EditPageFab.vue'
 import FabTray from '../FabTray/FabTray.vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 
@@ -21,16 +22,12 @@ const site = computed(() => {
 const owns = computed(() => {
   return site.value.hasOwner(uid.value)
 })
+
+const router = useRouter()
 </script>
 
 <template>
   <FabTray>
-    <!--cyan-fab
-      v-if="owns"
-      :label="t('action.add.thread')"
-      noun="discussion"
-      @click="$router.push('/sites/' + sitekey + '/add/thread')"
-    /-->
     <EditPageFab />
     <cyan-fab
       v-if="owns"
@@ -38,7 +35,7 @@ const owns = computed(() => {
       secondary
       :label="t('action.add.page')"
       noun="add"
-      @click="$router.push('/sites/' + sitekey + '/add/page')"
+      @click="router.push('/sites/' + sitekey + '/add/page')"
     />
   </FabTray>
 </template>

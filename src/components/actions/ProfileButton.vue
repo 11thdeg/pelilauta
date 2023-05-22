@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const { active, anonymous, profile } = useSession()
+const router = useRouter()
 </script>
 
 <template>
@@ -13,7 +15,7 @@ const { active, anonymous, profile } = useSession()
     noun="avatar"
     :label="profile.nick"
     text
-    @click="$router.push('/settings')"
+    @click="router.push('/settings')"
   />
   <cyan-button
     v-if="active && anonymous"
@@ -21,6 +23,6 @@ const { active, anonymous, profile } = useSession()
     class="hideOnMobile"
     :label="t('action.toLogin')"
     text
-    @click="$router.push('/login')"
+    @click="router.push('/login')"
   />
 </template>

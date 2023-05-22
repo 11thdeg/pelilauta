@@ -47,7 +47,7 @@ async function deleteSite() {
     id="TopBar"
     modal
     back
-    @back="$router.back()"
+    @back="router.back()"
   >
     <h3>
       {{ t('site.tools.meta.delete') }} <span class="hideOnMobile">- {{ site?.name }}</span>
@@ -68,7 +68,7 @@ async function deleteSite() {
             <cyan-button
               text
               :label="t('action.cancel')"
-              @click="$router.back()"
+              @click="router.back()"
             />
             <cyan-button
               :disabled="!verified"

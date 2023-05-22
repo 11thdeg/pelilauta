@@ -8,11 +8,14 @@ import { loadSite, useSite } from '../../composables/useSite'
 import { watch } from 'vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import WithPermission from '../../components/ui/WithPermission.vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   sitekey: string
   pagekey?: string
 }>()
+
+const router = useRouter()
 
 const { t } = useI18n()
 
@@ -38,13 +41,13 @@ const { canEdit } = useSite()
         <cyan-menu>
           <cyan-menu-item
             noun="arrow-right"
-            @click="$router.push(`/sites/${props.sitekey}/pages/${props.pagekey}/move`)"
+            @click="router.push(`/sites/${props.sitekey}/pages/${props.pagekey}/move`)"
           >
             {{ t('action.move') }}
           </cyan-menu-item>
           <cyan-menu-item
             noun="trashcan"
-            @click="$router.push(`/sites/${props.sitekey}/pages/${props.pagekey}/delete`)"
+            @click="router.push(`/sites/${props.sitekey}/pages/${props.pagekey}/delete`)"
           >
             {{ t('page.deleteConfirm.title') }}
           </cyan-menu-item>

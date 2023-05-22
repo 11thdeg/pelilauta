@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
+const router = useRouter()
 </script>
 
 <template>
@@ -13,7 +15,7 @@ const { t } = useI18n()
       <cyan-button
         :label="t('action.back')"
         noun="arrow-left"
-        @click="$router.back()"
+        @click="router.back()"
       />
       <cyan-spacer />
     </cyan-toolbar>

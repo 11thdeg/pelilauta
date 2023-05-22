@@ -7,10 +7,12 @@ import { useProfile } from '../../composables/useSession/useProfile'
 import { useSession } from '../../composables/useSession'
 import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
 import { logDebug } from '../../utils/logHelpers'
+import { useRouter } from 'vue-router'
     
 const { t } = useI18n()
 const { uid } = useSession()
 const { profile } = useProfile()
+const router = useRouter()
 
 async function save (key: string, value: string) {
   await updateDoc(
@@ -95,7 +97,7 @@ async function onBioChange (e: string) {
         <cyan-spacer />
         <button
           class="secondary"
-          @click="$router.push('/profiles/'+uid)"
+          @click="router.push('/profiles/'+uid)"
         >
           <cyan-icon
             noun="outlink"

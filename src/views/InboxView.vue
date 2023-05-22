@@ -6,8 +6,10 @@ import WithPermission from '../components/ui/WithPermission.vue'
 import { onMounted } from 'vue'
 import { useTitle } from '../composables/useTitle'
 import { useNotifications } from '../composables/useSession/useNotifications'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
+const router = useRouter()
 const { anonymous } = useSession()
 const { newCount, hasNew } = useNotifications()
 
@@ -22,7 +24,7 @@ onMounted(() => {
       id="TopBar"
       modal
       back
-      @back="$router.back()"
+      @back="router.back()"
     >
       <h2>{{ $t('inbox.title') }} {{ hasNew ? `(${newCount})` : '' }}</h2>
     </cyan-top-app-bar>

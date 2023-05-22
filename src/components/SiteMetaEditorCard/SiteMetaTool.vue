@@ -7,10 +7,12 @@ import { usePages } from '../../composables/usePages'
 import { useSite } from '../../composables/useSite'
 import SiteLicenseSelect from './SiteLicenseSelect.vue'
 import SiteVisibilityToggle from './SiteVisibilityToggle.vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const { site } = useSite()
 const { pageOptions} = usePages(site.value?.key || '')
+const router = useRouter()
 
 const chosen = computed(() => site.value?.homepage || site.value?.key || '')
 
@@ -50,7 +52,7 @@ async function setHomePage(pageKey: string) {
           text
           noun="delete"
           :label="t('site.tools.meta.delete')"
-          @click="$router.push(`/sites/${site?.key}/remove`)"
+          @click="router.push(`/sites/${site?.key}/remove`)"
         />
       </p>
     </form>

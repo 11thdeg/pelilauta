@@ -5,10 +5,14 @@ import PageIndex from '../../SiteTray/PageIndex.vue'
 import SiteTrayHeader from './SiteTrayHeader.vue'
 import { computed } from 'vue'
 import { useSession } from '../../../composables/useSession'
+import { useRoute, useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const { key, loading, canEdit, site } = useSite()
 const { uid } = useSession()
+const route = useRoute()
+const router = useRouter()
+
 
 const showEditor = computed(() => {
   return site.value?.hasOwner(uid.value)
@@ -37,8 +41,8 @@ const showEditor = computed(() => {
           v-if="showEditor"
           text
           noun="tools"
-          :disabled="$route.fullPath === `/sites/${key}/edit`"
-          @click="$router.push(`/sites/${key}/edit`)"
+          :disabled="route.fullPath === `/sites/${key}/edit`"
+          @click="router.push(`/sites/${key}/edit`)"
         />
       </cyan-toolbar>
 

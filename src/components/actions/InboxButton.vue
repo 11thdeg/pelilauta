@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { useNotifications } from '../../composables/useSession/useNotifications'
 import { useSession } from '../../composables/useSession'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const { anonymous } = useSession()
 const { newCount } = useNotifications()
@@ -14,7 +17,7 @@ const { newCount } = useNotifications()
     <cyan-button
       noun="send"
       text
-      @click="$router.push('/inbox')"
+      @click="router.push('/inbox')"
     />
     <cyan-tag
       :notification="parseInt(newCount) > 0"

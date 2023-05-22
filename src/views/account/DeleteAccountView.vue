@@ -51,7 +51,7 @@ async function deleteAccountPermanently() {
   <cyan-top-app-bar
     modal
     back
-    @back="$router.back()"
+    @back="router.back()"
   >
     <h3>{{ $t('settings.dangerousDeleteAccountAction') }}</h3>
   </cyan-top-app-bar>
@@ -68,7 +68,7 @@ async function deleteAccountPermanently() {
         <cyan-button
           :label="$t('action.cancel')"
           text
-          @click="$router.back()"
+          @click="router.back()"
         />
         <cyan-button
           :disabled="!verifyToken"

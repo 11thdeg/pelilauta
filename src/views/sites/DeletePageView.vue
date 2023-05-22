@@ -55,7 +55,7 @@ async function deletePage () {
             <cyan-button
               text
               :label="t('action.cancel')"
-              @click="$router.back()"
+              @click="router.back()"
             />
             <cyan-button
               :disabled="!verified"

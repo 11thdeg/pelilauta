@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
+import { useRouter } from 'vue-router'
 
 const { anonymous } = useSession()
 const { t } = useI18n()
+const router = useRouter()
 </script>
 <template>
   <cn-card
@@ -35,7 +37,7 @@ const { t } = useI18n()
         dark
         noun="avatar"
         :label="t('action.loginOrRegister')"
-        @click.prevent="() => $router.push('/login')"
+        @click.prevent="() => router.push('/login')"
       />
       <cyan-spacer />
     </cyan-toolbar>

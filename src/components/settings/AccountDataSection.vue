@@ -4,8 +4,10 @@ import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { toDisplayString } from '../../utils/toDisplayString'
 import WithLoader from '../ui/WithLoader.vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
+const router = useRouter()
 const { active, profile, account} = useSession()
 
 const updatedAt = computed(() => {
@@ -62,7 +64,7 @@ const updatedAt = computed(() => {
           :label="t('settings.dangerousDeleteAccountAction')"
           text
           noun="delete"
-          @click="$router.push('/account/delete')"
+          @click="router.push('/account/delete')"
         />
       </cyan-toolbar>
     </section>

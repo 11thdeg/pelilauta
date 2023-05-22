@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { usePages } from '../../composables/usePages'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import EmptyCollection from '../ui/EmptyCollection.vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   sitekey: string
@@ -12,6 +13,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const router = useRouter()
 const { pages, loading } = usePages()
 
 const page = computed(() => {
@@ -37,7 +39,7 @@ const page = computed(() => {
           :label="t('action.edit')"
           noun="edit"
           text
-          @click="$router.push(`/sites/${props.sitekey}/pages/${props.pagekey || props.sitekey}/edit`)"
+          @click="router.push(`/sites/${props.sitekey}/pages/${props.pagekey || props.sitekey}/edit`)"
         />
       </EmptyCollection>
       <template v-else>

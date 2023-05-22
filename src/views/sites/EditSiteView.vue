@@ -14,10 +14,12 @@ import SiteMetaTool from '../../components/SiteMetaEditorCard/SiteMetaTool.vue'
 import { useI18n } from 'vue-i18n'
 import { useTitle } from '@vueuse/core'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
+import { useRouter } from 'vue-router'
 const props = defineProps<{
   sitekey: string
 }>()
 
+const router = useRouter()
 const { anonymous, uid } = useSession()
 const site = ref(new Site())
 const { t } = useI18n()
@@ -35,7 +37,7 @@ onMounted(async () => {
       id="TopBar"
       modal
       back
-      @back="$router.back()"
+      @back="router.back()"
     >
       <h3>
         {{ t('site.settings.title') }} <span class="hideOnMobile">- {{ site.name }}</span>

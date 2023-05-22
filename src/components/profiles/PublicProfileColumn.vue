@@ -4,6 +4,7 @@ import { onMounted, Ref, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fetchProfile } from '../../composables/useProfiles'
 import { useSession } from '../../composables/useSession'
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   uid: string
@@ -14,6 +15,7 @@ const profile:Ref<Profile|undefined> = ref(undefined)
 const { account } = useSession()
 
 const { t } = useI18n()
+const router = useRouter()
 
 onMounted(async () => {
   profile.value = await fetchProfile(props.uid)
@@ -40,7 +42,7 @@ onMounted(async () => {
           :label="t('action.edit')"
           text
           noun="edit"
-          @click="$router.push('/settings')"
+          @click="router.push('/settings')"
         />
         <cyan-spacer />
       </cyan-toolbar>

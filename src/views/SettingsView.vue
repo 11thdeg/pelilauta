@@ -9,8 +9,10 @@ import { useTitle } from '@vueuse/core'
 import { useSession } from '../composables/useSession'
 import WithPermission from '../components/ui/WithPermission.vue'
 import WithLoader from '../components/ui/WithLoader.vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
+const router = useRouter()
 const { active, anonymous } = useSession()
 
 onMounted(() => {
@@ -22,7 +24,7 @@ onMounted(() => {
   <cyan-top-app-bar
     sticky
     modal
-    @back="$router.back()"
+    @back="router.back()"
   >
     <h3>{{ $t('settings.title') }}</h3>
   </cyan-top-app-bar>
