@@ -99,7 +99,7 @@ export function useSite (id?: string) {
     updateChapters,
     key: computed(() => site.value?.key || ''),
     update,
-    loading,
+    loading: computed(() => loading.value),
     notFound: computed(() => !loading.value && !site.value),
     canEdit
   }

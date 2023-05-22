@@ -14,6 +14,7 @@ import { useSession } from '../../composables/useSession'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import { useTitle } from '@vueuse/core'
 import FabTray from '../../components/FabTray/FabTray.vue'
+import SiteInfoArticle from '../../components/threads/SiteInfoArticle/SiteInfoArticle.vue'
 
 const props = defineProps<{
   flowtime?: number
@@ -82,6 +83,7 @@ watch(() => thread.value, (tr) => {
               :threadkey="threadkey"
             />
           </div>
+          <SiteInfoArticle :sitekey="thread?.siteid" />
         </template>
       </WithLoader>
     </main>
