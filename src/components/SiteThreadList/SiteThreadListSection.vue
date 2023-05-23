@@ -1,31 +1,41 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { Thread } from '@11thdeg/skaldstore'
 import { collection, getFirestore, limit, onSnapshot, query, where, orderBy } from '@firebase/firestore'
-import { onMounted, onUnmounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { ref } from 'vue'
+import { onUnmounted } from 'vue'
+import { onMounted } from 'vue'
+import { logDebug } from '../../utils/logHelpers'
 import SiteThreadListItem from './SiteThreadListItem.vue'
+import { computed } from 'vue'
 
 const props = defineProps<{
-  sitekey: string
+  sitekey: string,
+  count?: number,
+  omit?: Array<string>
 }>()
 
-const { t } = useI18n()
-
-const threads = ref(new Array<Thread>())
 let _unsubscribe: CallableFunction|undefined
 
-onMounted(async () => {
+const threads = ref(new Array<Thread>())
+
+async function subscribe () {
+
+  logDebug('SiteThreadListSection: subscribe')
+
+  if (_unsubscribe) return
+
+  const lim = props.count || 21
+  if (lim < 1) throw new Error('SiteThreadListSection: count must be greater than 0')
+
   const q = query(
     collection(getFirestore(), Thread.collectionName),
     where('site', '==', props.sitekey),
     orderBy('flowTime', 'asc'),
-    limit(21)
+    limit(lim)
   )
 
-  // const docs = await getDocs(q)
-  // logDebug('SiteThreadListColumn', 'onMounted', 'docs', docs)
-
   _unsubscribe = onSnapshot(q, (snapshot) => {
+    logDebug('SiteThreadListSection: onSnapshot')
     snapshot.docChanges().forEach(change => {
       if (change.type === 'removed') {
         threads.value = threads.value.filter(tr => tr.key !== change.doc.id)
@@ -36,40 +46,40 @@ onMounted(async () => {
       }
       threads.value.sort((a, b) => (a as Thread).compareFlowTime(b as Thread))
     })
+    logDebug('SiteThreadListSection: onSnapshot: threads', threads.value.length)
   })
-})
+}
 
+onMounted(async () => {
+  await subscribe()
+})
 onUnmounted(() => {
   _unsubscribe && _unsubscribe()
 })
 
+const visibleThreads = computed(() => {
+  return threads.value.filter(thread => !props.omit?.includes(thread.key))
+})
+
 </script>
+
 <template>
-  <article
-    v-if="threads.length > 0"
-    class="Column"
-  >
-    <cyan-toolbar>
+  <section v-if="threads && threads.length > 0">
+    <div class="flex">
       <cyan-icon
         noun="discussion"
       />
       <h4 class="downscaled">
-        {{ t('site.threads.title') }}
+        {{ $t('site.threads.title') }}
       </h4>
-    </cyan-toolbar>
+    </div>
     <hr>
     <ul>
       <SiteThreadListItem
-        v-for="thread in threads"
+        v-for="thread in visibleThreads"
         :key="thread.key"
         :thread="thread"
       />
     </ul>
-  </article>
+  </section>
 </template>
-
-<style lang="sass" scoped>
-ul
-  margin: 12px 0
-  padding: 0
-</style>

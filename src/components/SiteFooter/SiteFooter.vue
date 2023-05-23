@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useSite } from '../../composables/useSite'
-import SiteThreadListColumn from '../SiteThreadListColumn/SiteThreadListColumn.vue'
+import SiteThreadListColumn from '../SiteThreadList/SiteThreadListColumn.vue'
 import WithLoader from '../ui/WithLoader.vue'
 import SiteAdminsSection from './SiteAdminsSection.vue'
 import SiteLicenseSection from './SiteLicenseSection.vue'

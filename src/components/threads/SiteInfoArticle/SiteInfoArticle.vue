@@ -4,10 +4,12 @@ import { loadSite, useSite } from '../../../composables/useSite'
 import WithLoader from '../../ui/WithLoader.vue'
 import SiteCard from '../../SiteCard/SiteCard.vue'
 import { watch } from 'vue'
+import SiteThreadListSection from '../../SiteThreadList/SiteThreadListSection.vue'
 
 
 const props = defineProps<{
   sitekey?: string
+  threadkey: string
 }>()
 
 const { site, loading, notFound } = useSite()
@@ -29,6 +31,12 @@ onMounted(async() => {
       <SiteCard
         v-if="site && !notFound"
         :site="site"
+      />
+      <SiteThreadListSection
+        v-if="site && !notFound"
+        :sitekey="sitekey"
+        :count="7"
+        :omit="[threadkey]"
       />
     </WithLoader>
   </article>

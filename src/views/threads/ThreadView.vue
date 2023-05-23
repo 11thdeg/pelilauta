@@ -83,7 +83,10 @@ watch(() => thread.value, (tr) => {
               :threadkey="threadkey"
             />
           </div>
-          <SiteInfoArticle :sitekey="thread?.siteid" />
+          <SiteInfoArticle
+            :sitekey="thread?.siteid"
+            :threadkey="threadkey"
+          />
         </template>
       </WithLoader>
     </main>
