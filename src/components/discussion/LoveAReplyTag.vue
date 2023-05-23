@@ -12,7 +12,8 @@ const props = defineProps<{
   },
   threadKey: string
 }>()
-const { uid } = useSession()
+
+const { uid, anonymous } = useSession()
 
 const loves = computed(
   {
@@ -24,14 +25,16 @@ const loves = computed(
     }
   }
 )
-const owns = computed(() => props.reply.hasOwner(uid.value))
+// The button is disabled if the user is the author of the reply or if the user is anonymous
+const disable = computed(() => props.reply.hasOwner(uid.value) || anonymous.value)
+
 const count = computed(() => props.reply.lovers?.length || 0)
 </script>
 
 <template>
   <cyan-love-button
     :on="loves"
-    :disabled="owns"
+    :disabled="disable"
     :count="count"
     @loves="loves = $event.detail.active"
   />
