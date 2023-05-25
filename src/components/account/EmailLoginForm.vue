@@ -80,7 +80,7 @@ const sendLinkToEmail = async () => {
     id="emailLoginForm"
     class="Column"
   >
-    <cyan-card>
+    <cn-card>
       <div
         v-if="verify"
         class="verifyWarning"
@@ -112,6 +112,6 @@ const sendLinkToEmail = async () => {
           </cyan-toolbar>
         </from>
       </template>
-    </cyan-card>
+    </cn-card>
   </article>
 </template>

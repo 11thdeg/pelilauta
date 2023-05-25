@@ -7,7 +7,7 @@ const { t } = useI18n()
 
 <template>
   <article class="small Column">
-    <cyan-card>
+    <cn-card elevation="0">
       <section style="display: flex; justify-content: center;align-items: center; gap: 8px;margin:16px">
         <cyan-icon
           noun="fox"
@@ -44,6 +44,6 @@ const { t } = useI18n()
           <a href="https://github.com/11thdeg/skaldstore">Skaldstore (MIT)</a>
         </p>
       </section>
-    </cyan-card>
+    </cn-card>
   </article>
 </template>
