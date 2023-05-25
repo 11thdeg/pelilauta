@@ -22,23 +22,27 @@ const props = defineProps<{
   <article
     class="small Column"
   >
-    <cyan-card>
-      <cyan-icon
-        slot="avatar"
-        noun="card"
-      /> 
-      <h4
-        slot="title"
-        class="downscaled"
+    <cn-card elevation="0">
+      <section
+        class="flex"
+        style="margin-top: -12px"
       >
-        {{ page.name }}
-      </h4>
+        <cyan-icon
+          noun="card"
+        /> 
+        <h4
+
+          class="downscaled"
+        >
+          {{ page.name }}
+        </h4>
+      </section>
       <cyan-toolbar>
         <ProfileLink :uid="page.author || ''" />
         <cyan-spacer />
         <FlowTimeCaption :flow-time="page.flowTime || 0" />
       </cyan-toolbar>
-      <cyan-toolbar>
+      <cyan-toolbar style="margin-bottom: -24px">
         <cyan-spacer />
         <router-link :to="`/sites/${site.key}/pages/${page.key}/revisions`">
           <cyan-button
@@ -47,6 +51,6 @@ const props = defineProps<{
           />
         </router-link>
       </cyan-toolbar>
-    </cyan-card>
+    </cn-card>
   </article>
 </template>

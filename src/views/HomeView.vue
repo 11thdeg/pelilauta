@@ -37,7 +37,7 @@ onMounted(() => {
       class="Column small hideOnMobile"
       style="display: none;"
     >
-      <cyan-card
+      <cn-card
         style="overflow: hidden;"
         class="chroma-box-b"
         elevation="1"
@@ -59,7 +59,7 @@ onMounted(() => {
           frameborder="0"
           sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
         />
-      </cyan-card>
+      </cn-card>
     </article-->
   </main>
   <FabTray v-if="!anonymous">

@@ -67,7 +67,7 @@ const diff = computed(() => {
       v-if="site && page"
       class="small Column"
     >
-      <cyan-card>
+      <cn-card elevation="0">
         <h4>{{ site.name }}</h4>
         <ul style="margin: 0; padding: 0">
           <li
@@ -84,7 +84,7 @@ const diff = computed(() => {
             </cyan-toolbar>
           </li>
         </ul>
-      </cyan-card>
+      </cn-card>
     </article>
   </main>
 </template>

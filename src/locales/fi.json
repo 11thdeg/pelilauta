@@ -171,6 +171,10 @@
         }
       },
       "tools": {
+        "settings": {
+          "title": "Asetukset",
+          "info": "Sivuston asetukset"
+        },
         "chapters": {
           "title": "Aiheet",
           "info": "Sivut ryhmitellään aiheiden alle sisällysluettelossa"

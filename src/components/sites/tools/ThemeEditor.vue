@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useSite } from '../../../composables/useSite'
-import SiteAvatar from '../SiteAvatar.vue'
 import { doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { Site } from '@11thdeg/skaldstore'
 import SiteThemeSelect from '../SiteThemeSelect.vue'
@@ -9,6 +8,7 @@ import { useI18n } from 'vue-i18n'
 import { logError } from '../../../utils/logHelpers'
 import { useAssets } from '../../../composables/useAssets'
 import InsertAssetButton from '../../InsertAssetButton/InsertAssetButton.vue'
+import SiteCard from '../../SiteCard/SiteCard.vue'
 
 const { t } = useI18n()
 const { site, update } = useSite()
@@ -94,85 +94,85 @@ logError('ThemeEditor', 'Theme image change not implemented yet.')
     v-if="site"
     class="Column ThemeEditor"
   >
-    <cyan-card
-      elevation="2"
-      :cover="site.posterURL"
+    <section class="modalFlex">
+      <div>
+        <h2>{{ $t('site.tools.settings.title') }}</h2>
+        <p class="TypeBody2">
+          {{ $t('site.tools.settings.info') }}
+        </p>
+      </div>
+      <SiteCard :site="site" />
+    </section>
+
+    <section
+      class="toolset fieldset"
+      style="margin-top: var(--cn-page-grid)"
     >
-      <h3 slot="title">
-        {{ site.name }}
-      </h3>
-      <SiteAvatar
-        slot="avatar"
-        :site="site"
-        class="siteAvatar"
-        large
+      <cyan-textfield
+        :value="name"
+        :label="t('fields.site.name')"
+        @change="name = $event.target.value"
       />
+      <cyan-textfield
+        :value="description"
+        :label="t('fields.site.description')"
+        @change="description = $event.target.value"
+      />
+      <SiteThemeSelect v-model="siteTheme" />
+    </section>
 
-      <section
-        class="toolset fieldset"
-        style="margin-top: var(--cn-page-grid)"
+    <!-- Poster Actions -->
+    <section class="toolset">
+      <p
+        class="TypeUI"
+        style="margin:0"
       >
-        <cyan-textfield
-          :value="name"
-          :label="t('fields.site.name')"
-          @change="name = $event.target.value"
+        {{ t('fields.site.posterurl') }}
+      </p>
+      <cyan-toolbar>
+        <InsertAssetButton
+          :label="t('action.change')"
+          @insert="onInsertPosterAsset"
         />
-        <cyan-textfield
-          :value="description"
-          :label="t('fields.site.description')"
-          @change="description = $event.target.value"
+        <cyan-button
+          text
+          noun="delete"
+          :label="t('action.delete')"
+          @click="onSelectPoster('')"
         />
-        <SiteThemeSelect v-model="siteTheme" />
-      </section>
+      </cyan-toolbar>
+    </section>
 
-      <!-- Poster Actions -->
-      <section class="toolset">
-        <p
-          class="TypeUI"
-          style="margin:0"
-        >
-          {{ t('fields.site.posterurl') }}
-        </p>
-        <cyan-toolbar>
-          <InsertAssetButton
-            :label="t('action.change')"
-            @insert="onInsertPosterAsset"
-          />
-          <cyan-button
-            text
-            noun="delete"
-            :label="t('action.delete')"
-            @click="onSelectPoster('')"
-          />
-        </cyan-toolbar>
-      </section>
-
-      <!-- Avatar actions -->
-      <section>
-        <p
-          class="TypeUI"
-          style="margin:0"
-        >
-          {{ t('fields.site.avatarurl') }}
-        </p>
-        <cyan-toolbar>
-          <InsertAssetButton
-            :label="t('action.change')"
-            @insert="onInsertAvatarAsset"
-          />
-          <cyan-button
-            text
-            noun="delete"
-            :label="t('action.delete')"
-            @click="onSelectAvatar('')"
-          />
-        </cyan-toolbar>
-      </section>
-    </cyan-card>
+    <!-- Avatar actions -->
+    <section>
+      <p
+        class="TypeUI"
+        style="margin:0"
+      >
+        {{ t('fields.site.avatarurl') }}
+      </p>
+      <cyan-toolbar>
+        <InsertAssetButton
+          :label="t('action.change')"
+          @insert="onInsertAvatarAsset"
+        />
+        <cyan-button
+          text
+          noun="delete"
+          :label="t('action.delete')"
+          @click="onSelectAvatar('')"
+        />
+      </cyan-toolbar>
+    </section>
   </article>
 </template>
 
 <style lang="sass" scoped>
+@media screen and (min-width: 1600px)
+  .modalFlex
+    display: grid
+    grid-template-columns: 1fr 1fr
+
 .toolset
   border-bottom: solid 1px var(--cyan-divider-color)
   padding-bottom: 11px
