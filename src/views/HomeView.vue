@@ -10,6 +10,7 @@ import { useTitle } from '../composables/useTitle'
 import { onMounted } from 'vue'
 import ThreadStreamColumn from '../components/ThreadStreamColumn/ThreadStreamColumn.vue'
 import MyrrysCard from '../components/calltoaction/MyrrysCard/MyrrysCard.vue'
+import TopSitesSection from '../components/frontpage/TopSitesSection.vue'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
@@ -32,6 +33,7 @@ onMounted(() => {
     <div class="Column small flex flex-column">
       <CreateAccountAd />
       <MekanismiAd />
+      <TopSitesSection />
     </div>
     <!--article
       class="Column small hideOnMobile"

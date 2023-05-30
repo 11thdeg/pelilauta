@@ -17,7 +17,8 @@ const props = defineProps<{
     players?: string[];
     hidden: boolean;
     lovesCount?: number;
-  }
+  },
+  hideControls?: boolean
 }>()
 
 const { uid } = useSession()
@@ -46,7 +47,10 @@ const noun = computed(() => {
     :link="`/sites/${site.key}`"
     :snippet="site.description"
   >
-    <cyan-toolbar slot="actions">
+    <cyan-toolbar
+      v-if="!hideControls"
+      slot="actions"
+    >
       <cyan-icon
         v-if="site.hidden"
         noun="lock"
