@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { useContentEntry } from '../../composables/useContentEntry'
+import { postProcessContent } from '../../utils/content/postProcessContent'
 
 const props = defineProps<{
   page: {
@@ -14,11 +16,17 @@ const { content } = useContentEntry(
     default: '...'
   }
 )
+
+const processedContent = computed(() => {
+  const c = postProcessContent(content.value)
+  return c.outerHTML
+})
+
 </script>
 
 <template>
   <article
     class="PageArticle Column large"
-    :innerHTML="content"
+    :innerHTML="processedContent"
   />
 </template>
