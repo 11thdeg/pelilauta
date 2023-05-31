@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
+import PageTagsSection from './PageTagsSection.vue'
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -9,7 +10,8 @@ const props = defineProps<{
     key: string
     name: string
     author: string
-    flowTime: number
+    flowTime: number,
+    tags: string[]
   }
   site: {
     key: string
@@ -52,5 +54,7 @@ const props = defineProps<{
         </router-link>
       </cyan-toolbar>
     </cn-card>
+
+    <PageTagsSection :page="page" />
   </article>
 </template>

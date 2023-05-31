@@ -416,7 +416,8 @@
       "page": {
         "name": "Sivun nimi",
         "content": "Sisältö",
-        "noCategory": "Sivut"
+        "noCategory": "Sivut",
+        "tags": "Avainsanat"
       },
       "profile":{
         "nick": "Nimimerkki",

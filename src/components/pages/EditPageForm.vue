@@ -16,6 +16,7 @@ import { logDebug } from '../../utils/logHelpers'
 import MarkdownSection from '../content/MarkdownSection.vue'
 import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
 import WithLoader from '../ui/WithLoader.vue'
+import { extractTags } from '../../utils/content/extractTags'
 
 const props = defineProps<{
   homepage?: boolean;
@@ -101,6 +102,9 @@ async function savePage () {
   // Add htmlContent for backwards compatibility
   p.htmlContent = marked(markdown.value)
   p.markdownContent = markdown.value
+
+  // Extract hashtags from the markdown content
+  p.tags = extractTags(p.markdownContent)
 
   let routekey = sitekey.value
 
