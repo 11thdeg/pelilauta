@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Page, Site } from '@11thdeg/skaldstore'
+import { Page, Site, TagInfo } from '@11thdeg/skaldstore'
 import { addDoc, collection, doc, DocumentData, getFirestore, updateDoc } from '@firebase/firestore'
 import Europa from 'europa'
 import { marked } from 'marked'
@@ -17,6 +17,7 @@ import MarkdownSection from '../content/MarkdownSection.vue'
 import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
 import WithLoader from '../ui/WithLoader.vue'
 import { extractTags } from '../../utils/content/extractTags'
+import { addStorable, setStorable } from '../../utils/firestoreHelpers'
 
 const props = defineProps<{
   homepage?: boolean;
@@ -29,6 +30,7 @@ const { pushSnack } = useSnack()
 const { key: sitekey, chapterOptions} = useSite()
 const page = ref(new Page())
 const loading = ref(true)
+const { site } = useSite()
 
 const router = useRouter()
 const preview = ref(false)
@@ -40,41 +42,13 @@ onMounted(async() => {
   loading.value = false
 })
 
-async function update (data:DocumentData, key: string) {
-  if (!key) throw new Error('A Page key is required for update')
-  return await updateDoc(
-    doc(
-      getFirestore(),
-      Site.collectionName,
-      sitekey.value,
-      Page.collectionName,
-      key
-    ),
-    data
-  )
-}
-
-async function add (data:DocumentData) {
-  const newPageDoc = await addDoc(
-    collection(
-      getFirestore(),
-      Site.collectionName,
-      sitekey.value,
-      Page.collectionName
-    ),
-    data
-  )
-  if (props.homepage) {
-    await updateDoc(
-      doc(
-        getFirestore(),
-        Site.collectionName,
-        sitekey.value
-      ),
-      { homepage: newPageDoc.id }
-    )
-  }
-  return newPageDoc.id
+async function updateTags() {
+  const tags = extractTags(markdown.value)
+  const tagInfo = new TagInfo(page.value.key)
+  tagInfo.tags = tags
+  tagInfo.entryPath = page.value.getFirestorePath()
+  tagInfo.entryTitle = site.value?.name + ' / ' + page.value.name
+  await setStorable(tagInfo.docData)
 }
 
 async function savePage () {
@@ -111,13 +85,26 @@ async function savePage () {
   if (!p.key) {
     // We are creating a new page, as the page does not have a db identifier
     logDebug('creating a new page')
-    routekey = await add(p.docData)
+    routekey = await addStorable(p)
+    if (props.homepage) {
+      await updateDoc(
+        doc(
+          getFirestore(),
+          Site.collectionName,
+          sitekey.value
+        ),
+        { homepage: newPageDoc.id }
+      )
+    }
   } else {
     // We are updating an existing page
     logDebug('updating an existing page', p.key)
     await update(p.docData, p.key)
     routekey = p.key
   }
+
+  // Update tags
+  await updateTags()
 
   pushSnack(t('snacks.page.updated'))
   router.push('/sites/' + sitekey.value + '/pages/' + routekey)
