@@ -1,5 +1,5 @@
 import { Storable, Account, Thread, Page } from '@11thdeg/skaldstore'
-import { addDoc, collection, doc, DocumentData, getFirestore, updateDoc } from '@firebase/firestore'
+import { addDoc, collection, doc, DocumentData, getFirestore, setDoc, updateDoc } from '@firebase/firestore'
 import { logDebug } from './logHelpers'
 
 function getCollectionName(e: Storable) {
@@ -41,6 +41,26 @@ async function updateStorable(path: string[], data: DocumentData) {
     ),
     data
   )
+}
+
+/**
+ * Sets a Firestore storable at the given path.
+ * 
+ * This is the current mechanism for setting a storable. Other 
+ * mechanisms will be deprecated.
+ * 
+ * @param s storable with valid path
+ * @returns key of the storable
+ */
+export async function setStorable(s: Storable) {
+  await setDoc(
+    doc(
+      getFirestore(),
+      s.getFirestorePath().join('/')
+    ),
+    s.docData
+  )
+  return s.key
 }
 
 export async function store(e: Storable, opts: { silent?: boolean } = {} ) {
