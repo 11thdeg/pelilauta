@@ -32,15 +32,26 @@ export async function addStorable(e: Storable) {
   return r.id
 }
 
-async function updateStorable(path: string[], data: DocumentData) {
-  // logDebug('updateStorable', path, data)
-  return updateDoc(
+/**
+ * Updates a Firestore storable at the given path.
+ * 
+ * This is the current mechanism for updating a storable. Other mechanisms 
+ * will be deprecated.
+ * 
+ * @param s storable with valid path, or path to a storable.
+ * @param docdata optional document data to update, if a path is provided instead of a storable
+ */
+export async function updateStorable(s: Storable|string[], docdata?: DocumentData) {
+  const path = Array.isArray(s) ? s : s.getFirestorePath()
+  const data = Array.isArray(s) ? docdata : s.docData
+  await updateDoc(
     doc(
       getFirestore(),
       path.join('/')
     ),
     data
   )
+  return path[path.length - 1]
 }
 
 /**
@@ -49,18 +60,23 @@ async function updateStorable(path: string[], data: DocumentData) {
  * This is the current mechanism for setting a storable. Other 
  * mechanisms will be deprecated.
  * 
- * @param s storable with valid path
+ * @param s storable with valid path, or path to a storable.
+ * @param docdata optional document data to set, if a path is provided instead of a storable
+ * 
  * @returns key of the storable
  */
-export async function setStorable(s: Storable) {
+export async function setStorable(s: Storable|string[], docdata?: DocumentData) {
+  const data = Array.isArray(s) ? docdata : s.docData
+  const path = Array.isArray(s) ? s : s.getFirestorePath()
   await setDoc(
     doc(
       getFirestore(),
-      s.getFirestorePath().join('/')
+      path.join('/')
     ),
-    s.docData
+    data
   )
-  return s.key
+  // Last item in path has to be the key of the storable, for the promise above to work
+  return path[path.length - 1]
 }
 
 export async function store(e: Storable, opts: { silent?: boolean } = {} ) {
