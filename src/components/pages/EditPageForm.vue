@@ -41,9 +41,9 @@ onMounted(async() => {
   loading.value = false
 })
 
-async function updateTags() {
+async function updateTags(pagekey: string) {
   const tags = extractTags(markdown.value)
-  const tagInfo = new TagInfo(page.value.key)
+  const tagInfo = new TagInfo(pagekey)
   tagInfo.tags = tags
   tagInfo.entryPath = page.value.getFirestorePath()
   tagInfo.entryTitle = site.value?.name + ' / ' + page.value.name
@@ -83,7 +83,8 @@ async function savePage () {
 
   if (!p.key) {
     // We are creating a new page, as the page does not have a db identifier
-    logDebug('EditPageForm.vue', 'Vreating a new page')
+    p.parentKey = sitekey.value
+    logDebug('EditPageForm.vue', 'Creating a new page')
     routekey = await addStorable(p)
     if (props.homepage && site.value) {
       await updateStorable(
@@ -99,7 +100,7 @@ async function savePage () {
   }
 
   // Update tags
-  await updateTags()
+  await updateTags(routekey)
 
   pushSnack(t('snacks.page.updated'))
   router.push('/sites/' + sitekey.value + '/pages/' + routekey)
