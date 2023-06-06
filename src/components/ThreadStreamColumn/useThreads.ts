@@ -32,7 +32,7 @@ function getStoragePath() {
 
 function loadLocalThreads() {
   const localThreadData = localStorage.getItem(getStoragePath())
-  logDebug('Loading local threads', localThreadData)
+  // logDebug('Loading local threads', localThreadData)
   if (localThreadData) {
     const threadObjects = JSON.parse(localThreadData)
     threadObjects.forEach((threadObject:DocumentData) => {
