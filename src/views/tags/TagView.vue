@@ -4,36 +4,34 @@ import WithLoader from '../../components/ui/WithLoader.vue'
 import { useSession } from '../../composables/useSession'
 import WithPermission from '../../components/ui/WithPermission.vue'
 import { ref } from 'vue'
-import { Site } from '@11thdeg/skaldstore'
+import { TagInfo } from '@11thdeg/skaldstore'
 import { onMounted, watch } from 'vue'
 import { collection, getDocs, getFirestore, query, where } from '@firebase/firestore'
+import TagEntryItem from '../../components/tags/TagEntryItem.vue'
 
-const props = defineProps({
-  tag: {
-    type: String,
-    required: true
-  }
-})
+const props = defineProps<{
+  tagkey: string;
+}>()
 
 const { anonymous, active } = useSession()
 
 const router = useRouter()
 
-const sites = ref(new Array<Site>())
+const entries = ref(new Array<TagInfo>())
 
 onMounted(() => {
   watch(anonymous, async (anon) => {
     if (!anon) {
-      const q = query(collection(getFirestore(), Site.collectionName), where('tags', 'array-contains', props.tag))
+      const q = query(collection(getFirestore(), TagInfo.collectionName), where('tags', 'array-contains', props.tagkey))
       const docs = await getDocs(q)
-      const s = new Array<Site>()
+      const s = new Array<TagInfo>()
       docs.forEach(doc => {
-        s.push(new Site(doc, doc.id))
+        s.push(new TagInfo(doc.id, doc.data()))
       })
       s.sort((a, b) => {
-        return a.flowTime - b.flowTime
+        return a.entryTitle.localeCompare(b.entryTitle)
       })
-      sites.value = s
+      entries.value = s
     }
   }, { immediate: true })
 })
@@ -48,13 +46,18 @@ onMounted(() => {
       back
       @back="router.back()"
     >
-      <h2>{{ $t('tag.title') }}</h2>
+      <h2>{{ $t('tag.title') }} {{ tagkey }}</h2>
     </cyan-top-app-bar>
     <main class="bookLayout">
       <WithLoader :suspended="!active">
         <WithPermission :forbidden="anonymous">
           <article class="Column">
-            {{ sites }}
+            <TagEntryItem
+              v-for="entry in entries"
+              :key="entry.key"
+              :tagkey="tagkey"
+              :entry="entry"
+            />
           </article>
         </WithPermission>
       </WithLoader>

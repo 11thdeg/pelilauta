@@ -17,6 +17,14 @@ export const routes = [
   { path: '/assets/:assetkey', component: () => import('./assets/AssetView.vue'), props: true },
   { path: '/assets/:assetkey/delete', component: () => import('./assets/DeleteAssetView.vue'), props: true },
   { path: '/profiles/:uid', component: () => import('./ProfileView.vue'), props: true }, 
+  
+  // Views related to tags and tag management
+  { 
+    path: '/tags/:tagkey',
+    component: () => import('./tags/TagView.vue'),
+    props: true
+  },
+
   { path: '/threads/:threadkey', component: () => import('./threads/ThreadView.vue'), props: true },
   { path: '/threads/:threadkey/from/:flowtime', component: () => import('./threads/ThreadView.vue'), props: true },
   { path: '/threads/:threadkey/edit', component: () => import('./threads/EditThreadView.vue'), props: true },

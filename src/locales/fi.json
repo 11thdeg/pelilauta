@@ -266,6 +266,9 @@
     "streams": {
       "title": "Aiheet"
     },
+    "tag": {
+      "title": "Avainsana"
+    },
     "thread": {
       "create": {
         "title": "Luo uusi ketju"
