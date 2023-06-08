@@ -72,7 +72,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="verticalList">
+  <section class="flex flex-column">
     <ReplyBubble
       v-for="reply in replies"
       :id="'reply_'+reply.key"

@@ -25,7 +25,7 @@ onMounted(async () => {
   <article class="Column">
     <h3>{{ t('profile.stream.title') }}</h3>
     <WithLoader :suspended="loading">
-      <section class="verticalList">
+      <section class="flex flex-column">
         <ThreadStreamCard
           v-for="thread in authorThreads"
           :key="thread.key"
