@@ -5,13 +5,7 @@
   /* Level 2 */
   --pelilauta-z-index-navigation: calc(4 * var(--pelilauta-z-index-base));
   /* Level 3 */
-  --pelilauta-fabs-z-index: calc(3 * var(--pelilauta-z-index-base));
-
-  /* these need to go to cyan, later */
-  --pelilauta-dialog-backdrop: rgba(0, 0, 0, 0.5);
-  --pelilauta-dialog-background: var(--chroma-secondary-c);
-
-  
+  --pelilauta-fabs-z-index: calc(3 * var(--pelilauta-z-index-base));  
 }
 body {
   margin: 0;
