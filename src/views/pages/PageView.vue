@@ -9,10 +9,10 @@ import { watch } from 'vue'
 import { useTitle } from '@vueuse/core'
 import PageMetaColumn from '../../components/PageMetaColumn/PageMetaColumn.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
-import AppBar from '../../components/navigation/AppBar.vue'
 import CopyPageMarkdownLinkButton from '../../components/CopyPageMarkdownLinkButton/CopyPageMarkdownLinkButton.vue'
 import DownloadAsMarkdownButton from '../../components/DownloadAsMarkdownButton/DownloadAsMarkdownButton.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
+import ShareButton from '../../components/ShareButton/ShareButton.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -43,9 +43,13 @@ watch(page, () => {
 </script>
 
 <template>
-  <AppBar
-    :title="page?.name || '...'"
-  >
+  <cyan-top-app-bar sticky>
+    <cyan-icon
+      class="noun onlyOnMobile"
+      noun="pelilauta"
+    />
+    <h3>{{ page?.name || '...' }}</h3>
+    <cyan-spacer />
     <CopyPageMarkdownLinkButton
       v-if="page"
       :page="page"
@@ -54,7 +58,8 @@ watch(page, () => {
       v-if="page"
       :content-entry="page"
     />
-  </AppBar>
+    <ShareButton />
+  </cyan-top-app-bar>
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <PageArticle
