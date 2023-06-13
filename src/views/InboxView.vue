@@ -26,7 +26,7 @@ onMounted(() => {
       back
       @back="router.back()"
     >
-      <h2>{{ $t('inbox.title') }} {{ hasNew ? `(${newCount})` : '' }}</h2>
+      <h3>{{ $t('inbox.title') }} {{ hasNew ? `(${newCount})` : '' }}</h3>
     </cyan-top-app-bar>
     <main class="singleColumnLayout">
       <WithPermission :forbidden="anonymous">

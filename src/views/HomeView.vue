@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import AppBar from '../components/navigation/AppBar.vue'
 import CreateAccountAd from '../components/calltoaction/CreateAccountAd.vue'
 import MekanismiAd from '../components/calltoaction/MekanismiAd.vue'
 import { useI18n } from 'vue-i18n'
@@ -11,6 +10,7 @@ import { onMounted } from 'vue'
 import ThreadStreamColumn from '../components/ThreadStreamColumn/ThreadStreamColumn.vue'
 import MyrrysCard from '../components/calltoaction/MyrrysCard/MyrrysCard.vue'
 import TopSitesSection from '../components/frontpage/TopSitesSection.vue'
+import ShareButton from '../components/ShareButton/ShareButton.vue'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
@@ -19,10 +19,20 @@ const { title } = useTitle()
 onMounted(() => {
   title.value = '⚀'
 })
-
 </script>
+
 <template>
-  <AppBar />
+  <!-- For the App front page, we use the app-bar defaults! -->
+  <cyan-top-app-bar>
+    <cyan-icon
+      class="noun onlyOnMobile"
+      noun="pelilauta"
+    />
+    <h3>{{ $t('app.title') }}</h3>
+    <cyan-spacer />
+    <ShareButton />
+  </cyan-top-app-bar>
+
   <main class="bookLayout">
     <ThreadStreamColumn />
     <div class="Column small flex flex-column">
