@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import LoginPanel from '../components/account/SocialLoginForm.vue'
-import TopBar from '../components/navigation/TopBar.vue'
 import EmailLoginForm from '../components/account/EmailLoginForm.vue'
 import { computed, onMounted } from 'vue'
 import { useTitle } from '../composables/useTitle'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
+const router = useRouter()
+
 const props = defineProps<{
   backroute?: string
 }>()
@@ -19,10 +21,21 @@ const to = computed(() => {
 onMounted(() => {
   useTitle().title.value = t('login.title')
 })
+
+function back() {
+  if (props.backroute) router.push(props.backroute)
+  else router.back()
+}
 </script>
 
 <template>
-  <TopBar :title="t('login.title')" />
+  <cyan-top-app-bar
+    sticky
+    modal
+    @back="back()"
+  >
+    <h3>{{ $t('login.title') }}</h3>
+  </cyan-top-app-bar>
   <main
     id="LoginView"
     class="bookLayout"
