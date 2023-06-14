@@ -33,7 +33,11 @@ const paste = (e: ClipboardEvent) => {
 </script>
 
 <template>
-  <TopBar title="Editor Sandbox" />
+  <cyan-top-app-bar
+    id="TopBar"
+  >
+    <h3>Editor Sandbox</h3>
+  </cyan-top-app-bar>
   <main class="bookLayout">
     <article class="Column double-cut">
       <h1>Editor</h1>

@@ -7,7 +7,14 @@ const router = useRouter()
 </script>
 
 <template>
-  <TopBar :title="t('error.forbidden')" />
+  <cyan-top-app-bar
+    id="TopBar"
+    modal
+    @back="router.back()"
+  >
+    <h3>{{ $t('error.forbidden') }}</h3>
+  </cyan-top-app-bar>
+
   <main class="singleColumnLayout">
     <p>{{ t('error.forbidden.description') }}</p>
     <cyan-toolbar>

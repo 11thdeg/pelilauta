@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useSession } from '../../composables/useSession'
-import TopBar from '../../components/navigation/TopBar.vue'
 import TopicTool from '../../components/admin/TopicTool.vue'
 import SiteThemeTool from '../../components/admin/SiteThemeTool/SiteThemeTool.vue'
 import AdminTray from '../../components/admin/AdminTray.vue'
@@ -33,7 +32,12 @@ onMounted(() => {
     <AdminTray />
   </div>
   <div v-else>
-    <TopBar title="500" />
+    <cyan-top-app-bar
+      id="TopBar"
+    >
+      <cyan-icon noun="adventurer" />
+      <h3>500</h3>
+    </cyan-top-app-bar>
     <main class="SiteSettings singleColumnLayoyt">
       <cyan-icon
         noun="fox"
