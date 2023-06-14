@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import TopBar from '../../components/navigation/TopBar.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import WithPermission from '../../components/ui/WithPermission.vue'
@@ -30,7 +29,12 @@ function confirmDelete() {
 </script>
 
 <template>
-  <TopBar :title="t('action.delete')" />
+  <cyan-top-app-bar
+    id="TopBar"
+  >
+    <cyan-icon noun="trash" />
+    <h3>{{ $t('action.delete') }}</h3>
+  </cyan-top-app-bar>
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">
