@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import AppBar from '../../components/navigation/AppBar.vue'
 import SiteList from '../../components/sites/SiteList.vue'
 import MekanismiAd from '../../components/calltoaction/MekanismiAd.vue'
 import { onMounted } from 'vue'
@@ -18,10 +17,11 @@ onMounted(() => {
 </script>
 <template>
   <div class="SitesHomeView">
-    <AppBar
-      :title="t('sites.title')"
-      noun="mekanismi"
-    />
+    <cyan-top-app-bar
+      id="TopBar" 
+    >
+      <h3>{{ $t('sites.title') }}</h3>
+    </cyan-top-app-bar>
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <SiteList />

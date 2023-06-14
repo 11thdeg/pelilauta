@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import AppBar from '../../components/navigation/AppBar.vue'
 import { computed, onMounted } from 'vue'
 import { useMeta } from '../../composables/useMeta'
 import StreamTray from '../../components/threads/StreamTray.vue'
@@ -35,12 +34,15 @@ const { anonymous } = useSession()
 
 <template>
   <div id="StreamView">
-    <AppBar
+    <cyan-top-app-bar
       :title="stream.name"
       :noun="stream.icon"
     >
+      <cyan-icon :noun="stream.icon" />
+      <h3>{{ stream.name }}</h3>
+      <cyan-spacer />
       <MarkAllSeenButton />
-    </AppBar>
+    </cyan-top-app-bar>
     <main class="bookLayout">
       <ThreadStreamColumn
         :topic="streamkey"

@@ -1,21 +1,30 @@
 <script lang="ts" setup>
 import { useSession } from '../../composables/useSession'
-import AppBar from '../../components/navigation/AppBar.vue'
 import TopBar from '../../components/navigation/TopBar.vue'
 import TopicTool from '../../components/admin/TopicTool.vue'
 import SiteThemeTool from '../../components/admin/SiteThemeTool/SiteThemeTool.vue'
 import AdminTray from '../../components/admin/AdminTray.vue'
 import SiteLicensesTool from '../../components/SiteLicensesTool/SiteLicensesTool.vue'
+import { useTitle } from '../../composables/useTitle'
+import { onMounted } from 'vue'
 
 const { admin } = useSession()
+const { title } = useTitle()
+
+onMounted(() => {
+  title.value = 'Admin'
+})
+
 </script>
 
 <template>
   <div v-if="admin">
-    <AppBar
-      title="Admin"
-      noun="admin"
-    />
+    <cyan-top-app-bar
+      id="TopBar"
+    >
+      <cyan-icon noun="admin" />
+      <h3>Admin</h3>
+    </cyan-top-app-bar>
     <main class="SiteSettings dashboardLayout">
       <TopicTool />
       <SiteThemeTool />
