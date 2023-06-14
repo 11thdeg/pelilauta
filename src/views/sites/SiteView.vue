@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import SiteFabs from '../../components/sites/SiteFabs.vue'
-import SiteAppBar from '../../components/sites/SiteAppBar.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import { loadSite, useSite } from '../../composables/useSite'
@@ -12,6 +11,8 @@ import SiteChangesListColumn from '../../components/SiteChangesListColumn/SiteCh
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
+import LoveASiteButton from '../../components/SiteCard/LoveASiteButton.vue'
+import ShareButton from '../../components/ShareButton/ShareButton.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -36,7 +37,17 @@ onMounted(() => {
 
 <template>
   <div id="SiteView">
-    <SiteAppBar :sitekey="sitekey" />
+    <cyan-top-app-bar
+      id="TopBar"
+    >
+      <h3>{{ site?.name || '...' }}</h3>
+      <cyan-spacer />
+      <LoveASiteButton
+        v-if="site"
+        :site="site"
+      />
+      <ShareButton />
+    </cyan-top-app-bar>
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <article
