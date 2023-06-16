@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import TopBar from '../../components/navigation/TopBar.vue'
 import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 import EditPageForm from '../../components/pages/EditPageForm.vue'
 import { usePage } from '../../composables/usePage'
@@ -36,7 +35,13 @@ const { canEdit } = useSite()
 
 <template>
   <div class="EditPageView">
-    <TopBar :title="t('pages.edit.title')">
+    <cyan-top-app-bar 
+      sticky
+      modal
+      @back="() => router.back()"
+    >
+      <h3>{{ $t('pages.edit.title') }}</h3>
+      <cyan-spacer />
       <template v-if="canEdit">
         <cyan-menu>
           <cyan-menu-item
@@ -53,7 +58,7 @@ const { canEdit } = useSite()
           </cyan-menu-item>
         </cyan-menu>
       </template>
-    </TopBar>
+    </cyan-top-app-bar>
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <WithPermission :forbidden="!canEdit">

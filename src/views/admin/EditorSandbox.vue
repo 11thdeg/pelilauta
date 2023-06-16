@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import TopBar from '../../components/navigation/TopBar.vue'
 import { marked,  } from 'marked'
 import { logDebug } from '../../utils/logHelpers'
 import Europa from 'europa'
