@@ -5,7 +5,6 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import DeleteConfirmForm from '../../components/DeleteConfirmForm/DeleteConfirmForm.vue'
-import TopBar from '../../components/navigation/TopBar.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import WithPermission from '../../components/ui/WithPermission.vue'
 import { usePage } from '../../composables/usePage'
@@ -40,7 +39,13 @@ async function deletePage () {
 }
 </script>
 <template>
-  <TopBar :title="page?.name || ''" />
+  <cyan-top-app-bar
+    id="TopBar"
+    modal
+    @back="() => router.back()"
+  >
+    <h3>{{ t('page.deleteConfirm.title') }} {{ page?.name }}</h3>
+  </cyan-top-app-bar>
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import TopBar from '../../components/navigation/TopBar.vue'
 import ThreadDiscussion from '../../components/discussion/ThreadDiscussion.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import { useThread } from '../../composables/useThread'
@@ -15,12 +14,14 @@ import WithLoader from '../../components/ui/WithLoader.vue'
 import { useTitle } from '@vueuse/core'
 import FabTray from '../../components/FabTray/FabTray.vue'
 import SiteInfoArticle from '../../components/threads/SiteInfoArticle/SiteInfoArticle.vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   flowtime?: number
   threadkey: string
 }>()
 const { t } = useI18n()
+const router = useRouter()
 const { thread, loading, notFound } = useThread(props.threadkey)
 const { anonymous } = useSession()
 const { subscribeTo, subscriber, setSeen } = useSubscriber()
@@ -52,16 +53,18 @@ watch(() => thread.value, (tr) => {
 
 <template>
   <div class="ThreadView">
-    <TopBar
-      :title="title"
-      sticky
+    <cyan-top-app-bar
+      id="TopBar"
+      modal
+      @back="() => router.back()"
     >
+      <h3>{{ title }}</h3>
       <ShareButton />
       <ThreadMenu
         v-if="thread"
         :thread="thread"
       />
-    </TopBar>
+    </cyan-top-app-bar>
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <EmptyCollection

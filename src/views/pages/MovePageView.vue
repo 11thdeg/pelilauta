@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import MovePageTool from '../../components/MovePageTool.vue'
-import TopBar from '../../components/navigation/TopBar.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import WithPermission from '../../components/ui/WithPermission.vue'
 import { usePage } from '../../composables/usePage'
 import { useSite } from '../../composables/useSite'
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   sitekey: string;
@@ -13,6 +13,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const router = useRouter()
 
 const { canEdit } = useSite(props.sitekey)
 const { loading } = usePage(props.pagekey, props.sitekey)
@@ -21,7 +22,13 @@ const { loading } = usePage(props.pagekey, props.sitekey)
 
 <template>
   <div id="MovePageView">
-    <TopBar :title="t('page.move.title')" />
+    <cyan-top-app-bar
+      id="TopBar"
+      modal
+      @back="() => router.back()"
+    >
+      <h3>{{ t('page.move.title') }}</h3>
+    </cyan-top-app-bar>
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <WithPermission :forbidden="!canEdit">

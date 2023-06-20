@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import TopBar from '../../components/navigation/TopBar.vue'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { computed, ref } from 'vue'
@@ -42,7 +41,13 @@ async function deleteThread () {
 
 <template>
   <div class="ConfirmThreadDeletionView">
-    <TopBar :title="t('action.delete')" />
+    <cyan-top-app-bar
+      id="TopBar"
+      modal
+      @back="() => router.back()"
+    >
+      <h3>{{ t('action.delete') }} {{ thread?.title }}</h3>
+    </cyan-top-app-bar>
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <EmptyCollection
