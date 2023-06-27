@@ -41,5 +41,12 @@ const { admin } = useSession()
         {{ t('admin.testingTools.title') }}
       </cyan-nav-button>
     </router-link>
+    <router-link to="/admin/sandbox">
+      <cyan-nav-button
+        noun="tools"
+      >
+        {{ t('admin.sandbox.title') }}
+      </cyan-nav-button>
+    </router-link>
   </NavigationTray>
 </template>

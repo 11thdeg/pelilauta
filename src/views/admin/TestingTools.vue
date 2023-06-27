@@ -17,12 +17,12 @@ onMounted(() => {
 
 <template>
   <div v-if="admin">
-    <cyan-top-app-bar
+    <cn-app-bar
       id="TopBar"
-    >
-      <cyan-icon noun="admin" />
-      <h3>Admin / Testing tools</h3>
-    </cyan-top-app-bar>
+      noun="admin"
+      sticky
+      title="Admin / Testing tools"
+    />
     <main class="SiteSettings dashboardLayout">
       <SnackbarTester />
       <BannerTester />

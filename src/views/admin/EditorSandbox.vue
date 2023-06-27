@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { marked,  } from 'marked'
 import { logDebug } from '../../utils/logHelpers'
 import Europa from 'europa'
+import AdminTray from '../../components/admin/AdminTray.vue'
 
 const content = ref('## Hello World')
 
@@ -32,11 +33,11 @@ const paste = (e: ClipboardEvent) => {
 </script>
 
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     id="TopBar"
-  >
-    <h3>Editor Sandbox</h3>
-  </cyan-top-app-bar>
+    title="Editor Sandbox"
+    noun="tools"
+  />
   <main class="bookLayout">
     <article class="Column double-cut">
       <h1>Editor</h1>
@@ -54,5 +55,6 @@ const paste = (e: ClipboardEvent) => {
       <h1>Preview</h1>
       <div :innerHTML="preview" />
     </article>
+    <AdminTray />
   </main>
 </template>

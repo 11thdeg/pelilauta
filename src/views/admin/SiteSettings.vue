@@ -18,12 +18,12 @@ onMounted(() => {
 
 <template>
   <div v-if="admin">
-    <cyan-top-app-bar
+    <cn-app-bar
       id="TopBar"
-    >
-      <cyan-icon noun="admin" />
-      <h3>Admin</h3>
-    </cyan-top-app-bar>
+      noun="admin"
+      sticky
+      title="Admin"
+    />
     <main class="SiteSettings dashboardLayout">
       <TopicTool />
       <SiteThemeTool />
