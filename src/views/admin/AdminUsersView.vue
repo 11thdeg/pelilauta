@@ -15,12 +15,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     id="TopBar"
-  >
-    <cyan-icon noun="admin" />
-    <h3>Admin / Users</h3>
-  </cyan-top-app-bar>
+    noun="admin"
+    sticky
+    title="Admin / Users"
+  />
   <main class="bookLayout">
     <WithPermission :forbidden="!admin">
       <UserTool />

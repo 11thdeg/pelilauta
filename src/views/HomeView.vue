@@ -23,15 +23,9 @@ onMounted(() => {
 
 <template>
   <!-- For the App front page, we use the app-bar defaults! -->
-  <cyan-top-app-bar>
-    <cyan-icon
-      class="noun onlyOnMobile"
-      noun="pelilauta"
-    />
-    <h3>{{ $t('app.title') }}</h3>
-    <cyan-spacer />
+  <cn-app-bar :title="t('app.title')">
     <ShareButton />
-  </cyan-top-app-bar>
+  </cn-app-bar>
 
   <main class="bookLayout">
     <ThreadStreamColumn />

@@ -48,13 +48,12 @@ async function deleteAccountPermanently() {
 </script>
 
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
+    :title="$t('verifyAccountDeletion.title')"
     modal
     back
     @back="router.back()"
-  >
-    <h3>{{ $t('settings.dangerousDeleteAccountAction') }}</h3>
-  </cyan-top-app-bar>
+  />
   <main class="bookLayout">
     <article class="Column">
       <DeleteConfirmForm
