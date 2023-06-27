@@ -36,7 +36,7 @@ async function onSave() {
 const site = ref(new Site())
 
 onMounted(() => {
-  site.value.system = 'mekanismi'
+  site.value.system = 'll'
 })
 
 </script>
