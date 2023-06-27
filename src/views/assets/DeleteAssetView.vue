@@ -8,6 +8,7 @@ import { useAsset } from '../../composables/useAsset'
 import { useAssets } from '../../composables/useAssets'
 import { useSnack } from '../../composables/useSnack'
 import { parseAssetName } from '../../utils/assetHelpers'
+import AssetPreviewColumn from '../../components/AssetPreviewColumn/AssetPreviewColumn.vue'
 
 const props = defineProps<{
   assetkey: string
@@ -29,12 +30,12 @@ function confirmDelete() {
 </script>
 
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     id="TopBar"
-  >
-    <cyan-icon noun="trash" />
-    <h3>{{ $t('action.delete') }}</h3>
-  </cyan-top-app-bar>
+    modal
+    :title="$t('action.delete')"
+    @back="router.back()"
+  />
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">
@@ -43,24 +44,37 @@ function confirmDelete() {
           :title="t('asset.notFound')"
           noun="assets"
         />
-        <article
-          v-else
-          class="Column"
-        >
-          <h3>{{ parseAssetName(asset) }}</h3>
-          <p>{{ t('asset.delete.confirm') }}</p>
-          <cyan-toolbar>
-            <cyan-spacer />
-            <cyan-button
-              secondary
-              noun="trashcan"
-              :label="t('action.delete')"
-              @click="confirmDelete"
-            />
-            <cyan-spacer />
-          </cyan-toolbar>
-        </article>
+        <template v-else>
+          <AssetPreviewColumn /> 
+          <article
+            class="Column"
+          >
+            <h3 class="nowrap">
+              {{ parseAssetName(asset) }}
+            </h3>
+            <p>{{ t('asset.delete.description') }}</p>
+            <cyan-toolbar>
+              <cyan-spacer />
+              <cyan-button
+                secondary
+                noun="trashcan"
+                :label="t('action.delete')"
+                @click="confirmDelete"
+              />
+              <cyan-spacer />
+            </cyan-toolbar>
+          </article>
+        </template>
       </WithPermission>
     </WithLoader>
   </main>
 </template>
+
+<style scoped>
+.nowrap {
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

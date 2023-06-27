@@ -9,15 +9,11 @@ const router = useRouter()
 </script>
 
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     modal
-    back
+    :title="parseAssetName(asset)"
     @back="router.back()"
   >
-    <h4 class="downscaled">
-      {{ parseAssetName(asset) }}
-    </h4>
-    <cyan-spacer />
     <CopyAssetMarkdownButton />
     <cyan-button
       v-if="canEdit"
@@ -25,5 +21,5 @@ const router = useRouter()
       text
       @click="router.push('/assets/' + asset.key + '/delete')"
     />
-  </cyan-top-app-bar>
+  </cn-app-bar>
 </template>

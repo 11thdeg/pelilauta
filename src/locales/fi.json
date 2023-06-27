@@ -79,6 +79,9 @@
       "testingTools": {
         "title": "Testityökalut",
         "info": "Testityökalut"
+      },
+      "sandbox": {
+        "title": "Hiekkalaatikko"
       }
     },
     "app": {
@@ -104,6 +107,11 @@
         "title": "Metatiedot"
       }
     },
+    "asset": {
+      "delete": {
+        "description": "Tiedoston poistaminen poistaa sen kaikista sivustoista, joissa se on käytössä. Tiedostoa ei voi palauttaa poiston jälkeen."
+      }
+    },
     "characters": {
       "title": "Hahmot"
     },
@@ -120,6 +128,7 @@
     },
     "library": {
       "title": "Kirjasto",
+      "description":"Pelilaudalle lisäämäsi sisältö löytyy täältä.",
       "games": {
         "title": "Pelit",
         "owns": "Omat pelini ja sivustoni"

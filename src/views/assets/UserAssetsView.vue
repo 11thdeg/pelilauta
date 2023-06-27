@@ -17,11 +17,7 @@ onMounted(() => {
     
 </script>
 <template>
-  <cyan-top-app-bar>
-    <h2>
-      {{ $t('assets.title') }}
-    </h2>
-  </cyan-top-app-bar>
+  <cn-app-bar :title="$t('assets.title')" />
   <WithLoader
     large
     :suspended="!active"
