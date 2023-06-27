@@ -13,12 +13,15 @@ import CopyPageMarkdownLinkButton from '../../components/CopyPageMarkdownLinkBut
 import DownloadAsMarkdownButton from '../../components/DownloadAsMarkdownButton/DownloadAsMarkdownButton.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import ShareButton from '../../components/ShareButton/ShareButton.vue'
+import { computed } from 'vue'
+import { useScreenSize } from '../../composables/useScreenSize'
 
 const props = defineProps<{
   sitekey: string
   pagekey: string
 }>()
 
+const { isSmall } = useScreenSize()
 const { site } = useSite()
 const { page, loading } = usePage()
 const title = useTitle()
@@ -40,16 +43,31 @@ watch(page, () => {
   }
 })
 
+const noun = computed(() => {
+  if (!isSmall.value) {
+    return undefined
+  }
+  if (site.value?.systemBadge) {
+    return site.value.systemBadge
+  }
+  return 'pelilauta'
+})
+
+const pageTitle = computed(() => {
+  if (page.value) {
+    return page.value.name
+  }
+  return '...'
+})
+
 </script>
 
 <template>
-  <cyan-top-app-bar sticky>
-    <cyan-icon
-      class="noun onlyOnMobile"
-      noun="pelilauta"
-    />
-    <h3>{{ page?.name || '...' }}</h3>
-    <cyan-spacer />
+  <cn-app-bar 
+    :noun="noun"
+    :title="pageTitle"
+    sticky
+  >
     <CopyPageMarkdownLinkButton
       v-if="page"
       :page="page"
@@ -59,7 +77,7 @@ watch(page, () => {
       :content-entry="page"
     />
     <ShareButton />
-  </cyan-top-app-bar>
+  </cn-app-bar>
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <PageArticle

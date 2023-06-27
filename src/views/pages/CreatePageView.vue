@@ -17,13 +17,11 @@ const { canEdit, loading, site } = useSite(props.sitekey)
 </script>
 
 <template>
-  <cyan-top-app-bar 
-    sticky
+  <cn-app-bar 
     modal
+    :title="$t('page.create.title')"
     @back="() => router.back()"
-  >
-    <h3>{{ $t('page.create.title') }}</h3>
-  </cyan-top-app-bar>
+  />
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">

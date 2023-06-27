@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import * as Diff from 'diff'
 import { watch, ref, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 import FlowTimeCaption from '../../components/content/FlowTimeCaption.vue'
 import ProfileLink from '../../components/profileLink/ProfileLink.vue'
 import { usePage } from '../../composables/usePage'
@@ -23,7 +22,6 @@ watch(props, () => {
   immediate: true 
 })
 
-const { t } = useI18n()
 const router = useRouter()
 // Composables for site and page data, thise are initiated in the watch above
 const { site } = useSite()
@@ -49,13 +47,12 @@ const diff = computed(() => {
 </script>
 
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     id="TopBar"
     modal
+    :title="$t('page.revisions.title')"
     @back="() => router.back()"
-  >
-    <h3>{{ t('page.revisions.title') }}</h3>
-  </cyan-top-app-bar>
+  />
   <main class="bookLayout">
     <article
       v-if="site && page"

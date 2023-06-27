@@ -35,13 +35,11 @@ const { canEdit } = useSite()
 
 <template>
   <div class="EditPageView">
-    <cyan-top-app-bar 
-      sticky
+    <cn-app-bar 
+      :title="$t('pages.edit.title')"
       modal
       @back="() => router.back()"
     >
-      <h3>{{ $t('pages.edit.title') }}</h3>
-      <cyan-spacer />
       <template v-if="canEdit">
         <cyan-menu>
           <cyan-menu-item
@@ -58,7 +56,7 @@ const { canEdit } = useSite()
           </cyan-menu-item>
         </cyan-menu>
       </template>
-    </cyan-top-app-bar>
+    </cn-app-bar>
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <WithPermission :forbidden="!canEdit">
