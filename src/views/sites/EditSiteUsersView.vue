@@ -10,6 +10,7 @@ import SiteTray from '../../components/sites/tray/SiteTray.vue'
 
 import { loadSite, useSite } from '../../composables/useSite'
 import { useTitle } from '../../composables/useTitle'
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   sitekey: string
@@ -17,6 +18,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const { title } = useTitle()
+const router = useRouter()
 
 const { loading, canEdit } = useSite()
 
@@ -31,10 +33,12 @@ onMounted(() => {
 <template>
   <div id="EditSiteUsersView">
     <WithLoader :suspended="loading">
-      <cyan-top-app-bar modal>
-        <cyan-icon noun="adventurer" />
-        <h3>{{ t('site.tools.users') }}</h3>
-      </cyan-top-app-bar>
+      <cn-app-bar 
+        noun="adventurer"
+        :title="$t('site.tools.users')"
+        modal
+        @back="router.push('/sites/' + sitekey)"
+      />
       <main class="dashboardLayout">
         <LoginRequiredColumn v-if="!canEdit" />
         <template v-else>

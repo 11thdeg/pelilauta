@@ -33,18 +33,12 @@ onMounted(async () => {
 
 <template>
   <div id="EditSiteView">
-    <cyan-top-app-bar
-      id="TopBar"
+    <cn-app-bar 
+      noun="adventurer"
+      :title="t('site.settings.title')"
       modal
-      back
-      @back="router.back()"
-    >
-      <h3>
-        {{ t('site.settings.title') }} <span class="hideOnMobile">- {{ site.name }}</span>
-      </h3>
-      <cyan-spacer />
-      <cyan-icon noun="kebab" />
-    </cyan-top-app-bar>
+      @back="router.push('/sites/' + sitekey)"
+    />
     <main class="dashboardLayout">
       <LoginRequiredColumn v-if="anonymous || !site.hasOwner(uid)" />
       <template v-else>

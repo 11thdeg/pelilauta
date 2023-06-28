@@ -10,6 +10,7 @@ import WithPermission from '../../components/ui/WithPermission.vue'
 import { useSession } from '../../composables/useSession'
 import { useSite } from '../../composables/useSite'
 import { useSnack } from '../../composables/useSnack'
+import { useScreenSize } from '../../composables/useScreenSize'
 
 const props = defineProps<{
   sitekey: string;
@@ -19,6 +20,7 @@ const { t } = useI18n()
 const { site, loading } = useSite(props.sitekey)
 const { uid } = useSession()
 const { pushSnack } = useSnack()
+const { isSmall } = useScreenSize()
 const router = useRouter()
 
 const verified = ref(false)
@@ -40,19 +42,20 @@ async function deleteSite() {
   pushSnack('snacks.page.deleted')
   router.push('/sites/')
 }
+
+const title = computed(() => {
+  if (isSmall.value) return t('site.tools.meta.delete')
+  return t('site.tools.meta.delete') + ' - ' + site.value?.name
+})
 </script>
 
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     id="TopBar"
     modal
-    back
+    :title="title"
     @back="router.back()"
-  >
-    <h3>
-      {{ t('site.tools.meta.delete') }} <span class="hideOnMobile">- {{ site?.name }}</span>
-    </h3>
-  </cyan-top-app-bar>
+  />
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">

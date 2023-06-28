@@ -17,11 +17,11 @@ onMounted(() => {
 </script>
 <template>
   <div class="SitesHomeView">
-    <cyan-top-app-bar
-      id="TopBar" 
-    >
-      <h3>{{ $t('sites.title') }}</h3>
-    </cyan-top-app-bar>
+    <cn-app-bar
+      id="TopBar"
+      noun="mekanismi"
+      :title="$t('sites.title')"
+    />
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <SiteList />

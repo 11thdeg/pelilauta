@@ -37,17 +37,19 @@ onMounted(() => {
 
 <template>
   <div id="SiteView">
-    <cyan-top-app-bar
+    <cn-app-bar
       id="TopBar"
+      :title="site?.name || '...'"
+      sticky
+      :noun="site?.systemBadge || 'mekanismi'"
     >
-      <h3>{{ site?.name || '...' }}</h3>
-      <cyan-spacer />
       <LoveASiteButton
         v-if="site"
         :site="site"
       />
       <ShareButton />
-    </cyan-top-app-bar>
+    </cn-app-bar>
+
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <article

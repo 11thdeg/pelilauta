@@ -39,13 +39,12 @@ async function deletePage () {
 }
 </script>
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     id="TopBar"
+    :title="$t('page.deleteConfirm.title') +' '+ page?.name || ''"
     modal
     @back="() => router.back()"
-  >
-    <h3>{{ t('page.deleteConfirm.title') }} {{ page?.name }}</h3>
-  </cyan-top-app-bar>
+  />
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">
