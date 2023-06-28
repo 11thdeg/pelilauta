@@ -7,6 +7,7 @@ import SiteMetaDataColumn from '../components/SiteMetaDataColumn.vue'
 import WithLoader from '../components/ui/WithLoader.vue'
 import { useContentEntry } from '../composables/useContentEntry'
 import { fetchPage } from '../composables/usePages'
+import ShareButton from '../components/ShareButton/ShareButton.vue'
 
 const { t } = useI18n()
 const { title } = useTitle()
@@ -32,13 +33,12 @@ const content = computed(() => {
 <template>
   <div>
     <!-- For the App front page, we use the app-bar defaults! -->
-    <cyan-top-app-bar>
-      <cyan-icon
-        class="noun onlyOnMobile"
-        noun="pelilauta"
-      />
-      <h3>{{ pageTitle }}</h3>
-    </cyan-top-app-bar>
+    <cn-app-bar
+      noun="pelilauta"
+      :title="pageTitle"
+    >
+      <ShareButton />
+    </cn-app-bar>
     <main
       v-if="page.name"
       class="bookLayout"
