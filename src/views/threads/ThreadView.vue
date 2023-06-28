@@ -53,18 +53,18 @@ watch(() => thread.value, (tr) => {
 
 <template>
   <div class="ThreadView">
-    <cyan-top-app-bar
+    <cn-app-bar
       id="TopBar"
-      modal
+      sticky
+      :title="title"
       @back="() => router.back()"
     >
-      <h3>{{ title }}</h3>
       <ShareButton />
       <ThreadMenu
         v-if="thread"
         :thread="thread"
       />
-    </cyan-top-app-bar>
+    </cn-app-bar>
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <EmptyCollection

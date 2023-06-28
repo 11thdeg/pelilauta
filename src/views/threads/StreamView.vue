@@ -34,15 +34,12 @@ const { anonymous } = useSession()
 
 <template>
   <div id="StreamView">
-    <cyan-top-app-bar
+    <cn-app-bar
       :title="stream.name"
       :noun="stream.icon"
     >
-      <cyan-icon :noun="stream.icon" />
-      <h3>{{ stream.name }}</h3>
-      <cyan-spacer />
       <MarkAllSeenButton />
-    </cyan-top-app-bar>
+    </cn-app-bar>
     <main class="bookLayout">
       <ThreadStreamColumn
         :topic="streamkey"

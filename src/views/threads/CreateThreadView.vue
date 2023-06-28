@@ -30,13 +30,12 @@ const forbidden = computed(() => anonymous.value || frozen.value)
 </script>
 
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     id="TopBar"
     modal
+    :title="t('thread.create.title')"
     @back="() => router.back()"
-  >
-    <h3>{{ t('thread.create.title') }}</h3>
-  </cyan-top-app-bar>
+  />
 
   <main
     id="CreateThreadView"

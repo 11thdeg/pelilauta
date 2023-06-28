@@ -12,6 +12,7 @@
       },
       "cancel": "Peruuta",
       "chooseAvatar": "Vaihda kuvake",
+      "confirmDelete": "Vahvista poisto",
       "continue": "Jatka",
       "copy": {
         "markdown": "Markdown"
@@ -281,6 +282,9 @@
     "thread": {
       "create": {
         "title": "Luo uusi ketju"
+      },
+      "delete": {
+        "warning": "Ketjun poistaminen poistaa myös kaikki ketjuun lähetetyt vastaukset. Toimintoa ei voi perua."
       }
     },
     "threads": {

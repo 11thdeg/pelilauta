@@ -30,15 +30,14 @@ onMounted(async () => {
 
 </script>
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     id="TopBar"
     modal
+    :title="t('thread.edit.title') + ' ' + thread?.title"
     @back="() => router.back()"
   >
-    <h3>{{ t('thread.edit.title') }} {{ thread?.title }}</h3>
-    <cyan-spacer />
     <StickyToggle />
-  </cyan-top-app-bar>
+  </cn-app-bar>
   <main class="bookLayout">
     <WithLoader :suspended="loading">
       <ThreadEditorColumn

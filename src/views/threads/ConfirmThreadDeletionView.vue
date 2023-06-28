@@ -41,13 +41,12 @@ async function deleteThread () {
 
 <template>
   <div class="ConfirmThreadDeletionView">
-    <cyan-top-app-bar
+    <cn-app-bar
       id="TopBar"
       modal
+      :title="t('action.delete') + ' ' + thread?.title"
       @back="() => router.back()"
-    >
-      <h3>{{ t('action.delete') }} {{ thread?.title }}</h3>
-    </cyan-top-app-bar>
+    />
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <EmptyCollection
