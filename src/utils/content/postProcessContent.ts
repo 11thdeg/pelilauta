@@ -32,7 +32,7 @@ export function postProcessContent(content: string | HTMLElement) {
     if (hashtags) {
       hashtags.forEach(hashtag => {
         const link = document.createElement('a')
-        link.href = `/tag/${hashtag.slice(1)}`
+        link.href = `/tags/${hashtag.slice(1)}`
         link.textContent = hashtag
         link.classList.add('highlight', 'hoverable', 'clickable')
         element.innerHTML = element.innerHTML.replace(hashtag, link.outerHTML)

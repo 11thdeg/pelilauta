@@ -40,14 +40,12 @@ onMounted(() => {
 
 <template>
   <div id="TagView">
-    <cyan-top-app-bar
+    <cn-app-bar
       id="TopBar"
       modal
-      back
+      :title="$t('tag.title') + ' ' + tagkey"
       @back="router.back()"
-    >
-      <h2>{{ $t('tag.title') }} {{ tagkey }}</h2>
-    </cyan-top-app-bar>
+    />
     <main class="bookLayout">
       <WithLoader :suspended="!active">
         <WithPermission :forbidden="anonymous">
