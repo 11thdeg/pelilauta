@@ -6,6 +6,7 @@ import AdminTray from '../../components/admin/AdminTray.vue'
 import SiteLicensesTool from '../../components/SiteLicensesTool/SiteLicensesTool.vue'
 import { useTitle } from '../../composables/useTitle'
 import { onMounted } from 'vue'
+import ForbiddenView from '../../components/ui/ForbiddenView.vue'
 
 const { admin } = useSession()
 const { title } = useTitle()
@@ -32,18 +33,6 @@ onMounted(() => {
     <AdminTray />
   </div>
   <div v-else>
-    <cyan-top-app-bar
-      id="TopBar"
-    >
-      <cyan-icon noun="adventurer" />
-      <h3>500</h3>
-    </cyan-top-app-bar>
-    <main class="SiteSettings singleColumnLayoyt">
-      <cyan-icon
-        noun="fox"
-        xlarge
-        style="display: block; margin: 0 auto;"
-      />
-    </main>
+    <ForbiddenView />
   </div>
 </template>

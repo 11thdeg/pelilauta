@@ -21,13 +21,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <cyan-top-app-bar
+  <cn-app-bar
     sticky
     modal
+    :title="$t('settings.title')"
     @back="router.back()"
-  >
-    <h3>{{ $t('settings.title') }}</h3>
-  </cyan-top-app-bar>
+  />
   <main
     :class="
       { 
