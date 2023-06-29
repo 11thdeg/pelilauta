@@ -29,13 +29,11 @@ function back() {
 </script>
 
 <template>
-  <cyan-top-app-bar
-    sticky
-    modal
-    @back="back()"
-  >
-    <h3>{{ $t('login.title') }}</h3>
-  </cyan-top-app-bar>
+  <cn-app-bar
+    :title="$t('login.title')"
+    :modal="backroute ? true : undefined"
+    @back="back"
+  />
   <main
     id="LoginView"
     class="bookLayout"

@@ -7,6 +7,8 @@ import { onMounted } from 'vue'
 import { useTitle } from '../composables/useTitle'
 import { useNotifications } from '../composables/useSession/useNotifications'
 import { useRouter } from 'vue-router'
+import { computed } from 'vue'
+import { watch } from 'vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -14,20 +16,24 @@ const { anonymous } = useSession()
 const { newCount, hasNew } = useNotifications()
 
 onMounted(() => {
-  useTitle().title.value = t('inbox.title')
+  watch(hasNew, () => {
+    useTitle().title.value = pageTitle.value
+  }, { immediate: true })
+})
+
+const pageTitle = computed(() => {
+  return t('inbox.title') + (hasNew.value ? ` (${newCount.value})` : '')
 })
 </script>
 
 <template>
   <div id="InboxView">
-    <cyan-top-app-bar
+    <cn-app-bar
       id="TopBar"
-      modal
-      back
+      sticky
+      :title="pageTitle"
       @back="router.back()"
-    >
-      <h3>{{ $t('inbox.title') }} {{ hasNew ? `(${newCount})` : '' }}</h3>
-    </cyan-top-app-bar>
+    />
     <main class="singleColumnLayout">
       <WithPermission :forbidden="anonymous">
         <NotificationsList />

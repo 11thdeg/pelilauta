@@ -5,14 +5,11 @@ import { fetchProfile } from '../composables/useProfiles'
 import PublicProfileColumn from '../components/profiles/PublicProfileColumn.vue'
 import ProfilePostsColumn from '../components/profiles/ProfilePostsColumn.vue'
 import { useTitle } from '../composables/useTitle'
-import { useRouter } from 'vue-router'
 import ShareButton from '../components/ShareButton/ShareButton.vue'
 
 const props = defineProps<{
   uid: string
 }>()
-
-const router = useRouter()
 
 const profile:Ref<Profile|undefined> = ref(undefined)
 
@@ -25,17 +22,12 @@ onMounted(async () => {
 
 <template>
   <div id="ProfileView">
-    <cyan-top-app-bar
+    <cn-app-bar
       sticky
-      modal
-      @back="router.back()"
+      :title="profile?.nick || '...'"
     >
-      <h3>
-        {{ profile?.nick || '...' }}
-      </h3>
-      <cyan-spacer />
       <ShareButton />
-    </cyan-top-app-bar>
+    </cn-app-bar>
     <main class="bookLayout">
       <cyan-loader
         v-if="!profile"
