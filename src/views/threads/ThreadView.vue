@@ -57,6 +57,7 @@ watch(() => thread.value, (tr) => {
       id="TopBar"
       sticky
       :title="title"
+      elevation="1"
       @back="() => router.back()"
     >
       <ShareButton />
