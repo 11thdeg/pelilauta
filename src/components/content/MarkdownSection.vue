@@ -6,7 +6,6 @@ const props = defineProps<{
     }>()
 marked.setOptions({
   gfm: true,
-  smartLists: true,
   smartypants: true
 })
 const rendered = computed(() => {

@@ -18,6 +18,7 @@ const props = defineProps<{
   large?: boolean
 }>()
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { threads, loading, loadMore, flush, reInit, atEnd } = useThreads({ topic: props.topic, pageSize: 7 })
 
 watch(props, () => {

@@ -15,6 +15,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { asset, loading, canEdit, notFound } = useAsset(props.assetkey)
 const { removeAsset } = useAssets()
 const router = useRouter()

@@ -22,6 +22,7 @@ const props = defineProps<{
 }>()
 const { t } = useI18n()
 const router = useRouter()
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { thread, loading, notFound } = useThread(props.threadkey)
 const { anonymous } = useSession()
 const { subscribeTo, subscriber, setSeen } = useSubscriber()

@@ -26,7 +26,7 @@ const props = defineProps<{
 }>()
 
 const { anonymous, uid } = useSession()
-
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { content } = useContentEntry(props.thread)
 </script>
 

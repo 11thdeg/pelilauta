@@ -13,6 +13,7 @@ const props = defineProps<{
 
 const router = useRouter()
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { canEdit, loading, site } = useSite(props.sitekey)
 </script>
 

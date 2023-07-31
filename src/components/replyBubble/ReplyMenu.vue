@@ -13,6 +13,8 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { fromMe } = useFromMe(props.reply)
 const { admin } = useSession()
 

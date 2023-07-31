@@ -18,6 +18,7 @@ const props = defineProps<{
   threadkey: string
 }>()
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { thread, notFound, loading } = useThread(props.threadkey)
 const router = useRouter()
 const { pushSnack } = useSnack()

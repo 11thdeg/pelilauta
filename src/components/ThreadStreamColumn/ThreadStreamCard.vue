@@ -57,6 +57,7 @@ const cover = computed(() => {
   return undefined
 })
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { snippet } = useContentEntry(props.thread)
 
 const { streams } = useMeta()

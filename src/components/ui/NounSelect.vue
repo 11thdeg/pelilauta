@@ -13,6 +13,7 @@ const emit = defineEmits<{
 
 
 const nouns = Object.keys((nounsFile as Record<string, string>)).map(key => ({ value:key, label: key }))
+// eslint-disable-next-line vue/no-setup-props-destructure
 const icon = ref(props.modelValue || '')
 
 function updateIcon(value: string) {

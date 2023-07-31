@@ -17,6 +17,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { site, loading } = useSite(props.sitekey)
 const { uid } = useSession()
 const { pushSnack } = useSnack()

@@ -19,6 +19,7 @@ const { t } = useI18n()
 const { pushSnack } = useSnack()
 const router = useRouter()
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { loading, canEdit, page } = usePage(props.pagekey, props.sitekey)
 
 const verified = ref(false)

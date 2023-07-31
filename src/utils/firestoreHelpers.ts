@@ -44,6 +44,7 @@ export async function addStorable(e: Storable) {
 export async function updateStorable(s: Storable|string[], docdata?: DocumentData) {
   const path = Array.isArray(s) ? s : s.getFirestorePath()
   const data = Array.isArray(s) ? docdata : s.docData
+  if (typeof data === 'undefined') throw new Error('No data provided to updateStorable')
   await updateDoc(
     doc(
       getFirestore(),

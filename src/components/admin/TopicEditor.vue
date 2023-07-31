@@ -21,6 +21,7 @@ const emit = defineEmits<{
 const nouns = nounsFile as Record<string, string>
 const dialog = ref<CyanDialog>()
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const item:Ref<StreamData|undefined> = ref(props.topic)
 
 const { t } = useI18n()

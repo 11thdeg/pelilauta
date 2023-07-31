@@ -57,9 +57,11 @@ watch(props, (p) => {
   }
 })
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { computed: title, dirty: titleChanged } = useFormField(props.thread.title)
 const titleValid = computed(() => titleChanged.value ? title.value.toString().length > -1 && title.value.toString().length < 72 : true)
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { computed: youtubeId, dirty: youtubeIdChanged } = useFormField(props.thread.youtubeId || '')
 const showVideoLink = ref(false)
 
@@ -72,7 +74,7 @@ function parseYoutubeId(input: string){
     return parsed[0]
   }
 }
-
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { computed: images, dirty: imagesChanged } = useFormField(props.thread.images || [])
 // showImagePane = computed(() => (images.value as string[]).length > 0)
 
@@ -90,12 +92,12 @@ async function insertAsset(key: string) {
     pushImage(asset.url)
   }
 }
-
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { computed: content, dirty: contentChanged } = useFormField(props.thread.markdownContent || '')
 const contentValid = computed(() => contentChanged.value ? content.value.toString().length > -1  && content.value.toString().length < 100000: true)
-
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { computed: topic, dirty: topicChanged } = useFormField(props.thread.topicid || 'Yleinen')
-
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { computed: site, dirty: siteChanged } = useStringField(props.thread.siteid || '')
 
 const enableSave = computed(() => {

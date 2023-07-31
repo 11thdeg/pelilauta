@@ -26,7 +26,7 @@ const orderByNameNoun = computed(() => {
   return undefined
 })
 
-function orderBy (field:string) {
+function updateOrderBy (field:string) {
   if (props.orderBy === field) emit('update:orderBy', '-'+field)
   else emit('update:orderBy', field)
 }
@@ -46,13 +46,13 @@ function orderBy (field:string) {
         text
         :label="t('orderBy.flowtime')"
         :noun="orderByFlowtimeNoun" 
-        @click="orderBy('flowtime')"
+        @click="updateOrderBy('flowtime')"
       />
       <cyan-button
         text
         :label="t('orderBy.title')"
         :noun="orderByNameNoun"
-        @click="orderBy('name')"
+        @click="updateOrderBy('name')"
       />
     </cyan-toolbar>
   </section>

@@ -12,7 +12,10 @@ const props = defineProps<{
 }>()
 
 const router = useRouter()
+
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { canEdit } = useSite(props.sitekey)
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { loading } = usePage(props.pagekey, props.sitekey)
 
 </script>

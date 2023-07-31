@@ -34,6 +34,7 @@ const emit = defineEmits<{
 
 const { pushSnack } = useSnack()
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { fromMe } = useFromMe(props.reply)
 const editorActive = ref(false)
 
@@ -49,7 +50,7 @@ async function trash () {
   pushSnack('snacks.reply.deleted')
   editorActive.value = false
 }
-
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { content } = useContentEntry(props.reply)
 </script>
 

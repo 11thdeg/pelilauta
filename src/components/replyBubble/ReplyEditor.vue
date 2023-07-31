@@ -24,7 +24,10 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const { pushSnack } = useSnack()
 
+
+// eslint-disable-next-line vue/no-setup-props-destructure
 const content = useFormField(props.reply.markdownContent)
+// eslint-disable-next-line vue/no-setup-props-destructure
 const quoteRef = useFormField(props.reply.quoteRef || '')
 
 async function save () {

@@ -35,7 +35,7 @@ function onTagClick (id:string) {
   emit('update:modelValue', arr)
 }
 
-function orderBy(field: string) {
+function updateOrderBy(field: string) {
   logDebug('order by', field, props.orderBy)
   if (props.orderBy === field) emit('update:orderBy', '-'+field)
   else emit('update:orderBy', field)
@@ -56,13 +56,13 @@ function orderBy(field: string) {
         text
         :label="$t('orderBy.flowtime')"
         :noun="orderByFlowtimeNoun" 
-        @click="orderBy('flowtime')"
+        @click="updateOrderBy('flowtime')"
       />
       <cyan-button
         text
         :label="$t('orderBy.title')"
         :noun="orderByNameNoun"
-        @click="orderBy('name')"
+        @click="updateOrderBy('name')"
       />
     </cyan-toolbar>
     <transition

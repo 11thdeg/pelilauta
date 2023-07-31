@@ -9,6 +9,7 @@ const props = defineProps<{
   assetkey: string
 }>()
 
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { asset, loading } = useAsset(props.assetkey)
 
 </script>
