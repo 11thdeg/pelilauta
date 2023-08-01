@@ -22,7 +22,10 @@ const ffd = computed(() => props.fastForward)
 </script>
 
 <template>
-  <nav id="FabTray" v-if="!fieldFocused">
+  <nav
+    v-if="!fieldFocused"
+    id="FabTray"
+  >
     <slot />
     <ToBottomFab v-if="ffd" />
     <ToTopFab />
