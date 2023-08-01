@@ -9,7 +9,7 @@ const props = defineProps<{
  fastForward?: boolean
 }>()
 
-const { unmountFabTray, mountFabTray } = useUxState()
+const { unmountFabTray, mountFabTray, fieldFocused} = useUxState()
 
 onMounted(() => {
   mountFabTray()
@@ -22,7 +22,7 @@ const ffd = computed(() => props.fastForward)
 </script>
 
 <template>
-  <nav id="FabTray">
+  <nav id="FabTray" v-if="!fieldFocused">
     <slot />
     <ToBottomFab v-if="ffd" />
     <ToTopFab />
@@ -39,7 +39,7 @@ nav#FabTray
   flex-direction: column-reverse
   align-items: flex-end
   gap: 12px
-  z-index: var(--pelilauta-fabs-z-index)
+  z-index: 12000
 
 @media screen and (min-width: 600px)
   nav#FabTray

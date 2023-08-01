@@ -9,7 +9,6 @@ function toBottomAction () {
   <div class="toBottomFab">
     <cyan-fab
       noun="arrow-down"
-      small
       :label="$t('action.scroll.toBottom')"
       @click="toBottomAction"
     />

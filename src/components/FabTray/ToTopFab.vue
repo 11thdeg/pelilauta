@@ -41,7 +41,6 @@ function toTopAction () {
         v-if="toTopVisibleToggle"
         noun="arrow-up"
         secondary
-        small
         :label="t('action.scroll.toTop')"
         @click="toTopAction"
       />
