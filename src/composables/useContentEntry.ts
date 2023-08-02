@@ -1,4 +1,5 @@
 import { marked } from 'marked'
+import { gfmHeadingId } from 'marked-gfm-heading-id'
 import { computed } from 'vue'
 import { logDebug } from '../utils/logHelpers'
 import { toMekanismiURI } from '../utils/toMekanismiURI'
@@ -31,7 +32,7 @@ function renderWikiLinks (siteid:string, htmlContent:string): string {
 }
 
 export function useContentEntry (
-  entry: { htmlContent?: string, markdownContent?: string }, options?: { snippetLength?: number, default?: string }) {
+  entry: { htmlContent?: string, markdownContent?: string }, options?: { snippetLength?: number, default?: string, headingPrefix?: string }) {
   const { key } = useSite()
   const content = computed(() => {
     
@@ -43,6 +44,18 @@ export function useContentEntry (
     let c = ''
     // Newer entries have markdownContent, older ones have htmlContent
     if (entry.markdownContent) {
+
+      const prefix = (options?.headingPrefix || '').trim() + '-heading-'
+
+      marked.setOptions({
+        gfm: true,
+        smartypants: false,
+        mangle: false
+      })
+      marked.use(gfmHeadingId({
+        prefix
+      }))
+
       c = marked(entry.markdownContent)
     }
     else c = entry.htmlContent || ''

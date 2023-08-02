@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, watch } from 'vue'
+import { computed, toRefs, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ThreadDiscussion from '../../components/discussion/ThreadDiscussion.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
@@ -17,7 +17,7 @@ import SiteInfoArticle from '../../components/threads/SiteInfoArticle/SiteInfoAr
 import { useRouter } from 'vue-router'
 
 const props = defineProps<{
-  flowtime?: number
+  flowtime?: string
   threadkey: string
 }>()
 const { t } = useI18n()
@@ -49,6 +49,12 @@ watch(() => thread.value, (tr) => {
     if (subscriber.value) setSeen(tr.key)
   }
 }, { immediate: true })
+
+const { flowtime, threadkey } = toRefs(props)
+const flowTimeInt = computed(() => {
+  if (!flowtime?.value) return 0
+  return parseInt(flowtime.value)
+})
 
 </script>
 
@@ -84,7 +90,7 @@ watch(() => thread.value, (tr) => {
               :thread="thread"
             />
             <ThreadDiscussion
-              :flowtime="flowtime"
+              :flowtime="flowTimeInt"
               :threadkey="threadkey"
             />
           </div>

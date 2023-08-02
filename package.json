@@ -1,7 +1,7 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "14.11.8",
+  "version": "14.11.9",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -26,6 +26,7 @@
     "lodash": "^4.17.21",
     "luxon": "3.3.0",
     "marked": "5.1.2",
+    "marked-gfm-heading-id": "^3.0.4",
     "vue": "3.3.4",
     "vue-i18n": "^9.2.2",
     "vue-router": "4.2.4",

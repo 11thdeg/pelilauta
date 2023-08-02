@@ -36,9 +36,9 @@ function loadLocalThreads() {
   if (localThreadData) {
     const threadObjects = JSON.parse(localThreadData)
     threadObjects.forEach((threadObject:DocumentData) => {
-      logDebug('Loaded thread from local storage', threadObject)
+      // logDebug('Loaded thread from local storage', threadObject)
       const thread = Thread.fromJSON(threadObject)
-      logDebug('Loaded thread from local storage', thread)
+      // logDebug('Loaded thread from local storage', thread)
       threads.value.set(thread.key, thread)
     })
     loading.value = false
