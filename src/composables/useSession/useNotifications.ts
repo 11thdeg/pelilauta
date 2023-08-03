@@ -2,7 +2,6 @@ import { Notification } from '@11thdeg/skaldstore'
 import { collection, getDocs, getFirestore, limit, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import { computed, ref } from 'vue'
 import { addStore } from '.'
-import { logDebug, logEvent } from '../../utils/logHelpers'
 
 let _unsubscribeNotifications:CallableFunction|undefined
 const _notificationsCache = ref(new Map<string, Notification>())

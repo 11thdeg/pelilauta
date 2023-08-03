@@ -4,7 +4,7 @@ import { doc, getFirestore, onSnapshot, serverTimestamp, updateDoc } from 'fireb
 import { ref, computed } from 'vue'
 import { logDebug, logError } from '../../utils/logHelpers'
 import { useMeta } from '../useMeta'
-import { useSubscriber } from './useSubscriber'
+import { initSubscriber } from '../useSubscriber'
 import { subscribeNotifications } from './useNotifications'
 import { useProfile } from './useProfile'
 import { setConsent } from '@firebase/analytics'
@@ -101,7 +101,7 @@ export function login(user: User|null) {
   
     subscribeToAccount()
     subscribeToProfile()
-    useSubscriber()
+    initSubscriber(uid.value)
     subscribeNotifications(uid.value)
     useProfile()
     

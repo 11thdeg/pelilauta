@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { useSession } from '../../composables/useSession'
-import { useSubscriber } from '../../composables/useSession/useSubscriber'
+import { useSubscriber } from '../../composables/useSubscriber'
 
 const props = defineProps<{
   entry: {
@@ -21,11 +22,16 @@ function toggleSubscription(value: boolean) {
     mute(props.entry.key)
   }
 }
+
+const active = computed(() => {
+  if (!props.entry.key) return false
+  return watches(props.entry.key)
+})
 </script>
 <template>
   <cyan-watch-button
     v-if="!anonymous"
-    :on="watches(entry.key)"
+    :on="active"
     :count="props.entry.followerCount"
     @loves="toggleSubscription($event.detail.active)"
   />

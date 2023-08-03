@@ -9,7 +9,7 @@ import { useSession } from '../../composables/useSession'
 import { marked } from 'marked'
 import ImageListSection from '../content/ImageListSection.vue'
 import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
-import { useSubscriber } from '../../composables/useSession/useSubscriber'
+import { useSubscriber } from '../../composables/useSubscriber'
 import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
 import { useAssets } from '../../composables/useAssets'
 

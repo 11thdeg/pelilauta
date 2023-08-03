@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useContentEntry } from '../../composables/useContentEntry'
 import { useMeta } from '../../composables/useMeta'
-import { useSubscriber } from '../../composables/useSession/useSubscriber'
+import { useSubscriber } from '../../composables/useSubscriber'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import LoveAThreadButton from '../threads/LoveAThreadButton.vue'
@@ -33,7 +33,7 @@ const topicid = computed(() => {
   return props.thread.topicid || 'yleinen'
 })
 
-const { subscriber } = useSubscriber()
+const { subscriber, loading: subscriberLoading } = useSubscriber()
 
 const newEntry = computed(() => {
   if (!props.thread.key) return false
@@ -44,6 +44,7 @@ const newEntry = computed(() => {
 const notify = computed(() => {
   if (!props.thread.key) return false
   if (!subscriber.value) return false
+  if (subscriberLoading.value) return false
   return subscriber.value.shouldNotify(props.thread.key,props.thread.flowTime)
 })
 

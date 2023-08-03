@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useScreenSize } from '../../composables/useScreenSize'
-import { useSubscriber } from '../../composables/useSession/useSubscriber'
+import { useSubscriber } from '../../composables/useSubscriber'
 
 const props = defineProps<{
   thread: {

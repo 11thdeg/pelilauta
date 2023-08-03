@@ -1,7 +1,6 @@
 import { Asset } from '@11thdeg/skaldstore'
 import { collection, getFirestore, onSnapshot, query, where } from 'firebase/firestore'
 import { computed, ref, Ref, watch } from 'vue'
-import { logEvent } from '../../utils/logHelpers'
 import { addStore, useSession } from '.'
 
 const assetCache: Ref<Map<string, Asset>> = ref(new Map())
