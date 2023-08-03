@@ -123,7 +123,7 @@ export async function fetchThread (key:string) {
   if (threadCache.value.has(key)) {
     return threadCache.value.get(key)
   }
-  logDebug('fetchThread', key, 'not in cache')
+  // logDebug('fetchThread', key, 'not in cache')
   const document = await getDoc(
     doc(getFirestore(), Thread.collectionName, key)
   )
@@ -132,7 +132,7 @@ export async function fetchThread (key:string) {
     threadCache.value.set(key, thread)
     return thread
   }
-  logDebug('fetchThread', key, 'not found')
+  // logDebug('fetchThread', key, 'not found')
   return undefined
 }
 

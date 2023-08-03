@@ -1,7 +1,7 @@
 import { Thread } from '@11thdeg/skaldstore'
 import { computed, ref } from 'vue'
 import { getCachedThread } from '../utils/localStorage'
-import { logDebug } from '../utils/logHelpers'
+// import { logDebug } from '../utils/logHelpers'
 import { useSession } from './useSession'
 import { fetchThread } from './useThreads'
 
@@ -15,7 +15,7 @@ async function loadThread(threadkey: string) {
   // Try local storage, for stale data
   const stashed = getCachedThread(threadkey)
   if (stashed) {
-    logDebug('Loaded thread from local storage', stashed)
+    // logDebug('Loaded thread from local storage', stashed)
     thread.value = stashed
     loading.value = false
   }

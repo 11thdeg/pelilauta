@@ -25,7 +25,7 @@ async function init() {
   }, { immediate: true })
 }
 function subscribe(uid: string) {
-  logEvent('subscribeAssets', { uid: uid })
+  // logEvent('subscribeAssets', { uid: uid })
   addStore('assets', reset)
 
   // Get all assets for the current account, and store them in the cache

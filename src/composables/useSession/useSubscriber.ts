@@ -1,9 +1,10 @@
 import { Subscriber } from '@11thdeg/skaldstore'
-import { doc, FirestoreError, getFirestore, onSnapshot, setDoc } from 'firebase/firestore'
+import { doc, getFirestore, onSnapshot } from 'firebase/firestore'
 import { computed, ref, Ref, watch } from 'vue'
 import { addStore } from '.'
 import { logDebug, logEvent } from '../../utils/logHelpers'
 import { useSession } from '.'
+import { setStorable } from '../../utils/firestoreHelpers'
 
 const subscriber: Ref<Subscriber|undefined> = ref(undefined)
 
@@ -14,18 +15,8 @@ function reset () {
 
 async function save () {
   if (subscriber.value) {
-    const db = getFirestore()
-    const docRef = doc(db, Subscriber.FIRESTORE_COLLECTION_NAME, subscriber.value.key)
-    try {
-      await setDoc(docRef, subscriber.value.docData)
-    } catch (error) {
-      const firestoreError = error as FirestoreError
-      logEvent('error', {
-        error: firestoreError.code,
-        message: firestoreError.message,
-        source: 'useSubscriber.save'
-      })
-    }
+    logDebug('useSubscriber', 'save()', subscriber.value.key, subscriber.value.docData)
+    return setStorable(subscriber.value)
   }
 }
 

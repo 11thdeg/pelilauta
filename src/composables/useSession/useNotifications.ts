@@ -13,7 +13,7 @@ export async function subscribeNotifications (uid: string) {
   reset()
   if (!uid) return // Anonyous user, no need to subscribe
 
-  logEvent('subscribeNotifications', { uid: uid })
+  // logEvent('subscribeNotifications', { uid: uid })
 
   const q = query(
     collection(getFirestore(), Notification.collectionName),
@@ -27,7 +27,7 @@ export async function subscribeNotifications (uid: string) {
   _unsubscribeNotifications = onSnapshot(
     q,
     (snapshot) => {
-      logDebug('subscribeNotifications', 'onSnapshot', snapshot.docs.length)
+      // logDebug('subscribeNotifications', 'onSnapshot', snapshot.docs.length)
       snapshot.docChanges().forEach((change) => {
         if (change.type === 'removed') {
           _notificationsCache.value.delete(change.doc.id)

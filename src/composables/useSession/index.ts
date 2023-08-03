@@ -24,7 +24,7 @@ let unsubscribeAccount:undefined|CallableFunction
 let unsubscribeProfile:undefined|CallableFunction
 
 function reset () {
-  logDebug('useSession', 'reset()', active.value)
+  //logDebug('useSession', 'reset()', active.value)
 
   if (active.value) {
     // Setting uid to ==false will trigger the anonymous computed property
@@ -56,7 +56,7 @@ async function subscribeToAccount () {
   unsubscribeAccount = onSnapshot(
     doc(getFirestore(), 'account', uid.value),
     (snapshot) => {
-      logDebug('useSession', 'subscribeToAccount', snapshot.data())
+      // logDebug('useSession', 'subscribeToAccount', snapshot.data())
       if (snapshot.exists()) {
         account.value.docData = snapshot.data()
         if (account.value.lightMode === 'light') {
