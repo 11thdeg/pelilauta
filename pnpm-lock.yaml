@@ -1,8 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@11thdeg/cyan': 0.37.0-beta.5
-  '@11thdeg/skaldstore': 0.7.1-beta.2
+  '@11thdeg/cyan': 0.37.0-beta.6
+  '@11thdeg/skaldstore': 0.7.1-beta.3
   '@firebase/analytics': 0.10.0
   '@firebase/app': 0.9.15
   '@firebase/auth': 1.1.0
@@ -40,8 +40,8 @@ specifiers:
   workbox-window: 7.0.0
 
 dependencies:
-  '@11thdeg/cyan': 0.37.0-beta.5
-  '@11thdeg/skaldstore': 0.7.1-beta.2
+  '@11thdeg/cyan': 0.37.0-beta.6
+  '@11thdeg/skaldstore': 0.7.1-beta.3
   '@firebase/analytics': 0.10.0_@firebase+app@0.9.15
   '@firebase/app': 0.9.15
   '@firebase/auth': 1.1.0_@firebase+app@0.9.15
@@ -82,16 +82,16 @@ devDependencies:
 
 packages:
 
-  /@11thdeg/cyan/0.37.0-beta.5:
-    resolution: {integrity: sha512-Sqedv4h6qWl0++V41ofCj18NNkp9puWeD8XP/Z+XRszFmSfmZ0i6q7D9SlbB85NQ3TLfJAGrpxiyjP89733nlA==}
+  /@11thdeg/cyan/0.37.0-beta.6:
+    resolution: {integrity: sha512-ju9qn9PgAw60u+gA9MTAZ5WRb4psaJB6WkZq1m0Y6DwAu4aEArszmxrSNGEyJUiWTkKaFmZxuw1SJvVNP44SFQ==}
     dependencies:
       europa: 6.0.0
       lit: 2.5.0
       marked: 4.2.12
     dev: false
 
-  /@11thdeg/skaldstore/0.7.1-beta.2:
-    resolution: {integrity: sha512-nQrKny7n8te7aM6bJpct0pEZJxYrkGiP4qhPsZPR58CgqZgUcP2x+zsV497YAJWjADaMzy70XuJfL4jnyDxP1A==}
+  /@11thdeg/skaldstore/0.7.1-beta.3:
+    resolution: {integrity: sha512-0NdwXceX0FKwK3/HVvwWWU74EVBB5JRYapeqYFfmpDga3HQ3gb6slxmymPaYtBL7A4StCI3uLJO6RXIa8RLSbw==}
     dependencies:
       firebase: 9.22.0
     transitivePeerDependencies:
