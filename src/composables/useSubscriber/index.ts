@@ -2,8 +2,7 @@ import { Subscriber } from '@11thdeg/skaldstore'
 import { doc, getDoc, getFirestore, onSnapshot } from '@firebase/firestore'
 import { computed, ref } from 'vue'
 import { setStorable, updateStorable } from '../../utils/firestoreHelpers'
-import { logEvent } from '@firebase/analytics'
-import { logDebug } from '../../utils/logHelpers'
+import { logEvent } from '../../utils/logHelpers'
 
 /* STATE MANAGEMENT STARTS ******************/
 
@@ -27,7 +26,7 @@ async function createSubscriber(newUid: string): Promise<void> {
   const sub = new Subscriber(newUid)
   sub.allSeenAt = Date.now() * 1000
   await setStorable(sub)
-  logEvent(getFirestore(), 'create_subscriber', { uid: newUid })
+  logEvent('create_subscriber', { uid: newUid })
   return
 }
 
@@ -87,7 +86,7 @@ function watches(key: string|undefined) {
  */
 function shouldNotify(key: string, flowTime: number): boolean {
   if ( loading.value ) return false
-  logDebug('shouldNotify', key, flowTime, uid.value)
+  // logDebug('shouldNotify', key, flowTime, uid.value)
   if ( !subscriber.value || !uid.value ) return false
   return subscriber.value.isNew(key, flowTime) 
 }
