@@ -33,23 +33,12 @@ const topicid = computed(() => {
   return props.thread.topicid || 'yleinen'
 })
 
-const { subscriber, loading: subscriberLoading } = useSubscriber()
+const { shouldNotify } = useSubscriber()
 
-const newEntry = computed(() => {
-  if (!props.thread.key) return false
-  if (!subscriber.value) return false
-  return subscriber.value.isNew(props.thread.key,props.thread.flowTime)
-})
-
-const notify = computed(() => {
-  if (!props.thread.key) return false
-  if (!subscriber.value) return false
-  if (subscriberLoading.value) return false
-  return subscriber.value.shouldNotify(props.thread.key,props.thread.flowTime)
-})
+const notify = computed(() => shouldNotify(props.thread.key || '',props.thread.flowTime || 0))
 
 const level = computed(() => {
-  return notify.value || newEntry.value === true ? 2 : 1
+  return notify.value === true ? 2 : 1
 })
 
 const cover = computed(() => {
@@ -77,7 +66,7 @@ const noun = computed(() => {
     class="ThreadStreamCard"
     :elevation="level"
     :class="{
-      'notify': notify || newEntry,
+      'notify': notify,
     }"
     :title="thread.title"
     :cover="cover"

@@ -3,6 +3,7 @@ import { doc, getDoc, getFirestore, onSnapshot } from '@firebase/firestore'
 import { computed, ref } from 'vue'
 import { setStorable, updateStorable } from '../../utils/firestoreHelpers'
 import { logEvent } from '@firebase/analytics'
+import { logDebug } from '../../utils/logHelpers'
 
 /* STATE MANAGEMENT STARTS ******************/
 
@@ -77,6 +78,20 @@ function watches(key: string|undefined) {
   return subscriber.value.watches(key) > 0
 }
 
+/**
+ * returns true if the user should be notified about the storable with the given key.
+ * 
+ * @param key {string} The key of the storable to check
+ * @param flowTime {number} The flowTime of the storable to check
+ * @returns {boolean} true if the user should be notified about the storable with the given key.
+ */
+function shouldNotify(key: string, flowTime: number): boolean {
+  if ( loading.value ) return false
+  logDebug('shouldNotify', key, flowTime, uid.value)
+  if ( !subscriber.value || !uid.value ) return false
+  return subscriber.value.isNew(key, flowTime) 
+}
+
 function mute(key: string) {
   if (!subscriber.value) throw new Error('Subscriber not initialized')
   subscriber.value.addMute(key)
@@ -103,6 +118,11 @@ function markAllSeen() {
 
 /* COMPOSABLE STARTS ******************/
 
+const loading = computed(() => {
+  if (!uid.value || uid.value === '-') return false
+  return !initialized.value
+})
+
 /**
  * A composable function that returns a subscriber object for the current user.
  */
@@ -110,11 +130,12 @@ export function useSubscriber() {
   return {
     uid: computed(() => uid.value),
     subscriber: computed(() => subscriber.value),
-    loading: computed(() => !initialized.value),
+    loading,
     watches,
     mute,
     subscribeTo,
     setSeen,
-    markAllSeen
+    markAllSeen,
+    shouldNotify
   }
 }
