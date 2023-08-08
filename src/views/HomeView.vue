@@ -11,6 +11,7 @@ import ThreadStreamColumn from '../components/ThreadStreamColumn/ThreadStreamCol
 import MyrrysCard from '../components/calltoaction/MyrrysCard/MyrrysCard.vue'
 import TopSitesSection from '../components/frontpage/TopSitesSection.vue'
 import ShareButton from '../components/ShareButton/ShareButton.vue'
+import Banner from '../components/ui/Banner.vue'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
@@ -26,6 +27,8 @@ onMounted(() => {
   <cn-app-bar :title="t('app.title')">
     <ShareButton />
   </cn-app-bar>
+
+  <Banner />
 
   <main class="bookLayout">
     <ThreadStreamColumn />

@@ -4,6 +4,7 @@ import AdminTray from '../../components/admin/AdminTray.vue'
 import SnackbarTester from '../../components/admin/SnackbarTester.vue'
 import BannerTester from '../../components/admin/BannerTester.vue'
 import ModeTester from '../../components/admin/ModeTester.vue'
+import Banner from '../../components/ui/Banner.vue'
 import { useTitle } from '../../composables/useTitle'
 import { onMounted } from 'vue'
 
@@ -23,6 +24,7 @@ onMounted(() => {
       sticky
       title="Admin / Testing tools"
     />
+    <Banner />
     <main class="SiteSettings dashboardLayout">
       <SnackbarTester />
       <BannerTester />
