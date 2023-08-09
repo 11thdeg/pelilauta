@@ -17,6 +17,7 @@ import { getAnalytics, setConsent } from 'firebase/analytics'
 import { login } from './composables/useSession'
 // import { testFirestore } from './testFirestore'
 // import { testStorage } from './testStorage'
+import { getMessaging, onMessage } from 'firebase/messaging'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -67,6 +68,16 @@ setConsent({
 onAuthStateChanged(auth, (user: User|null) => {
   login(user)
 })
+
+// Handle incoming messages. Called when:
+// - a message is received while the app has focus
+// - the user clicks on an app notification created by a service worker
+//   `messaging.onBackgroundMessage` handler.
+const messaging = getMessaging();
+onMessage(messaging, (payload) => {
+  console.log('Message received. ', payload);
+  // ...
+});
 
 app.mount('#app')
 

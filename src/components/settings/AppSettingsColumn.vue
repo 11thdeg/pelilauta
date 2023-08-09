@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { logout } from '../../composables/useSession'
 import MarkAllSeenButton from '../MarkAllSeenButton/MarkAllSeenButton.vue'
 import DarkModeToggle from './DarkModeToggle.vue'
+import MessagingSettingsPane from '../account/messaging/MessagingSettingsPane.vue'
 
 const router = useRouter()
 const { t } = useI18n()
@@ -33,5 +34,7 @@ async function doLogout () {
         />
       </cyan-toolbar>
     </section>
+
+    <MessagingSettingsPane />
   </article>
 </template>

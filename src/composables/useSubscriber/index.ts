@@ -115,6 +115,22 @@ function markAllSeen() {
   updateStorable(subscriber.value)
 }
 
+function addMessagingToken(token: string) {
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
+
+  // Sanity: don't add the token if it's already there
+  if (subscriber.value.messagingTokens.includes(token)) return
+
+  subscriber.value.addMessagingToken(token)
+  updateStorable(subscriber.value)
+}
+
+function removeMessagingToken(token: string) {
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
+  subscriber.value.removeMessagingToken(token)
+  updateStorable(subscriber.value)
+}
+
 /* COMPOSABLE STARTS ******************/
 
 const loading = computed(() => {
@@ -135,6 +151,8 @@ export function useSubscriber() {
     subscribeTo,
     setSeen,
     markAllSeen,
-    shouldNotify
+    shouldNotify,
+    addMessagingToken,
+    removeMessagingToken
   }
 }

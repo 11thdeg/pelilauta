@@ -10,6 +10,7 @@ import { useSession } from '../composables/useSession'
 import WithPermission from '../components/ui/WithPermission.vue'
 import WithLoader from '../components/ui/WithLoader.vue'
 import { useRouter } from 'vue-router'
+import MessagingSettingsPane from '../components/account/messaging/MessagingSettingsPane.vue'
 
 const { t } = useI18n()
 const router = useRouter()
