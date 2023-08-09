@@ -26,15 +26,14 @@ const notifyOnThreads = computed({
 
 <template>
   <section class="messaging-settings-pane">
-    <h2>Messaging Settings</h2>
-    <p>Here you can configure your messaging settings.</p>
+    <h3>{{ $t('settings.messaging.title') }}</h3>
 
     <fieldset>
       <!-- Toggles messaging on and off -->
       <div class="flex">
         <cyan-spacer />
         <cyan-toggle
-          :label="$t('messaging.pushMessages')"
+          :label="$t('settings.messaging.pushMessages')"
           :checked="pushMessages"
           @change="pushMessages = $event.target.checked"
         />
@@ -45,7 +44,7 @@ const notifyOnThreads = computed({
         <cyan-spacer />
         <cyan-toggle
           :disabled="!pushMessages"
-          :label="$t('messaging.notifyOnThreads')"
+          :label="$t('settings.smessaging.notifyOnThreads')"
           :checked="notifyOnThreads"
           @change="notifyOnThreads = $event.target.checked"
         />
