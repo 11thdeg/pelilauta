@@ -131,6 +131,11 @@ function removeMessagingToken(token: string) {
   updateStorable(subscriber.value)
 }
 
+function save () {
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
+  updateStorable(subscriber.value)
+}
+
 /* COMPOSABLE STARTS ******************/
 
 const loading = computed(() => {
@@ -153,6 +158,7 @@ export function useSubscriber() {
     markAllSeen,
     shouldNotify,
     addMessagingToken,
-    removeMessagingToken
+    removeMessagingToken,
+    save
   }
 }

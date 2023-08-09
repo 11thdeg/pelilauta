@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@11thdeg/cyan": "0.37.0-beta.6",
-    "@11thdeg/skaldstore": "0.7.1-beta.4",
+    "@11thdeg/skaldstore": "0.7.1-beta.5",
     "@firebase/analytics": "0.10.0",
     "@firebase/app": "0.9.15",
     "@firebase/auth": "1.1.0",
