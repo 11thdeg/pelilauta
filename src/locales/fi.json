@@ -60,6 +60,10 @@
         "title": "Push-ilmoitukset",
         "pushMessages": "Ilmoitukset päällä/pois",
         "notifyOnThreads": "Uudet keskustelut"
+      },
+      "theme": {
+        "title": "Teema",
+        "experimentalLightMode": "Kokeellinen vaalea tila"
       }
     },
     "admin": {

@@ -2,7 +2,10 @@ import { Subscriber } from '@11thdeg/skaldstore'
 import { doc, getDoc, getFirestore, onSnapshot } from '@firebase/firestore'
 import { computed, ref } from 'vue'
 import { setStorable, updateStorable } from '../../utils/firestoreHelpers'
-import { logEvent } from '../../utils/logHelpers'
+import { logDebug, logEvent } from '../../utils/logHelpers'
+import { persistMessagingPermission } from '../../utils/messaging'
+import { getMessaging, onMessage } from 'firebase/messaging'
+import { useSnack } from '../useSnack'
 
 /* STATE MANAGEMENT STARTS ******************/
 
@@ -19,6 +22,10 @@ async function subscriberExists(newUid: string): Promise<boolean> {
       newUid
     )
   )
+  if (dbdoc.exists()) {
+    subscriber.value = new Subscriber(newUid, dbdoc.data())
+    logDebug('Subscriber', subscriber.value.docData)
+  }
   return dbdoc.exists()
 }
 
@@ -39,6 +46,7 @@ async function subscribeToSubscriber(newUid: string): Promise<void> {
     ),
     (snapshot) => {
       if (snapshot.exists()) {
+        logDebug('Subscriber snapshot received.')
         subscriber.value = new Subscriber(newUid, snapshot.data())
       }
     }
@@ -50,7 +58,7 @@ async function subscribeToSubscriber(newUid: string): Promise<void> {
  *
  * @param {string} uid The user id of the current user.
  */
-export async function initSubscriber(newUid: string) {
+export async function initSubscriber(newUid: string, persistToken = false) {
   if (uid.value === newUid) throw new Error('Subscriber already initialized.')
   _unsubscribe?.()
   initialized.value = false
@@ -66,6 +74,24 @@ export async function initSubscriber(newUid: string) {
   // Subscribe to the subscriber object.
   await subscribeToSubscriber(newUid)
   
+  // If the user has a messaging token, we add it to the subscriber object.
+  if (persistToken) persistMessagingPermission()
+
+  // Handle incoming messages. Called when:
+  // - a message is received while the app has focus
+  // - the user clicks on an app notification created by a service worker
+  //   `messaging.onBackgroundMessage` handler.
+
+  const messaging = getMessaging()
+  onMessage(messaging, (payload) => {
+    logDebug('Message received. ', payload)
+    const { pushSnack } = useSnack()
+
+    const title = payload?.notification?.title || '-'
+    const body = payload?.notification?.body || '-'
+    pushSnack(title + '/' + body)
+  })
+
   initialized.value = true
 }
 

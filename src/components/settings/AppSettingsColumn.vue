@@ -20,6 +20,7 @@ async function doLogout () {
     <h2>{{ t('settings.appSettings.title') }}</h2>
     <section class="fieldset">
       <DarkModeToggle />
+      <MessagingSettingsPane />
       <cyan-toolbar>
         <cyan-spacer />
         <MarkAllSeenButton />
@@ -34,7 +35,5 @@ async function doLogout () {
         />
       </cyan-toolbar>
     </section>
-
-    <MessagingSettingsPane />
   </article>
 </template>

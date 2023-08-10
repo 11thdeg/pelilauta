@@ -1,23 +1,24 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useSubscriber } from '../../../composables/useSubscriber'
-import { toggleMessagingPermission } from '../../../utils/messaging'
+import { persistMessagingPermission } from '../../../utils/messaging'
 
 const { subscriber, save } = useSubscriber()
 
 const pushMessages = computed({
-  get: () => subscriber.value?.pushMessages,
+  get: () => subscriber.value?.pushMessages || undefined,
   set: (value) => {
-    toggleMessagingPermission(value)
-    subscriber.value!.pushMessages = value
+    if (value) persistMessagingPermission()
+    subscriber.value!.pushMessages = !!value
+    if (!value) subscriber.value!.notifyOnThreads = false
     save()
   },
 })
 
 const notifyOnThreads = computed({
-  get: () => subscriber.value?.notifyOnThreads,
+  get: () => subscriber.value?.notifyOnThreads || undefined,
   set: (value) => {
-    subscriber.value!.notifyOnThreads = value
+    subscriber.value!.notifyOnThreads = !!value
     save()
   },
 })
@@ -33,23 +34,17 @@ const notifyOnThreads = computed({
       <cn-toggle-button
         :label="$t('account.messaging.pushMessages')"
         :pressed="pushMessages"
+        :aria-pressed="pushMessages"
         @change="pushMessages = $event.target.pressed"
       />
-
 
       <!-- Enables additional messaging on new threads -->
       <cn-toggle-button
         :disabled="!pushMessages"
         :label="$t('account.messaging.notifyOnThreads')"
         :pressed="notifyOnThreads"
+        :aria-pressed="pushMessages"
         @change="notifyOnThreads = $event.target.pressed"
-      />
-
-
-      <!-- Just testing purposes, remove before release -->
-      <cyan-button
-        label="Force enable messaging"
-        @click="toggleMessagingPermission(true)"
       />
     </fieldset>
   </section>

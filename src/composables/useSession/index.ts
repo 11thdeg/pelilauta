@@ -101,7 +101,7 @@ export function login(user: User|null) {
   
     subscribeToAccount()
     subscribeToProfile()
-    initSubscriber(uid.value)
+    initSubscriber(uid.value, true)
     subscribeNotifications(uid.value)
     useProfile()
     

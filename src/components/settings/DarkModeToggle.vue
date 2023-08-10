@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { CyanToggle } from '@11thdeg/cyan'
+import { CyanToggleButton } from '@11thdeg/cyan'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { store } from '../../utils/firestoreHelpers'
 
 const { t } = useI18n()
-const { account, admin } = useSession()
+const { account } = useSession()
 
 async function toggle(e: Event) {
-  const target = e.target as CyanToggle
-  const checked = target.checked
+  const target = e.target as CyanToggleButton
+  const checked = !target.pressed
   if (account.value) {
     account.value.lightMode = checked ? 'dark' : 'light'
     await store(account.value)
@@ -18,12 +18,12 @@ async function toggle(e: Event) {
 </script>
 
 <template>
-  <cyan-toolbar>
-    <cyan-spacer />
-    <cyan-toggle
-      v-if="admin"
-      :label="t('settings.appSettings.darkMode')"
+  <fieldset>
+    <legend>{{ t('account.theme.title') }}</legend>
+    <cn-toggle-button
+      :label="t('account.theme.experimentalLightMode')"
+      :pressed="account?.lightMode === 'dark'"
       @change="toggle"
     />
-  </cyan-toolbar>
+  </fieldset>
 </template>
