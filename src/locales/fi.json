@@ -55,6 +55,13 @@
       "send": "Lähetä",
       "share": "Jaa"
     },
+    "account":{
+      "messaging": {
+        "title": "Push-ilmoitukset",
+        "pushMessages": "Ilmoitukset päällä/pois",
+        "notifyOnThreads": "Uudet keskustelut"
+      }
+    },
     "admin": {
       "title": "Hallinto",
       "description": "Sovelluksen hallintatyökalut. Sivu näkyy vain ylläpidolle, jote älä jaa tietoja täältä.",

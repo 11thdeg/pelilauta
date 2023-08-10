@@ -26,29 +26,25 @@ const notifyOnThreads = computed({
 
 <template>
   <section class="messaging-settings-pane">
-    <h3>{{ $t('settings.messaging.title') }}</h3>
-
     <fieldset>
+      <legend>{{ $t('account.messaging.title') }}</legend>
+
       <!-- Toggles messaging on and off -->
-      <div class="flex">
-        <cyan-spacer />
-        <cyan-toggle
-          :label="$t('settings.messaging.pushMessages')"
-          :checked="pushMessages"
-          @change="pushMessages = $event.target.checked"
-        />
-      </div>
+      <cn-toggle-button
+        :label="$t('account.messaging.pushMessages')"
+        :pressed="pushMessages"
+        @change="pushMessages = $event.target.pressed"
+      />
+
 
       <!-- Enables additional messaging on new threads -->
-      <div class="flex">
-        <cyan-spacer />
-        <cyan-toggle
-          :disabled="!pushMessages"
-          :label="$t('settings.smessaging.notifyOnThreads')"
-          :checked="notifyOnThreads"
-          @change="notifyOnThreads = $event.target.checked"
-        />
-      </div>
+      <cn-toggle-button
+        :disabled="!pushMessages"
+        :label="$t('account.messaging.notifyOnThreads')"
+        :pressed="notifyOnThreads"
+        @change="notifyOnThreads = $event.target.pressed"
+      />
+
 
       <!-- Just testing purposes, remove before release -->
       <cyan-button
