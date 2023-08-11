@@ -47,5 +47,8 @@ const notifyOnThreads = computed({
         @change="notifyOnThreads = $event.target.pressed"
       />
     </fieldset>
+    <p class="TypeBody2 lowEmphasis">
+      {{ $t('account.messaging.description') }}
+    </p>
   </section>
 </template>

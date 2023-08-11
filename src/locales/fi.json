@@ -57,9 +57,10 @@
     },
     "account":{
       "messaging": {
-        "title": "Push-ilmoitukset",
+        "title": "[Kokeellinen] Push-ilmoitukset",
         "pushMessages": "Ilmoitukset päällä/pois",
-        "notifyOnThreads": "Uudet keskustelut"
+        "notifyOnThreads": "Uudet keskustelut",
+        "description": "[Kokeelliset] Push-ilmoitukset vaativat erillisen hyväksynnän selaimessa tai puhelimessa. Jos ilmoitukset eivät tule läpi, kokeile kytkeä ne päälle ja pois tästä, jolloin selaimesi pitäisi pyytää ilmoitusten sallimista uudelleen. "
       },
       "theme": {
         "title": "Teema",
