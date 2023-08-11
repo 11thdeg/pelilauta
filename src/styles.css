@@ -1,3 +1,9 @@
+/* FIX ME: This is a temporary fix to make the APP work on huge screens */
+main {
+  /* Just copied tailwind default x2 here, as it seems to be a sensible max width */
+  max-width: 1536px;
+}
+
 .dataTable {
   width: 100%;
   overflow: hidden;
