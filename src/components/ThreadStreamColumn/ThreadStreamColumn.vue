@@ -9,24 +9,27 @@
  * REFACTOR: This component was a bit large, so I extracted the ./useThreads hook, and the ThreadStreamCard component.
  */
 
-import { computed, onUnmounted, watch } from 'vue'
+import { computed, onUnmounted,  onMounted, watch } from 'vue'
 import ThreadStreamCard from './ThreadStreamCard.vue'
-import { useThreads } from './useThreads'
+import { useThreads } from './useThreads';
+
 
 const props = defineProps<{
   topic?: string
   large?: boolean
 }>()
 
-// eslint-disable-next-line vue/no-setup-props-destructure
-const { threads, loading, loadMore, flush, reInit, atEnd } = useThreads({ topic: props.topic, pageSize: 7 })
+const { threads, sub, unsub, loadMore, atEnd, loading } = useThreads()
 
-watch(props, () => {
-  reInit({ topic: props.topic, pageSize: 7 })
+onMounted(() => {
+  watch(() => props.topic, (t) => {
+    unsub()
+    sub(t)
+  }, { immediate: true })
 })
 
 onUnmounted(() => {
-  flush()
+  unsub()
 })
 
 const nonStickyThreads = computed(() => threads.value.filter((thread) => !thread.sticky))

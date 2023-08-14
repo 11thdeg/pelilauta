@@ -9,13 +9,6 @@ import { computed, ref } from 'vue'
 import { stashThread } from '../../utils/localStorage'
 import { logDebug, logError } from '../../utils/logHelpers'
 
-export type ThreadStreamOptions = {
-  pageSize?: number
-  topic?: string
-  site?: string
-  orderBy?: string
-}
-
 let unsubscribe:CallableFunction|undefined = undefined
 let paginationRef:QueryDocumentSnapshot<DocumentData>|undefined = undefined
 
@@ -24,49 +17,6 @@ const topic = ref('')
 const loading = ref(true)
 const threads = ref(new Map<string, Thread>())
 const atEnd = ref(false)
-
-
-function getStoragePath() {
-  return topic.value ? `threads-${topic.value}` : 'threads'
-}
-
-function loadLocalThreads() {
-  const localThreadData = localStorage.getItem(getStoragePath())
-  // logDebug('Loading local threads', localThreadData)
-  if (localThreadData) {
-    const threadObjects = JSON.parse(localThreadData)
-    threadObjects.forEach((threadObject:DocumentData) => {
-      // logDebug('Loaded thread from local storage', threadObject)
-      const thread = Thread.fromJSON(threadObject)
-      // logDebug('Loaded thread from local storage', thread)
-      threads.value.set(thread.key, thread)
-    })
-    loading.value = false
-  }
-  // Load from local storage
-  /*const localThreads = localStorage.getItem(getStoragePath())
-  if (localThreads) {
-    const threadObjects = JSON.parse(localThreads)
-    threadObjects.forEach((threadObject:DocumentData) => {
-      // Create a new thread class from the thread object
-      const thread = new Thread(threadObject, threadObject.key)
-      threads.value.set(thread.key, thread)
-    })
-    // If we have local threads, we will assume they are recent enough, 
-    // and load newer threads in the background
-    loading.value = false
-  }*/
-}
-
-function saveLocalThreads() {
-  const threadObjects = sortedThreads()
-  if (threadObjects.length > pageSize.value) threadObjects.length = pageSize.value
-  const dried:DocumentData[] = []
-  threadObjects.forEach((thread) => {
-    dried.push(thread.toJSON())
-  })
-  localStorage.setItem(getStoragePath(), JSON.stringify(dried))
-}
 
 async function loadRemoteThreads() {
   // Generate the query
@@ -110,8 +60,6 @@ async function loadRemoteThreads() {
       if (!paginationRef) {
         paginationRef = pgRef
       }
-      // Lets update the local storage with the latest threads
-      saveLocalThreads()
     }
   )
 }
@@ -164,33 +112,31 @@ function flush() {
   threads.value = new Map<string, Thread>()
 }
 
-function reInit(options?:ThreadStreamOptions) {
-  // Force loading to true on every call
+function sub(t: string|undefined) {
   loading.value = true
   flush()
-  if (options?.pageSize) {
-    pageSize.value = options.pageSize
-  }
-  if (options?.topic) {
-    topic.value = options.topic
-  }
-  loadLocalThreads()
+  topic.value = t || ''
   loadRemoteThreads()
 }
+
+function unsub() {
+  flush()
+  topic.value = ''
+}
+
 
 function sortedThreads() {
   return [...threads.value.values()].sort((a, b) => b.flowTime - a.flowTime)
 }
 
-export function useThreads(options?:ThreadStreamOptions) {
-  reInit(options)
+export function useThreads({ pageSizeVar = 11} = {}) {
+  pageSize.value = pageSizeVar
   return {
-    pageSize: computed(() => pageSize.value),
-    loading: computed(() => loading.value),
+    loading,
     threads: computed(() => sortedThreads()),
-    flush,
+    sub,
+    unsub,
     loadMore,
-    reInit,
-    atEnd: computed(() => atEnd.value)
+    atEnd
   }
 }
