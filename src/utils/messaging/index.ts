@@ -2,6 +2,7 @@ import { getAuth } from 'firebase/auth'
 import { getMessaging, getToken } from 'firebase/messaging'
 import { useSubscriber } from '../../composables/useSubscriber'
 import { logDebug } from '../logHelpers'
+import { firebaseMessagingKey } from '../../firebaseConfig'
 
 export async function persistMessagingPermission() {
   const auth = getAuth()
@@ -13,7 +14,7 @@ export async function persistMessagingPermission() {
 
   if (permission === 'granted') {
     const messaging = getMessaging()
-    const currentToken = await getToken(messaging, { vapidKey: 'BGn1n6TRKH8lkNAtTF4YXivyVSZz9T0Gtoj5fTdO1QpH6x97opp6VZ0qOMQDOa5WUwMFlKGqDrl-UPiUftxeit0' })
+    const currentToken = await getToken(messaging, { vapidKey: firebaseMessagingKey })
     if (currentToken) {
       const { addMessagingToken } = useSubscriber()
       // We'll simply add the token to the user's document in Firestore, the addMessagingToken will splice 
