@@ -13,6 +13,7 @@ import WithLoader from '../../components/ui/WithLoader.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import LoveASiteButton from '../../components/SiteCard/LoveASiteButton.vue'
 import ShareButton from '../../components/ShareButton/ShareButton.vue'
+import { useUxState } from '../../composables/useUXState'
 
 const props = defineProps<{
   sitekey: string
@@ -21,6 +22,7 @@ const props = defineProps<{
 const { site } = useSite()
 const { loading, notFound, page } = usePage()
 const title = useTitle()
+const { toggleMobileNavTray } = useUxState()
 
 onMounted(() => {
   loadSite(props.sitekey)
@@ -42,6 +44,8 @@ onMounted(() => {
       :title="site?.name || '...'"
       sticky
       :noun="site?.systemBadge || 'mekanismi'"
+      menu
+      @menu="toggleMobileNavTray"
     >
       <LoveASiteButton
         v-if="site"
