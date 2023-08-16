@@ -3,6 +3,7 @@ import { CyanToggleButton } from '@11thdeg/cyan'
 import { useI18n } from 'vue-i18n'
 import { useSession } from '../../composables/useSession'
 import { store } from '../../utils/firestoreHelpers'
+import { computed } from 'vue'
 
 const { t } = useI18n()
 const { account } = useSession()
@@ -15,6 +16,8 @@ async function toggle(e: Event) {
     await store(account.value)
   }
 }
+
+const pressed = computed(() => account.value?.lightMode !== 'dark' ? true : undefined)
 </script>
 
 <template>
@@ -22,7 +25,7 @@ async function toggle(e: Event) {
     <legend>{{ t('account.theme.title') }}</legend>
     <cn-toggle-button
       :label="t('account.theme.experimentalLightMode')"
-      :pressed="account?.lightMode === 'dark'"
+      :pressed="pressed"
       @change="toggle"
     />
   </fieldset>

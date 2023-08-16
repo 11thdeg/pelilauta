@@ -11,6 +11,7 @@ const pushMessages = computed({
     if (value) persistMessagingPermission()
     subscriber.value!.pushMessages = !!value
     if (!value) subscriber.value!.notifyOnThreads = false
+    if (!value) subscriber.value!.notifyOnLikes = false
     save()
   },
 })
@@ -19,6 +20,14 @@ const notifyOnThreads = computed({
   get: () => subscriber.value?.notifyOnThreads || undefined,
   set: (value) => {
     subscriber.value!.notifyOnThreads = !!value
+    save()
+  },
+})
+
+const notifyOnLikes = computed({
+  get: () => subscriber.value?.notifyOnLikes || undefined,
+  set: (value) => {
+    subscriber.value!.notifyOnLikes = !!value
     save()
   },
 })
@@ -45,6 +54,15 @@ const notifyOnThreads = computed({
         :pressed="notifyOnThreads"
         :aria-pressed="pushMessages"
         @change="notifyOnThreads = $event.target.pressed"
+      />
+
+      <!-- Enables additional messaging on new likes -->
+      <cn-toggle-button
+        :disabled="!pushMessages"
+        :label="$t('account.messaging.notifyOnLikes')"
+        :pressed="notifyOnLikes"
+        :aria-pressed="pushMessages"
+        @change="notifyOnLikes = $event.target.pressed"
       />
     </fieldset>
     <p class="TypeBody2 lowEmphasis">
