@@ -1,13 +1,15 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "14.12.5",
+  "version": "14.12.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build && node workbox-build.cjs",
     "preview": "vite preview",
-    "lint": "eslint --ext .ts,.js,.vue src"
+    "lint": "eslint --ext .ts,.js,.vue src",
+    "deploy": "build && firebase deploy --only hosting:pelilauta",
+    "deploy:staging": "build && firebase deploy --only hosting:skaldbase-test"
   },
   "dependencies": {
     "@11thdeg/cyan": "0.37.0-beta.8",

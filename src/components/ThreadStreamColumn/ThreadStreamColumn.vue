@@ -11,7 +11,7 @@
 
 import { computed, onUnmounted,  onMounted, watch } from 'vue'
 import ThreadStreamCard from './ThreadStreamCard.vue'
-import { useThreads } from './useThreads';
+import { useThreads } from './useThreads'
 
 
 const props = defineProps<{
