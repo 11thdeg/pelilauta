@@ -1,6 +1,8 @@
 import { Reaction, Reply } from '@11thdeg/skaldstore'
-import { getAnalytics, logEvent } from '@firebase/analytics'
 import { doc, getDoc, getFirestore, runTransaction, Transaction } from '@firebase/firestore'
+import { logDebug, logEvent } from '../../utils/logHelpers'
+import { setStorable, updateStorable } from '../../utils/firestoreHelpers'
+
 
 /**
  * Given   I am logged in
@@ -16,40 +18,51 @@ import { doc, getDoc, getFirestore, runTransaction, Transaction } from '@firebas
  * @param threadid The id of a Stream Thread, found in /database/stream/{threadid}
  * @param replyid the id of a reply, of the thread, found in /database/stream/{threadid}/comments/{replyid}
  */
-export async function loveReply (uid: string, threadid: string, replyid: string): Promise<void> {
+export async function loveReply (
+  uid: string, threadKey: string, replyKey: string): Promise<void> {
+  // Get the reply
   const db = getFirestore()
-  const replyRef = doc(db, 'stream', threadid, 'comments', replyid)
+  const replyRef = doc(db, 'stream', threadKey, 'comments', replyKey)
+  const replyDoc = await getDoc(replyRef)
 
-  logEvent(getAnalytics(), 'loveReply', { uid: uid, threadid: threadid, replyid: replyid })
+  if (!replyDoc.exists) {
+    throw new Error('state/loveReply, trying to love by a non existing reply' + threadKey + '/' + replyKey)
+  }
 
-  return runTransaction(db, (transaction: Transaction) => {
-    return getDoc(replyRef).then((reply) => {
-      if (!reply.exists) {
-        throw new Error('state/loveReply, trying to love by a non existing reply' + threadid + '/' + replyid)
-      }
-      const lovesArr = new Array<string>()
-      const lovesDataArr = reply.data()?.lovers
-      if (lovesDataArr) {
-        if ((lovesDataArr as Array<string>).includes(uid)) {
-          throw new Error('Can not love a reply, one already loves')
-        }
-        (lovesDataArr as Array<string>).forEach((lover: string) => { lovesArr.push(lover) })
-      }
-      lovesArr.push(uid)
-      transaction.update(replyRef, { lovesCount: lovesArr.length, lovers: lovesArr })
+  const reply = new Reply(replyDoc.data(), replyKey, threadKey)
 
-      const reactionsRef = doc(db, 'profiles', uid, 'reactions', replyid)
+  const lovesArray:Array<string> = reply.lovers || []
 
-      const reaction  = new Reaction()
-      reaction.actor = uid
-      reaction.targetEntry = Reply.collectionName
-      reaction.targetKey = threadid + '/' + replyid
-      reaction.targetActor = reply.data()?.author
-      reaction.type = 'love'
+  if (lovesArray.includes(uid)) {
+    throw new Error('Can not love a reply, one already loves')
+  }
 
-      transaction.set(reactionsRef, reaction.docData)
-    })
-  })
+  lovesArray.push(uid)
+
+  logDebug('reply.firestorePath', reply.getFirestorePath())
+
+  logDebug('Updating reply loves count and lovers array client side, should happen cloud side for cIa purposes')
+  updateStorable(reply.getFirestorePath(), {
+    lovesCount: lovesArray.length + 1, 
+    lovers: lovesArray 
+  }, { silent: true })
+
+  const reaction = new Reaction()
+  reaction.key = replyKey
+  reaction.actor = uid
+  reaction.targetEntry = Reply.collectionName
+  reaction.targetKey = threadKey + '/' + replyKey
+  reaction.targetActor = reply.author
+  reaction.type = 'love'
+  
+  setStorable(reaction)
+
+  // Ready to save, log payloads
+  logDebug('reactions/loveReply, update(thread/reply)', { lovesCount: lovesArray.length, lovers: lovesArray })
+  logDebug('reactions/loveReply, set(profile/reaction)', reaction)
+  
+  // Log like event to analytics
+  logEvent('loveReply', { uid: uid, threadid: threadKey, replyid: replyKey })
 }
 
 /**
@@ -70,7 +83,7 @@ export async function unloveReply (uid: string, threadid: string, replyid: strin
   const db = getFirestore()
   const replyRef = doc(db, 'stream', threadid, 'comments', replyid)
 
-  logEvent(getAnalytics(), 'unloveReply', { uid: uid, threadid: threadid, replyid: replyid })
+  logEvent('unloveReply', { uid: uid, threadid: threadid, replyid: replyid })
 
   return runTransaction(db, (transaction: Transaction) => {
     return getDoc(replyRef).then((reply) => {

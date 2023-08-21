@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@11thdeg/cyan': 0.37.0-beta.8
-  '@11thdeg/skaldstore': 0.7.2
+  '@11thdeg/skaldstore': 0.7.5
   '@firebase/analytics': 0.10.0
   '@firebase/app': 0.9.15
   '@firebase/auth': 1.1.0
@@ -41,7 +41,7 @@ specifiers:
 
 dependencies:
   '@11thdeg/cyan': 0.37.0-beta.8
-  '@11thdeg/skaldstore': 0.7.2
+  '@11thdeg/skaldstore': 0.7.5
   '@firebase/analytics': 0.10.0_@firebase+app@0.9.15
   '@firebase/app': 0.9.15
   '@firebase/auth': 1.1.0_@firebase+app@0.9.15
@@ -90,10 +90,11 @@ packages:
       marked: 4.2.12
     dev: false
 
-  /@11thdeg/skaldstore/0.7.2:
-    resolution: {integrity: sha512-D33bvnNsALHXmzHVlwdQ9/eaDJuJ5c24/+VD6nV9m4CyJXiYWj6NQTw+kmN6fjM461Lh8WWHI8EjgmXWCSECIg==}
+  /@11thdeg/skaldstore/0.7.5:
+    resolution: {integrity: sha512-EmKkEedEpc8S24NxyOHWN86soo22u7w8JVVhmG5cVAk8n20HIcfAsl5xYjAah9rDvICjLbD1KzYuYJ5bf/DswQ==}
     dependencies:
       firebase: 9.22.0
+      zod: 3.22.1
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -5641,3 +5642,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod/3.22.1:
+    resolution: {integrity: sha512-+qUhAMl414+Elh+fRNtpU+byrwjDFOS1N7NioLY+tSlcADTx4TkCUua/hxJvxwDXcV4397/nZ420jy4n4+3WUg==}
+    dev: false

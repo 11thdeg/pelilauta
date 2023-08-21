@@ -1,8 +1,13 @@
 import { ref } from 'vue'
 import { logDebug } from '../utils/logHelpers'
+import { productionLogConfig } from '../config'
 
 const snackStack = ref(new Array<{ message: string, params?: Record<string, string>, action?: CallableFunction }>())
 
+
+function doLog () {
+  return productionLogConfig.components.includes('snackbar')
+} 
 interface Config {
   params?: Record<string, string>
   action?: CallableFunction
@@ -14,7 +19,7 @@ interface Config {
  * @param config { params: Record<string, string>, action: CallableFunction }
  */
 function pushSnack(message: string, config?:Config) {
-  logDebug('pushSnack', message)
+  if (doLog()) logDebug('pushSnack', message)
   snackStack.value.push({ message, ...config })
 }
 

@@ -2,7 +2,6 @@
 import { onMounted, Ref, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSnack } from '../../composables/useSnack'
-import { logDebug } from '../../utils/logHelpers'
 
 const { snackStack } = useSnack()
 const messageCode = ref('')
@@ -11,7 +10,6 @@ const { t } = useI18n()
 
 onMounted(() => {
   watch(snackStack.value, (stack) => {
-    logDebug('Snackbar stack changed', stack)
     if (stack.length > 0) {
       const snack = stack[0]
       messageCode.value = snack.message

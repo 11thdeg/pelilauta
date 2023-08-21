@@ -41,9 +41,20 @@ export async function addStorable(e: Storable) {
  * @param s storable with valid path, or path to a storable.
  * @param docdata optional document data to update, if a path is provided instead of a storable
  */
-export async function updateStorable(s: Storable|string[], docdata?: DocumentData) {
+export async function updateStorable(s: Storable|string[], docdata?: DocumentData, opts: { silent?: boolean } = {}) {
   const path = Array.isArray(s) ? s : s.getFirestorePath()
   const data = Array.isArray(s) ? docdata : s.docData
+
+  logDebug('updateStorable', path, data)
+
+  if (!data) throw new Error('No data provided to updateStorable')
+
+  if (opts.silent) {
+    delete data.updatedAt
+    delete data.createdAt
+    delete data.flowTime
+  }
+
   if (typeof data === 'undefined') throw new Error('No data provided to updateStorable')
   await updateDoc(
     doc(
@@ -69,6 +80,7 @@ export async function updateStorable(s: Storable|string[], docdata?: DocumentDat
 export async function setStorable(s: Storable|string[], docdata?: DocumentData) {
   const data = Array.isArray(s) ? docdata : s.docData
   const path = Array.isArray(s) ? s : s.getFirestorePath()
+  
   await setDoc(
     doc(
       getFirestore(),

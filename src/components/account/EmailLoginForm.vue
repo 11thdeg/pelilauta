@@ -67,7 +67,6 @@ const sendLinkToEmail = async () => {
     })
     .catch((error: Error) => {
       // TODO: show error in snackbar
-      logError('snackbar not implemented', 'pushSnack(\'snacks.error\', { params: { topic: error.message }})')
       pushSnack(t('snacks.login.error'))
       logError(error)
     })
