@@ -32,9 +32,9 @@ const { content } = useContentEntry(props.thread)
 
 <template>
   <article class="ThreadArticle">
-    <h2 class="hideOnMobile">
+    <h1 class="hideOnMobile downscaled">
       {{ thread.title }}
-    </h2>
+    </h1>
     <div
       v-if="thread.youtubeId"
       class="youtube"

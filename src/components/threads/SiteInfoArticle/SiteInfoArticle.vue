@@ -25,7 +25,7 @@ onMounted(async() => {
 <template>
   <article
     v-if="sitekey"
-    class="Column small"
+    class="column small"
   >
     <WithLoader :suspended="loading">  
       <SiteCard

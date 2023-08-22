@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import ReplyToThreadSection from '../replyFrom/ReplyForm.vue'
 import ThreadRepliesSection from './ThreadRepliesSection.vue'
     
@@ -10,13 +9,14 @@ const props = defineProps<{
       threadkey: string
     }>()
     
-const t = useI18n().t
 const pushQuote = ref(new Array<string>())
 </script>
     
 <template>
-  <article>
-    <h2>{{ t('discourse.title') }}</h2>
+  <article style="margin-top: 48px">
+    <h2 class="downscaled">
+      {{ $t('discourse.title') }}
+    </h2>
     <ThreadRepliesSection
       :flowtime="flowtime"
       :threadkey="threadkey"

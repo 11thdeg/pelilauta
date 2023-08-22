@@ -73,7 +73,7 @@ const flowTimeInt = computed(() => {
         :thread="thread"
       />
     </cn-app-bar>
-    <main class="bookLayout">
+    <main class="container">
       <WithLoader :suspended="loading">
         <EmptyCollection
           v-if="notFound"
@@ -84,7 +84,7 @@ const flowTimeInt = computed(() => {
         <template v-else>
           <div
             v-if="thread"
-            class="Column large"
+            class="column la-large"
           >
             <ThreadArticle
               :thread="thread"
