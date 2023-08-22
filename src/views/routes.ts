@@ -49,6 +49,8 @@ export const routes = [
   { path: '/add/site', component: () => import('./sites/AddSiteView.vue') },
   { path: '/add/thread', component: () => import('./threads/CreateThreadView.vue') },
   { path: '/library/', component: () => import('./assets/UserAssetsView.vue'), props: true },
-  { path: '/library/games', component: () => import('./library/UserGamesView.vue'), props: true }
+  { path: '/library/games', component: () => import('./library/UserGamesView.vue'), props: true },
 
+  // Views related to the "forums"
+  { path: '/forum', component: () => import('./forum/Index.vue') }
 ]
