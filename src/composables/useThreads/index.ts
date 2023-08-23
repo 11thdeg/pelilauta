@@ -1,49 +1,37 @@
 import { Thread } from '@11thdeg/skaldstore'
-import { collection, doc, getDoc, getDocs, getFirestore, limit, onSnapshot, orderBy, Query, query, QueryDocumentSnapshot, startAfter, where } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, getFirestore, limit, orderBy, Query, query, QueryDocumentSnapshot, startAfter, where } from 'firebase/firestore'
 import { computed, ref } from 'vue'
-import { logDebug, logEvent } from '../../utils/logHelpers'
+import { logDebug  } from '../../utils/logHelpers'
 import { addStore } from './../useSession'
 import { loveThread, unLoveThread } from './reactions'
+import { subscribeStream, unsubscribeStream } from './stream'
 
-let _init = false
-let unsubscribeThreads:undefined|CallableFunction
 const threadCache = ref(new Map<string, Thread>())
-const loading = ref(true)
+const _loading = ref(true)
+const initialized = ref(false)
 
 async function init () {
-  logDebug('init threads', _init)
-  if (_init) return
-  _init = true
+  logDebug('useThreads', 'init', initialized.value)
+  if (initialized.value) return
+
+  // Push the threads reset mechanism to the session reset
+  // queue
   addStore('threads', reset)
-  if(unsubscribeThreads) unsubscribeThreads()
-  unsubscribeThreads = await onSnapshot(
-    query(
-      collection(
-        getFirestore(),
-        'stream'
-      ),
-      limit(5),
-      where('public', '==', true),
-      orderBy('flowTime', 'desc')
-    ),
-    (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (loading.value) loading.value = false
-        if(change.type === 'removed') {
-          threadCache.value.delete(change.doc.id)
-        } else {
-          threadCache.value.set(change.doc.id, new Thread(change.doc.data(), change.doc.id))
-        }
-      })
-    }
-  )
-  logEvent('stream', {action: 'subscribed', where: 'public'})
+
+  // Subscribe to the front page stream for threads
+  subscribeStream(threadCache, _loading)
 }
 
+/**
+ * Reset the threads cache and unsubscribe from the stream
+ * 
+ * Called by the useSession when a user logs out
+ */
 function reset () {
-  if (unsubscribeThreads) unsubscribeThreads()
+  unsubscribeStream()
   threadCache.value = new Map<string, Thread>()
-  _init = false
+  _loading.value = true
+  initialized.value = false
 }
 
 export async function fetchAuthorThreads (uid:string, count = 3) {
@@ -139,7 +127,8 @@ export async function fetchThread (key:string) {
 export function useThreads () {
   init()
   return {
-    loading: computed(() => loading.value),
+    // We are loading if we are not initialized or if we are subscribing to the stream
+    loading: computed(() => initialized.value || _loading.value),
     recent: computed(() => {
       return [...threadCache.value.values()]
         .sort((a, b) => a.compareFlowTime(b))
