@@ -3,7 +3,6 @@ import { Profile } from '@11thdeg/skaldstore'
 import { onMounted, Ref, ref } from 'vue'
 import { fetchProfile } from '../composables/useProfiles'
 import PublicProfileColumn from '../components/profiles/PublicProfileColumn.vue'
-import ProfilePostsColumn from '../components/profiles/ProfilePostsColumn.vue'
 import { useTitle } from '../composables/useTitle'
 import ShareButton from '../components/ShareButton/ShareButton.vue'
 
@@ -35,7 +34,6 @@ onMounted(async () => {
       />
       <template v-else>
         <PublicProfileColumn :uid="uid" />
-        <ProfilePostsColumn :uid="uid" />
       </template>
     </main>
   </div>

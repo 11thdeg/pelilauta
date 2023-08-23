@@ -9,7 +9,7 @@ import { deleteDoc, getFirestore, doc } from '@firebase/firestore'
 import { Thread } from '@11thdeg/skaldstore'
 import { useRouter } from 'vue-router'
 import { useSnack } from '../../composables/useSnack'
-import { forgetThread } from '../../composables/useThreads'
+import { purgeThread } from '../../composables/useThreads'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import WithPermission from '../../components/ui/WithPermission.vue'
 import DeleteConfirmForm from '../../components/DeleteConfirmForm/DeleteConfirmForm.vue'
@@ -34,7 +34,7 @@ async function deleteThread () {
   await deleteDoc(
     doc(getFirestore(), Thread.collectionName, props.threadkey)
   )
-  forgetThread(props.threadkey)
+  purgeThread(props.threadkey)
   pushSnack('snacks.thread.deleted')
   router.push('/')
 }
