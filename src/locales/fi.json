@@ -513,6 +513,9 @@
       "verifyToken": "Kirjoita tähän DELETE ja paina poista."
     },
     "forum": {
-      "title": "Keskustelu"
+      "title": "Keskustelu",
+      "index": {
+        "title": "Aiheet"
+      }
     }
   }

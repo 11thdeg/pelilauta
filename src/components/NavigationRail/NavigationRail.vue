@@ -27,11 +27,11 @@ const { admin } = useSession()
     <NotificationNavigationButton :label="$t('inbox.title')" />
 
     <!-- Link to the streams, always visible-->
-    <router-link to="/streams">
+    <router-link to="/forum">
       <cyan-navigation-button
         noun="discussion"
         :label="$t('streams.title')"
-        :active="route.path.startsWith('/streams')"
+        :active="route.path.startsWith('/forum')"
       />
     </router-link>
   
