@@ -2,9 +2,9 @@
 import { useI18n } from 'vue-i18n'
 import ShareButton from '../../components/ShareButton/ShareButton.vue'
 import ForumIndex from '../../components/forum/forumindex/ForumIndex.vue'
-import { onMounted } from 'vue';
-import { useTitle } from '../../composables/useTitle';
-import { logEvent } from '../../utils/logHelpers';
+import { onMounted } from 'vue'
+import { useTitle } from '../../composables/useTitle'
+import { logEvent } from '../../utils/logHelpers'
 
 const { t } = useI18n()
 const { title } = useTitle()
