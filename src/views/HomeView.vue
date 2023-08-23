@@ -12,6 +12,7 @@ import MyrrysCard from '../components/calltoaction/MyrrysCard/MyrrysCard.vue'
 import TopSitesSection from '../components/frontpage/TopSitesSection.vue'
 import ShareButton from '../components/ShareButton/ShareButton.vue'
 import Banner from '../components/ui/Banner.vue'
+import MobileFooter from '../components/MobileFooter/MobileFooter.vue'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
@@ -42,34 +43,7 @@ onMounted(() => {
       <MekanismiAd />
       <TopSitesSection />
     </div>
-    <!--article
-      class="Column small hideOnMobile"
-      style="display: none;"
-    >
-      <cn-card
-        style="overflow: hidden;"
-        class="chroma-box-b"
-        elevation="1"
-      >
-        <cyan-icon
-          slot="avatar"
-          noun="d20"
-        />
-        <h4 slot="title">
-          Roolipelit -disco
-        </h4>
-        <br>
-        <iframe
-          style="border-radius: 12px; margin: -12px"
-          src="https://discord.com/widget?id=226080512148635648&theme=dark"
-          width="272"
-          height="670"
-          allowtransparency="true"
-          frameborder="0"
-          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-        />
-      </cn-card>
-    </article-->
+    <MobileFooter />
   </main>
   <FabTray v-if="!anonymous">
     <router-link to="/add/thread">
