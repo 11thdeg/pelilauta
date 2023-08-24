@@ -1,12 +1,14 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { useContentEntry } from '../../composables/useContentEntry'
 import { useSession } from '../../composables/useSession'
 import WatchButton from '../WatchButton/WatchButton.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ImageListSection from '../content/ImageListSection.vue'
-import YoutubePreview from '../content/YoutubePreview.vue'
 import ProfilePane from '../profiles/ProfilePane.vue'
 import LoveAThreadButton from '../threads/LoveAThreadButton.vue'
+import YoutubeSection from './YoutubeSection.vue'
+import { postProcessContent } from '../../utils/content/postProcessContent'
 
 const props = defineProps<{
   thread: {
@@ -28,6 +30,11 @@ const props = defineProps<{
 const { anonymous, uid } = useSession()
 // eslint-disable-next-line vue/no-setup-props-destructure
 const { content } = useContentEntry(props.thread)
+
+const processedContent = computed(() => {
+  const c = postProcessContent(content.value)
+  return c.outerHTML
+})
 </script>
 
 <template>
@@ -35,21 +42,17 @@ const { content } = useContentEntry(props.thread)
     <h1 class="hideOnMobile downscaled">
       {{ thread.title }}
     </h1>
-    <div
+    
+    <YoutubeSection
       v-if="thread.youtubeId"
-      class="youtube"
-    >
-      <YoutubePreview
-        :video-id="thread.youtubeId"
-        :width="600"
-        style="margin: 12px 0"
-      />
-    </div>
+      :video-id="thread.youtubeId"
+    />
+
     <ImageListSection
       v-if="thread.images && thread.images.length > 0"
       :images="thread.images"
     />
-    <div :innerHTML="content" />
+    <div :innerHTML="processedContent" />
     <!-- footer -->
     <cyan-toolbar>
       <FlowTimeCaption :flow-time="thread.flowTime" />
