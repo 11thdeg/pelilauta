@@ -32,6 +32,9 @@
       "login": "Kirjaudu",
       "loginOrRegister": "Kirjaudu / rekisteröidy",
       "markAllSeen": "Merkitse kaikki luetuksi",
+      "mark":{
+        "unseen": "Merkitse lukemattomaksi"
+      },
       "move": "Siirrä",
       "preview": "Esikatselu",
       "register": "Rekisteröidy",

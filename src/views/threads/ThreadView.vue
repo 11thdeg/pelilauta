@@ -7,9 +7,6 @@ import { useThread } from '../../composables/useThread'
 import ThreadMenu from './ThreadMenu.vue'
 import ShareButton from '../../components/ShareButton/ShareButton.vue'
 import ThreadArticle from '../../components/ThreadArticle/ThreadArticle.vue'
-import { useSubscriber } from '../../composables/useSubscriber'
-import { logDebug } from '../../utils/logHelpers'
-import { useSession } from '../../composables/useSession'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import { useTitle } from '@vueuse/core'
 import FabTray from '../../components/FabTray/FabTray.vue'
@@ -24,8 +21,6 @@ const { t } = useI18n()
 const router = useRouter()
 // eslint-disable-next-line vue/no-setup-props-destructure
 const { thread, loading, notFound } = useThread(props.threadkey)
-const { anonymous } = useSession()
-const { subscribeTo, subscriber, setSeen } = useSubscriber()
 
 const title = computed(() => {
   if (!thread.value) return '...'
@@ -34,20 +29,6 @@ const title = computed(() => {
 
 watch(() => thread.value, (tr) => {
   useTitle().value = 'Pelilauta / ' + tr?.title || '...'
-  if (anonymous.value) return
-  if (tr && tr.key) {
-    if(subscriber.value?.shouldNotify(tr.key, tr.flowTime)) {
-      logDebug('Notifying of thread changes', tr.key , 'after this point in time')
-      logDebug('Current flow time', tr.flowTime)
-      logDebug('Current subscription time', subscriber.value?.watches(tr.key))
-      subscribeTo(tr.key)
-    }
-    else if(subscriber.value && !subscriber.value.hasMuted(tr.key)) {
-      logDebug('Opened a new thread', tr.key , 'will start notifying of changes')
-      subscribeTo(tr.key)
-    }
-    if (subscriber.value) setSeen(tr.key)
-  }
 }, { immediate: true })
 
 const { flowtime, threadkey } = toRefs(props)

@@ -1,6 +1,7 @@
 import { Storable, Account, Thread, Page } from '@11thdeg/skaldstore'
 import { addDoc, collection, doc, DocumentData, getFirestore, setDoc, updateDoc } from '@firebase/firestore'
 import { logDebug } from './logHelpers'
+import { productionLogConfig } from '../config'
 
 function getCollectionName(e: Storable) {
   logDebug('getCollectionName', e)
@@ -45,7 +46,8 @@ export async function updateStorable(s: Storable|string[], docdata?: DocumentDat
   const path = Array.isArray(s) ? s : s.getFirestorePath()
   const data = Array.isArray(s) ? docdata : s.docData
 
-  logDebug('updateStorable', path, data)
+  if (productionLogConfig.components.includes('firestore')) 
+    logDebug('updateStorable', path, data)
 
   if (!data) throw new Error('No data provided to updateStorable')
 

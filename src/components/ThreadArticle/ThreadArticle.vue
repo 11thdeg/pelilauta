@@ -2,13 +2,13 @@
 import { computed } from 'vue'
 import { useContentEntry } from '../../composables/useContentEntry'
 import { useSession } from '../../composables/useSession'
-import WatchButton from '../WatchButton/WatchButton.vue'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import ImageListSection from '../content/ImageListSection.vue'
 import ProfilePane from '../profiles/ProfilePane.vue'
 import LoveAThreadButton from '../threads/LoveAThreadButton.vue'
 import YoutubeSection from './YoutubeSection.vue'
 import { postProcessContent } from '../../utils/content/postProcessContent'
+import SeenButton from './SeenButton.vue'
 
 const props = defineProps<{
   thread: {
@@ -57,10 +57,7 @@ const processedContent = computed(() => {
     <cyan-toolbar>
       <FlowTimeCaption :flow-time="thread.flowTime" />
       <cyan-spacer />
-      <WatchButton
-        v-if="!anonymous"
-        :entry="thread"
-      />
+      <SeenButton :thread="thread" />
       <LoveAThreadButton
         :disabled="anonymous"
         :thread="thread"

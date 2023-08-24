@@ -12,19 +12,18 @@ const props = defineProps<{
 }>()
 
 const { isSmall } = useScreenSize()
-const { subscriber } = useSubscriber()
+const { isNew, seenAt } = useSubscriber()
 
 const count = computed(() => {
   if (isSmall.value) undefined
   return props.thread.replyCount
 })
 
-const flowtime = computed(() => subscriber.value?.watches(props.thread.key || '') || 0)
+const flowtime = computed(() => seenAt(props.thread.key || '-'))
 
 const notify = computed(() => {
   if (!props.thread.key) return false
-  if (!subscriber.value) return false
-  return subscriber.value.shouldNotify(props.thread.key,props.thread.flowTime)
+  return isNew(props.thread.key,props.thread.flowTime)
 })
 
 </script>

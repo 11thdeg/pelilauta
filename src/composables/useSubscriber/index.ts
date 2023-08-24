@@ -1,6 +1,6 @@
 import { Subscriber } from '@11thdeg/skaldstore'
 import { doc, getDoc, getFirestore, onSnapshot } from '@firebase/firestore'
-import { computed, ref } from 'vue'
+import { Ref, computed, ref } from 'vue'
 import { setStorable, updateStorable } from '../../utils/firestoreHelpers'
 import { logDebug, logEvent } from '../../utils/logHelpers'
 import { persistMessagingPermission } from '../../utils/messaging'
@@ -9,8 +9,8 @@ import { useSnack } from '../useSnack'
 
 /* STATE MANAGEMENT STARTS ******************/
 
-const uid = ref('')
-const subscriber = ref(new Subscriber('-'))
+const uid = ref('-')
+const subscriber:Ref<Subscriber|undefined> = ref(undefined)
 const initialized = ref(false)
 let _unsubscribe: () => void
 
@@ -24,7 +24,7 @@ async function subscriberExists(newUid: string): Promise<boolean> {
   )
   if (dbdoc.exists()) {
     subscriber.value = new Subscriber(newUid, dbdoc.data())
-    logDebug('Subscriber', subscriber.value.docData)
+    // logDebug('Subscriber loaded, seen', subscriber.value.docData.seenEntities)
   }
   return dbdoc.exists()
 }
@@ -46,8 +46,10 @@ async function subscribeToSubscriber(newUid: string): Promise<void> {
     ),
     (snapshot) => {
       if (snapshot.exists()) {
-        logDebug('Subscriber snapshot received.')
+        // logDebug('Subscriber snapshot received.', JSON.stringify(snapshot.data().seenEntities))
         subscriber.value = new Subscriber(newUid, snapshot.data())
+        // logDebug('Subscriber loaded, seen', JSON.stringify(subscriber.value.docData.seenEntities))
+        initialized.value = true
       }
     }
   )
@@ -91,48 +93,45 @@ export async function initSubscriber(newUid: string, persistToken = false) {
     const body = payload?.notification?.body || '-'
     pushSnack(title + '/' + body)
   })
-
-  initialized.value = true
 }
 
 /* SUBSCRIBER FUNCTIONALITY STARTS ******************/
 
-function watches(key: string|undefined) {
-  if (!key) return false
-  if (!subscriber.value) return false
-  return subscriber.value.watches(key) > 0
-}
-
-/**
- * returns true if the user should be notified about the storable with the given key.
- * 
- * @param key {string} The key of the storable to check
- * @param flowTime {number} The flowTime of the storable to check
- * @returns {boolean} true if the user should be notified about the storable with the given key.
- */
-function shouldNotify(key: string, flowTime: number): boolean {
-  if ( loading.value ) return false
-  // logDebug('shouldNotify', key, flowTime, uid.value)
-  if ( !subscriber.value || !uid.value ) return false
-  return subscriber.value.isNew(key, flowTime) 
-}
-
-function mute(key: string) {
+function setSeen(key: string, flowTime?:number) {
   if (!subscriber.value) throw new Error('Subscriber not initialized')
-  subscriber.value.addMute(key)
-  updateStorable(subscriber.value)
+
+  const seenEntities = subscriber.value.seenEntities
+
+  // logDebug('setSeen before', JSON.stringify(seenEntities))
+
+  // TODO: remove this when we have refactored the flowtime handling in
+  // the client side. The flowtime should be set by the component calling
+  // this function, not by this function itself.
+  const t = flowTime || Date.now() * 1000
+  if (!flowTime) logDebug('setSeen, using runtime client side flowtime at ', t)
+
+  // The list of of seen is a Record<string, number>, so we can just 
+  // replace the key.
+  seenEntities[key] = t
+
+  // logDebug('setSeen', key, t)
+  // logDebug('setSeen after', JSON.stringify(seenEntities))
+
+  // Update the subscriber object in Firestore, just the seenEntities (subscriber ref
+  // will be updated by the snapshot listener, after the update is done in Firestore)
+  updateStorable(subscriber.value.getFirestorePath(), { seenEntities })
 }
 
-function subscribeTo(key: string) {
+function setUnSeen(key: string) {
   if (!subscriber.value) throw new Error('Subscriber not initialized')
-  subscriber.value.addWatch(key, Date.now() * 1000)
-  updateStorable(subscriber.value)
-}
 
-function setSeen(key: string) {
-  if (!subscriber.value) throw new Error('Subscriber not initialized')
-  subscriber.value.markSeen(key, Date.now() * 1000)
-  updateStorable(subscriber.value)
+  // Nothing to do if the key is not in the list of seen entities.
+  if (!subscriber.value.seenEntities[key]) return
+  
+  const seenEntities = subscriber.value.seenEntities
+  delete seenEntities[key]
+
+  updateStorable(subscriber.value.getFirestorePath(), { seenEntities })
 }
 
 function markAllSeen() {
@@ -145,7 +144,7 @@ function addMessagingToken(token: string) {
   if (!subscriber.value) throw new Error('Subscriber not initialized')
 
   // Sanity: don't add the token if it's already there
-  if (subscriber.value.messagingTokens.includes(token)) return
+  if (subscriber.value.docData.messagingTokens.includes(token)) return
 
   subscriber.value.addMessagingToken(token)
   updateStorable(subscriber.value)
@@ -165,9 +164,24 @@ function save () {
 /* COMPOSABLE STARTS ******************/
 
 const loading = computed(() => {
-  if (!uid.value || uid.value === '-') return false
+  if (!uid.value || uid.value === '-') return true
   return !initialized.value
 })
+
+function isNew(key: string, flowTime: number) {
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
+
+  // See if we have seen all entities
+  if (subscriber.value.allSeenAt > flowTime) return false
+
+  const lastSeenAt = subscriber.value.seenEntities[key] || 0
+  return flowTime > lastSeenAt
+}
+
+function seenAt(key: string) {
+  if (!subscriber.value) throw new Error('Subscriber not initialized')
+  return subscriber.value.seenEntities[key] || 0
+}
 
 /**
  * A composable function that returns a subscriber object for the current user.
@@ -177,14 +191,13 @@ export function useSubscriber() {
     uid: computed(() => uid.value),
     subscriber: computed(() => subscriber.value),
     loading,
-    watches,
-    mute,
-    subscribeTo,
     setSeen,
     markAllSeen,
-    shouldNotify,
     addMessagingToken,
     removeMessagingToken,
-    save
+    save,
+    isNew,
+    setUnSeen,
+    seenAt
   }
 }
