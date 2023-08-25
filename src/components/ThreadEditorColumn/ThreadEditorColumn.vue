@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Thread } from '@11thdeg/skaldstore'
+import { TagInfo, Thread } from '@11thdeg/skaldstore'
 import { addDoc, collection, doc, getFirestore, updateDoc } from '@firebase/firestore'
 import { marked } from 'marked'
 import { computed, ref, watch } from 'vue'
@@ -20,6 +20,8 @@ import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
 import ProfileLink from '../profileLink/ProfileLink.vue'
 import TopicTag from '../threads/TopicTag.vue'
 import SiteSelectionDialogButton from './SiteSelectionDialogButton.vue'
+import { extractTags } from '../../utils/content/extractTags'
+import { setStorable } from '../../utils/firestoreHelpers'
 
 const props = defineProps<{
   thread: {
@@ -85,6 +87,14 @@ function popImage (image: string) {
   images.value = (images.value as string[]).filter(i => i !== image)
 }
 
+async function updateTags(th:Thread) {
+  const tagInfo = new TagInfo(th.key)
+  tagInfo.tags = th.tags
+  tagInfo.entryPath = th.getFirestorePath()
+  tagInfo.entryTitle = th.title
+  await setStorable(tagInfo)
+}
+
 const { fetchAsset } = useAssets()
 async function insertAsset(key: string) {
   const asset = await fetchAsset(key)
@@ -147,10 +157,17 @@ async function createThread () {
 
   thread.addOwner(uid.value)
 
+  // Extract hashtags from the markdown content
+  thread.tags = extractTags(thread.markdownContent)
+
   try {
     const threadDoc = await addDoc(
       collection(getFirestore(), Thread.collectionName), thread.docData)
     pushSnack(t('snacks.thread.created'))
+
+    // Update tags
+    await updateTags(thread)
+
     router.push('/threads/' + threadDoc.id)
   } catch (e: unknown){
     logError(e)
@@ -180,11 +197,15 @@ async function updateThread () {
   if (topicChanged.value) thread.topicid = topic.value.toString()
   if (siteChanged.value) thread.siteid = site.value.toString()
 
+  // Extract hashtags from the markdown content
+  thread.tags = extractTags(thread.markdownContent)
+
   try {
     await updateDoc(
       doc(getFirestore(), Thread.collectionName, thread.key as string),
       thread.docData
     )
+    await updateTags(thread)
     pushSnack(t('snacks.thread.updated'))
     router.push('/threads/' + thread.key)
   } catch (e: unknown){

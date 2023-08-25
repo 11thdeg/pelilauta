@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
-import EditPageForm from '../../components/pages/EditPageForm.vue'
+import EditPageForm from '../../components/EditPageForm/EditPageForm.vue'
 import { usePage } from '../../composables/usePage'
 import { loadSite, useSite } from '../../composables/useSite'
 import { watch } from 'vue'

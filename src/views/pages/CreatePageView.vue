@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
-import EditPageForm from '../../components/pages/EditPageForm.vue'
+import EditPageForm from '../../components/EditPageForm/EditPageForm.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import WithPermission from '../../components/ui/WithPermission.vue'
 import { useSite } from '../../composables/useSite'

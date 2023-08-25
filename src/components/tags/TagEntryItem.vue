@@ -11,7 +11,12 @@ const props = defineProps<{
   };
 }>()
 
-const entryRoute = computed(() => '/' + props.entry.entryPath.join('/'))
+const entryRoute = computed(() => {
+  if(props.entry.entryPath[0] === 'stream') {
+    return '/threads/' + props.entry.entryPath[1]
+  }
+  return '/' + props.entry.entryPath.join('/')
+})
 const additionalTags = computed(() => props.entry.tags.filter((t: string) => t !== props.tagkey).join(', '))
 </script>
 
