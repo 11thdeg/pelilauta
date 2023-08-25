@@ -52,9 +52,23 @@ const PlaceholderAvatarBackgroundColor = computed(() => {
   width: 48px
   border-radius: 50%
   flex-shrink: 0
+  display: block
   img
     height: 100%
     width: 100%
     border-radius: 50%
+  .PlaceholderAvatar
+    height: 100%
+    width: 100%
+    border-radius: 50%
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 1.5rem
+    font-weight: 700
+    color: white
+    text-transform: uppercase
+    letter-spacing: 0.1rem
+    line-height: 1
 </style>
 

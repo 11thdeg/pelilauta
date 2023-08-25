@@ -35,7 +35,10 @@ const topicid = computed(() => {
 
 const { isNew } = useSubscriber()
 
-const notify = computed(() => isNew(props.thread.key || '',props.thread.flowTime || 0))
+const notify = computed(() => isNew(
+  key.value, 
+  props.thread.flowTime || 0)
+)
 
 const level = computed(() => {
   return notify.value === true ? 2 : 1

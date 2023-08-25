@@ -45,6 +45,7 @@ watch(subsciberExists, (exists) => {
 
   if (isNew(thread.value.key , thread.value.flowTime)) {
     // The user has not seen the threads latest updates yet, lets changge that!
+    logDebug('SeenButton', 'setting seen', thread.value.key, thread.value.flowTime)
     setSeen(thread.value.key, thread.value.flowTime)
   }
 }, { immediate: true})

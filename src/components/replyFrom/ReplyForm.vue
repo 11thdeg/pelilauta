@@ -11,6 +11,7 @@ import ImageListSection from '../content/ImageListSection.vue'
 import QuotedResponseSection from '../discussion/QuotedResponseSection.vue'
 import InsertAssetButton from '../InsertAssetButton/InsertAssetButton.vue'
 import { useAssets } from '../../composables/useAssets'
+import { useSubscriber } from '../../composables/useSubscriber'
 
 
 const { t } = useI18n()
@@ -67,6 +68,12 @@ async function onSubmit () {
         replyCount: increment(1)
       }
     )
+
+    // Sets the thread as seen, assume 3 seconds to write the thread
+    // ToDo: move this to cloud-side function
+    const { setSeen } = useSubscriber()
+    setSeen(props.threadkey, Date.now() + 3000)
+
     pushSnack('snacks.reply.created')
     onCancel()
   } catch (e) {

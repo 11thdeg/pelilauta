@@ -136,7 +136,7 @@ function setUnSeen(key: string) {
 
 function markAllSeen() {
   if (!subscriber.value) throw new Error('Subscriber not initialized')
-  subscriber.value.allSeenAt = Date.now() * 1000
+  subscriber.value.allSeenAt = Date.now()
   updateStorable(subscriber.value)
 }
 
@@ -170,6 +170,8 @@ const loading = computed(() => {
 
 function isNew(key: string, flowTime: number) {
   if (!subscriber.value) throw new Error('Subscriber not initialized')
+
+  // logDebug('isNew', key, flowTime, subscriber.value.allSeenAt, subscriber.value.seenEntities[key])
 
   // See if we have seen all entities
   if (subscriber.value.allSeenAt > flowTime) return false
