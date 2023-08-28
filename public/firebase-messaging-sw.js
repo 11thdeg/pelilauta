@@ -23,41 +23,42 @@ firebase.initializeApp({
 const messaging = firebase.messaging()
 
 messaging.onBackgroundMessage(function (payload) {
-  console.log(
-    '[firebase-messaging-sw.js] Received background message ',
-    payload,
-  )
-
   // Message format is
   // data: {
-  //  threadId: threadId || "",
   //  url: `https://pelilauta.web.app/threads/${threadId}`,
   //  title,
-  //  body,
+  //  body
   //},
 
-  // Customize notification here
   const notificationTitle = payload.data.title
 
   const notificationOptions = {
     body: payload.data.body,
     icon: payload.data.icon,
-    data: { url:payload.data.click_action }, //the url which we gonna use later
-    actions: [{action: 'open_url', title: 'Lue lisää'}]
+    data: { 
+      url:payload.data.click_action 
+    }, //the url which we use below
+    actions: [{
+      action: 'open_url', 
+      title: 'Lue lisää'
+    }]
   }
-
-  self.addEventListener('notificationclick', function(event) {
-
-    switch(event.action){
-    case 'open_url':
-      clients.openWindow(event.notification.data.url) //which we got from above
-      break
-    case 'any_other_action':
-      clients.openWindow('https://pelilauta.web.app/')
-      break
-    }
-  }
-  , false)
 
   self.registration.showNotification(notificationTitle, notificationOptions)
 })
+
+function handleNotificationClick(event) {
+  event.notification.close();
+
+  switch(event.action){
+  case 'open_url':
+    openUrl(event.notification.data.url) //which we got from above
+    break
+  default:
+    openUrl('https://pelilauta.web.app/')
+    break
+  }
+}
+
+self.addEventListener('notificationclick', handleNotificationClick)
+

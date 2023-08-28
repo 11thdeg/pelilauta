@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import { useSession } from '../../../composables/useSession'
 import NavigationTray from '../../NavigationTray/NavigationTray.vue'
 
+const { admin } = useSession()
 </script>
 
 <template>
@@ -29,6 +31,17 @@ import NavigationTray from '../../NavigationTray/NavigationTray.vue'
           noun="mekanismi"
         >
           {{ $t('library.games.title') }}
+        </cyan-nav-button>
+      </router-link>
+
+      <router-link 
+        v-if="admin"
+        to="/library/blog"
+      >
+        <cyan-nav-button
+          noun="card"
+        >
+          {{ $t('blogs.publish.title') }}
         </cyan-nav-button>
       </router-link>
       <!--cyan-nav-button
