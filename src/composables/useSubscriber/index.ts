@@ -6,6 +6,7 @@ import { logDebug, logEvent } from '../../utils/logHelpers'
 import { persistMessagingPermission } from '../../utils/messaging'
 import { getMessaging, onMessage } from 'firebase/messaging'
 import { useSnack } from '../useSnack'
+import { useSession } from '../useSession'
 
 /* STATE MANAGEMENT STARTS ******************/
 
@@ -169,6 +170,10 @@ const loading = computed(() => {
 })
 
 function isNew(key: string, flowTime: number) {
+  const { anonymous } = useSession()
+  if (anonymous.value) return false
+  if (initialized.value === false) return false
+
   if (!subscriber.value) throw new Error('Subscriber not initialized')
 
   // logDebug('isNew', key, flowTime, subscriber.value.allSeenAt, subscriber.value.seenEntities[key])
@@ -181,6 +186,10 @@ function isNew(key: string, flowTime: number) {
 }
 
 function seenAt(key: string) {
+  const { anonymous } = useSession()
+  if (anonymous.value) return false
+  if(initialized.value === false) return false
+  
   if (!subscriber.value) throw new Error('Subscriber not initialized')
   return subscriber.value.seenEntities[key] || 0
 }
