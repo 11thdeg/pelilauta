@@ -2,8 +2,8 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
-import { useScreenSize } from '../../composables/useScreenSize'
-import { useSite } from '../../composables/useSite'
+import { useScreenSize } from '../../../composables/useScreenSize'
+import { useSite } from '../../../composables/useSite'
 
 const route = useRoute()
 const router = useRouter()

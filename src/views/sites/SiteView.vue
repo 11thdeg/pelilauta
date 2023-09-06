@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import SiteFabs from '../../components/sites/SiteFabs.vue'
+import SiteFabs from '../../components/sites/SiteFabs/SiteFabs.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import { loadSite, useSite } from '../../composables/useSite'
