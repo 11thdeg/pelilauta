@@ -2,6 +2,7 @@ import { Page, Site } from '@11thdeg/skaldstore'
 import { collection, doc, getDoc, getFirestore, onSnapshot } from 'firebase/firestore'
 import { computed, ref } from 'vue'
 import { addStore } from './useSession'
+import { toMekanismiURI } from '../utils/toMekanismiURI'
 
 let sitekey = ''
 let unsubscribe:CallableFunction|undefined
@@ -107,9 +108,14 @@ function pushToCache(sk:string, pk:string, page:Page) {
   masterPageCache.value.get(sk)?.set(pk, page)
 }
 
+function hasPage(pk:string) {
+  return pageCache.value.has(pk) || pageCache.value.has(toMekanismiURI(pk))
+}
+
 export function usePages(key?: string) {
   init(key)
   return {
+    hasPage,
     masterPageCache: computed(() => masterPageCache.value),
     pages: computed(() => Array.from(pageCache.value.values())),
     categories,

@@ -405,6 +405,11 @@
       "notFound": {
         "title": "Uusi sivu?",
         "message": "Sivua ei vielä ole luotu. Jos olet sivuston omistaja, voit luoda sen alla olevasta painikkeesta."
+      },
+      "craft": {
+        "title": "Luo uusi sivu",
+        "url": "Sivun osoitteeksi tulee",
+        "duplicateWarning": "Sivun osoitteen tulee olla uniikki"
       }
     },
     "pages": {

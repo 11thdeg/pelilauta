@@ -1,5 +1,5 @@
 import { Storable, Account, Thread, Page } from '@11thdeg/skaldstore'
-import { addDoc, collection, doc, DocumentData, getFirestore, setDoc, updateDoc } from '@firebase/firestore'
+import { addDoc, collection, doc, DocumentData, getDoc, getFirestore, setDoc, updateDoc } from '@firebase/firestore'
 import { logDebug } from './logHelpers'
 import { productionLogConfig } from '../config'
 
@@ -17,11 +17,34 @@ function getCollectionName(e: Storable) {
 /**
  * Add a new Storable to the Firestore database.
  */ 
-export async function addStorable(e: Storable) {
+export async function addStorable(e: Storable, opts: { key?: string } = {}) {
   const path = e.getFirestorePath()
   const collectionName = path.shift()
   if (!collectionName) throw new Error('No root collection name found in path')
   logDebug('addStorable', e, path, collectionName)
+
+  if (opts.key) {
+    // check if the key exists, abort if it does
+    const p = path
+    p.push(opts.key as string)
+    const docRef = doc(
+      getFirestore(),
+      collectionName,
+      ...p
+    )
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) throw new Error('Key already exists')
+
+    // Create using setDoc
+    await setDoc(
+      docRef,
+      e.docData
+    )
+
+    return opts.key
+  }
+
+  // Create using addDoc
   const r = await addDoc(
     collection(
       getFirestore(),

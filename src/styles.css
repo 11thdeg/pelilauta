@@ -4,6 +4,13 @@ main {
   max-width: 1536px;
 }
 
+.justify-center{
+  justify-content: center;
+}
+.justify-right{
+  justify-content: right;
+}
+
 .dataTable {
   width: 100%;
   overflow: hidden;

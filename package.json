@@ -12,7 +12,7 @@
     "deploy:staging": "build && firebase deploy --only hosting:skaldbase-test"
   },
   "dependencies": {
-    "@11thdeg/cyan": "0.37.0-beta.10",
+    "@11thdeg/cyan": "0.37.0-beta.11",
     "@11thdeg/skaldstore": "0.7.11",
     "@firebase/analytics": "0.10.0",
     "@firebase/app": "0.9.18",
