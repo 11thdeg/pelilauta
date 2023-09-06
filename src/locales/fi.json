@@ -197,6 +197,12 @@
         }
       },
       "tools": {
+        "config":{
+          "title": "Toiminnot",
+          "info": "Erilaisia lisäasetuksia, joilla sivuston toimintaa voi muuttaa mieleisekseen",
+          "tweaks": "Toiminnot",
+          "customPageKeys": "Selkokieliset URL:it"
+        },
         "settings": {
           "title": "Asetukset",
           "info": "Sivuston asetukset"

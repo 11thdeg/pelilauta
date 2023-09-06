@@ -8,6 +8,7 @@ import { useSite } from '../../composables/useSite'
 import SiteLicenseSelect from './SiteLicenseSelect.vue'
 import SiteVisibilityToggle from './SiteVisibilityToggle.vue'
 import { useRouter } from 'vue-router'
+import SiteConfigSection from './SiteConfigSection.vue'
 
 const { t } = useI18n()
 const { site } = useSite()
@@ -56,5 +57,6 @@ async function setHomePage(pageKey: string) {
         />
       </p>
     </form>
+    <SiteConfigSection />
   </article>
 </template>
