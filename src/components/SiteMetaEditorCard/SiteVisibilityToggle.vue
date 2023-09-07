@@ -13,10 +13,12 @@ function setSiteVisibility(e: boolean) {
 </script>
 
 <template>
-  <cyan-toggle
+  <!-- Toggles site visibility in public listings -->
+  <cn-toggle-button
     v-if="site"
     :label="t('fields.site.hidden')"
-    :checked="site.hidden"
-    @change="setSiteVisibility($event.detail)"
+    :pressed="site.hidden"
+    :aria-pressed="site.hidden"
+    @change="setSiteVisibility($event.target.pressed)"
   />
 </template>

@@ -9,7 +9,7 @@ const { site } = useSite()
 
 async function save() {
   if (!site.value) throw new Error('No site loaded')
-  updateStorable(site.value)
+  updateStorable(site.value, { silent: true })
 }
 
 const customPageKeys = computed({

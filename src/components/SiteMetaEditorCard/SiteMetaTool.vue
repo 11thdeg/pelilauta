@@ -6,7 +6,6 @@ import { useI18n } from 'vue-i18n'
 import { usePages } from '../../composables/usePages'
 import { useSite } from '../../composables/useSite'
 import SiteLicenseSelect from './SiteLicenseSelect.vue'
-import SiteVisibilityToggle from './SiteVisibilityToggle.vue'
 import { useRouter } from 'vue-router'
 import SiteConfigSection from './SiteConfigSection.vue'
 
@@ -46,7 +45,16 @@ async function setHomePage(pageKey: string) {
         :value="chosen"
         @change="setHomePage($event.target.value)"
       />
-      <p><SiteVisibilityToggle /></p>
+
+      <br>
+
+      <SiteConfigSection />
+
+      <br>
+      <hr>
+      <br>
+
+      
       <SiteLicenseSelect />
       <p v-if="site">
         <cyan-button
@@ -57,6 +65,5 @@ async function setHomePage(pageKey: string) {
         />
       </p>
     </form>
-    <SiteConfigSection />
   </article>
 </template>
