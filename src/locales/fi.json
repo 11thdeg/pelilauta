@@ -183,6 +183,10 @@
       "changes": {
         "title": "Muutokset"
       },
+      "create": {
+        "extra": "lisäasetuksia",
+        "vanityKey": "Luettava URL"
+      },
       "deleteConfirm": {
         "title": "Vahvista sivuston poistaminen",
         "message": "Haluatko varmasti poistaa sivuston? Tämä poistaa kaiken sivuston sisällön, ja toimintoa ei voi perua."
@@ -469,6 +473,7 @@
         "bio": "Kuvaus"
       },
       "site": {
+        "key": "Pelin tunniste (URI)",
         "name": "Pelin, tai sivuston nimi",
         "system": "Pelijärjestelmä tai sivuston luokka",
         "chapter": "Aihe",

@@ -14,6 +14,23 @@ function getCollectionName(e: Storable) {
   return Storable.collectionName
 }
 
+
+/**
+ * Fetch a storable from the Firestore database. returns null if not found.
+ * 
+ * @param {string[]} path path to the storable, including the collection name(s)
+ */
+export async function fetchStorable(path: string[]) {
+  logDebug('fetchStorable', path)
+  const docRef = doc(
+    getFirestore(),
+    path.join('/')
+  )
+  const docSnap = await getDoc(docRef)
+  if (!docSnap.exists()) return null
+  return docSnap.data()
+}
+
 /**
  * Add a new Storable to the Firestore database.
  */ 

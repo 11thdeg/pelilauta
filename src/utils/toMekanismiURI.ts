@@ -10,5 +10,10 @@ export function toMekanismiURI (s: string): string {
   while (r.includes('--')) {
     r = r.split('--').join('-')
   }
+  // if the string ends with a -, remove it
+  if (r.endsWith('-')) {
+    r = r.slice(0, -1)
+  }
+  
   return r
 }
