@@ -43,6 +43,8 @@ function subscribeSite () {
 
         // Patch it to sites collection
         patchSite(s)
+
+        logDebug('subscribeSite', 'Site updated from FS', s.name)
       }
       // Else: site does not exist, so we remover it from local storage and store
       else {
@@ -78,10 +80,14 @@ function loadSiteFromLocalStorage () {
  * Loads the site to be used by the composable.
  */
 function loadSite () {
+  // logDebug('loadSite', 'Loading site', key.value, site.value.key)
+
   if (!key.value) return // no key to load
 
   // Sanity check, do not load if already loaded
-  if (site.value.key = key.value) throw new Error('Site already loaded, aborting loadSite')
+  if (site.value.key === key.value) throw new Error('Site already loaded')
+
+  logDebug('loadSite', 'Loading site', key.value)
 
   // Set loading states to true
   loading.value = true
@@ -132,16 +138,21 @@ export function useSite () {
 
   // onMounted will call loadSite, if key changed
   onMounted(() => {
-    const siteKey = router.currentRoute.value.params.siteKey
+    const siteKey = router.currentRoute.value.params.sitekey
+    // logDebug('useSite', 'onMounted', siteKey)
     if (
       siteKey && 
       typeof siteKey === 'string' 
       && siteKey !== key.value) {
       // Set key, so we don't load again
       key.value = siteKey
+      logDebug('useSite', 'onMounted', 'key changed', siteKey)
+
       // Load the site
-      loadSite()
-      usePages(siteKey)
+      if (!loading.value) {
+        loadSite()
+        usePages(siteKey)
+      }
     }
   })
 

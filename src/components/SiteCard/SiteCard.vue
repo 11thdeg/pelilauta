@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, toRefs } from 'vue'
 import { useSession } from '../../composables/useSession'
 import FlowTimeCaption from '../content/FlowTimeCaption.vue'
 import LoveASiteButton from './LoveASiteButton.vue'
@@ -20,6 +20,8 @@ const props = defineProps<{
   },
   hideControls?: boolean
 }>()
+
+const { site, hideControls } = toRefs(props)
 
 const { uid } = useSession()
 

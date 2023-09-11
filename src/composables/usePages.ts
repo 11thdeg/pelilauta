@@ -3,6 +3,7 @@ import { collection, doc, getDoc, getFirestore, onSnapshot } from 'firebase/fire
 import { computed, ref } from 'vue'
 import { addStore } from './useSession'
 import { toMekanismiURI } from '../utils/toMekanismiURI'
+import { logDebug } from '../utils/logHelpers'
 
 let sitekey = ''
 let unsubscribe:CallableFunction|undefined
@@ -69,6 +70,8 @@ const categories = computed(() => {
 
 export async function fetchPage (sk: string, pagekey: string) {
   if (!pagekey) return undefined // no pagekey, no page to fetch
+
+  logDebug('usePages', 'fetchPage', sk, pagekey)
 
   if (sitekey === sk) {
     if (pageCache.value.has(pagekey))

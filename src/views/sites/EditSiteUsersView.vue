@@ -8,23 +8,16 @@ import OwnerEditor from '../../components/sites/tools/OwnerEditor.vue'
 import PlayerEditor from '../../components/sites/tools/PlayerEditor.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 
-import { loadSite, useSite } from '../../composables/useSite'
+import { useSite } from '../../composables/useSite'
 import { useTitle } from '../../composables/useTitle'
 import { useRouter } from 'vue-router'
-
-const props = defineProps<{
-  sitekey: string
-}>()
 
 const { t } = useI18n()
 const { title } = useTitle()
 const router = useRouter()
 
-const { loading, canEdit } = useSite()
+const { site, loading, canEdit } = useSite()
 
-onMounted(() => {
-  loadSite(props.sitekey)
-})
 onMounted(() => {
   title.value = t('site.tools.users')
 })
@@ -37,7 +30,7 @@ onMounted(() => {
         noun="adventurer"
         :title="$t('site.tools.users')"
         modal
-        @back="router.push('/sites/' + sitekey)"
+        @back="router.push('/sites/' + site.key)"
       />
       <main class="dashboardLayout">
         <LoginRequiredColumn v-if="!canEdit" />

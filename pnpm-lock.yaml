@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@11thdeg/cyan': 0.37.0-beta.11
-  '@11thdeg/skaldstore': 0.7.11
+  '@11thdeg/skaldstore': 0.7.13-beta.3
   '@firebase/analytics': 0.10.0
   '@firebase/app': 0.9.18
   '@firebase/auth': 1.1.0
@@ -41,7 +41,7 @@ specifiers:
 
 dependencies:
   '@11thdeg/cyan': 0.37.0-beta.11
-  '@11thdeg/skaldstore': 0.7.11
+  '@11thdeg/skaldstore': 0.7.13-beta.3
   '@firebase/analytics': 0.10.0_@firebase+app@0.9.18
   '@firebase/app': 0.9.18
   '@firebase/auth': 1.1.0_@firebase+app@0.9.18
@@ -90,8 +90,8 @@ packages:
       marked: 4.2.12
     dev: false
 
-  /@11thdeg/skaldstore/0.7.11:
-    resolution: {integrity: sha512-YJiCa0AjnBvbZIjDmoS1IVGq3sC8rV7TsOeSVVcWn81GgeutkuG+5trx+tje7kIXhRQko/uNhX+96efyj21j5g==}
+  /@11thdeg/skaldstore/0.7.13-beta.3:
+    resolution: {integrity: sha512-l13i3yzJ+5zNMQ12bLgMvgZ909c2m4qLcS45wk9RUts0Vy1IUjUYr2EzttnUOYH+ECT8irGZaY8U7w+gDVu17g==}
     dependencies:
       firebase: 9.22.0
       zod: 3.22.1
@@ -2346,7 +2346,7 @@ packages:
     resolution: {integrity: sha512-H9l79u4kJ2PVSxUNA08HMYAnUBLj9v6KjYQ7SQ71hOZcEXhShE/y5iQCesP8+6/Ik/7i2O0a10bPquIcYfufog==}
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
-      '@grpc/proto-loader': 0.7.4
+      '@grpc/proto-loader': 0.7.9
       '@types/node': 18.11.18
     dev: false
 
@@ -2367,18 +2367,6 @@ packages:
       lodash.camelcase: 4.3.0
       long: 4.0.0
       protobufjs: 6.11.3
-      yargs: 16.2.0
-    dev: false
-
-  /@grpc/proto-loader/0.7.4:
-    resolution: {integrity: sha512-MnWjkGwqQ3W8fx94/c1CwqLsNmHHv2t0CFn+9++6+cDphC1lolpg9M2OU0iebIjK//pBNX9e94ho+gjx6vz39w==}
-    engines: {node: '>=6'}
-    hasBin: true
-    dependencies:
-      '@types/long': 4.0.2
-      lodash.camelcase: 4.3.0
-      long: 4.0.0
-      protobufjs: 7.2.5
       yargs: 16.2.0
     dev: false
 

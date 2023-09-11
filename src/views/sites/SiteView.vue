@@ -2,10 +2,9 @@
 import SiteFabs from '../../components/sites/SiteFabs/SiteFabs.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
-import { loadSite, useSite } from '../../composables/useSite'
+import { useSite } from '../../composables/useSite'
 import { usePage } from '../../composables/usePage'
-import { onMounted, watch } from 'vue'
-import PageArticle from '../../components/PageArticle/PageArticle.vue'
+import { computed, onMounted, watch } from 'vue'
 import { useTitle } from '@vueuse/core'
 import SiteChangesListColumn from '../../components/SiteChangesListColumn/SiteChangesListColumn.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
@@ -14,18 +13,14 @@ import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import LoveASiteButton from '../../components/SiteCard/LoveASiteButton.vue'
 import ShareButton from '../../components/ShareButton/ShareButton.vue'
 import { useUxState } from '../../composables/useUXState'
+import SiteFrontPageArticle from '../../components/site/SiteFrontPageArticle.vue'
 
-const props = defineProps<{
-  sitekey: string
-}>()
-
-const { site } = useSite()
-const { loading, notFound, page } = usePage()
 const title = useTitle()
+
+const { site, loading, notFound } = useSite()
 const { toggleMobileNavTray } = useUxState()
 
 onMounted(() => {
-  loadSite(props.sitekey)
   watch(site, (ns) => {
     useTitle().value = ns?.name || '404'
     if (ns) {
@@ -35,13 +30,21 @@ onMounted(() => {
     }
   }, { immediate: true })
 })
+
+const backgroundStyle = computed(() =>{
+  if(!site.value.backgroundURL) return
+  return `backgroundImage: url(${site.value.backgroundURL})`
+})
 </script>
 
 <template>
-  <div id="SiteView">
+  <div
+    id="SiteView"
+    :style="backgroundStyle"
+  >
     <cn-app-bar
       id="TopBar"
-      :title="site?.name || '...'"
+      :title="site.name"
       sticky
       :noun="site?.systemBadge || 'mekanismi'"
       menu
@@ -66,15 +69,12 @@ onMounted(() => {
             :message="$t('site.welcome.message')"
           />
         </article>
-        <PageArticle
-          v-else-if="page"
-          :page="page"
-        />
+        <SiteFrontPageArticle v-else />
       </WithLoader>
       <SiteChangesListColumn />
     </main>
     <SiteFooter />
-    <SiteFabs :sitekey="sitekey" />
+    <SiteFabs />
     <NavigationTray>
       <SiteTray />
     </NavigationTray>

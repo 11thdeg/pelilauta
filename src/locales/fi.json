@@ -209,7 +209,8 @@
         },
         "settings": {
           "title": "Asetukset",
-          "info": "Sivuston asetukset"
+          "info": "Sivuston asetukset",
+          "theming": "Sivuston ulkoasu"
         },
         "chapters": {
           "title": "Aiheet",
@@ -479,7 +480,8 @@
         "chapter": "Aihe",
         "hidden": "Piilotettu sivusto",
         "avatarurl": "Kuvake",
-        "posterurl": "Taustakuva",
+        "posterurl": "Otsakekuva",
+        "backgroundurl": "Taustakuva",
         "description": "Kuvaus",
         "license": "Lisenssi",
         "homepage": "Kotisivu",

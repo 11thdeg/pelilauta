@@ -4,7 +4,7 @@ import SiteFabs from '../../components/sites/SiteFabs/SiteFabs.vue'
 import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import PageArticle from '../../components/PageArticle/PageArticle.vue'
-import { loadSite, useSite } from '../../composables/useSite'
+import { useSite } from '../../composables/useSite'
 import { watch } from 'vue'
 import { useTitle } from '@vueuse/core'
 import PageMetaColumn from '../../components/PageMetaColumn/PageMetaColumn.vue'
@@ -28,8 +28,6 @@ const title = useTitle()
 
 // We need to load state from the server when the route changes
 watch(props, (p) => {
-  // init composable
-  loadSite(p.sitekey)
   // init composable with sitekey and pagekey
   loadPage(p.pagekey, p.sitekey)
 }, { 

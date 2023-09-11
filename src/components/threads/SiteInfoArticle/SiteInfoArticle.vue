@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue'
-import { loadSite, useSite } from '../../../composables/useSite'
+import { useSites } from '../../../composables/useSites'
 import WithLoader from '../../ui/WithLoader.vue'
 import SiteCard from '../../SiteCard/SiteCard.vue'
-import { watch } from 'vue'
+
 import SiteThreadListSection from '../../SiteThreadList/SiteThreadListSection.vue'
+import { Site } from '@11thdeg/skaldstore';
+import { computed } from 'vue';
 
 
 const props = defineProps<{
@@ -12,12 +13,10 @@ const props = defineProps<{
   threadkey: string
 }>()
 
-const { site, loading, notFound } = useSite()
+const { allSites } = useSites()
 
-onMounted(async() => {
-  watch(() => props.sitekey, (key) => {
-    if (key) loadSite(key)
-  }, { immediate: true })
+const site = computed(() => {
+  return allSites.value.find((s:Site) => s.key === props.sitekey)
 })
 
 </script>
@@ -27,13 +26,13 @@ onMounted(async() => {
     v-if="sitekey"
     class="column small"
   >
-    <WithLoader :suspended="loading">  
+    <WithLoader :suspended="!site">  
       <SiteCard
-        v-if="site && !notFound"
+        v-if="site"
         :site="site"
       />
       <SiteThreadListSection
-        v-if="site && !notFound"
+        v-if="site"
         :sitekey="sitekey"
         :count="7"
         :omit="[threadkey]"

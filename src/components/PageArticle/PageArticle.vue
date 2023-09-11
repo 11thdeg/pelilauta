@@ -1,33 +1,27 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useContentEntry } from '../../composables/useContentEntry'
-import { postProcessContent } from '../../utils/content/postProcessContent'
+import { toRefs } from 'vue'
+import { useContentRef } from '../../composables/useContentRef'
+import { ContentEntryType } from '@11thdeg/skaldstore/dist/ContentEntry'
 
 const props = defineProps<{
-  page: {
-    htmlContent?: string, 
-    markdownContent?: string
-  }
+  page: ContentEntryType
 }>()
-
-// eslint-disable-next-line vue/no-setup-props-destructure
-const { content } = useContentEntry(
-  props.page, 
-  {
-    default: '...'
-  }
-)
-
-const processedContent = computed(() => {
-  const c = postProcessContent(content.value)
-  return c.outerHTML
-})
+const { page } = toRefs(props)
+const { content } = useContentRef(page)
 
 </script>
 
 <template>
   <article
     class="PageArticle Column large"
-    :innerHTML="processedContent"
+    :innerHTML="content"
   />
 </template>
+
+<style scoped>
+.PageArticle {
+  background: var(--chroma-surface);
+  padding: var(--cn-padding);
+  border-radius: 12px;
+}
+</style>

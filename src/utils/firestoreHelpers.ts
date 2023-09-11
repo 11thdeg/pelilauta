@@ -84,7 +84,7 @@ export async function addStorable(e: Storable, opts: { key?: string } = {}) {
  */
 export async function updateStorable(s: Storable|string[], docdata?: DocumentData, opts: { silent?: boolean } = {}) {
   const path = Array.isArray(s) ? s : s.getFirestorePath()
-  const data = Array.isArray(s) ? docdata : s.docData
+  const data = docdata || (Array.isArray(s) ? undefined : s.docData)
 
   if (productionLogConfig.components.includes('firestore')) 
     logDebug('updateStorable', path, data)
