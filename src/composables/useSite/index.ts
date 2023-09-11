@@ -1,65 +1,97 @@
 import { Site } from '@11thdeg/skaldstore'
-import { PageCategory } from '@11thdeg/skaldstore/dist/entries/Site'
-import { doc, DocumentData, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore'
-import { computed, ref, Ref } from 'vue'
+import { doc, getFirestore, onSnapshot } from 'firebase/firestore'
+import { computed, onMounted, ref } from 'vue'
 import { addStore, useSession } from '../useSession'
 import { patchSite } from '../useSites'
-import { subscribePages, usePages } from '../usePages'
+import { usePages } from '../usePages'
 import { logDebug } from '../../utils/logHelpers'
+import { useRouter } from 'vue-router'
 
-let subscribedSitekey = ''
+// let subscribedSitekey = ''
+
+// Firestore doc key of the site we are subscribed to
+const key = ref('')
+const site = ref(new Site())
+const notFound = ref(false)
+
 let unsubscribeSite:CallableFunction|undefined
-const site: Ref<Site | undefined> = ref(undefined)
+
 const loading = ref(false)
 
-async function updateChapters (chapters: PageCategory[]) {
-  const s = site.value
-  if(!s || !s.key) throw new Error('No site to update')
-  return updateDoc(
-    doc(getFirestore(), Site.collectionName, s.key),
-    { pageCategories: chapters }
-  )
-}
-
 function reset () {
-  site.value = undefined
-  subscribedSitekey = ''
+  key.value = ''
+  site.value = new Site()
   unsubscribeSite && unsubscribeSite()
 }
 
-function subscribeSite (key: string) {
-  if(subscribedSitekey === key) return // already subscribed
-  reset()
-  loading.value = true
-  subscribedSitekey = key
+/**
+ * Subscribes to the site with the current key
+ */
+function subscribeSite () {
   addStore('site', reset)
 
   unsubscribeSite = onSnapshot(
-    doc(getFirestore(), Site.collectionName, key),
+    doc(getFirestore(), Site.collectionName, key.value),
     (snapshot) => {
+      // We got a snapshot, so lets update site data
       if(snapshot.exists()) {
         const s = new Site(snapshot.data(), snapshot.id)
         site.value = s
+
+        // Save to local storage
+        localStorage.setItem(s.getFirestorePath().join('/'), JSON.stringify(s.toJSON()))
+
+        // Patch it to sites collection
         patchSite(s)
+      }
+      // Else: site does not exist, so we remover it from local storage and store
+      else {
+        logDebug('subscribeSite', 'Site does not exist, removing from local storage', key.value)
+
+        // Remove from local storage, as the site (no longer) exists
+        localStorage.removeItem(new Site({key: key.value}).getFirestorePath().join('/'))
+        site.value = new Site()
+        notFound.value = true
       }
       loading.value = false
     }
   )
 }
 
-async function update (data: DocumentData) {
-  const s = site.value
-  if(!s || !s.key) throw new Error('No site to update')
-  return updateDoc(
-    doc(getFirestore(), Site.collectionName, s.key),
-    data
-  )
+function loadSiteFromLocalStorage () {
+  const LocalStorageKey = new Site({key: key.value}).getFirestorePath().join('/')
+  const siteData = localStorage.getItem(LocalStorageKey)
+  if(!siteData) {
+    logDebug('loadSiteFromLocalStorage', 'No site data in LocalStorage')
+    site.value = new Site()
+  }
+  const s = new Site(JSON.parse(siteData || '{}'))
+  site.value = s
+
+  // Set loading state to false
+  loading.value = false
+
+  logDebug('loadSiteFromLocalStorage', 'Loaded site from LocalStorage', s.name)
 }
 
-export function loadSite (key: string) {
-  if (site.value?.key === key) return // already subscribed
-  subscribeSite(key)
-  subscribePages(key)
+/**
+ * Loads the site to be used by the composable.
+ */
+function loadSite () {
+  if (!key.value) return // no key to load
+
+  // Sanity check, do not load if already loaded
+  if (site.value.key = key.value) throw new Error('Site already loaded, aborting loadSite')
+
+  // Set loading states to true
+  loading.value = true
+  notFound.value = false
+
+  // Load the site from LocalStorage
+  loadSiteFromLocalStorage()
+
+  // Subscribe to the site
+  subscribeSite()
 }
 
 const canEdit = computed(() => {
@@ -85,22 +117,43 @@ const chapterOptions = computed(() => {
     }))]
 })
 
-export function useSite (id?: string) {
-  if (id && site.value?.key !== id) {
-    subscribeSite(id)
-    // Load page index for this site
-    logDebug('useSite', 'force-loading pages for', id)
-    usePages(id)
-  }
+/**
+ * Composable for current site (if any) from the router.
+ * 
+ * The function `loadSite` will be called by onMounted, if the siteKey has changed.
+ * Additionally, the function `subscribePages` will be called, to prefetch 
+ * the pages of site.
+ * 
+ * @returns 
+ */
+
+export function useSite () {
+  const router = useRouter()
+
+  // onMounted will call loadSite, if key changed
+  onMounted(() => {
+    const siteKey = router.currentRoute.value.params.siteKey
+    if (
+      siteKey && 
+      typeof siteKey === 'string' 
+      && siteKey !== key.value) {
+      // Set key, so we don't load again
+      key.value = siteKey
+      // Load the site
+      loadSite()
+      usePages(siteKey)
+    }
+  })
+
   return {
+    key: computed(() => key.value),
     site: computed(() => site.value),
+    // This is just to provide a default value for the computed property
     chapters: computed(() => site.value?.pageCategories || []),
+    // The above, provided as option params
     chapterOptions,
-    updateChapters,
-    key: computed(() => site.value?.key || ''),
-    update,
     loading: computed(() => loading.value),
-    notFound: computed(() => !loading.value && !site.value),
+    notFound: computed(() => notFound.value),
     canEdit
   }
 }
