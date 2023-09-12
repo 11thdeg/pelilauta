@@ -18,7 +18,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 // eslint-disable-next-line vue/no-setup-props-destructure
-const { site, loading } = useSite(props.sitekey)
+const { site, loading } = useSite()
 const { uid } = useSession()
 const { pushSnack } = useSnack()
 const { isSmall } = useScreenSize()

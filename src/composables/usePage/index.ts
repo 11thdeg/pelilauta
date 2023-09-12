@@ -30,7 +30,7 @@ const canEdit = computed (() => {
   const { admin, uid } = useSession()
   if(admin.value) return true
   if(page.value.hasOwner(uid.value)) return true
-  const { site } = useSite(sitekey.value)
+  const { site } = useSite()
   if (!site.value) {
     logError('No site found for page', page.value)
     return false

@@ -14,8 +14,6 @@ const props = defineProps<{
 
 // We need to load state from the server when the route changes
 watch(props, () => {
-  // init site data, if not already loaded
-  useSite(props.sitekey)
   // init page data, if not already loaded
   usePage(props.pagekey || '', props.sitekey)
 }, { 

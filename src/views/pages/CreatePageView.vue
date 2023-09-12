@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { toRefs } from 'vue'
 import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 import EditPageForm from '../../components/EditPageForm/EditPageForm.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
@@ -10,11 +11,11 @@ const props = defineProps<{
   sitekey: string;
   pagekey?: string;
 }>()
+const { pagekey } = toRefs(props)
 
 const router = useRouter()
 
-// eslint-disable-next-line vue/no-setup-props-destructure
-const { canEdit, loading, site } = useSite(props.sitekey)
+const { canEdit, loading, site } = useSite()
 </script>
 
 <template>
