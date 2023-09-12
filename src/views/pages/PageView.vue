@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { usePage, loadPage } from '../../composables/usePage'
 import SiteFabs from '../../components/sites/SiteFabs/SiteFabs.vue'
-import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
-import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import PageArticle from '../../components/PageArticle/PageArticle.vue'
 import { useSite } from '../../composables/useSite'
 import { watch } from 'vue'
@@ -15,6 +13,8 @@ import WithLoader from '../../components/ui/WithLoader.vue'
 import ShareButton from '../../components/ShareButton/ShareButton.vue'
 import { computed } from 'vue'
 import { useScreenSize } from '../../composables/useScreenSize'
+import SiteTray from '../../components/site/tray/SiteTray.vue'
+import SiteAppBar from '../../components/site/appbar/SiteAppBar.vue'
 
 const props = defineProps<{
   sitekey: string
@@ -51,50 +51,36 @@ const noun = computed(() => {
   return 'pelilauta'
 })
 
-const pageTitle = computed(() => {
-  if (page.value) {
-    return page.value.name
-  }
-  return '...'
+const backgroundStyle = computed(() =>{
+  if(!site.value.backgroundURL) return
+  return `backgroundImage: url(${site.value.backgroundURL})`
 })
-
 </script>
 
 <template>
-  <cn-app-bar 
-    :noun="noun"
-    :title="pageTitle"
-    sticky
+  <div
+    :style="backgroundStyle"
+    style="padding-left: 12px"
   >
-    <CopyPageMarkdownLinkButton
-      v-if="page"
-      :page="page"
+    <SiteAppBar />
+    <main class="bookLayout">
+      <WithLoader :suspended="loading">
+        <SiteTray />
+        <PageArticle
+          v-if="page"
+          :page="page"
+        />
+        <PageMetaColumn
+          v-if="page && site"
+          :page="page"
+          :site="site"
+        />
+      </WithLoader>
+    </main>
+    <SiteFabs
+      :pagekey="pagekey"
+      :sitekey="sitekey"
     />
-    <DownloadAsMarkdownButton
-      v-if="page"
-      :content-entry="page"
-    />
-    <ShareButton />
-  </cn-app-bar>
-  <main class="bookLayout">
-    <WithLoader :suspended="loading">
-      <PageArticle
-        v-if="page"
-        :page="page"
-      />
-      <PageMetaColumn
-        v-if="page && site"
-        :page="page"
-        :site="site"
-      />
-    </WithLoader>
-  </main>
-  <SiteFabs
-    :pagekey="pagekey"
-    :sitekey="sitekey"
-  />
-  <NavigationTray>
-    <SiteTray />
-  </NavigationTray>
-  <SiteFooter />
+    <SiteFooter />
+  </div>
 </template>

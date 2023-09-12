@@ -9,11 +9,3 @@ import SiteTrayHeader from './SiteTrayHeader.vue'
     <PageIndex />
   </article>
 </template>
-
-<style scoped lang="sass">
-.surface
-  border-radius: var(--cn-padding)
-  padding: var(--cn-padding)
-  overflow: hidden
-
-</style>

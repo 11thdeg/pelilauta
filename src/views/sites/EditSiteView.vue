@@ -3,8 +3,6 @@ import { onMounted } from 'vue'
 import ChapterTool from '../../components/sites/tools/ChapterTool.vue'
 import { useSite } from '../../composables/useSite'
 import ThemeEditor from '../../components/site/settings/ThemeEditor.vue'
-import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
-import SiteTray from '../../components/sites/tray/SiteTray.vue'
 import LinksTool from '../../components/sites/tools/LinksTool.vue'
 import SiteMetaTool from '../../components/SiteMetaEditorCard/SiteMetaTool.vue'
 import { useI18n } from 'vue-i18n'
@@ -43,8 +41,5 @@ onMounted(async () => {
       </WithPermission>
     </WithLoader>
     <SiteFooter />
-    <NavigationTray>
-      <SiteTray />
-    </NavigationTray>
   </div>
 </template>

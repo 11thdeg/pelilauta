@@ -18,14 +18,20 @@ const { site, canEdit } = useSite()
       :to="`/sites/${site.key}/keeper`"
       class="text button"
     >
-      <cyan-icon noun="adventurer" small/>
+      <cyan-icon
+        noun="adventurer"
+        small
+      />
     </router-link>
     <router-link
       v-if="canEdit"
       :to="`/sites/${site.key}/edit`"
       class="text button"
     >
-      <cyan-icon noun="tools" small />
+      <cyan-icon
+        noun="tools"
+        small
+      />
     </router-link>
     <ShareButton />
   </cn-app-bar>

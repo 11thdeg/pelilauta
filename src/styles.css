@@ -4,14 +4,10 @@ main {
   max-width: 1536px;
 }
 
-.justify-center{
-  justify-content: center;
-}
-.justify-right{
-  justify-content: right;
-}
-.m-a{
-  margin: var(--cn-margin)
+.surface {
+  border-radius: var(--cn-padding);
+  padding: var(--cn-padding);
+  overflow: hidden;
 }
 
 section + section {

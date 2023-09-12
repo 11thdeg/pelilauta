@@ -92,7 +92,12 @@ async function onInsertBackgroundAsset (key: string) {
         {{ t('fields.site.backgroundurl') }}
       </p>
 
-      <img class="poster" v-if="site.backgroundURL" :src="site.backgroundURL" alt=""/>
+      <img
+        v-if="site.backgroundURL"
+        class="poster"
+        :src="site.backgroundURL"
+        alt=""
+      >
 
       <cyan-toolbar>
         <InsertAssetButton

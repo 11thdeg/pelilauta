@@ -4,8 +4,8 @@ import WithLoader from '../../ui/WithLoader.vue'
 import SiteCard from '../../SiteCard/SiteCard.vue'
 
 import SiteThreadListSection from '../../SiteThreadList/SiteThreadListSection.vue'
-import { Site } from '@11thdeg/skaldstore';
-import { computed } from 'vue';
+import { Site } from '@11thdeg/skaldstore'
+import { computed } from 'vue'
 
 
 const props = defineProps<{

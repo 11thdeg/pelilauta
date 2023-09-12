@@ -7,14 +7,13 @@ import { computed, onMounted, watch } from 'vue'
 import { useTitle } from '@vueuse/core'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
-import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 
 import SiteFrontPageArticle from '../../components/site/SiteFrontPageArticle.vue'
 import SiteAppBar from '../../components/site/appbar/SiteAppBar.vue'
 
 const title = useTitle()
 
-const { site, loading, notFound } = useSite()
+const { site, loading } = useSite()
 
 
 onMounted(() => {
@@ -43,18 +42,8 @@ const backgroundStyle = computed(() =>{
     <SiteAppBar />
     <main class="bookLayout">
       <WithLoader :suspended="loading">
-        <article
-          v-if="notFound"
-          class="Column large"
-        >
-          <EmptyCollection
-            :noun="site?.systemBadge || 'mekanismi'"
-            :title="$t('site.welcome.title')"
-            :message="$t('site.welcome.message')"
-          />
-        </article>
-        <SiteFrontPageArticle v-else />
         <SiteTrayNew />
+        <SiteFrontPageArticle />
       </WithLoader>
     </main>
     <SiteFooter />

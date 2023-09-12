@@ -2,11 +2,9 @@
 import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import LoginRequiredColumn from '../../components/account/LoginRequiredColumn.vue'
-import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 import OwnerEditor from '../../components/sites/tools/OwnerEditor.vue'
 import PlayerEditor from '../../components/sites/tools/PlayerEditor.vue'
-import SiteTray from '../../components/sites/tray/SiteTray.vue'
 
 import { useSite } from '../../composables/useSite'
 import { useTitle } from '../../composables/useTitle'
@@ -40,9 +38,6 @@ onMounted(() => {
         </template>
       </main>
       <SiteFooter />
-      <NavigationTray>
-        <SiteTray />
-      </NavigationTray>
     </WithLoader>
   </div>
 </template>
