@@ -9,7 +9,6 @@ import PageMetaColumn from '../../components/PageMetaColumn/PageMetaColumn.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import { computed } from 'vue'
-import { useScreenSize } from '../../composables/useScreenSize'
 import SiteTray from '../../components/site/tray/SiteTray.vue'
 import SiteAppBar from '../../components/site/appbar/SiteAppBar.vue'
 
@@ -18,7 +17,6 @@ const props = defineProps<{
   pagekey: string
 }>()
 
-const { isSmall } = useScreenSize()
 const { site } = useSite()
 const { page, loading } = usePage()
 const title = useTitle()
@@ -36,16 +34,6 @@ watch(page, () => {
   if (page.value) {
     title.value = site.value?.name + '/' + page.value.name
   }
-})
-
-const noun = computed(() => {
-  if (!isSmall.value) {
-    return undefined
-  }
-  if (site.value?.systemBadge) {
-    return site.value.systemBadge
-  }
-  return 'pelilauta'
 })
 
 const backgroundStyle = computed(() =>{

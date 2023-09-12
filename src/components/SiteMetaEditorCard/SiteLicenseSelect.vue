@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSite } from '../../composables/useSite'
 import LicenseSelect from '../LicenseSelect/LicenseSelect.vue'
-import { updateStorable } from '../../utils/firestoreHelpers';
+import { updateStorable } from '../../utils/firestoreHelpers'
 
 const { t } = useI18n()
 const { site } = useSite()

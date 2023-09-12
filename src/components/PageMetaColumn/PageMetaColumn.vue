@@ -24,7 +24,10 @@ const props = defineProps<{
   <article
     class="small Column"
   >
-    <cn-card elevation="0" class="surface">
+    <cn-card
+      elevation="0"
+      class="surface"
+    >
       <section
         class="flex"
         style="margin-top: -12px"
