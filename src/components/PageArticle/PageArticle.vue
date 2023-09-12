@@ -20,7 +20,7 @@ const flowTime = computed(() => (page.value as unknown as Record<string, number>
 
 <template>
   <article
-    class="PageArticle Column large"
+    class="large surface column"
   >
     <div class="flex space-between">
       <p class="TypeBody2">
@@ -37,11 +37,3 @@ const flowTime = computed(() => (page.value as unknown as Record<string, number>
     <div :innerHTML="content" />
   </article>
 </template>
-
-<style scoped>
-.PageArticle {
-  background: var(--chroma-surface);
-  padding: var(--cn-padding);
-  border-radius: 12px;
-}
-</style>

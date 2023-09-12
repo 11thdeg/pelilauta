@@ -7,10 +7,7 @@ import { watch } from 'vue'
 import { useTitle } from '@vueuse/core'
 import PageMetaColumn from '../../components/PageMetaColumn/PageMetaColumn.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
-import CopyPageMarkdownLinkButton from '../../components/CopyPageMarkdownLinkButton/CopyPageMarkdownLinkButton.vue'
-import DownloadAsMarkdownButton from '../../components/DownloadAsMarkdownButton/DownloadAsMarkdownButton.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
-import ShareButton from '../../components/ShareButton/ShareButton.vue'
 import { computed } from 'vue'
 import { useScreenSize } from '../../composables/useScreenSize'
 import SiteTray from '../../components/site/tray/SiteTray.vue'
@@ -63,24 +60,29 @@ const backgroundStyle = computed(() =>{
     style="padding-left: 12px"
   >
     <SiteAppBar />
-    <main class="bookLayout">
+    <main>
       <WithLoader :suspended="loading">
-        <SiteTray />
-        <PageArticle
-          v-if="page"
-          :page="page"
-        />
+        <div class="bookLayout">
+          <SiteTray />
+          <PageArticle
+            v-if="page"
+            :page="page"
+          />
+        </div>
+      </withloader>
+
+      <div class="bookLayout">
         <PageMetaColumn
           v-if="page && site"
           :page="page"
           :site="site"
         />
-      </WithLoader>
+      </div>
+      <SiteFabs
+        :pagekey="pagekey"
+        :sitekey="sitekey"
+      />
+      <SiteFooter />
     </main>
-    <SiteFabs
-      :pagekey="pagekey"
-      :sitekey="sitekey"
-    />
-    <SiteFooter />
   </div>
 </template>

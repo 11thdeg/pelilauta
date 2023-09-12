@@ -6,8 +6,11 @@ main {
 
 .surface {
   border-radius: var(--cn-padding);
-  padding: var(--cn-padding);
+  padding: var(--cn-padding) calc(var(--cn-padding) * 2);
   overflow: hidden;
+}
+.column img {
+  max-width: 100%;
 }
 
 section + section {
