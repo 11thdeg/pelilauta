@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useSite } from '../../../composables/useSite'
-import SiteAvatar from '../SiteAvatar.vue'
+import SiteAvatar from '../../sites/SiteAvatar.vue'
 
 const { site, loading } = useSite()
 

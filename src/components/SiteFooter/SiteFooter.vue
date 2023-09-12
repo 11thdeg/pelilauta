@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useSite } from '../../composables/useSite'
+import SiteChangesListColumn from '../SiteChangesListColumn/SiteChangesListColumn.vue'
 import SiteThreadListColumn from '../SiteThreadList/SiteThreadListColumn.vue'
 import WithLoader from '../ui/WithLoader.vue'
 import SiteAdminsSection from './SiteAdminsSection.vue'
@@ -9,12 +10,15 @@ const { loading, key } = useSite()
 </script>
 
 <template>
-  <footer class="SiteFooter">
+  <footer class="SiteFooter surface">
     <WithLoader :suspended="loading">
       <hr>
       <div class="footerBlocks">
-        <SiteLicenseSection />
-        <SiteAdminsSection />
+        <div>
+          <SiteLicenseSection />
+          <SiteAdminsSection />
+        </div>
+        <SiteChangesListColumn />
         <SiteThreadListColumn :sitekey="key" />
       </div>
       <hr>
@@ -44,4 +48,5 @@ const { loading, key } = useSite()
 .SiteFooter
   margin-top: 48px
   padding: 24px
+  border-radius: 16px 0 0 0 
 </style>

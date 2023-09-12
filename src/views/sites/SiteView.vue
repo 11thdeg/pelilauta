@@ -1,24 +1,21 @@
 <script lang="ts" setup>
 import SiteFabs from '../../components/sites/SiteFabs/SiteFabs.vue'
-import NavigationTray from '../../components/NavigationTray/NavigationTray.vue'
-import SiteTray from '../../components/sites/tray/SiteTray.vue'
+import SiteTrayNew from '../../components/site/tray/SiteTray.vue'
 import { useSite } from '../../composables/useSite'
 import { usePage } from '../../composables/usePage'
 import { computed, onMounted, watch } from 'vue'
 import { useTitle } from '@vueuse/core'
-import SiteChangesListColumn from '../../components/SiteChangesListColumn/SiteChangesListColumn.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
-import LoveASiteButton from '../../components/SiteCard/LoveASiteButton.vue'
-import ShareButton from '../../components/ShareButton/ShareButton.vue'
-import { useUxState } from '../../composables/useUXState'
+
 import SiteFrontPageArticle from '../../components/site/SiteFrontPageArticle.vue'
+import SiteAppBar from '../../components/site/appbar/SiteAppBar.vue'
 
 const title = useTitle()
 
 const { site, loading, notFound } = useSite()
-const { toggleMobileNavTray } = useUxState()
+
 
 onMounted(() => {
   watch(site, (ns) => {
@@ -41,22 +38,9 @@ const backgroundStyle = computed(() =>{
   <div
     id="SiteView"
     :style="backgroundStyle"
+    style="padding-left: 12px"
   >
-    <cn-app-bar
-      id="TopBar"
-      :title="site.name"
-      sticky
-      :noun="site?.systemBadge || 'mekanismi'"
-      menu
-      @menu="toggleMobileNavTray"
-    >
-      <LoveASiteButton
-        v-if="site"
-        :site="site"
-      />
-      <ShareButton />
-    </cn-app-bar>
-
+    <SiteAppBar />
     <main class="bookLayout">
       <WithLoader :suspended="loading">
         <article
@@ -70,13 +54,10 @@ const backgroundStyle = computed(() =>{
           />
         </article>
         <SiteFrontPageArticle v-else />
+        <SiteTrayNew />
       </WithLoader>
-      <SiteChangesListColumn />
     </main>
     <SiteFooter />
     <SiteFabs />
-    <NavigationTray>
-      <SiteTray />
-    </NavigationTray>
   </div>
 </template>
