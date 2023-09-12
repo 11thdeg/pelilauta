@@ -3,15 +3,16 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSite } from '../../composables/useSite'
 import LicenseSelect from '../LicenseSelect/LicenseSelect.vue'
+import { updateStorable } from '../../utils/firestoreHelpers';
 
 const { t } = useI18n()
-const { site, update } = useSite()
+const { site } = useSite()
 
 const license = computed({
   get: () => (site.value?.license || ''),
-  set: (e: string) => update({
+  set: (e: string) => updateStorable(site.value, {
     license: e
-  })
+  }, { silent: true })
 })
 
 </script>

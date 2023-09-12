@@ -7,15 +7,19 @@ import { usePages } from '../../../composables/usePages'
 import { useSession } from '../../../composables/useSession'
 import { useSite } from '../../../composables/useSite'
 import { useSnack } from '../../../composables/useSnack'
-import { store } from '../../../utils/firestoreHelpers'
+import { store, updateStorable } from '../../../utils/firestoreHelpers'
 import { logDebug } from '../../../utils/logHelpers'
 import ChapterEditor from './ChapterEditor.vue'
 
 const { t } = useI18n()
-const { chapters, updateChapters, site } = useSite()
+const { chapters, site } = useSite()
 const { uid } = useSession()
 
 const activeChapter = ref<PageCategory|undefined>(undefined)
+
+async function updateChapters(pageCategories: PageCategory[]) {
+  return updateStorable(site.value, pageCategories, { silent: true })
+}
 
 async function moveUp(index: number) {
   if (index === 0) return
@@ -23,7 +27,7 @@ async function moveUp(index: number) {
   const temp = arr[index - 1]
   arr[index -1 ] = arr[index]
   arr[index] = temp
-  await updateChapters(arr)
+  updateChapters(arr)
 }
 
 function save(chapter: PageCategory) {
