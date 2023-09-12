@@ -9,7 +9,7 @@ const { t } = useI18n()
 const { site } = useSite()
 
 const license = computed({
-  get: () => (site.value?.license || ''),
+  get: () => (site.value.license || ''),
   set: (e: string) => updateStorable(site.value, {
     license: e
   }, { silent: true })
