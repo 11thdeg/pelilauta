@@ -4,9 +4,10 @@ import { ref, Ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSite } from '../../../composables/useSite'
 import LinkEditor from './LinkEditor.vue'
+import { updateStorable } from '../../../utils/firestoreHelpers'
 
 const { t } = useI18n()
-const { site, update } = useSite()
+const { site } = useSite()
 
 const activeLink:Ref<SiteLink|undefined> = ref(undefined)
 
@@ -16,20 +17,20 @@ async function moveUp(index: number) {
   const temp = arr[index - 1]
   arr[index -1 ] = arr[index]
   arr[index] = temp
-  await update({ links: arr })
+  await update(arr)
 }
 
 async function drop(index: number) {
   const arr = site.value?.links ? Array.from(site.value.links) : []
   arr.splice(index, 1)
-  await update({ links: arr })
+  await update(arr)
 }
 
 function linkText(link: SiteLink) {
   return link.name || link.url || '-'
 }
 
-function addLink(l: SiteLink) {
+async function addLink(l: SiteLink) {
   const arr = site.value?.links ? Array.from(site.value.links) : []
   if (!arr.find(a => a.url === l.url)) {
     arr.push(l)
@@ -40,7 +41,11 @@ function addLink(l: SiteLink) {
       }
     })
   }
-  update({ links: arr })
+  await update(arr)
+}
+
+async function update(links: SiteLink[]) {
+  await updateStorable(site.value, links, { silent: true })
 }
 
 </script>
