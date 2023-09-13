@@ -9,6 +9,12 @@ main {
   padding: var(--cn-padding) calc(var(--cn-padding) * 2);
   overflow: hidden;
 }
+@media screen and (max-width: 768px) {
+  .surface {
+    padding: var(--cn-padding) 0;
+  }
+}
+
 .column img {
   max-width: 100%;
 }

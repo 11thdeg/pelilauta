@@ -68,4 +68,8 @@ const showEditButton = computed(() => {
 .PageIndex
   max-width: 100%
   overflow: hidden
+
+@media screen and (max-width: 768px)
+  .PageIndex
+    border-radius: 12px
 </style>

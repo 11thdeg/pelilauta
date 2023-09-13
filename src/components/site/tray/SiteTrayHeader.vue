@@ -1,13 +1,30 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useSite } from '../../../composables/useSite'
 import SiteAvatar from '../../sites/SiteAvatar.vue'
+import { useScreenSize } from '../../../composables/useScreenSize'
+
+const emit = defineEmits<{
+    (e: 'show', value: boolean): void
+}>()
 
 const { site, loading } = useSite()
+const { isSmall } = useScreenSize()
+const showTray = ref(false)
+
+function toggleTray() {
+  showTray.value = !showTray.value
+  emit('show', showTray.value)
+}
 
 const posterStyle = computed(() => {
   if (site.value?.posterURL) return 'background-image: url(' + site.value.posterURL + ')'
   return 'background: var(--color-background)'
+})
+
+const menuNoun = computed(() => {
+  if (showTray.value) return 'close'
+  return 'menu'
 })
 
 </script>
@@ -34,12 +51,25 @@ const posterStyle = computed(() => {
         />
       </router-link>
     </div>
-    <h4 class="downscaled title">
-      {{ site.name }}
-    </h4>
-    <p class="TypeCaption lowEmphasis title">
-      {{ site.description }}
-    </p>
+    <div class="flex">
+      <div class="flex-grow">
+        <h4 class="downscaled title">
+          {{ site.name }}
+        </h4>
+        <p class="TypeCaption lowEmphasis title">
+          {{ site.description }}
+        </p>
+      </div>
+      <button
+        v-if="isSmall"
+        class="text"
+      >
+        <cyan-icon
+          :noun="menuNoun"
+          @click="toggleTray"
+        />
+      </button>
+    </div>
   </section>
 </template>
 
@@ -67,5 +97,5 @@ const posterStyle = computed(() => {
     margin: 0
     margin-top: 16px
     text-align: center
-  
+
 </style>
