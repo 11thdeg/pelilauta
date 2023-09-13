@@ -14,30 +14,21 @@ const topPages = computed(() => {
 </script>
 
 <template>
-  <article class="small Column">
-    <cyan-card>
-      <h4 slot="title">
-        {{ t('site.changes.title') }}
-      </h4>
+  <section>
+    <h4 class="downscaled underscore">
       <cyan-icon
-        slot="avatar"
+        small
         noun="card"
       />
-      <ul
-        class="plain"
-        style="margin-top: var(--cn-page-grid)"
-      >
-        <PageChangeListItem
-          v-for="page in topPages"
-          :key="page.key"
-          :page="page"
-        />
-      </ul>
-    </cyan-card>
-  </article>
+      {{ t('site.changes.title') }}
+    </h4>
+      
+    <ul class="p-0">
+      <PageChangeListItem
+        v-for="page in topPages"
+        :key="page.key"
+        :page="page"
+      />
+    </ul>
+  </section>
 </template>
-
-<style lang="sass" scoped>
-ul.plain
-  padding: 0
-</style>

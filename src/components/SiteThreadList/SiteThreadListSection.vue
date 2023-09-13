@@ -65,15 +65,6 @@ const visibleThreads = computed(() => {
 
 <template>
   <section v-if="threads && threads.length > 0">
-    <div class="flex">
-      <cyan-icon
-        noun="discussion"
-      />
-      <h4 class="downscaled">
-        {{ $t('site.threads.title') }}
-      </h4>
-    </div>
-    <hr>
     <ul>
       <SiteThreadListItem
         v-for="thread in visibleThreads"

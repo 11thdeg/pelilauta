@@ -21,9 +21,12 @@ const to = computed(() => {
 </script>
 
 <template>
-  <li class="hoverable clickable">
+  <li
+    class="hoverable clickable m-0 px-1"
+    style="list-style-type: none;"
+  >
     <router-link :to="to">
-      <p class="TypeBody2 oneLiner noMargin">
+      <p class="TypeBody2 oneLiner m-0">
         {{ page.name }}
       </p>
       <cyan-toolbar small>
@@ -36,12 +39,3 @@ const to = computed(() => {
     </router-link>
   </li>
 </template>
-
-<style lang="sass" scoped>
-li
-  list-style-type: none
-  height: calc( var(--cn-page-grid) * 2 )
-  margin-bottom: calc( var(--cn-page-grid) / 2 )
-.noMargin
-  margin: 0
-</style>

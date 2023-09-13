@@ -3,30 +3,25 @@
 import { computed } from 'vue'
 import { useSite } from '../../composables/useSite'
 import ProfileTag from '../profiles/ProfileTag.vue'
-import WithLoader from '../ui/WithLoader.vue'
 
-const { site, loading } = useSite()
+const { site } = useSite()
 
 const owners = computed(() => Array.isArray(site.value?.owners) ? site.value?.owners : [site.value?.owners || ''])
 </script>
 
 <template>
-  <section style="align-self: flex-start;">
-    <WithLoader
-      small
-      :suspended="loading"
+  <section class="my-2">
+    <h4
+      class="downscaled underscore"
     >
-      <h4
-        class="downscaled"
-        style="margin: 0"
-      >
-        {{ $t('site.tools.owners.title') }}
-      </h4>
+      {{ $t('site.tools.owners.title') }}
+    </h4>
+    <p>
       <ProfileTag
         v-for="admin in owners"
         :key="admin"
         :uid="admin"
       />
-    </WithLoader>
+    </p>
   </section>
 </template>

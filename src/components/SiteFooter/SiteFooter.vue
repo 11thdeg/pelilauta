@@ -1,52 +1,40 @@
 <script lang="ts" setup>
-import { useSite } from '../../composables/useSite'
 import SiteChangesListColumn from '../SiteChangesListColumn/SiteChangesListColumn.vue'
 import SiteThreadListColumn from '../SiteThreadList/SiteThreadListColumn.vue'
-import WithLoader from '../ui/WithLoader.vue'
 import SiteAdminsSection from './SiteAdminsSection.vue'
+import SiteInfoSection from './SiteInfoSection.vue'
 import SiteLicenseSection from './SiteLicenseSection.vue'
-
-const { loading, key } = useSite()
 </script>
 
 <template>
-  <footer class="SiteFooter surface">
-    <WithLoader :suspended="loading">
-      <hr>
-      <div class="footerBlocks">
-        <div>
-          <SiteLicenseSection />
-          <SiteAdminsSection />
-        </div>
-        <SiteChangesListColumn />
-        <SiteThreadListColumn :sitekey="key" />
-      </div>
-      <hr>
-      <div class="flex">
-        <cyan-spacer />
-        <cyan-icon
-          noun="mekanismi"
-          xlarge
-          style="opacity: 0.11;"
-        />
-        <cyan-spacer />
-      </div>
-    </WithLoader>
+  <footer class="SiteFooter surface container">
+    <article class="Column column">
+      <SiteInfoSection />
+      <SiteLicenseSection />
+      <SiteAdminsSection />
+      <SiteChangesListColumn />
+    </article>
+    <SiteThreadListColumn />
   </footer>
+
+  <div
+    class="flex justify-center"
+    aria-hidden="true"
+  >
+    <cyan-icon
+      noun="mekanismi"
+      xlarge
+      style="opacity: 0.11;"
+    />
+  </div>
 </template>
 
 <style lang="sass" scoped>
 .footerBlocks
   display: grid
-  grid-template-columns: 1fr 1fr 1fr
-  gap: var(--cyan-gap-column)
-
-@media screen and (max-width: 768px)
-  .footerBlocks
-    display: flex
-    flex-direction: column
+  grid-template-columns: repeat(1fr)
 .SiteFooter
-  margin-top: 48px
+  margin-top: 24px
   padding: 24px
-  border-radius: 16px 0 0 0 
+  border-radius: 16px
 </style>

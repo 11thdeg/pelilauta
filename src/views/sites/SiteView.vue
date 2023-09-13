@@ -40,13 +40,15 @@ const backgroundStyle = computed(() =>{
     style="padding-left: 12px"
   >
     <SiteAppBar />
-    <main class="bookLayout">
-      <WithLoader :suspended="loading">
-        <SiteTrayNew />
-        <SiteFrontPageArticle />
-      </WithLoader>
-    </main>
-    <SiteFooter />
-    <SiteFabs />
+    <WithLoader :suspended="loading">
+      <div class="cn-app-content">
+        <main class="container">
+          <SiteTrayNew />
+          <SiteFrontPageArticle />
+        </main>
+        <SiteFooter />
+      </div>  
+      <SiteFabs />
+    </WithLoader>
   </div>
 </template>
