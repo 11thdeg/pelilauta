@@ -5,7 +5,6 @@ import PageArticle from '../../components/PageArticle/PageArticle.vue'
 import { useSite } from '../../composables/useSite'
 import { watch } from 'vue'
 import { useTitle } from '@vueuse/core'
-import PageMetaColumn from '../../components/PageMetaColumn/PageMetaColumn.vue'
 import SiteFooter from '../../components/SiteFooter/SiteFooter.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import { computed } from 'vue'
@@ -58,14 +57,6 @@ const backgroundStyle = computed(() =>{
           />
         </div>
       </withloader>
-
-      <div class="bookLayout">
-        <PageMetaColumn
-          v-if="page && site"
-          :page="page"
-          :site="site"
-        />
-      </div>
       <SiteFabs
         :pagekey="pagekey"
         :sitekey="sitekey"

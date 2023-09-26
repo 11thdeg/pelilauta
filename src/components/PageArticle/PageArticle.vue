@@ -3,10 +3,11 @@ import { computed, toRefs } from 'vue'
 import { useContentRef } from '../../composables/useContentRef'
 import { ContentEntryType } from '@11thdeg/skaldstore/dist/ContentEntry'
 import { useSite } from '../../composables/useSite'
-import FlowTimeCaption from '../content/FlowTimeCaption.vue'
+import BreadCrumbsNav from './BreadCrumbsNav.vue'
+import PageBottomNav from './PageBottomNav.vue'
 
 const props = defineProps<{
-  page: ContentEntryType
+  page: ContentEntryType & { parentKey: string }
 }>()
 const { page } = toRefs(props)
 const { site } = useSite()
@@ -22,18 +23,21 @@ const flowTime = computed(() => (page.value as unknown as Record<string, number>
   <article
     class="large surface column"
   >
-    <div class="flex space-between">
-      <p class="TypeBody2">
-        <RouterLink :to="`/sites/${site.key}`">
-          {{ site.name }} 
-        </RouterLink> 
-        /
-        <RouterLink :to="`/sites/${site.key}/pages/${page.key}`">
-          {{ name }}
-        </RouterLink>
-      </p>
-      <FlowTimeCaption :flow-time="flowTime" />
-    </div>
-    <div :innerHTML="content" />
+    <BreadCrumbsNav
+      :site="site"
+      :flow-time="flowTime"
+      :name="name"
+    />
+    <div
+      :innerHTML="content"
+      class="contentArea"
+    />
+    <PageBottomNav :page="page" />
   </article>
 </template>
+
+<style scoped>
+.contentArea {
+  min-height: min(calc(var(--cn-page-grid) * 22), 50vh);
+}
+</style>
