@@ -74,12 +74,10 @@ if ('serviceWorker' in navigator) {
 </template>
 
 <style lang="sass" scoped>
-div#appContainer
-  padding-bottom: 72px
-
 @media screen and (min-width: 600px)
   div#appContainer
     position: relative
+    min-height: 100vh
     &.navTrayVisible
       margin-left: calc(80px + 256px)
 </style>

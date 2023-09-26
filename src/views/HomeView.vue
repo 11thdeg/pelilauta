@@ -56,6 +56,8 @@ onMounted(() => {
 </template>
 
 <style lang="sass" scoped>
+main
+  padding-bottom: calc(var(--cn-page-grid) * 6)
 .separator
   width: 100%
 </style>

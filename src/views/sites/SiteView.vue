@@ -52,3 +52,8 @@ const backgroundStyle = computed(() =>{
     </WithLoader>
   </div>
 </template>
+
+<style lang="sass">
+#SiteView
+  min-height: 100vh
+</style>
