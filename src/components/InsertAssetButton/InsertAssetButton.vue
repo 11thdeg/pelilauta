@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, toRefs } from 'vue'
 import InsertAssetDialog from './InsertAssetDialog.vue'
 
+// Props and emits
 const props = defineProps<{
   noun?: string
   label?: string
 }>()
+const { noun, label } = toRefs(props)
 
 const dialog = ref(false)
-
 const emit = defineEmits<{
   (e: 'insert', value: string): void
 }>()
@@ -16,10 +17,6 @@ const emit = defineEmits<{
 function insertAsset (key: string) {
   emit('insert', key)
 }
-
-const label = computed(() => props.label || undefined)
-const noun = computed(() => props.noun || 'assets')
-
 </script>
 
 <template>
@@ -29,7 +26,7 @@ const noun = computed(() => props.noun || 'assets')
     @click.prevent="dialog = true"
   >
     <cyan-icon
-      :noun="noun"
+      :noun="noun || 'assets'"
       small
     />
     {{ label }}

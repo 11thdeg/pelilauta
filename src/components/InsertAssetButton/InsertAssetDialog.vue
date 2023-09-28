@@ -62,7 +62,7 @@ function insertSelectedAsset(key: string) {
   <teleport to="body">
     <cn-dialog
       ref="dialog"
-      title="select or upload asset"
+      :title="$t('action.selectImage')"
       :open="modelValue"
       @close="close"
     >
