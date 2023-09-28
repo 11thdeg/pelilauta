@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { Asset } from '@11thdeg/skaldstore'
 import { ref, onMounted } from 'vue'
-import { useScreenSize } from '../../composables/useScreenSize'
 import { useSession } from '../../composables/useSession'
 import { useAssets } from '../../composables/useAssets'
 import { FileData } from '../../utils/fileHelpers'
@@ -11,8 +10,6 @@ import FileInput from '../assets/FileInput.vue'
 const emit = defineEmits<{
   (e: 'upload', value: string): void}
 >()
-
-const { isSmall } = useScreenSize()
 const { uid } = useSession()
 
 const file = ref<FileData | undefined>(undefined)
@@ -51,22 +48,18 @@ async function handleUpload () {
 </script>
 <template>
   <form class="UploadAssetForm">
-    <cyan-card>
-      <div
-        class="flex"
-        :class="{ 'flex-column': isSmall }"
-      >
-        <section>
-          <FileInput
-            :file="file"
-            @update:file="handleFileInput"
-          />
-        </section>
-        <section style="flex-grow: 1;">
-          <AssetEntryForm v-model="assetData" />
-        </section>
+    <fieldset>
+      <legend>{{ $t('uploadAssetForm.legend') }}</legend>
+      <!-- This wrapper div is just to place the image upload button left of the fields, for md and up-->
+      <div class="flex flex-row sm-flex-column align-top">
+        <FileInput
+          :file="file"
+          @update:file="handleFileInput"
+        />
+        <AssetEntryForm v-model="assetData" />
       </div>
-    </cyan-card>
+    </fieldset>
+    
     <cyan-toolbar>
       <cyan-spacer />
       <cyan-button

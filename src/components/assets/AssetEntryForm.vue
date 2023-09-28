@@ -34,7 +34,7 @@ const asset = computed({
 </script>
 
 <template>
-  <section class="AssetEntryForm fieldset">
+  <section class="AssetEntryForm flex-grow flex flex-column">
     <cyan-textfield
       :value="asset.name"
       :label="t('fields.asset.name')"

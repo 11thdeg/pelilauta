@@ -538,5 +538,8 @@
       "index": {
         "title": "Aiheet"
       }
+    },
+    "uploadAssetForm": {
+      "legend": "Tiedoston tiedot"
     }
   }
