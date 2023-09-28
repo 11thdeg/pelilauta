@@ -29,7 +29,9 @@ onMounted(() => {
 
 const backgroundStyle = computed(() =>{
   if(!site.value.backgroundURL) return
-  return `backgroundImage: url(${site.value.backgroundURL})`
+  const size = site.value.backgroundSize === 'repeat' ? `backgroundRepeat: ${site.value.backgroundSize}` :
+    `backgroundSize: ${site.value.backgroundSize}; backgroundRepeat: no-repeat; backgroundPosition: top center`
+  return `${size};backgroundImage: url(${site.value.backgroundURL})`
 })
 </script>
 

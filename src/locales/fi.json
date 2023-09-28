@@ -482,6 +482,12 @@
         "avatarurl": "Kuvake",
         "posterurl": "Otsakekuva",
         "backgroundurl": "Taustakuva",
+        "backgroundsize": {
+          "label": "Taustakuvan koko ja asettelu",
+          "cover": "cover no-repeat top center",
+          "contain": "contain no-repeat top center",
+          "repeat": "100% repeat"
+        },
         "description": "Kuvaus",
         "license": "Lisenssi",
         "homepage": "Kotisivu",

@@ -4,6 +4,8 @@ import InsertAssetButton from '../../InsertAssetButton/InsertAssetButton.vue'
 import { updateStorable } from '../../../utils/firestoreHelpers'
 import { useSite } from '../../../composables/useSite'
 import { useAssets } from '../../../composables/useAssets'
+import { computed } from 'vue'
+import BackgroundSizeSelect from './BackgroundSizeSelect.vue'
 
 const { t } = useI18n()
 const { site } = useSite()
@@ -44,6 +46,17 @@ async function onInsertBackgroundAsset (key: string) {
     await onSelectBackground(asset.url)
   }
 }
+
+const backgroundSize = computed({
+  get () {
+    return site.value.backgroundSize
+  },
+  set (v: string) {
+    updateStorable(site.value, {
+      backgroundSize: v
+    })
+  }
+})
 
 </script>
 
@@ -111,6 +124,14 @@ async function onInsertBackgroundAsset (key: string) {
           @click="onSelectBackground('')"
         />
       </cyan-toolbar>
+      <div
+        v-if="site.backgroundURL"
+        class="flex flex-row"
+      >
+        <BackgroundSizeSelect
+          v-model="backgroundSize" 
+        />
+      </div>
     </fieldset>
   </section>
 </template>
