@@ -12,6 +12,7 @@ import { useTitle } from '@vueuse/core'
 import FabTray from '../../components/FabTray/FabTray.vue'
 import SiteInfoArticle from '../../components/threads/SiteInfoArticle/SiteInfoArticle.vue'
 import { useRouter } from 'vue-router'
+import { useMeta } from '../../composables/useMeta'
 
 const props = defineProps<{
   flowtime?: string
@@ -21,10 +22,12 @@ const { t } = useI18n()
 const router = useRouter()
 // eslint-disable-next-line vue/no-setup-props-destructure
 const { thread, loading, notFound } = useThread(props.threadkey)
+const { streams } = useMeta()
 
 const title = computed(() => {
-  if (!thread.value) return '...'
-  return thread.value.title
+  const topic = streams.value.find((s) => s.slug === thread.value?.topicid)
+  if (topic) return t('app.title') + ' / ' + topic.name
+  return t('app.title')
 })
 
 watch(() => thread.value, (tr) => {
@@ -65,7 +68,7 @@ const flowTimeInt = computed(() => {
         <template v-else>
           <div
             v-if="thread"
-            class="column la-large"
+            class="column wd-large"
           >
             <ThreadArticle
               :thread="thread"
