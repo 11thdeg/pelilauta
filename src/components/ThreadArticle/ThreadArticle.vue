@@ -39,7 +39,7 @@ const processedContent = computed(() => {
 
 <template>
   <article class="ThreadArticle">
-    <h1 class="hideOnMobile downscaled">
+    <h1 class="downscaled">
       {{ thread.title }}
     </h1>
     

@@ -20,6 +20,6 @@ function copyUrl ():void {
       noun="share"
       small
     />
-    {{ t('action.share') }}
+    <span class="sm-display-none">{{ t('action.share') }}</span>
   </button>
 </template>

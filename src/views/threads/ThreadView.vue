@@ -13,6 +13,7 @@ import FabTray from '../../components/FabTray/FabTray.vue'
 import SiteInfoArticle from '../../components/threads/SiteInfoArticle/SiteInfoArticle.vue'
 import { useRouter } from 'vue-router'
 import { useMeta } from '../../composables/useMeta'
+import { useScreenSize } from '../../composables/useScreenSize'
 
 const props = defineProps<{
   flowtime?: string
@@ -23,8 +24,10 @@ const router = useRouter()
 // eslint-disable-next-line vue/no-setup-props-destructure
 const { thread, loading, notFound } = useThread(props.threadkey)
 const { streams } = useMeta()
+const { isSmall } = useScreenSize()
 
 const title = computed(() => {
+  if (isSmall.value) return t('app.title')
   const topic = streams.value.find((s) => s.slug === thread.value?.topicid)
   if (topic) return t('app.title') + ' / ' + topic.name
   return t('app.title')
