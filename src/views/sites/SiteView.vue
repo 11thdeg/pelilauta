@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import SiteFabs from '../../components/sites/SiteFabs/SiteFabs.vue'
-import SiteTrayNew from '../../components/site/tray/SiteTray.vue'
+import SiteTray from '../../components/site/tray/SiteTray.vue'
 import { useSite } from '../../composables/useSite'
 import { usePage } from '../../composables/usePage'
 import { computed, onMounted, watch } from 'vue'
@@ -45,7 +45,7 @@ const backgroundStyle = computed(() =>{
     <WithLoader :suspended="loading">
       <div class="cn-app-content">
         <main class="container">
-          <SiteTrayNew />
+          <SiteTray />
           <SiteFrontPageArticle />
         </main>
         <SiteFooter />

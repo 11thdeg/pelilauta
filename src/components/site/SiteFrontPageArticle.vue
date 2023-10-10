@@ -41,10 +41,9 @@ onMounted(async () => {
 <template>
   <article
     v-if="notFound && !loading"
-    class="column large surface"
+    class="column wd-large surface"
   >
     <EmptyCollection
-    
       :noun="site.systemBadge"
       :title="$t('site.welcome.title')"
       :message="$t('site.welcome.message')"

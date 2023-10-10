@@ -75,12 +75,10 @@ const menuNoun = computed(() => {
 
 <style scoped lang="sass">
 #SiteTrayHeader
-  padding: 8px
+  // border: red solid 1px
   #TrayPoster
-    padding: 12px
     background-position: center
     background-size: cover
-    border-radius: 12px
     display: flex
     justify-content: center
     align-items: bottom
@@ -89,9 +87,12 @@ const menuNoun = computed(() => {
       margin-bottom: -22px
       margin-top: 24px
     &.withPoster
-      height: 124px
+      margin: -12px
+      margin-bottom: var(--cn-gap)
+      height: calc(var(--cn-page-grid) * 5.75)
+      border-radius: var(--cn-border-radius)
       .avatar
-        margin-top:48px
+        margin-top: calc(var(--cn-page-grid) * 3.75)
         filter: drop-shadow(0px 0px 8px var(--chroma-secondary-b))
   .title
     margin: 0

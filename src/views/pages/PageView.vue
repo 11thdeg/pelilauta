@@ -49,7 +49,7 @@ const backgroundStyle = computed(() =>{
     <SiteAppBar />
     <main>
       <WithLoader :suspended="loading">
-        <div class="bookLayout">
+        <div class="container">
           <SiteTray />
           <PageArticle
             v-if="page"
