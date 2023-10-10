@@ -22,7 +22,12 @@ onMounted(() => {
     if (item.value) dialog.value?.showModal()
   })
 })
-    
+
+function handleNameChange(e: Event) {
+  setField('name', (e.target as HTMLInputElement).value)
+  setField('slug', toMekanismiURI(item.value?.name || ''))
+}
+
 function setField(field: string, value: string) {
   if (!item.value) return
   (item.value as unknown as Record<string,string>)[field] = value
@@ -58,15 +63,19 @@ function closeDialog() {
   </cyan-toolbar>
   <cn-dialog
     ref="dialog"
-    :label="$t('action.add.new')"
+    :title="$t('action.add.new')"
   >
     <template v-if="item">
-      <cyan-textfield
-        :label="$t('fields.site.chapter')"
-        :value="item.name || ''"
-        @change="setField('name', $event.target.value)"
-      />
-      <cyan-toolbar>
+      <label>
+        {{ $t('fields.site.chapter') }}
+        <input 
+          type="text"
+          :value="item.name"
+          @change.prevent="(e) => handleNameChange(e)"
+        >
+      </label>
+      
+      <cyan-toolbar slot="actions">
         <cyan-spacer />
         <cyan-button
           :label="$t('action.cancel')"

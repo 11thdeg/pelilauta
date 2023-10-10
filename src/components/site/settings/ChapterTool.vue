@@ -18,7 +18,11 @@ const { uid } = useSession()
 const activeChapter = ref<PageCategory|undefined>(undefined)
 
 async function updateChapters(pageCategories: PageCategory[]) {
-  return updateStorable(site.value, pageCategories, { silent: true })
+  logDebug('updateChapters', pageCategories)
+  return updateStorable(
+    site.value, 
+    { pageCategories: pageCategories },
+    { silent: true })
 }
 
 async function moveUp(index: number) {

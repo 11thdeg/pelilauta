@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
-import ChapterTool from '../../components/sites/tools/ChapterTool.vue'
+import ChapterTool from '../../components/site/settings/ChapterTool.vue'
 import { useSite } from '../../composables/useSite'
 import ThemeEditor from '../../components/site/settings/ThemeEditor.vue'
 import LinksTool from '../../components/sites/tools/LinksTool.vue'
