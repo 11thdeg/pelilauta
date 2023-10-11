@@ -313,6 +313,10 @@
       },
       "delete": {
         "warning": "Ketjun poistaminen poistaa myös kaikki ketjuun lähetetyt vastaukset. Toimintoa ei voi perua."
+      },
+      "edit":
+      {
+        "title": "Muokkaa"
       }
     },
     "threads": {

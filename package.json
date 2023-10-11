@@ -1,7 +1,7 @@
 {
   "name": "pelilauta-next",
   "private": true,
-  "version": "14.15.8",
+  "version": "14.15.9",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,7 +12,7 @@
     "deploy:staging": "build && firebase deploy --only hosting:skaldbase-test"
   },
   "dependencies": {
-    "@11thdeg/cyan": "0.37.0-beta.16",
+    "@11thdeg/cyan": "0.37.0-beta.17",
     "@11thdeg/skaldstore": "0.7.13-beta.4",
     "@firebase/analytics": "0.10.0",
     "@firebase/app": "0.9.18",

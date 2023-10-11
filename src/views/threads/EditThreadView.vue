@@ -2,7 +2,6 @@
 import { Thread } from '@11thdeg/skaldstore'
 import { onMounted, Ref, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import MarkDownCheatSheetColumn from '../../components/content/MarkDownCheatSheetColumn.vue'
 import ThreadEditorColumn from '../../components/ThreadEditorColumn/ThreadEditorColumn.vue'
 import EmptyCollection from '../../components/ui/EmptyCollection.vue'
 import WithLoader from '../../components/ui/WithLoader.vue'
@@ -33,12 +32,12 @@ onMounted(async () => {
   <cn-app-bar
     id="TopBar"
     modal
-    :title="t('thread.edit.title') + ' ' + thread?.title"
+    :title="t('thread.edit.title') + ' - ' + thread?.title"
     @back="() => router.back()"
   >
     <StickyToggle />
   </cn-app-bar>
-  <main class="bookLayout">
+  <main class="container">
     <WithLoader :suspended="loading">
       <ThreadEditorColumn
         v-if="thread"
@@ -51,7 +50,4 @@ onMounted(async () => {
       />
     </WithLoader>
   </main>
-  <div class="bookLayout">
-    <MarkDownCheatSheetColumn />
-  </div>
 </template>

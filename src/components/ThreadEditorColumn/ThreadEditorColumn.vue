@@ -227,7 +227,7 @@ const previewLabel = computed(() => {
 </script>
 
 <template>
-  <div class="Column large form fieldset">
+  <div class="auto wd-large column fieldset">
     <template v-if="!preview">
       <cyan-toolbar>
         <cyan-textfield
@@ -289,7 +289,7 @@ const previewLabel = computed(() => {
         :error="!contentValid"
         @change="content = $event.target.value"
       />
-      <cyan-toolbar>
+      <div class="flex flex-row sm-flex-column">
         <cyan-select
           :options="topics"
           :value="topic"
@@ -310,7 +310,7 @@ const previewLabel = computed(() => {
           :disabled="!enableSave"
           @click="persistChanges"
         />
-      </cyan-toolbar>
+      </div>
     </template>
     <template v-else>
       <h1>{{ title }}</h1>
@@ -345,7 +345,7 @@ const previewLabel = computed(() => {
       </cyan-toolbar>
     </template>
   </div>
-  <article
+  <!--article
     v-if="admin"
   >
     <cyan-card
@@ -374,8 +374,8 @@ const previewLabel = computed(() => {
         topic: <cyan-code>{{ topic }}</cyan-code>
       </p>
     </cyan-card>
-  </article>
-  <!--Teleport to=".AppLayout">
+  </article- ->
+  <!- -Teleport to=".AppLayout">
     <cn-side-sheet>
       <h4>...</h4>
     </cn-side-sheet>

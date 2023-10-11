@@ -69,6 +69,6 @@ function toggleUnseen () {
       small
       :noun="!seen ? 'eye' : 'eye-closed'"
     />
-    {{ seen ? t('action.mark.unseen') : '' }}
+    <span class="sm-display-none">{{ seen ? t('action.mark.unseen') : '' }}</span>
   </button>
 </template>
