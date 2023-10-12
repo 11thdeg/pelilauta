@@ -21,7 +21,7 @@ const flowTime = computed(() => (page.value as unknown as Record<string, number>
 
 <template>
   <article
-    class="wd-large surface column"
+    class="wd-large md-auto surface column"
   >
     <BreadCrumbsNav
       :site="site"
