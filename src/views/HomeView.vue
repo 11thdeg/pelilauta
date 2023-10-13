@@ -13,10 +13,12 @@ import TopSitesSection from '../components/frontpage/TopSitesSection.vue'
 import ShareButton from '../components/ShareButton/ShareButton.vue'
 import Banner from '../components/ui/Banner.vue'
 import MobileFooter from '../components/MobileFooter/MobileFooter.vue'
+import { useScreenSize } from '../composables/useScreenSize'
 
 const { t } = useI18n()
 const { anonymous } = useSession()
 const { title } = useTitle()
+const { isLarge } = useScreenSize()
 
 onMounted(() => {
   title.value = '⚀'
@@ -31,14 +33,22 @@ onMounted(() => {
 
   <Banner />
 
-  <main class="bookLayout">
+  <main class="container">
     <ThreadStreamColumn />
-    <div class="Column small flex flex-column">
+    <div class="column Column small">
       <MyrrysCard />
       <hr class="separator">
       <LokiCard />
+      <template v-if="!isLarge">
+        <br>
+        <MekanismiAd />
+        <TopSitesSection />
+      </template>
     </div>
-    <div class="Column small flex flex-column">
+    <div
+      v-if="isLarge" 
+      class="column Column small flex flex-column"
+    >
       <CreateAccountAd />
       <MekanismiAd />
       <TopSitesSection />

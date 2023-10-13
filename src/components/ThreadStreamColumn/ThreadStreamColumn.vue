@@ -9,7 +9,7 @@
  * REFACTOR: This component was a bit large, so I extracted the ./useThreads hook, and the ThreadStreamCard component.
  */
 
-import { computed, onUnmounted,  onMounted, watch } from 'vue'
+import { computed, onUnmounted,  onMounted, watch, toRefs } from 'vue'
 import ThreadStreamCard from './ThreadStreamCard.vue'
 import { useThreads } from './useThreads'
 
@@ -18,6 +18,7 @@ const props = defineProps<{
   topic?: string
   large?: boolean
 }>()
+const { topic, large } = toRefs(props)
 
 const { threads, sub, unsub, loadMore, atEnd, loading } = useThreads()
 
@@ -33,12 +34,15 @@ onUnmounted(() => {
 })
 
 const nonStickyThreads = computed(() => threads.value.filter((thread) => !thread.sticky))
+const classes = {
+  'wd-large': props.large
+}
 </script>
 
 <template>
   <article
-    class="Column"
-    :class="{ large: large }"
+    class="column"
+    :class="classes"
   >
     <cyan-loader
       v-if="loading"

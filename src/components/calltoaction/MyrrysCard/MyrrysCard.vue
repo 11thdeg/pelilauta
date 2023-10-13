@@ -38,6 +38,8 @@ import MyrrysBlogExcerptSection from './MyrrysBlogExcerptSection.vue'
 </template>
 
 <style lang="sass">
+.hero
+  width: 100%
 /* .MyrrysCard
   background-image:  linear-gradient(hsla(var(--chroma-primary-a-hsl), 0.55), hsla(var(--chroma-secondary-a-hsl), 0.55)),url('/proprietary/images/letl_cover.jpg')
   background-size: cover

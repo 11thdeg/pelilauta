@@ -30,6 +30,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <br>
   <section
     id="TopSitesSection"
     class="flex flex-column"
