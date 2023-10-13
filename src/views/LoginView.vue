@@ -36,7 +36,7 @@ function back() {
   />
   <main
     id="LoginView"
-    class="bookLayout"
+    class="container"
   >
     <EmailLoginForm :to="to" />
     <LoginPanel :to="to" />

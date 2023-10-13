@@ -12,25 +12,25 @@ const props = defineProps<{
 <template>
   <article
     id="LoginButtonContainer"
-    class="Column"
+    class="column surface elevation-1"
   >
-    <cyan-card elevation="1">
-      <h3>{{ t('login.socialLoginForm.title') }}</h3>
-      <p class="TypeBody2">
-        {{ t('login.socialLoginForm.info') }}
-      </p>
+    <h3 class="downscaled">
+      {{ t('login.socialLoginForm.title') }}
+    </h3>
+    <p class="TypeBody2">
+      {{ t('login.socialLoginForm.info') }}
+    </p>
     
-      <div class="buttons">
-        <SocialGoogleLoginButton :to="props.to" />
-      </div>
+    <div class="buttons">
+      <SocialGoogleLoginButton :to="props.to" />
+    </div>
 
-      <p
-        class="TypeBody2"
-        style="margin-top: 4px; margin-bottom: 0"
-      >
-        {{ t('login.firstTime') }}
-      </p>
-    </cyan-card>
+    <p
+      class="TypeBody2"
+      style="margin-top: 4px; margin-bottom: 0"
+    >
+      {{ t('login.firstTime') }}
+    </p>
   </article>
 </template>
 
