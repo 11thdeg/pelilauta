@@ -9,7 +9,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <article class="NotificationsList Column">
+  <article class="large column">
     <EmptyCollection
       v-if="notifications.length === 0"
       noun="discussion"

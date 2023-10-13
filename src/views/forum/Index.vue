@@ -5,9 +5,12 @@ import ForumIndex from '../../components/forum/forumindex/ForumIndex.vue'
 import { onMounted } from 'vue'
 import { useTitle } from '../../composables/useTitle'
 import { logEvent } from '../../utils/logHelpers'
+import { useSession } from '../../composables/useSession'
+import FabTray from '../../components/FabTray/FabTray.vue'
 
 const { t } = useI18n()
 const { title } = useTitle()
+const { anonymous } = useSession()
 
 onMounted(() => {
   title.value = '⚀ / Foorumit'
@@ -26,4 +29,12 @@ onMounted(() => {
   <main class="singleColumnLayout">
     <ForumIndex />
   </main>
+  <FabTray v-if="!anonymous">
+    <router-link to="/add/thread">
+      <cyan-fab
+        noun="add"
+        :label="t('action.add.thread')"
+      />
+    </router-link>
+  </FabTray>
 </template>

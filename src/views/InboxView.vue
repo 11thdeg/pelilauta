@@ -34,7 +34,7 @@ const pageTitle = computed(() => {
       :title="pageTitle"
       @back="router.back()"
     />
-    <main class="singleColumnLayout">
+    <main class="container">
       <WithPermission :forbidden="anonymous">
         <NotificationsList />
       </WithPermission>
