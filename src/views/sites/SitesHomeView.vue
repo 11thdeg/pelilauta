@@ -22,11 +22,11 @@ onMounted(() => {
       noun="mekanismi"
       :title="$t('sites.title')"
     />
-    <main class="bookLayout">
+    <main class="container">
       <WithLoader :suspended="loading">
         <SiteList />
       </WithLoader>
-      <article class="Column small">
+      <article class="column small">
         <MekanismiAd />
       </article>
     </main>

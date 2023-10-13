@@ -40,7 +40,7 @@ const filter = ref(new Array<string>())
 </script>
 <template>
   <article
-    class="Column large"
+    class="column md-auto wd-large"
   >
     <SiteListFilterPane
       v-model="filter"
