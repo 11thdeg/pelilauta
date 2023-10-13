@@ -40,8 +40,9 @@ const filter = ref(new Array<string>())
 </script>
 <template>
   <article
-    class="column md-auto wd-large"
+    class="column auto wd-large"
   >
+    <h1>Sivustot</h1>
     <SiteListFilterPane
       v-model="filter"
       v-model:order-by="orderBy"

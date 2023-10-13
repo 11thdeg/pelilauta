@@ -6,7 +6,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <article class="small Column">
+  <article class="small column">
     <cn-card elevation="0">
       <section style="display: flex; justify-content: center;align-items: center; gap: 8px;margin:16px">
         <cyan-icon

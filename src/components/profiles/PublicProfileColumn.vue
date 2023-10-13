@@ -25,7 +25,7 @@ onMounted(async () => {
 <template>
   <article
     v-if="profile"
-    class="Column small"
+    class="small column" 
   >
     <cyan-card class="identity">
       <img

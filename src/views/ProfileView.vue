@@ -27,7 +27,7 @@ onMounted(async () => {
     >
       <ShareButton />
     </cn-app-bar>
-    <main class="bookLayout">
+    <main class="container">
       <cyan-loader
         v-if="!profile"
         column

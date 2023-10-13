@@ -41,11 +41,11 @@ const content = computed(() => {
     </cn-app-bar>
     <main
       v-if="page.name"
-      class="bookLayout"
+      class="container"
     >
       <WithLoader :suspended="loading">
         <article
-          class="large Column"
+          class="wd-large auto column"
           :innerHTML="content"
         />
       </WithLoader>
