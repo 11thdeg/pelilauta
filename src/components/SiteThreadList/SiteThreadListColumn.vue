@@ -7,7 +7,7 @@ const { key } = useSite()
 
 <template>
   <article
-    class="Column column"
+    class="surface column"
   >
     <h4 class="downscaled underscore">
       <cyan-icon

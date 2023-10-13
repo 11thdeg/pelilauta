@@ -7,8 +7,8 @@ import SiteLicenseSection from './SiteLicenseSection.vue'
 </script>
 
 <template>
-  <footer class="SiteFooter surface container">
-    <article class="Column column">
+  <footer class="SiteFooter container">
+    <article class="surface column">
       <SiteInfoSection />
       <SiteLicenseSection />
       <SiteAdminsSection />
