@@ -54,8 +54,8 @@ async function deleteAccountPermanently() {
     back
     @back="router.back()"
   />
-  <main class="bookLayout">
-    <article class="Column">
+  <main class="container">
+    <article class="column">
       <DeleteConfirmForm
         v-model="verifyToken"
         confirm-text="Poista Tunnukseni Pysyvästi"

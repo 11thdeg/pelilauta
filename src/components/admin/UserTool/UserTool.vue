@@ -107,7 +107,7 @@ function isFrozen(uid:string) {
 
 
 <template>
-  <article class="Column large">
+  <article class="column large">
     <h3>User Tool</h3>
     <div
       v-for="user in users"

@@ -21,7 +21,7 @@ onMounted(() => {
     sticky
     title="Admin / Users"
   />
-  <main class="bookLayout">
+  <main class="container">
     <WithPermission :forbidden="!admin">
       <UserTool />
     </WithPermission>
