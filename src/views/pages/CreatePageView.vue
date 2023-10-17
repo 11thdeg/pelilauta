@@ -24,7 +24,7 @@ const { canEdit, loading, site } = useSite()
     :title="$t('page.create.title')"
     @back="() => router.back()"
   />
-  <main class="bookLayout">
+  <main class="container">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">
         <EditPageForm :homepage="site && pagekey === site.key" />

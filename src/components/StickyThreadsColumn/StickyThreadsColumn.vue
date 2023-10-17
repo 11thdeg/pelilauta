@@ -72,7 +72,7 @@ async function subscibe (topic: string) {
 </script>
 
 <template>
-  <article class="Column small">
+  <article class="small column">
     <cyan-card
       v-if="streamThreads.length > 0"
       elevation="2"

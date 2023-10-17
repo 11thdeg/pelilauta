@@ -15,7 +15,7 @@ const { loading, canEdit } = useSite()
     @back="() => $router.back()"
   />
   <!-- Standard "booklayout" with a single medium column -->
-  <main class="bookLayout">
+  <main class="container">
     <!-- Wait untill we have a site, and canEdit returns a sane result -->
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">

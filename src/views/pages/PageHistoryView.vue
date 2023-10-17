@@ -51,10 +51,10 @@ const diff = computed(() => {
     :title="$t('page.revisions.title')"
     @back="() => router.back()"
   />
-  <main class="bookLayout">
+  <main class="container">
     <article
       v-if="site && page"
-      class="large Column"
+      class="wd-large auto column"
     >
       <template v-if="selectedRevision">
         <cyan-toolbar>
@@ -67,7 +67,7 @@ const diff = computed(() => {
     </article>
     <article
       v-if="site && page"
-      class="small Column"
+      class="small column"
     >
       <cn-card elevation="0">
         <h4>{{ site.name }}</h4>

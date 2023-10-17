@@ -55,7 +55,7 @@ const { canEdit } = useSite()
         </cyan-menu>
       </template>
     </cn-app-bar>
-    <main class="bookLayout">
+    <main class="container">
       <WithLoader :suspended="loading">
         <WithPermission :forbidden="!canEdit">
           <EditPageForm :pagekey="pagekey" />

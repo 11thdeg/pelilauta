@@ -40,7 +40,7 @@ const { anonymous } = useSession()
     >
       <MarkAllSeenButton />
     </cn-app-bar>
-    <main class="bookLayout">
+    <main class="container">
       <ThreadStreamColumn
         :topic="streamkey"
         large

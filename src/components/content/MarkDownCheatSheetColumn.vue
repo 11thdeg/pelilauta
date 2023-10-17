@@ -5,7 +5,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <article class="Column small">
+  <article class="Column column small">
     <cyan-card
       elevation="1"
       class="chroma-box-a"

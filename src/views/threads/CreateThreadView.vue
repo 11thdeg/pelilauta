@@ -39,15 +39,13 @@ const forbidden = computed(() => anonymous.value || frozen.value)
 
   <main
     id="CreateThreadView"
-    class="bookLayout"
+    class="container"
   >
     <WithLoader :suspended="!active">
       <WithPermission :forbidden="forbidden">
         <ThreadEditorColumn :thread="thread" />
       </WithPermission>
     </WithLoader>
-  </main>
-  <div class="bookLayout">
     <MarkDownCheatSheetColumn />
-  </div>
+  </main>
 </template>

@@ -28,7 +28,7 @@ const { loading } = usePage(props.pagekey, props.sitekey)
       :title="$t('page.move.title')"
       @back="() => router.push(`/sites/${props.sitekey}/pages/${props.pagekey}`)"
     />
-    <main class="bookLayout">
+    <main class="container">
       <WithLoader :suspended="loading">
         <WithPermission :forbidden="!canEdit">
           <MovePageTool

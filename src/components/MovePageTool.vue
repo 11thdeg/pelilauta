@@ -62,7 +62,7 @@ async function movePage() {
 </script>
 
 <template>
-  <div class="Column">
+  <div class="column">
     <h3>{{ t('page.move.title') }}</h3>
     <h4 v-if="page">
       {{ page.name }}

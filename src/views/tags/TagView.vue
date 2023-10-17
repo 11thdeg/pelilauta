@@ -46,10 +46,10 @@ onMounted(() => {
       :title="$t('tag.title') + ' ' + tagkey"
       @back="router.back()"
     />
-    <main class="bookLayout">
+    <main class="container">
       <WithLoader :suspended="!active">
         <WithPermission :forbidden="anonymous">
-          <article class="Column">
+          <article class="auto wd-large column">
             <TagEntryItem
               v-for="entry in entries"
               :key="entry.key"

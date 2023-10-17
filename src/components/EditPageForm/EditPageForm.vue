@@ -173,7 +173,7 @@ async function injectImage (key: string) {
 </script>
 
 <template>
-  <form class="Column large">
+  <form class="column auto wd-large">
     <WithLoader :suspended="loading">
       <section
         v-if="!preview"

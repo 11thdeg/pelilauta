@@ -46,10 +46,10 @@ async function deletePage () {
     modal
     @back="() => router.back()"
   />
-  <main class="bookLayout">
+  <main class="container">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">
-        <article class="Column">
+        <article class="column">
           <DeleteConfirmForm
             v-model="verified"
             :title="t('page.deleteConfirm.title')"

@@ -17,7 +17,7 @@ const { anonymous, active } = useSession()
       :title="$t('action.create')"
       @back="() => router.back()"
     />
-    <main class="bookLayout">
+    <main class="container">
       <WithLoader :suspended="!active">
         <WithPermission :forbidden="anonymous">
           <AddSiteForm />

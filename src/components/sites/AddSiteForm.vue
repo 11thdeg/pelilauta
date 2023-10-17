@@ -78,7 +78,7 @@ async function onSave() {
 </script>
 
 <template>
-  <article class="Column column">
+  <article class="auto wd-large column">
     <h1 class="downscaled">
       {{ t('sites.create.title') }}
     </h1>

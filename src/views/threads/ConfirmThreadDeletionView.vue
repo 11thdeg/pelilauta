@@ -48,14 +48,14 @@ async function deleteThread () {
       :title="t('action.delete') + ' ' + thread?.title"
       @back="() => router.back()"
     />
-    <main class="bookLayout">
+    <main class="container">
       <WithLoader :suspended="loading">
         <EmptyCollection
           v-if="notFound"
           noun="discussion"
         />
         <WithPermission :forbidden="!canDelete">
-          <article class="Column">
+          <article class="column">
             <DeleteConfirmForm
               v-model="confirmed"
               :title="t('action.confirmDelete')"

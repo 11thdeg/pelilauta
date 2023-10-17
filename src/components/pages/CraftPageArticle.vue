@@ -62,7 +62,7 @@ const url = computed(() => {
 
 </script>
 <template>
-  <article class="Column column large">
+  <article class="column auto wd-large">
     <form>
       <fieldset>
         <legend>{{ t('page.craft.title') }}</legend>

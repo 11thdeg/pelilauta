@@ -5,18 +5,21 @@ import { updateStorable } from '../../utils/firestoreHelpers'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-const { site } = useSite()
+const { site, loading } = useSite()
 
-async function save() {
+/*async function save() {
   if (!site.value) throw new Error('No site loaded')
   updateStorable(site.value, { silent: true })
-}
+}*/
 
 const customPageKeys = computed({
   get: () => site.value?.customPageKeys || undefined,
   set: (value) => {
-    site.value!.customPageKeys = !!value
-    save()
+    updateStorable(
+      site.value, 
+      { customPageKeys: value }, 
+      { silent: true }
+    )
   },
 })
 </script>
@@ -24,6 +27,7 @@ const customPageKeys = computed({
 <template>
   <!-- Toggles messaging on and off -->
   <cn-toggle-button
+    v-if="!loading"
     :label="t('site.tools.config.customPageKeys')"
     :pressed="customPageKeys"
     :aria-pressed="customPageKeys"
