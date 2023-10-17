@@ -26,7 +26,7 @@ function save () {
 </script>
 
 <template>
-  <div class="Column">
+  <div class="column">
     <cyan-card v-if="asset.hasOwner(uid)">
       <h3 slot="title">
         {{ t('assetView.meta.title') }}

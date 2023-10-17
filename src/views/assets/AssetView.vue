@@ -17,7 +17,7 @@ const { asset, loading } = useAsset(props.assetkey)
 <template>
   <div id="AssetView">
     <AssetTopBar :asset-key="props.assetkey" />
-    <main class="bookLayout">
+    <main class="container">
       <WithLoader :suspended="loading">
         <template v-if="asset">
           <AssetPreviewColumn />

@@ -17,7 +17,7 @@ const { active, anonymous } = useSession()
     >
       <WithPermission :forbidden="anonymous">
         <LibraryNavigationTray />
-        <main class="bookLayout">
+        <main class="container">
           <LibraryGamesArticle />
         </main>
       </WithPermission>

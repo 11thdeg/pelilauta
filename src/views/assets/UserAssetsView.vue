@@ -22,7 +22,7 @@ onMounted(() => {
     large
     :suspended="!active"
   >
-    <main class="bookLayout">
+    <main class="container">
       <WithPermission :forbidden="anonymous">
         <LibraryNavigationTray />
         <AssetListColumn />

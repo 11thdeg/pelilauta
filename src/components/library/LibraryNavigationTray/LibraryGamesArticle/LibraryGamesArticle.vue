@@ -23,7 +23,7 @@ const sites = computed(() => {
 </script>
 
 <template>
-  <article class="Column large">
+  <article class="column auto wd-large">
     <cyan-toolbar>
       <h3 class="downscaled">
         {{ $t('library.games.owns') }}

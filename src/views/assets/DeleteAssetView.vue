@@ -37,7 +37,7 @@ function confirmDelete() {
     :title="$t('action.delete')"
     @back="router.back()"
   />
-  <main class="bookLayout">
+  <main class="container">
     <WithLoader :suspended="loading">
       <WithPermission :forbidden="!canEdit">
         <EmptyCollection
@@ -48,7 +48,7 @@ function confirmDelete() {
         <template v-else>
           <AssetPreviewColumn /> 
           <article
-            class="Column"
+            class="column"
           >
             <h3 class="nowrap">
               {{ parseAssetName(asset) }}

@@ -23,7 +23,7 @@ const orderBy = ref('name')
 
 </script>
 <template>
-  <article class="Column large">
+  <article class="column auto wd-large">
     <cyan-toolbar>
       <cyan-toolbar-heading :level="2">
         {{ t('assets.list.title') }}

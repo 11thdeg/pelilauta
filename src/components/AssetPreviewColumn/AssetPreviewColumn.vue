@@ -11,7 +11,7 @@ const asImage = computed(() => {
 </script>
 
 <template>
-  <article class="Column">
+  <article class="column">
     <a
       v-if="asImage"
       :href="asset.url"

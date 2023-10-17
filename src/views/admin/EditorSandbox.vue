@@ -38,8 +38,8 @@ const paste = (e: ClipboardEvent) => {
     title="Editor Sandbox"
     noun="tools"
   />
-  <main class="bookLayout">
-    <article class="Column double-cut">
+  <main class="container">
+    <article class="column">
       <h1>Editor</h1>
       <cyan-textarea
         v-once
@@ -51,7 +51,7 @@ const paste = (e: ClipboardEvent) => {
         {{ content }}
       </cyan-textarea>
     </article>
-    <article class="Column double-cut">
+    <article class="column">
       <h1>Preview</h1>
       <div :innerHTML="preview" />
     </article>
