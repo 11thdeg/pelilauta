@@ -25,12 +25,12 @@ onMounted(() => {
       sticky
       title="Admin"
     />
+    <AdminTray />
     <main class="SiteSettings dashboardLayout">
       <TopicTool />
       <SiteThemeTool />
       <SiteLicensesTool />
     </main>
-    <AdminTray />
   </div>
   <div v-else>
     <ForbiddenView />

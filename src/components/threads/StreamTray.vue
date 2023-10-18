@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import NavigationTray from '../NavigationTray/NavigationTray.vue'
 import { useMeta } from '../../composables/useMeta'
 
 const { t } = useI18n()
@@ -8,7 +7,7 @@ const { t } = useI18n()
 const { streams } = useMeta()
 </script>
 <template>
-  <NavigationTray>
+  <nav class="cn-tray">
     <cyan-toolbar>
       <cyan-icon
         noun="discussion"
@@ -38,7 +37,7 @@ const { streams } = useMeta()
         </cyan-nav-button>
       </router-link>
     </div>
-  </NavigationTray>
+  </nav>
 </template>
 
 <style lang="sass">

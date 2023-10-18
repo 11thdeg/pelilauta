@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import NavigationRail from './components/NavigationRail/NavigationRail.vue'
 import SnackBar from './components/ui/SnackBar.vue'
-import { useUxState } from './composables/useUXState'
 import EulaDialog from './components/account/EulaDialog.vue'
 import NavigationBar from './components/NavigationBar/NavigationBar.vue'
 import { useSession, setMode } from './composables/useSession'
@@ -12,7 +11,6 @@ import { Workbox } from 'workbox-window'
 import { useI18n } from 'vue-i18n'
 import SessionCard from './components/admin/SessionCard/SessionCard.vue'
 
-const { navTrayVisible } = useUxState()
 const { anonymous } = useSession()
 const { raise } = useBanner()
 const { t } = useI18n()
@@ -60,10 +58,7 @@ if ('serviceWorker' in navigator) {
 <template>
   <NavigationRail />
   <div
-    id="appContainer"
     class="AppLayout"
-    :class="{ navTrayVisible: navTrayVisible }"
-    style="container: none"
   >
     <router-view />
   </div>
@@ -72,13 +67,4 @@ if ('serviceWorker' in navigator) {
   <NavigationBar />
   <SessionCard />
 </template>
-
-<style lang="sass" scoped>
-@media screen and (min-width: 600px)
-  div#appContainer
-    position: relative
-    min-height: 100vh
-    &.navTrayVisible
-      margin-left: calc(80px + 256px)
-</style>
 

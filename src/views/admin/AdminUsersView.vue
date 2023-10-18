@@ -21,10 +21,10 @@ onMounted(() => {
     sticky
     title="Admin / Users"
   />
+  <AdminTray />
   <main class="container">
     <WithPermission :forbidden="!admin">
       <UserTool />
     </WithPermission>
   </main>
-  <AdminTray />
 </template>

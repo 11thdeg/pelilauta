@@ -1,52 +1,52 @@
-<script lang="ts" setup>
-import { useI18n } from 'vue-i18n'
-import { useSession } from '../../composables/useSession'
-import NavigationTray from '../NavigationTray/NavigationTray.vue'
-
-const { t } = useI18n()
-const { admin } = useSession()
-</script>
-
 <template>
-  <NavigationTray v-if="admin">
+  <nav class="cn-tray">
     <section style="padding: 0 12px;">
       <cyan-toolbar>
         <cyan-icon noun="tools" />
         <cyan-toolbar-heading :level="1">
-          {{ t('admin.title') }}
+          {{ $t('admin.title') }}
         </cyan-toolbar-heading>
       </cyan-toolbar>
-      <p class="TypeBody2 lowEmphasis">
-        {{ t('admin.description') }}
+      <p>
+        {{ $t('admin.description') }}
       </p>
     </section>
-    <router-link to="/admin/settings">
-      <cyan-nav-button
+    <router-link
+      to="/admin/settings"
+      class="text button"
+    >
+      <cyan-icon
+        small
         noun="monsters"
-      >
-        {{ t('admin.settings.title') }}
-      </cyan-nav-button>
+      />
+      {{ $t('admin.settings.title') }}
     </router-link>
-    <router-link to="/admin/users">
-      <cyan-nav-button
+
+    <router-link 
+      to="/admin/users"
+      class="text button"
+    >
+      <cyan-icon 
+        small
         noun="avatar"
-      >
-        {{ t('admin.users.title') }}
-      </cyan-nav-button>
+      />
+      {{ $t('admin.users.title') }}
     </router-link>
+
+   
     <router-link to="/admin/testing-tools">
       <cyan-nav-button
         noun="admin"
       >
-        {{ t('admin.testingTools.title') }}
+        {{ $t('admin.testingTools.title') }}
       </cyan-nav-button>
     </router-link>
     <router-link to="/admin/sandbox">
       <cyan-nav-button
         noun="tools"
       >
-        {{ t('admin.sandbox.title') }}
+        {{ $t('admin.sandbox.title') }}
       </cyan-nav-button>
     </router-link>
-  </NavigationTray>
+  </nav>
 </template>

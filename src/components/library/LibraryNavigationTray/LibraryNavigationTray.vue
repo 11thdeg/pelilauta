@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import { useSession } from '../../../composables/useSession'
-import NavigationTray from '../../NavigationTray/NavigationTray.vue'
 
 const { admin } = useSession()
 </script>
 
 <template>
-  <NavigationTray>
+  <nav class="cn-tray">
     <section>
       <cyan-toolbar>
         <cyan-icon noun="books" />
@@ -14,7 +13,7 @@ const { admin } = useSession()
           {{ $t('library.title') }}
         </cyan-toolbar-heading>
       </cyan-toolbar>
-      <p class="TypeBody2 lowEmphasis">
+      <p>
         {{ $t('library.description') }}
       </p>
     </section>
@@ -51,5 +50,5 @@ const { admin } = useSession()
         {{ $t('library.discussion.title') }}
       </cyan-nav-button-->
     </section>
-  </NavigationTray>
+  </nav>
 </template>
