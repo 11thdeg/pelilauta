@@ -24,12 +24,14 @@ onMounted(() => {
       sticky
       title="Admin / Testing tools"
     />
-    <Banner />
-    <main class="SiteSettings dashboardLayout">
-      <SnackbarTester />
-      <BannerTester />
-      <ModeTester />
-    </main>
     <AdminTray />
+    <main class="SiteSettings">
+      <Banner />
+      <div class="dashboardLayout">
+        <SnackbarTester />
+        <BannerTester />
+        <ModeTester />
+      </div>
+    </main>
   </div>
 </template>

@@ -13,7 +13,7 @@
     </section>
     <router-link
       to="/admin/settings"
-      class="text button"
+      class="tray-button button"
     >
       <cyan-icon
         small
@@ -24,7 +24,7 @@
 
     <router-link 
       to="/admin/users"
-      class="text button"
+      class="tray-button button"
     >
       <cyan-icon 
         small
@@ -33,20 +33,25 @@
       {{ $t('admin.users.title') }}
     </router-link>
 
-   
-    <router-link to="/admin/testing-tools">
-      <cyan-nav-button
+    <router-link
+      to="/admin/testing-tools"
+      class="button tray-button"
+    >
+      <cyan-icon
+        small
         noun="admin"
-      >
-        {{ $t('admin.testingTools.title') }}
-      </cyan-nav-button>
+      />
+      {{ $t('admin.testingTools.title') }}
     </router-link>
-    <router-link to="/admin/sandbox">
-      <cyan-nav-button
+
+    <router-link
+      to="/admin/sandbox"
+      class="button tray-button"
+    >
+      <cyan-icon 
+        small
         noun="tools"
-      >
-        {{ $t('admin.sandbox.title') }}
-      </cyan-nav-button>
+      />{{ $t('admin.sandbox.title') }}
     </router-link>
   </nav>
 </template>

@@ -38,6 +38,7 @@ const paste = (e: ClipboardEvent) => {
     title="Editor Sandbox"
     noun="tools"
   />
+  <AdminTray />
   <main class="container">
     <article class="column">
       <h1>Editor</h1>
@@ -55,6 +56,5 @@ const paste = (e: ClipboardEvent) => {
       <h1>Preview</h1>
       <div :innerHTML="preview" />
     </article>
-    <AdminTray />
   </main>
 </template>
