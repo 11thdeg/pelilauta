@@ -86,10 +86,9 @@ async function moveDown(key: string) {
         <router-link
           :to="`/sites/${site.key}/pages/${page.key}`"
           :class="{'no-clicks': editor}"
+          class="button tray-button compact"
         >
-          <cyan-nav-button compact>
-            {{ page.name }}
-          </cyan-nav-button>
+          {{ page.name }}
         </router-link>
         <button
           v-if="props.editor && canEdit && site.sortOrder === Site.SORT_BY_MANUAL"

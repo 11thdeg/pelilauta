@@ -18,13 +18,13 @@ onMounted(() => {
 </script>
 <template>
   <cn-app-bar :title="$t('assets.title')" />
+  <LibraryNavigationTray />
   <WithLoader
     large
     :suspended="!active"
   >
     <main class="container">
       <WithPermission :forbidden="anonymous">
-        <LibraryNavigationTray />
         <AssetListColumn />
       </WithPermission>
     </main>

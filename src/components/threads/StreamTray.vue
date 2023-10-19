@@ -22,19 +22,15 @@ const { streams } = useMeta()
         v-for="stream in streams"
         :key="stream.slug"
         :to="'/streams/' + stream.slug"
+        class="button tray-button"
       >
-        <cyan-nav-button
-          style="padding-left: 12px;"
-          :noun="stream.icon"
-        >
-          <div style="display:flex; width: 100%">
-            <p style="margin: 0">
-              {{ stream.name }}
-            </p>
-            <cyan-spacer />
-            <cyan-tag :label="stream.count" />
-          </div>
-        </cyan-nav-button>
+        <div style="display:flex; width: 100%">
+          <p style="margin: 0">
+            {{ stream.name }}
+          </p>
+          <cyan-spacer />
+          <cyan-tag :label="stream.count" />
+        </div>
       </router-link>
     </div>
   </nav>

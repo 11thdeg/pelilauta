@@ -20,23 +20,27 @@ const { admin } = useSession()
     v-if="isSmall"
     class="flex flex-column border-top"
   >
-    <router-link to="/forum">
-      <cyan-nav-button
+    <router-link
+      to="/forum" 
+      class="button tray-button"
+    >
+      <cyan-icon
         noun="discussion"
         :active="route.path.startsWith('/forum')"
-      >
-        {{ t('forum.title') }}
-      </cyan-nav-button>
+      />
+      {{ t('forum.title') }}
     </router-link>
 
-    <router-link to="/admin">
-      <cyan-nav-button
+    <router-link
+      to="/admin"
+      class="button tray-button"
+    >
+      <cyan-icon
         v-if="admin"
         noun="admin"
         :active="route.path.startsWith('/admin/settings')"
-      >
-        {{ t('admin.title') }}
-      </cyan-nav-button>
+      />
+      {{ t('admin.title') }}
     </router-link>
   </div>
 </template>
