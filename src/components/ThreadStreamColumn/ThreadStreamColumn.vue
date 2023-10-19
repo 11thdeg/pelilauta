@@ -23,9 +23,9 @@ const { topic, large } = toRefs(props)
 const { threads, sub, unsub, loadMore, atEnd, loading } = useThreads()
 
 onMounted(() => {
-  watch(() => props.topic, (t) => {
+  watch(() => topic, (t) => {
     unsub()
-    sub(t)
+    sub(t?.value)
   }, { immediate: true })
 })
 
@@ -35,7 +35,7 @@ onUnmounted(() => {
 
 const nonStickyThreads = computed(() => threads.value.filter((thread) => !thread.sticky))
 const classes = {
-  'wd-large': props.large
+  'wd-large': large
 }
 </script>
 
