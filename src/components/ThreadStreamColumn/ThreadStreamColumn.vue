@@ -34,9 +34,9 @@ onUnmounted(() => {
 })
 
 const nonStickyThreads = computed(() => threads.value.filter((thread) => !thread.sticky))
-const classes = {
-  'wd-large': large
-}
+const classes = computed(() => ({
+  'wd-large': large.value
+}))
 </script>
 
 <template>

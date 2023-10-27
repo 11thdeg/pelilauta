@@ -54,6 +54,9 @@ export const routes = [
   { path: '/library/', component: () => import('./assets/UserAssetsView.vue'), props: true },
   { path: '/library/games', component: () => import('./library/UserGamesView.vue'), props: true },
 
+  // Views related to the "Player Characters" feature
+  { path: '/library/characters', component: () => import('./library/UserCharactersView.vue') },
+
   // Views related to the "forums"
   { path: '/forum', component: () => import('./forum/Index.vue') },
 

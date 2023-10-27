@@ -50,6 +50,18 @@ const { admin } = useSession()
         />
         {{ $t('blogs.publish.title') }}
       </router-link>
+
+      <!-- Character library -->
+      <router-link
+        to="/library/characters"
+        class="button tray-button"
+      >
+        <cyan-icon
+          small
+          noun="adventurer"
+        />
+        {{ $t('library.characters.title') }}
+      </router-link>
     </section>
   </nav>
 </template>

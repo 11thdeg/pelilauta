@@ -22,14 +22,16 @@ const ffd = computed(() => props.fastForward)
 </script>
 
 <template>
-  <nav
-    v-if="!fieldFocused"
-    id="FabTray"
-  >
-    <slot />
-    <ToBottomFab v-if="ffd" />
-    <ToTopFab />
-  </nav>
+  <teleport to="body">
+    <nav
+      v-if="!fieldFocused"
+      id="FabTray"
+    >
+      <slot />
+      <ToBottomFab v-if="ffd" />
+      <ToTopFab />
+    </nav>
+  </teleport>
 </template>
   
 <style lang="sass" scoped>
