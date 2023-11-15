@@ -285,7 +285,11 @@
       },
       "page": {
         "updated": "Sivun muutokset tallennettu",
-        "deleted": "Sivu poistettu"
+        "deleted": "Sivu poistettu",
+        "move": {
+          "success": "Sivu siirretty onnistuneesti",
+          "error": "Sivun siirtäminen epäonnistui"
+        }
       },
       "reply": {
         "created":"Vastaus lähetetty",

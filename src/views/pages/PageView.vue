@@ -17,7 +17,7 @@ const props = defineProps<{
 }>()
 
 const { site } = useSite()
-const { page, loading } = usePage()
+const { page, loading, canEdit } = usePage()
 const title = useTitle()
 
 // We need to load state from the server when the route changes
@@ -54,6 +54,7 @@ const backgroundStyle = computed(() =>{
           <PageArticle
             v-if="page"
             :page="page"
+            :can-edit="canEdit"
           />
         </div>
       </withloader>

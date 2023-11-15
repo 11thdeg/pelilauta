@@ -4,8 +4,9 @@ import { toRefs } from 'vue'
 
 const props = defineProps<{
   page: ContentEntryType & { parentKey: string }
+  canEdit?: boolean
 }>()
-const { page } = toRefs(props)
+const { page, canEdit } = toRefs(props)
 </script>
 
 <template>
@@ -25,9 +26,17 @@ const { page } = toRefs(props)
       </span>
     </p>
     <p class="m-0 TypeCaption">
-      <router-link :to="`/sites/${page.parentKey}/pages/${page.key}//revisions`">
+      <router-link :to="`/sites/${page.parentKey}/pages/${page.key}/revisions`">
         {{ $t('page.revisions.title') }}
       </router-link>
+      <template v-if="canEdit">
+        - 
+        <router-link
+          :to="`/sites/${page.parentKey}/pages/${page.key}/move`"
+        >
+          {{ $t('page.move.title') }}
+        </router-link>
+      </template>
     </p>
   </nav>
 </template>

@@ -8,6 +8,7 @@ import PageBottomNav from './PageBottomNav.vue'
 
 const props = defineProps<{
   page: ContentEntryType & { parentKey: string }
+  canEdit?: boolean
 }>()
 const { page } = toRefs(props)
 const { site } = useSite()
@@ -32,7 +33,10 @@ const flowTime = computed(() => (page.value as unknown as Record<string, number>
       :innerHTML="content"
       class="contentArea"
     />
-    <PageBottomNav :page="page" />
+    <PageBottomNav
+      :page="page"
+      :can-edit="canEdit"
+    />
   </article>
 </template>
 

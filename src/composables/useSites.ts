@@ -134,6 +134,7 @@ export function patchSite (site: Site) {
 
 const sitesAsOptions = computed(() => {
   const options:Record<string, string>[] = []
+  options.push({ value: '', label: '-' })
   const { uid } = useSession()
   siteCache.value.forEach((site) => {
     if (site.hasOwner(uid.value)) options.push({ value: site.key || '', label: site.name })

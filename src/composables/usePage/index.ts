@@ -63,6 +63,7 @@ export async function loadPage(key: string, sk: string) {
     if(snapshot.exists()) {
       const p = new Page(snapshot.data(), snapshot.id)
       page.value = p
+      if(!page.value.parentKey) page.value.parentKey = sk
       loading.value = false
     } else {
       page.value = undefined

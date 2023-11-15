@@ -74,13 +74,17 @@ async function movePage() {
         :label="t('page.move.site')"
         @change="targetSite = $event.target.value"
       />
-      <cyan-button
+      <button
         :disabled="!targetSite"
-        :label="t('action.move')"
-        noun="page"
-        text
-        @click="movePage"
-      />
+        class="text"
+        @click.prevent="movePage"
+      >
+        <cyan-icon
+          small
+          noun="page"
+        />
+        {{ t('action.move') }}
+      </button>
     </cyan-toolbar>
     {{ targetSite }}
   </div>
