@@ -64,12 +64,23 @@ async function deleteThread () {
             />
             <cyan-toolbar>
               <cyan-spacer />
-              <cyan-button
+              <button
+                :disabled="!confirmed"
+                @click="deleteThread"
+              >
+                <cyan-icon
+                  small
+                  noun="delete"
+                />
+                {{ t('action.delete') }}
+              </button>
+          
+              <!--cyan-button
                 :label="t('action.delete')"
                 noun="delete"
                 :disabled="!confirmed"
                 @click="deleteThread"
-              />
+              /-->
             </cyan-toolbar>
           </article>
         </WithPermission>

@@ -22,10 +22,14 @@ async function socialGoogleLogin () {
 </script>
 
 <template>
-  <cyan-button
-    text
-    noun="google"
-    :label="t('login.withGoogle')"
+  <button
+    class="text"
     @click.prevent="socialGoogleLogin"
-  />
+  >
+    <cyan-icon
+      noun="google"
+      small
+    />
+    {{ t('login.withGoogle') }}
+  </button>
 </template>

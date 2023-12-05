@@ -65,16 +65,13 @@ function decline() {
 
     <cyan-toolbar>
       <cyan-spacer />
-      <cyan-button
-        text
-        noun="logout"
-        :label="t('action.logout')"
-        @click="decline"
-      />
-      <cyan-button
-        :label="t('action.accept')"
-        @click="accept"
-      />
+      <button @click="decline">
+        <cyan-icon noun="logout" />
+        {{ $t('action.logout') }}
+      </button>
+      <button @click="accept">
+        {{ $t('action.accept') }}
+      </button>
     </cyan-toolbar>
   </cn-dialog>
 </template>

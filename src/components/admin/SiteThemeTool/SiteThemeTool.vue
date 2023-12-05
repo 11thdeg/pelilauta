@@ -46,22 +46,34 @@ function deleteTheme (index: number) {
           <p class="TypeBody2">
             {{ theme.name }}
           </p>
-          <cyan-button
-            noun="chevron-up"
-            text
+          <button
+            class="text"
             :disabled="index === 0"
             @click="moveUp(index)"
-          />
-          <cyan-button
-            noun="edit"
-            text
+          >
+            <cyan-icon
+              small
+              noun="chevron-up"
+            />
+          </button>
+          <button
+            class="text"
             @click="activeTheme = theme"
-          />
-          <cyan-button
-            noun="delete"
-            text
+          >
+            <cyan-icon
+              small
+              noun="edit"
+            />
+          </button>            
+          <button
+            class="text"
             @click="deleteTheme(index)"
-          />
+          >
+            <cyan-icon
+              small
+              noun="delete"
+            />
+          </button>
         </template>
       </div>
       <SiteThemeEditor

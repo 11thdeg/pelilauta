@@ -102,11 +102,16 @@ const sendLinkToEmail = async () => {
         />
         <cyan-toolbar>
           <cyan-spacer />
-          <cyan-button
+          <button
             :disabled="!emailAdress"
-            :label="t('login.withEmail')"
             @click="sendLinkToEmail"
-          />
+          >
+            <cyan-icon
+              small
+              noun="email"
+            />
+            {{ t('login.withEmail') }}
+          </button>
         </cyan-toolbar>
       </from>
     </template>
