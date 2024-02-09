@@ -5,7 +5,15 @@ import { useSnack } from '../../composables/useSnack'
 const { t } = useI18n()
 const { pushSnack } = useSnack()
 
-function copyUrl ():void {
+async function copyUrl () {
+  // Check if the Web Share API is supported by the browser, if so, use it
+  if (typeof navigator.share !== 'undefined') {
+    await navigator.share({
+      title: document.title,
+      url: window.location.href,
+    })
+    return
+  }
   navigator.clipboard.writeText(window.location.href)
   pushSnack(t('snacks.linkCopiedToClipboard'))
 }
