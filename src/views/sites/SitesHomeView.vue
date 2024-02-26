@@ -6,9 +6,12 @@ import { onMounted } from 'vue'
 import { useTitle } from '@vueuse/core'
 import WithLoader from '../../components/ui/WithLoader.vue'
 import { useSites } from '../../composables/useSites'
+import { useSession } from '../../composables/useSession'
+import FabTray from '../../components/FabTray/FabTray.vue'
 
 const { t } = useI18n()
 const { loading } = useSites()
+const { anonymous } = useSession()
 
 onMounted(() => {
   useTitle().value = t('app.title') + ' / ' + t('sites.title')
@@ -26,9 +29,14 @@ onMounted(() => {
       <WithLoader :suspended="loading">
         <SiteList />
       </WithLoader>
-      <article class="column small">
-        <MekanismiAd />
-      </article>
     </main>
   </div>
+  <FabTray v-if="!anonymous">
+    <router-link to="/add/site">
+      <cyan-fab
+        noun="add"
+        :label="t('action.add.site')"
+      />
+    </router-link>
+  </FabTray>
 </template>

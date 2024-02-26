@@ -42,7 +42,6 @@ const filter = ref(new Array<string>())
   <article
     class="column auto wd-large"
   >
-    <h1>Sivustot</h1>
     <SiteListFilterPane
       v-model="filter"
       v-model:order-by="orderBy"
