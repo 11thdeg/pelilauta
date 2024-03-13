@@ -89,7 +89,7 @@ function popImage (image: string) {
 
 async function updateTags(th:Thread) {
   const tagInfo = new TagInfo(th.key)
-  tagInfo.tags = th.tags
+  tagInfo.tags = th.tags || []
   tagInfo.entryPath = th.getFirestorePath()
   tagInfo.entryTitle = th.title
   await setStorable(tagInfo)
@@ -165,6 +165,7 @@ async function createThread () {
       collection(getFirestore(), Thread.collectionName), thread.docData)
     pushSnack(t('snacks.thread.created'))
 
+    thread.key = threadDoc.id
     // Update tags
     await updateTags(thread)
 
